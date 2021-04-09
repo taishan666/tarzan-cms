@@ -1,0 +1,12 @@
+server:
+  port: 9999
+spring:
+  application:
+    name: tarzanCMS
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    schema: classpath:db/schema-h2.sql
+    data: classpath:db/data-h2.sql
+    url: jdbc:h2:mem:test
+    username: root
+    password: 123456

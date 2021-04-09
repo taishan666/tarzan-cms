@@ -1,0 +1,33 @@
+package com.tarzan.cms.entity.cms;
+
+import com.baomidou.mybatisplus.annotation.TableName;
+import lombok.Data;
+import java.util.Date;
+ /**
+  * @author tarzan
+  * @date 2021-18-99 18:05:45
+  */
+@Data
+@TableName("of_cms_label")
+public class CmsLabelEntity {
+	//标签编号
+	private Integer labelId;
+	//站点编号
+	private Integer siteId;
+	//标签名称
+	private String labelName;
+	//点击数
+	private Integer clicks;
+	//创建时间
+	private Date createTime;
+	//修改时间
+	private Date updateTime;
+	//排序
+	private Integer sort;
+	//是否显示 0、不显1、显示
+	private Integer isSow;
+	//状态:0、删除 1、正常
+	private Integer status;
+	//备注
+	private String remark;
+} 

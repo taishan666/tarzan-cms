@@ -1,0 +1,100 @@
+    .editor__editable,
+        /* Classic build. */
+    main .ck-editor[role='application'] .ck.ck-content,
+        /* Decoupled document build. */
+    .ck.editor__editable[role='textbox'],
+    .ck.ck-editor__editable[role='textbox'],
+        /* Inline & Balloon build. */
+    .ck.editor[role='textbox'] {
+        width: 100%;
+        background: #fff;
+        font-size: 1em;
+        line-height: 1.6em;
+        min-height: 800px;
+        padding: 1.5em 2em;
+    }
+
+    .ck.ck-editor__editable {
+        background: #fff;
+        border: 1px solid hsl(0, 0%, 70%);
+        width: 100%;
+    }
+
+    .ck.ck-editor {
+        /* To enable toolbar wrapping. */
+        width: 100%;
+        overflow-x: hidden;
+    }
+
+    /* Because of sidebar `position: relative`, Edge is overriding the outline of a focused editor. */
+    .ck.ck-editor__editable {
+        position: relative;
+        z-index: 10;
+    }
+
+
+
+<script th:src="@{admin/plugins/ckeditor5/ckeditor.js}"></script>
+<script>
+    ClassicEditor
+        .create(document.querySelector('#articleField'), {
+            toolbar: {
+                shouldNotGroupWhenFull: true,
+                items: [
+                    'heading',
+                    '|',
+                    'bold',
+                    'italic',
+                    'underline',
+                    'link',
+                    'bulletedList',
+                    'numberedList',
+                    'fontSize',
+                    'fontColor',
+                    'fontBackgroundColor',
+                    'fontFamily',
+                    'alignment',
+                    '|',
+                    'indent',
+                    'outdent',
+                    '|',
+                    'imageUpload',
+                    'blockQuote',
+                    'insertTable',
+                    'mediaEmbed',
+                    'undo',
+                    'redo',
+                    '|',
+                    'code',
+                    'codeBlock',
+                    'specialCharacters',
+                    'strikethrough',
+                    'horizontalLine',
+                    'highlight'
+                ]
+            },
+            language: 'zh-cn',
+            image: {
+                toolbar: [
+                    'imageTextAlternative',
+                    'imageStyle:full',
+                    'imageStyle:side'
+                ]
+            },
+            table: {
+                contentToolbar: [
+                    'tableColumn',
+                    'tableRow',
+                    'mergeTableCells'
+                ]
+            },
+            ckfinder: {
+                uploadUrl: '[[@{/attachment/uploadForCkEditor}]]'
+            },
+        })
+        .then(editor => {
+            window.editor = editor;
+        })
+        .catch(error => {
+            console.error(error);
+        });

@@ -3,13 +3,13 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.puboot</groupId>
-    <artifactId>pb-cms</artifactId>
+    <groupId>com.tarzan</groupId>
+    <artifactId>tarzan-cms</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>jar</packaging>
 
-    <name>pb-cms</name>
-    <description>https://www.puboot.com</description>
+    <name>tarzan-cms</name>
+    <description>泰山cms</description>
 
     <parent>
         <groupId>org.springframework.boot</groupId>
@@ -134,7 +134,7 @@
     </dependencies>
 
     <build>
-        <finalName>pb-cms</finalName>
+        <finalName>tarzan-cms</finalName>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>

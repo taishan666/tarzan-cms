@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.puboot.module.admin.mapper.BizThemeMapper" >
+<mapper namespace="com.tarzan.module.admin.mapper.BizThemeMapper" >
   <resultMap id="BaseResultMap" type="com.tarzan.module.admin.model.BizTheme" >
     <id column="id" property="id" jdbcType="INTEGER" />
     <result column="name" property="name" jdbcType="VARCHAR" />

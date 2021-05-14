@@ -1,4 +1,4 @@
-package com.tarzan.module.admin.controller;
+package com.tarzan.module.admin.controller.sys;
 
 import com.tarzan.common.shiro.ShiroService;
 import com.tarzan.common.util.CoreConst;

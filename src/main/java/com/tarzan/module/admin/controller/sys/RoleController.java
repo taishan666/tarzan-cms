@@ -1,4 +1,4 @@
-package com.tarzan.module.admin.controller;
+package com.tarzan.module.admin.controller.sys;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.tarzan.common.shiro.MyShiroRealm;

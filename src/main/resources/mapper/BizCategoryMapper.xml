@@ -1,47 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-
 <mapper namespace="com.tarzan.module.admin.mapper.BizCategoryMapper">
-	<resultMap id="rm" type="com.tarzan.module.admin.model.BizCategory">
-		<result property="id" jdbcType="INTEGER" column="id"/>
-		<result property="pid" jdbcType="INTEGER" column="pid"/>
-		<result property="name" jdbcType="VARCHAR" column="name"/>
-		<result property="description" jdbcType="VARCHAR" column="description"/>
-		<result property="sort" jdbcType="INTEGER" column="sort"/>
-		<result property="status" jdbcType="INTEGER" column="status"/>
-		<result property="icon" jdbcType="VARCHAR" column="icon"/>
-		<result property="createTime" jdbcType="TIMESTAMP" column="create_time"/>
-		<result property="updateTime" jdbcType="TIMESTAMP" column="update_time"/>
-		<association property="parent" javaType="com.tarzan.module.admin.model.BizCategory">
-			<result property="id" jdbcType="INTEGER" column="p_id"/>
-			<result property="pid" jdbcType="INTEGER" column="p_pid"/>
-			<result property="name" jdbcType="VARCHAR" column="p_name"/>
-			<result property="description" jdbcType="VARCHAR" column="p_description"/>
-			<result property="status" jdbcType="INTEGER" column="p_status"/>
-			<result property="icon" jdbcType="VARCHAR" column="p_icon"/>
-		</association>
-		<collection property="children" column="n_id" javaType="ArrayList" ofType="com.tarzan.module.admin.model.BizCategory">
-			<result property="id" jdbcType="INTEGER" column="n_id"/>
-			<result property="pid" jdbcType="INTEGER" column="n_pid"/>
-			<result property="name" jdbcType="VARCHAR" column="n_name"/>
-			<result property="description" jdbcType="VARCHAR" column="n_description"/>
-			<result property="status" jdbcType="INTEGER" column="n_status"/>
-			<result property="icon" jdbcType="VARCHAR" column="n_icon"/>
-		</collection>
-	</resultMap>
-	<sql id="Base_Column_List">
-		id,
-		pid,
-		name,
-		description,
-		sort,
-		status,
-		icon,
-		create_time,
-		update_time
-	</sql>
-
-	<select id="selectCategories" parameterType="com.tarzan.module.admin.model.BizCategory" resultMap="rm" >
+	<select id="selectCategories" parameterType="com.tarzan.module.admin.model.BizCategory" resultType="com.tarzan.module.admin.model.BizCategory" >
 		select t.*,
 		p.id p_id,
 		p.`pid` p_pid,
@@ -75,18 +35,7 @@
 		ORDER BY t.sort ASC
 	</select>
 
-
-	<delete id="deleteBatch" parameterType="map">
-		DELETE FROM
-		biz_category
-		where
-		id in
-		<foreach collection="array" item="item" index="index" open="(" separator="," close=")">
-			#{item}
-		</foreach>
-	</delete>
-
-	<select id="getById" parameterType="int" resultMap="rm">
+	<select id="getById" parameterType="int" resultType="com.tarzan.module.admin.model.BizCategory">
 		select a.*,
 		p.pid p_pid,
 		p.`name` p_name,

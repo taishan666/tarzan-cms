@@ -24,11 +24,4 @@ public interface BizCommentMapper extends BaseMapper<BizComment> {
      */
     List<BizComment> selectComments(@Param("page") IPage<BizComment> page, @Param("vo") CommentConditionVo vo);
 
-    /**
-     * 批量删除
-     *
-     * @param ids
-     * @return
-     */
-    int deleteBatch(Integer[] ids);
 }

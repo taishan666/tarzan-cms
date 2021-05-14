@@ -14,7 +14,5 @@ public interface BizCategoryMapper extends BaseMapper<BizCategory> {
 
     List<BizCategory> selectCategories(BizCategory bizCategory);
 
-    int deleteBatch(Integer[] ids);
-
     BizCategory getById(Integer id);
 }

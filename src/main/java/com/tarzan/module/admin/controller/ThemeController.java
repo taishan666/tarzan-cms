@@ -14,6 +14,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  * 后台主题配置
@@ -101,9 +102,9 @@ public class ThemeController {
 
     @PostMapping("/batch/delete")
     @ResponseBody
-    public ResponseVo deleteBatch(@RequestParam("ids[]") Integer[] ids) {
-        int i = bizThemeService.deleteBatch(ids);
-        if (i > 0) {
+    public ResponseVo deleteBatch(@RequestParam("ids") List<Integer> ids) {
+        boolean flag = bizThemeService.deleteBatch(ids);
+        if (flag) {
             return ResultUtil.success("删除主题成功");
         } else {
             return ResultUtil.error("删除主题失败");

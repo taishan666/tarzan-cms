@@ -106,11 +106,6 @@ public class BizArticleService extends ServiceImpl<BizArticleMapper, BizArticle>
         return bizArticle;
     }
 
-    @CacheEvict(value = "article", allEntries = true)
-    public int deleteBatch(Integer[] ids) {
-        return baseMapper.deleteBatch(ids);
-    }
-
     public List<BizArticle> selectByCategoryId(Integer categoryId) {
         return baseMapper.selectList(Wrappers.<BizArticle>lambdaQuery().eq(BizArticle::getCategoryId, categoryId));
     }

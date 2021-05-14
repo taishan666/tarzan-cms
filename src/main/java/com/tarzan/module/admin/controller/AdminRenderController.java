@@ -6,7 +6,7 @@ import com.tarzan.module.admin.model.BizCategory;
 import com.tarzan.module.admin.model.User;
 import com.tarzan.module.admin.service.BizCategoryService;
 import com.tarzan.module.admin.service.BizStatisticService;
-import com.tarzan.module.admin.service.PermissionService;
+import com.tarzan.module.admin.service.MenuService;
 import com.tarzan.module.admin.service.SysConfigService;
 import lombok.AllArgsConstructor;
 import org.apache.shiro.SecurityUtils;
@@ -32,7 +32,7 @@ public class AdminRenderController {
 
     private final BizCategoryService categoryService;
     private final SysConfigService sysConfigService;
-    private final PermissionService permissionService;
+    private final MenuService MenuService;
     private final BizStatisticService statisticService;
 
     /**
@@ -40,7 +40,7 @@ public class AdminRenderController {
      */
     @RequestMapping("/admin")
     public String index(Model model) {
-        model.addAttribute("menuTree", permissionService.selectMenuTreeByUserId(((User) SecurityUtils.getSubject().getPrincipal()).getUserId()));
+        model.addAttribute("menuTree", MenuService.selectMenuTreeByUserId(((User) SecurityUtils.getSubject().getPrincipal()).getUserId()));
         return CoreConst.ADMIN_PREFIX + "index/index";
     }
 
@@ -74,7 +74,7 @@ public class AdminRenderController {
      */
     @GetMapping("/permissions")
     public String permissionList() {
-        return CoreConst.ADMIN_PREFIX + "permission/list";
+        return CoreConst.ADMIN_PREFIX + "Menu/list";
     }
 
     /**

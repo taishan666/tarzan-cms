@@ -1,6 +1,7 @@
 package com.tarzan.module.admin.model;
 
 import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 import lombok.experimental.Accessors;
 
@@ -15,7 +16,8 @@ import java.util.List;
  */
 @Data
 @Accessors(chain = true)
-public class Permission implements Serializable {
+@TableName("sys_menu")
+public class Menu implements Serializable {
 
     private static final long serialVersionUID = -4317225965160245362L;
 
@@ -75,6 +77,6 @@ public class Permission implements Serializable {
     private Date updateTime;
 
     @TableField(exist = false)
-    private List<Permission> children;
+    private List<Menu> children;
 
 }

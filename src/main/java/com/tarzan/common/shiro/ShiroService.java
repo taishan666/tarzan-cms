@@ -3,8 +3,8 @@ package com.tarzan.common.shiro;
 import com.tarzan.common.config.properties.FileUploadProperties;
 import com.tarzan.common.config.properties.StaticizeProperties;
 import com.tarzan.common.util.CoreConst;
-import com.tarzan.module.admin.model.Permission;
-import com.tarzan.module.admin.service.PermissionService;
+import com.tarzan.module.admin.model.Menu;
+import com.tarzan.module.admin.service.MenuService;
 import lombok.AllArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
@@ -29,7 +29,7 @@ import java.util.Map;
 @AllArgsConstructor
 public class ShiroService {
 
-    private final PermissionService permissionService;
+    private final MenuService MenuService;
 
     private final ShiroFilterFactoryBean shiroFilterFactoryBean;
 
@@ -61,11 +61,11 @@ public class ShiroService {
         filterChainDefinitionMap.put("/verificationCode", "anon");
         filterChainDefinitionMap.put(fileUploadProperties.getAccessPathPattern(), "anon");
         filterChainDefinitionMap.put(staticizeProperties.getAccessPathPattern(), "anon");
-        List<Permission> permissionList = permissionService.selectAll(CoreConst.STATUS_VALID);
-        for (Permission permission : permissionList) {
-            if (StringUtils.isNotBlank(permission.getUrl()) && StringUtils.isNotBlank(permission.getPerms())) {
-                String perm = "perms[" + permission.getPerms() + ']';
-                filterChainDefinitionMap.put(permission.getUrl(), perm + ",kickOut");
+        List<Menu> permissionList = MenuService.selectAll(CoreConst.STATUS_VALID);
+        for (Menu Menu : permissionList) {
+            if (StringUtils.isNotBlank(Menu.getUrl()) && StringUtils.isNotBlank(Menu.getPerms())) {
+                String perm = "perms[" + Menu.getPerms() + ']';
+                filterChainDefinitionMap.put(Menu.getUrl(), perm + ",kickOut");
             }
         }
         filterChainDefinitionMap.put("/**", "user,kickOut");

@@ -25,6 +25,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -133,14 +134,14 @@ public class ArticleController {
     @PostMapping("/delete")
     @ResponseBody
     public ResponseVo delete(Integer id) {
-        return deleteBatch(new Integer[]{id});
+        return deleteBatch(Arrays.asList(id));
     }
 
     @PostMapping("/batch/delete")
     @ResponseBody
-    public ResponseVo deleteBatch(@RequestParam("ids[]") Integer[] ids) {
-        int i = articleService.deleteBatch(ids);
-        if (i > 0) {
+    public ResponseVo deleteBatch(@RequestParam("ids") List<Integer> ids) {
+        boolean flag = articleService.removeByIds(ids);
+        if (flag) {
             return ResultUtil.success("删除文章成功");
         } else {
             return ResultUtil.error("删除文章失败");

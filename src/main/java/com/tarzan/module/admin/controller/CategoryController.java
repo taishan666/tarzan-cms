@@ -15,6 +15,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.thymeleaf.util.ListUtils;
 
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
@@ -97,14 +98,14 @@ public class CategoryController {
         if (CollectionUtils.isNotEmpty(categoryService.selectByPid(id))) {
             return ResultUtil.error("该分类下存在子分类！");
         }
-        return deleteBatch(new Integer[]{id});
+        return deleteBatch(Arrays.asList(id));
     }
 
     @PostMapping("/batch/delete")
     @ResponseBody
-    public ResponseVo deleteBatch(@RequestParam("ids[]") Integer[] ids) {
-        int i = categoryService.deleteBatch(ids);
-        if (i > 0) {
+    public ResponseVo deleteBatch(@RequestParam("ids") List<Integer> ids) {
+        boolean flag = categoryService.deleteBatch(ids);
+        if (flag) {
             return ResultUtil.success("删除分类成功");
         } else {
             return ResultUtil.error("删除分类失败");

@@ -25,8 +25,8 @@ public class BizCategoryService extends ServiceImpl<BizCategoryMapper, BizCatego
     }
 
     @CacheEvict(value = "category", allEntries = true)
-    public int deleteBatch(Integer[] ids) {
-        return baseMapper.deleteBatch(ids);
+    public boolean deleteBatch(List<Integer> ids) {
+        return removeByIds(ids);
     }
 
     public BizCategory selectById(Integer id) {

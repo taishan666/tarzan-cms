@@ -3,6 +3,7 @@ package com.tarzan.module.admin.model;
 import com.tarzan.module.admin.vo.base.BaseVo;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.experimental.Accessors;
 
 /**
  * @author tarzan liu
@@ -11,6 +12,7 @@ import lombok.EqualsAndHashCode;
  */
 @EqualsAndHashCode(callSuper = true)
 @Data
+@Accessors(chain = true)
 public class BizTheme extends BaseVo {
     private static final long serialVersionUID = -1364438867316136662L;
 

@@ -11,5 +11,4 @@ import org.apache.ibatis.annotations.Param;
  */
 public interface BizLoveMapper extends BaseMapper<BizLove> {
 
-    BizLove checkLove(@Param("bizId") Integer bizId, @Param("userIp") String userIp);
 }

@@ -49,13 +49,6 @@ public interface BizArticleMapper extends BaseMapper<BizArticle> {
      */
     BizArticle getById(Integer id);
 
-    /**
-     * 批量删除文章
-     *
-     * @param ids
-     * @return
-     */
-    int deleteBatch(Integer[] ids);
 
     /**
      * 统计网站信息

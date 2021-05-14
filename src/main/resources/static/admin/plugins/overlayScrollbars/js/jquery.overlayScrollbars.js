@@ -267,7 +267,7 @@
                  */
                 inA : function(item, arr) {
                     for (var i = 0; i < arr[LEXICON.l]; i++)
-                        //Sometiems in IE a "SCRIPT70" Permission denied error occurs if HTML elements in a iFrame are compared
+                        //Sometiems in IE a "SCRIPT70" Menu denied error occurs if HTML elements in a iFrame are compared
                         try {
                             if (arr[i] === item)
                                 return i;

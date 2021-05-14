@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.tarzan.module.admin.mapper.MenuMapper" >
+
+
+  <select id="findPermsByUserId" resultType="java.lang.String">
+    SELECT DISTINCT p.perms FROM sys_menu p LEFT JOIN sys_role_menu rp ON
+    p.permission_id = rp.permission_id LEFT JOIN sys_user_role ur on rp.role_id = ur.role_id
+    WHERE ur.user_id = #{userId} and p.perms is not null and p.perms!='' and p.status=1
+  </select>
+
+  <select id="findByRoleId" parameterType="string" resultType="com.tarzan.module.admin.model.Menu">
+    SELECT  a.permission_id,b.name,b.parent_id FROM sys_role_menu a LEFT JOIN sys_menu b on a.permission_id = b.permission_id WHERE a.role_id = #{roleId} and b.status=1
+  </select>
+
+  <select id="selectMenuByUserId" parameterType="string" resultType="com.tarzan.module.admin.model.Menu">
+    SELECT DISTINCT p.id, p.permission_id, p.name, p.description, p.url, p.parent_id, p.icon, p.order_num FROM sys_menu p LEFT JOIN sys_role_menu rp ON
+    p.permission_id = rp.permission_id
+    LEFT JOIN sys_user_role ur on rp.role_id = ur.role_id
+    WHERE ur.user_id = #{userId,jdbcType=VARCHAR}
+    and p.type in(0,1) and p.status=1
+    ORDER BY p.order_num
+  </select>
+
+</mapper>

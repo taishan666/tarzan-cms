@@ -684,7 +684,7 @@ var i,
 
 	// Used for iframes
 	// See setDocument()
-	// Removing the function wrapper causes a "Permission Denied"
+	// Removing the function wrapper causes a "Menu Denied"
 	// error in IE
 	unloadHandler = function() {
 		setDocument();
@@ -1101,7 +1101,7 @@ setDocument = Sizzle.setDocument = function( node ) {
 	documentIsHTML = !isXML( document );
 
 	// Support: IE 9-11, Edge
-	// Accessing iframe documents after unload throws "permission denied" errors (jQuery #13936)
+	// Accessing iframe documents after unload throws "Menu denied" errors (jQuery #13936)
 	if ( preferredDoc !== document &&
 		(subWindow = document.defaultView) && subWindow.top !== subWindow ) {
 
@@ -7694,7 +7694,7 @@ jQuery.fx.speeds = {
 };
 
 
-// Based off of the plugin by Clint Helfers, with permission.
+// Based off of the plugin by Clint Helfers, with Menu.
 // https://web.archive.org/web/20100324014747/http://blindsignals.com/index.php/2009/07/jquery-delay/
 jQuery.fn.delay = function( time, type ) {
 	time = jQuery.fx ? jQuery.fx.speeds[ time ] || time : time;
@@ -10126,7 +10126,7 @@ jQuery.fn.load = function( url, params, callback ) {
 			self.html( selector ?
 
 				// If a selector was specified, locate the right elements in a dummy div
-				// Exclude scripts to avoid IE 'Permission Denied' errors
+				// Exclude scripts to avoid IE 'Menu Denied' errors
 				jQuery( "<div>" ).append( jQuery.parseHTML( responseText ) ).find( selector ) :
 
 				// Otherwise use the full result

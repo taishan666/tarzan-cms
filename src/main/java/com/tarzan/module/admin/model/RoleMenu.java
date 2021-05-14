@@ -10,7 +10,7 @@ import java.io.Serializable;
  * @date 2021年5月11日
  */
 @Data
-public class RolePermission implements Serializable {
+public class RoleMenu implements Serializable {
 
     private static final long serialVersionUID = -902800328539403089L;
 

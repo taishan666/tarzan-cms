@@ -3,10 +3,10 @@ package com.tarzan.module.admin.controller;
 import com.tarzan.common.util.CoreConst;
 import com.tarzan.common.util.ResultUtil;
 import com.tarzan.module.admin.model.BizCategory;
-import com.tarzan.module.admin.model.Permission;
+import com.tarzan.module.admin.model.Menu;
 import com.tarzan.module.admin.model.User;
 import com.tarzan.module.admin.service.BizCategoryService;
-import com.tarzan.module.admin.service.PermissionService;
+import com.tarzan.module.admin.service.MenuService;
 import com.tarzan.module.admin.service.SysConfigService;
 import com.tarzan.module.admin.service.UserService;
 import com.tarzan.module.admin.vo.base.ResponseVo;
@@ -42,7 +42,7 @@ import java.util.Map;
 public class SystemController {
 
     private final UserService userService;
-    private final PermissionService permissionService;
+    private final MenuService MenuService;
     private final BizCategoryService bizCategoryService;
     private final SysConfigService configService;
 
@@ -194,8 +194,8 @@ public class SystemController {
      */
     @PostMapping("/menu")
     @ResponseBody
-    public List<Permission> getMenus() {
-        return permissionService.selectMenuByUserId(((User) SecurityUtils.getSubject().getPrincipal()).getUserId());
+    public List<Menu> getMenus() {
+        return MenuService.selectMenuByUserId(((User) SecurityUtils.getSubject().getPrincipal()).getUserId());
     }
 
     private void getSysConfig(Model model) {

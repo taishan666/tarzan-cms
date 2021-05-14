@@ -1,5 +1,6 @@
 package com.tarzan.module.admin.service;
 
+import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.google.common.collect.Maps;
 import com.tarzan.common.util.CoreConst;
@@ -36,7 +37,7 @@ public class BizArticleLookService extends ServiceImpl<BizArticleLookMapper, Biz
     }
 
     public int checkArticleLook(Integer articleId, String userIp, Date lookTime) {
-        return baseMapper.checkArticleLook(articleId, userIp, lookTime);
+        return baseMapper.selectCount(Wrappers.lambdaQuery(new BizArticleLook().setArticleId(articleId).setUserIp(userIp).setLookTime(lookTime)));
     }
 
     public Map<String, Integer> lookCountByDay(int day) {

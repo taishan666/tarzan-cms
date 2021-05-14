@@ -10,9 +10,4 @@ import com.tarzan.module.admin.model.BizTheme;
  */
 public interface BizThemeMapper extends BaseMapper<BizTheme> {
 
-    int setInvaid();
-
-    int updateStatusById(Integer id);
-
-    int deleteBatch(Integer[] ids);
 }

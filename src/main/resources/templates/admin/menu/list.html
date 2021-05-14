@@ -20,7 +20,7 @@
 <section class="content">
     <div class="card card-body">
         <div id="toolbar">
-            <shiro:hasPermission name="permission:add">
+            <shiro:hasPermission name="Menu:add">
                 <button id="btn_add" type="button" class="btn btn-primary">
                     <span class="fas fa-plus" aria-hidden="true"></span>新增
                 </button>
@@ -62,8 +62,8 @@
 <script th:src="@{admin/plugins/treegrid/tree.table.js}"></script>
 <script>
 
-    var editFlag = Core.parseBool("[[${@perms.hasPerm('permission:edit')}]]");
-    var deleteFlag = Core.parseBool("[[${@perms.hasPerm('permission:delete')}]]");
+    var editFlag = Core.parseBool("[[${@perms.hasPerm('Menu:edit')}]]");
+    var deleteFlag = Core.parseBool("[[${@perms.hasPerm('Menu:delete')}]]");
 
     var menuType = "1";/*默认选中菜单类型*/
     var menuCheckedType = 0;/*选中的上级的菜单类型*/
@@ -147,7 +147,7 @@
     }
 
     $(function () {
-        var table = new TreeTable(treeTableConf.id, "/permission/list", treeTableConf.columns, "permissionId");
+        var table = new TreeTable(treeTableConf.id, "/Menu/list", treeTableConf.columns, "permissionId");
         table.setExpandColumn(1);
         table.setIdField("permissionId");
         table.setCodeField("id");
@@ -160,7 +160,7 @@
 
     // 新增
     $('#btn_add').on('click', function () {
-        Core.load("#formContent", "/permission/add", function () {
+        Core.load("#formContent", "/Menu/add", function () {
             $('#formTitle').text('新增')
             $("#formModal").modal('show');
         });
@@ -170,7 +170,7 @@
     function saveOrUpdate() {
         var $f = $('#permissionForm');
         var valid = $f[0].checkValidity();
-        var url = $f.find("input[name='permissionId']").val() ? "/permission/edit" : "/permission/add"
+        var url = $f.find("input[name='permissionId']").val() ? "/Menu/edit" : "/Menu/add"
         if (valid) {
             if (detailMenuCheckedType != null) {
                 var detailMenuType = $f.find("input[name='type']:checked").val();
@@ -201,7 +201,7 @@
 
     /*编辑*/
     function editRow(permissionId) {
-        Core.load("#formContent", "/permission/edit?permissionId=" + permissionId, function () {
+        Core.load("#formContent", "/Menu/edit?permissionId=" + permissionId, function () {
             $('#formTitle').text('编辑')
             $("#formModal").modal('show');
         });
@@ -210,7 +210,7 @@
     /*删除*/
     function deleteRow(permissionId) {
         Core.confirm("确定删除该分类？", function () {
-            Core.postAjax("/permission/delete", {"permissionId": permissionId}, function (data) {
+            Core.postAjax("/Menu/delete", {"permissionId": permissionId}, function (data) {
                 if (data.status === 200) {
                     treeTableConf.table.refresh();
                 }
@@ -232,7 +232,7 @@
                 }
             }
         };
-        Core.postAjax('/permission/list', {flag: "2"}, function (data) {
+        Core.postAjax('/Menu/list', {flag: "2"}, function (data) {
             var topMenu = {
                 name: "顶层菜单",
                 id: 0,

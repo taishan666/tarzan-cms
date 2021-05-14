@@ -10,6 +10,8 @@ import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 /**
  * @author tarzan liu
  * @version V1.0
@@ -22,8 +24,8 @@ public class BizThemeService extends ServiceImpl<BizThemeMapper, BizTheme> {
 
     @CacheEvict(value = "theme", allEntries = true)
     public int useTheme(Integer id) {
-        baseMapper.setInvaid();
-        return baseMapper.updateStatusById(id);
+        baseMapper.update(new BizTheme().setStatus(0),null);
+        return  baseMapper.update(new BizTheme().setStatus(1),Wrappers.<BizTheme>lambdaUpdate().eq(BizTheme::getId, id));
     }
 
     @Cacheable(value = "theme", key = "'current'")
@@ -32,7 +34,7 @@ public class BizThemeService extends ServiceImpl<BizThemeMapper, BizTheme> {
     }
 
     @CacheEvict(value = "theme", allEntries = true)
-    public int deleteBatch(Integer[] ids) {
-        return baseMapper.deleteBatch(ids);
+    public boolean deleteBatch(List<Integer> ids) {
+        return removeByIds(ids);
     }
 }

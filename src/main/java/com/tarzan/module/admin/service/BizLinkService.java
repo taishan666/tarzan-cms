@@ -1,6 +1,8 @@
 package com.tarzan.module.admin.service;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.core.toolkit.StringUtils;
+import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.tarzan.common.util.Pagination;
 import com.tarzan.module.admin.mapper.BizLinkMapper;
@@ -10,6 +12,7 @@ import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Objects;
 
 /**
  * @author tarzan liu
@@ -21,18 +24,23 @@ public class BizLinkService extends ServiceImpl<BizLinkMapper, BizLink> {
 
     @Cacheable(value = "link", key = "'list'")
     public List<BizLink> selectLinks(BizLink bizLink) {
-        return baseMapper.selectLinks(null, bizLink);
+        return baseMapper.selectList(Wrappers.<BizLink>lambdaQuery()
+                .like(StringUtils.isNotBlank(bizLink.getName()),BizLink::getName, bizLink.getName())
+                .like(StringUtils.isNotBlank(bizLink.getUrl()),BizLink::getUrl, bizLink.getUrl())
+                .eq(Objects.nonNull(bizLink.getStatus()),BizLink::getStatus,bizLink.getStatus()));
     }
 
     public IPage<BizLink> pageLinks(BizLink bizLink, Integer pageNumber, Integer pageSize) {
         IPage<BizLink> page = new Pagination<>(pageNumber, pageSize);
-        page.setRecords(baseMapper.selectLinks(page, bizLink));
-        return page;
+        return baseMapper.selectPage(page,Wrappers.<BizLink>lambdaQuery()
+                .like(StringUtils.isNotBlank(bizLink.getName()),BizLink::getName, bizLink.getName())
+                .like(StringUtils.isNotBlank(bizLink.getUrl()),BizLink::getUrl, bizLink.getUrl())
+                .eq(Objects.nonNull(bizLink.getStatus()),BizLink::getStatus,bizLink.getStatus()));
     }
 
     @CacheEvict(value = "link", allEntries = true)
-    public int deleteBatch(Integer[] ids) {
-        return baseMapper.deleteBatch(ids);
+    public boolean deleteBatch(List<Integer> ids) {
+        return removeByIds(ids);
     }
 
 }

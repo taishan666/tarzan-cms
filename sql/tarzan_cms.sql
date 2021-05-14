@@ -309,10 +309,10 @@ INSERT INTO `biz_theme` VALUES (1, 'pblog', '默认主题', '', 1, '2018-09-19 1
 COMMIT;
 
 -- ----------------------------
--- Table structure for permission
+-- Table structure for Menu
 -- ----------------------------
-DROP TABLE IF EXISTS `permission`;
-CREATE TABLE `permission` (
+DROP TABLE IF EXISTS `Menu`;
+CREATE TABLE `Menu` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `permission_id` varchar(32) NOT NULL COMMENT '权限id',
   `name` varchar(100) NOT NULL COMMENT '权限名称',
@@ -330,89 +330,89 @@ CREATE TABLE `permission` (
 ) ENGINE=InnoDB AUTO_INCREMENT=91 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
--- Records of permission
+-- Records of Menu
 -- ----------------------------
 BEGIN;
-INSERT INTO `permission` VALUES (1, '1', '工作台', '工作台', '/workdest', 'workdest', 0, 1, 1, 'fas fa-home', 1, '2017-09-27 21:22:02', '2018-02-27 10:53:14');
-INSERT INTO `permission` VALUES (2, '2', '权限管理', '权限管理', NULL, NULL, 0, 0, 4, 'fas fa-user-cog', 1, '2017-07-13 15:04:42', '2020-04-19 19:09:22');
-INSERT INTO `permission` VALUES (3, '201', '用户管理', '用户管理', '/users', 'users', 2, 1, 1, 'fas fa-chess-queen', 1, '2017-07-13 15:05:47', '2018-02-27 10:53:14');
-INSERT INTO `permission` VALUES (4, '20101', '列表查询', '用户列表查询', '/user/list', 'user:list', 3, 2, 0, NULL, 1, '2017-07-13 15:09:24', '2017-10-09 05:38:29');
-INSERT INTO `permission` VALUES (5, '20102', '新增', '新增用户', '/user/add', 'user:add', 3, 2, 0, NULL, 1, '2017-07-13 15:06:50', '2018-02-28 17:58:46');
-INSERT INTO `permission` VALUES (6, '20103', '编辑', '编辑用户', '/user/edit', 'user:edit', 3, 2, 0, NULL, 1, '2017-07-13 15:08:03', '2018-02-27 10:53:14');
-INSERT INTO `permission` VALUES (7, '20104', '删除', '删除用户', '/user/delete', 'user:delete', 3, 2, 0, NULL, 1, '2017-07-13 15:08:42', '2018-02-27 10:53:14');
-INSERT INTO `permission` VALUES (8, '20105', '批量删除', '批量删除用户', '/user/batch/delete', 'user:batchDelete', 3, 2, 0, '', 1, '2018-07-11 01:53:09', '2018-07-11 01:53:09');
-INSERT INTO `permission` VALUES (9, '20106', '分配角色', '分配角色', '/user/assign/role', 'user:assignRole', 3, 2, 0, NULL, 1, '2017-07-13 15:09:24', '2017-10-09 05:38:29');
-INSERT INTO `permission` VALUES (10, '202', '角色管理', '角色管理', '/roles', 'roles', 2, 1, 2, 'fas fa-chess-queen', 1, '2017-07-17 14:39:09', '2018-02-27 10:53:14');
-INSERT INTO `permission` VALUES (11, '20201', '列表查询', '角色列表查询', '/role/list', 'role:list', 10, 2, 0, NULL, 1, '2017-10-10 15:31:36', '2018-02-27 10:53:14');
-INSERT INTO `permission` VALUES (12, '20202', '新增', '新增角色', '/role/add', 'role:add', 10, 2, 0, NULL, 1, '2017-07-17 14:39:46', '2018-02-27 10:53:14');
-INSERT INTO `permission` VALUES (13, '20203', '编辑', '编辑角色', '/role/edit', 'role:edit', 10, 2, 0, NULL, 1, '2017-07-17 14:40:15', '2018-02-27 10:53:14');
-INSERT INTO `permission` VALUES (14, '20204', '删除', '删除角色', '/role/delete', 'role:delete', 10, 2, 0, NULL, 1, '2017-07-17 14:40:57', '2018-02-27 10:53:14');
-INSERT INTO `permission` VALUES (15, '20205', '批量删除', '批量删除角色', '/role/batch/delete', 'role:batchDelete', 10, 2, 0, '', 1, '2018-07-10 22:20:43', '2018-07-10 22:20:43');
-INSERT INTO `permission` VALUES (16, '20206', '分配权限', '分配权限', '/role/assign/permission', 'role:assignPerms', 10, 2, 0, NULL, 1, '2017-09-26 07:33:05', '2018-02-27 10:53:14');
-INSERT INTO `permission` VALUES (17, '203', '资源管理', '资源管理', '/permissions', 'permissions', 2, 1, 3, 'fas fa-chess-queen', 1, '2017-09-26 07:33:51', '2018-02-27 10:53:14');
-INSERT INTO `permission` VALUES (18, '20301', '列表查询', '资源列表', '/permission/list', 'permission:list', 17, 2, 0, NULL, 1, '2018-07-12 16:25:28', '2018-07-12 16:25:33');
-INSERT INTO `permission` VALUES (19, '20302', '新增', '新增资源', '/permission/add', 'permission:add', 17, 2, 0, NULL, 1, '2017-09-26 08:06:58', '2018-02-27 10:53:14');
-INSERT INTO `permission` VALUES (20, '20303', '编辑', '编辑资源', '/permission/edit', 'permission:edit', 17, 2, 0, NULL, 1, '2017-09-27 21:29:04', '2018-02-27 10:53:14');
-INSERT INTO `permission` VALUES (21, '20304', '删除', '删除资源', '/permission/delete', 'permission:delete', 17, 2, 0, NULL, 1, '2017-09-27 21:29:50', '2018-02-27 10:53:14');
-INSERT INTO `permission` VALUES (22, '3', '运维管理', '运维管理', NULL, NULL, 0, 0, 7, 'fas fa-people-carry', 1, '2018-07-06 15:19:26', '2020-04-19 19:09:59');
-INSERT INTO `permission` VALUES (23, '301', '数据监控', '数据监控', '/database/monitoring', 'database', 22, 1, 1, 'fas fa-chess-queen', 1, '2018-07-06 15:19:55', '2018-07-06 15:19:55');
-INSERT INTO `permission` VALUES (24, '4', '系统管理', '系统管理', NULL, NULL, 0, 0, 5, 'fas fa-cog', 1, '2018-07-06 15:20:38', '2020-04-19 19:08:58');
-INSERT INTO `permission` VALUES (25, '401', '在线用户', '在线用户', '/online/users', 'onlineUsers', 24, 1, 1, 'fas fa-chess-queen', 1, '2018-07-06 15:21:00', '2018-07-24 14:58:22');
-INSERT INTO `permission` VALUES (32, '1000001992372345', '在线用户查询', '在线用户查询', '/online/user/list', 'onlineUser:list', 25, 2, 0, '', 1, '2018-07-24 15:02:23', '2018-07-24 15:02:23');
-INSERT INTO `permission` VALUES (33, '1000002083579304', '踢出用户', '踢出用户', '/online/user/kickOut', 'onlineUser:kickOut', 25, 2, 0, '', 1, '2018-07-24 15:03:16', '2018-07-24 15:03:16');
-INSERT INTO `permission` VALUES (34, '1000000171409776', '批量踢出', '批量踢出', '/online/user/batch/kickOut', 'onlineUser:batchKickout', 25, 2, 0, '', 1, '2018-07-24 15:04:09', '2018-07-24 15:04:09');
-INSERT INTO `permission` VALUES (35, '1000000863853891', '网站管理', '网站管理', NULL, NULL, 0, 0, 3, 'fas fa-columns', 1, '2018-07-24 15:44:23', '2020-04-19 19:08:46');
-INSERT INTO `permission` VALUES (36, '1000001264798222', '基础信息', '基础设置', '/siteinfo', 'siteinfo', 35, 1, 1, 'fas fa-chess-queen', 1, '2018-07-24 15:48:13', '2018-07-24 17:43:39');
-INSERT INTO `permission` VALUES (37, '1000000432183856', '保存', '基础设置-保存', '/siteinfo/save', 'siteinfo:save', 36, 2, 0, '', 1, '2018-07-24 15:49:12', '2018-07-24 15:49:12');
-INSERT INTO `permission` VALUES (38, '1000001792841328', '系统公告', '系统公告', '/notifies', 'notifies', 35, 1, 2, 'fas fa-chess-queen', 0, '2018-07-24 23:40:45', '2018-09-13 12:34:18');
-INSERT INTO `permission` VALUES (39, '1000001351219537', '查询', '系统公告-查询', '/notify/list', 'notify:list', 38, 2, 0, '', 0, '2018-07-24 23:41:30', '2018-09-13 12:33:19');
-INSERT INTO `permission` VALUES (40, '1000000791685519', '新增', '系统公告-新增', '/notify/add', 'notify:add', 38, 2, 0, '', 0, '2018-07-24 23:42:20', '2018-09-13 12:33:26');
-INSERT INTO `permission` VALUES (42, '1000001531648485', '编辑', '系统公告-编辑', '/notify/edit', 'notify:edit', 38, 2, 0, '', 0, '2018-07-24 23:44:39', '2018-09-13 12:33:52');
-INSERT INTO `permission` VALUES (43, '1000001548165826', '删除', '系统公告-删除', '/notify/delete', 'notify:delete', 38, 2, 0, '', 0, '2018-07-24 23:45:27', '2018-09-13 12:33:57');
-INSERT INTO `permission` VALUES (44, '1000001530229707', '批量删除', '批量删除公告', '/notify/batch/delete', 'notify:batchDelete', 38, 2, 0, '', 0, '2018-07-24 23:46:25', '2018-09-13 12:34:02');
-INSERT INTO `permission` VALUES (45, '1000000237721285', '友链管理', '友情链接', '/links', 'links', 35, 1, 3, 'fas fa-chess-queen', 1, '2018-07-25 11:05:49', '2018-07-25 11:07:03');
-INSERT INTO `permission` VALUES (46, '1000001238193773', '查询', '友链-查询', '/link/list', 'link:list', 45, 2, 0, '', 1, '2018-07-25 11:06:44', '2018-07-25 11:06:44');
-INSERT INTO `permission` VALUES (47, '1000001305005793', '新增', '友链-新增', '/link/add', 'link:add', 45, 2, 0, '', 1, '2018-07-25 11:07:46', '2018-07-25 11:07:46');
-INSERT INTO `permission` VALUES (48, '1000001679037501', '编辑', '友链-编辑', '/link/edit', 'link:edit', 45, 2, 0, '', 1, '2018-07-25 11:08:21', '2018-07-25 11:08:21');
-INSERT INTO `permission` VALUES (49, '1000001011730177', '删除', '友链-删除', '/link/delete', 'link:delete', 45, 2, 0, '', 1, '2018-07-25 11:08:53', '2018-07-25 11:08:53');
-INSERT INTO `permission` VALUES (50, '1000001312374743', '批量删除', '友链-批量删除', '/link/batch/delete', 'link:batchDelete', 45, 2, 0, '', 1, '2018-07-25 11:09:40', '2018-07-25 11:09:40');
-INSERT INTO `permission` VALUES (51, '1000001507480127', '审核', '友链-审核', '/link/audit', 'link:audit', 45, 2, 0, '', 1, '2018-07-25 11:42:28', '2018-07-25 11:42:28');
-INSERT INTO `permission` VALUES (52, '1000000602555213', '文章管理', '文章管理', NULL, NULL, 0, 0, 2, 'fas fa-newspaper', 1, '2018-07-25 17:43:12', '2020-04-19 19:04:49');
-INSERT INTO `permission` VALUES (53, '1000001729104792', '分类管理', '分类管理', '/categories', 'categories', 52, 1, 3, 'fas fa-chess-queen', 1, '2018-07-25 17:43:50', '2020-04-19 20:33:27');
-INSERT INTO `permission` VALUES (54, '1000000015836901', '新增', '新增分类', '/category/add', 'category:add', 53, 2, 0, '', 1, '2018-07-25 17:44:28', '2018-07-25 17:44:28');
-INSERT INTO `permission` VALUES (55, '1000001439189167', '编辑', '编辑分类', '/category/edit', 'category:edit', 53, 2, 0, '', 1, '2018-07-25 17:44:52', '2018-07-25 17:44:52');
-INSERT INTO `permission` VALUES (56, '1000001647995753', '删除', '删除分类', '/category/delete', 'category:delete', 53, 2, 0, '', 1, '2018-07-25 17:45:28', '2018-07-25 17:45:28');
-INSERT INTO `permission` VALUES (58, '1000000841419865', '查询', '分类查询', '/category/list', 'category:list', 53, 2, 0, '', 1, '2018-07-25 17:49:43', '2018-07-25 17:49:43');
-INSERT INTO `permission` VALUES (59, '1000000976625379', '标签管理', '标签管理', '/tags', 'tags', 52, 1, 4, 'fas fa-chess-queen', 1, '2018-07-25 18:50:47', '2020-04-19 20:33:35');
-INSERT INTO `permission` VALUES (60, '1000002127467055', '查询', '查询标签列表', '/tag/list', 'tag:list', 59, 2, 0, '', 1, '2018-07-25 18:51:20', '2018-07-25 18:51:20');
-INSERT INTO `permission` VALUES (61, '1000001458372033', '新增', '新增标签', '/tag/add', 'tag:add', 59, 2, 0, '', 1, '2018-07-25 18:51:42', '2018-07-25 18:51:42');
-INSERT INTO `permission` VALUES (62, '1000001832967209', '编辑', '编辑标签', '/tag/edit', 'tag:edit', 59, 2, 0, '', 1, '2018-07-25 18:52:17', '2018-07-25 18:52:17');
-INSERT INTO `permission` VALUES (63, '1000000754923037', '删除', '删除标签', '/tag/delete', 'tag:delete', 59, 2, 0, '', 1, '2018-07-25 18:52:40', '2018-07-25 18:52:40');
-INSERT INTO `permission` VALUES (64, '1000000759248744', '批量删除', '批量删除标签', '/tag/batch/delete', 'tag:batchDelete', 59, 2, 0, '', 1, '2018-07-25 18:53:14', '2018-07-25 18:53:14');
-INSERT INTO `permission` VALUES (65, '1000001038456544', '文章列表', '文章列表', '/articles', 'articles', 52, 1, 2, 'fas fa-chess-queen', 1, '2018-07-29 20:20:23', '2020-04-19 19:23:06');
-INSERT INTO `permission` VALUES (66, '1000000686545782', '查询', '查询文章', '/article/list', 'article:list', 65, 2, 0, '', 1, '2018-07-29 20:20:54', '2018-07-29 20:20:54');
-INSERT INTO `permission` VALUES (67, '1000001642272578', '新增', '新增文章', '/article/add', 'article:add', 65, 2, 0, '', 1, '2018-07-29 20:21:21', '2018-07-29 20:21:21');
-INSERT INTO `permission` VALUES (68, '1000000804049447', '编辑', '编辑文章', '/article/edit', 'article:edit', 65, 2, 0, '', 1, '2018-07-29 20:21:50', '2018-07-29 20:21:50');
-INSERT INTO `permission` VALUES (69, '1000000488864959', '删除', '删除文章', '/article/delete', 'article:delete', 65, 2, 0, '', 1, '2018-07-29 20:23:27', '2018-07-29 20:23:27');
-INSERT INTO `permission` VALUES (70, '1000000512435306', '批量删除', '批量删除文章', '/article/batch/delete', 'article:batchDelete', 65, 2, 0, '', 1, '2018-07-29 20:23:49', '2018-07-29 20:23:49');
-INSERT INTO `permission` VALUES (71, '1000000899091444', '发布文章', '写文章', '/article/add', 'article:add', 52, 1, 1, 'fas fa-chess-queen', 1, '2018-07-29 20:39:49', '2020-04-19 19:16:06');
-INSERT INTO `permission` VALUES (72, '1000000224901858', '评论管理', '评论管理', '/comments', 'comments', 35, 1, 4, 'fas fa-chess-queen', 1, '2018-08-10 09:44:41', '2018-09-19 15:44:13');
-INSERT INTO `permission` VALUES (73, '1000001579533936', '查询', '查询', '/comment/list', 'comment:list', 72, 2, 0, '', 1, '2018-08-10 09:46:54', '2018-08-10 09:46:54');
-INSERT INTO `permission` VALUES (74, '1000000663968031', '审核', '审核评论', '/comment/audit', 'comment:audit', 72, 2, 0, '', 1, '2018-08-10 09:57:11', '2018-08-10 09:57:11');
-INSERT INTO `permission` VALUES (75, '1000000322655547', '回复', '回复评论', '/comment/reply', 'comment:audit', 72, 2, 0, '', 1, '2018-08-10 10:04:28', '2018-08-10 10:04:28');
-INSERT INTO `permission` VALUES (76, '1000001419287014', '删除', '删除评论', '/comment/delete', 'comment:delete', 72, 2, 0, '', 1, '2018-08-10 10:06:27', '2018-08-10 10:06:27');
-INSERT INTO `permission` VALUES (77, '1000002075182223', '批量删除', '批量删除评论', '/comment/batch/delete', 'comment:batchDelete', 72, 2, 0, '', 1, '2018-08-10 10:07:57', '2018-08-10 10:07:57');
-INSERT INTO `permission` VALUES (78, '1000000587822241', '上传管理', '上传管理', NULL, NULL, 0, 0, 6, 'fas fa-cloud-upload-alt', 1, '2018-09-12 17:08:41', '2020-04-19 19:09:35');
-INSERT INTO `permission` VALUES (79, '1000000493635111', '云存储配置', '云存储配置', '/attachment/config', 'upload:config', 78, 1, 1, 'fas fa-chess-queen', 1, '2018-09-12 17:10:09', '2020-03-07 14:31:41');
-INSERT INTO `permission` VALUES (80, '1000000318760332', '保存', '保存云存储配置', '/upload/saveConfig', 'upload:saveConfig', 79, 2, 0, '', 1, '2018-09-12 17:10:42', '2018-09-12 17:10:42');
-INSERT INTO `permission` VALUES (81, '1000000919723998', '主题管理', '主题管理', '/themes', 'themes', 35, 1, 2, 'fas fa-chess-queen', 1, '2018-09-19 15:43:50', '2018-09-19 15:43:50');
-INSERT INTO `permission` VALUES (82, '1000000784272506', '查询', '主题列表', '/theme/list', 'theme:list', 81, 2, 0, '', 1, '2018-09-19 15:44:50', '2018-09-19 15:44:50');
-INSERT INTO `permission` VALUES (83, '1000000215201942', '新增', '新增主题', '/theme/add', 'theme:add', 81, 2, 0, '', 1, '2018-09-19 15:45:34', '2018-09-19 15:45:34');
-INSERT INTO `permission` VALUES (84, '1000001065007557', '启用', '启用主题', '/theme/use', 'theme:use', 81, 2, 0, '', 1, '2018-09-19 15:46:28', '2018-09-19 15:46:28');
-INSERT INTO `permission` VALUES (85, '1000000431577803', '删除', '删除主题', '/theme/delete', 'theme:delete', 81, 2, 0, '', 1, '2018-09-19 15:48:06', '2018-09-19 15:48:06');
-INSERT INTO `permission` VALUES (86, '1000000207002458', '批量删除', '批量删除主题', 'theme/batch/delete', 'theme:batchDelete', 81, 2, 0, '', 1, '2018-09-19 15:48:39', '2018-09-19 15:48:39');
-INSERT INTO `permission` VALUES (87, '1000002051091207', '编辑', '编辑主题', '/theme/edit', 'theme:edit', 81, 2, 0, '', 1, '2018-09-19 15:54:34', '2018-09-19 15:54:34');
-INSERT INTO `permission` VALUES (88, '5011629010561508', '批量推送', '批量推送百度', '/article/batch/push', 'article:batchPush', 65, 2, 0, '', 1, '2018-10-28 15:15:00', '2018-10-28 15:15:00');
+INSERT INTO `Menu` VALUES (1, '1', '工作台', '工作台', '/workdest', 'workdest', 0, 1, 1, 'fas fa-home', 1, '2017-09-27 21:22:02', '2018-02-27 10:53:14');
+INSERT INTO `Menu` VALUES (2, '2', '权限管理', '权限管理', NULL, NULL, 0, 0, 4, 'fas fa-user-cog', 1, '2017-07-13 15:04:42', '2020-04-19 19:09:22');
+INSERT INTO `Menu` VALUES (3, '201', '用户管理', '用户管理', '/users', 'users', 2, 1, 1, 'fas fa-chess-queen', 1, '2017-07-13 15:05:47', '2018-02-27 10:53:14');
+INSERT INTO `Menu` VALUES (4, '20101', '列表查询', '用户列表查询', '/user/list', 'user:list', 3, 2, 0, NULL, 1, '2017-07-13 15:09:24', '2017-10-09 05:38:29');
+INSERT INTO `Menu` VALUES (5, '20102', '新增', '新增用户', '/user/add', 'user:add', 3, 2, 0, NULL, 1, '2017-07-13 15:06:50', '2018-02-28 17:58:46');
+INSERT INTO `Menu` VALUES (6, '20103', '编辑', '编辑用户', '/user/edit', 'user:edit', 3, 2, 0, NULL, 1, '2017-07-13 15:08:03', '2018-02-27 10:53:14');
+INSERT INTO `Menu` VALUES (7, '20104', '删除', '删除用户', '/user/delete', 'user:delete', 3, 2, 0, NULL, 1, '2017-07-13 15:08:42', '2018-02-27 10:53:14');
+INSERT INTO `Menu` VALUES (8, '20105', '批量删除', '批量删除用户', '/user/batch/delete', 'user:batchDelete', 3, 2, 0, '', 1, '2018-07-11 01:53:09', '2018-07-11 01:53:09');
+INSERT INTO `Menu` VALUES (9, '20106', '分配角色', '分配角色', '/user/assign/role', 'user:assignRole', 3, 2, 0, NULL, 1, '2017-07-13 15:09:24', '2017-10-09 05:38:29');
+INSERT INTO `Menu` VALUES (10, '202', '角色管理', '角色管理', '/roles', 'roles', 2, 1, 2, 'fas fa-chess-queen', 1, '2017-07-17 14:39:09', '2018-02-27 10:53:14');
+INSERT INTO `Menu` VALUES (11, '20201', '列表查询', '角色列表查询', '/role/list', 'role:list', 10, 2, 0, NULL, 1, '2017-10-10 15:31:36', '2018-02-27 10:53:14');
+INSERT INTO `Menu` VALUES (12, '20202', '新增', '新增角色', '/role/add', 'role:add', 10, 2, 0, NULL, 1, '2017-07-17 14:39:46', '2018-02-27 10:53:14');
+INSERT INTO `Menu` VALUES (13, '20203', '编辑', '编辑角色', '/role/edit', 'role:edit', 10, 2, 0, NULL, 1, '2017-07-17 14:40:15', '2018-02-27 10:53:14');
+INSERT INTO `Menu` VALUES (14, '20204', '删除', '删除角色', '/role/delete', 'role:delete', 10, 2, 0, NULL, 1, '2017-07-17 14:40:57', '2018-02-27 10:53:14');
+INSERT INTO `Menu` VALUES (15, '20205', '批量删除', '批量删除角色', '/role/batch/delete', 'role:batchDelete', 10, 2, 0, '', 1, '2018-07-10 22:20:43', '2018-07-10 22:20:43');
+INSERT INTO `Menu` VALUES (16, '20206', '分配权限', '分配权限', '/role/assign/Menu', 'role:assignPerms', 10, 2, 0, NULL, 1, '2017-09-26 07:33:05', '2018-02-27 10:53:14');
+INSERT INTO `Menu` VALUES (17, '203', '资源管理', '资源管理', '/permissions', 'permissions', 2, 1, 3, 'fas fa-chess-queen', 1, '2017-09-26 07:33:51', '2018-02-27 10:53:14');
+INSERT INTO `Menu` VALUES (18, '20301', '列表查询', '资源列表', '/Menu/list', 'Menu:list', 17, 2, 0, NULL, 1, '2018-07-12 16:25:28', '2018-07-12 16:25:33');
+INSERT INTO `Menu` VALUES (19, '20302', '新增', '新增资源', '/Menu/add', 'Menu:add', 17, 2, 0, NULL, 1, '2017-09-26 08:06:58', '2018-02-27 10:53:14');
+INSERT INTO `Menu` VALUES (20, '20303', '编辑', '编辑资源', '/Menu/edit', 'Menu:edit', 17, 2, 0, NULL, 1, '2017-09-27 21:29:04', '2018-02-27 10:53:14');
+INSERT INTO `Menu` VALUES (21, '20304', '删除', '删除资源', '/Menu/delete', 'Menu:delete', 17, 2, 0, NULL, 1, '2017-09-27 21:29:50', '2018-02-27 10:53:14');
+INSERT INTO `Menu` VALUES (22, '3', '运维管理', '运维管理', NULL, NULL, 0, 0, 7, 'fas fa-people-carry', 1, '2018-07-06 15:19:26', '2020-04-19 19:09:59');
+INSERT INTO `Menu` VALUES (23, '301', '数据监控', '数据监控', '/database/monitoring', 'database', 22, 1, 1, 'fas fa-chess-queen', 1, '2018-07-06 15:19:55', '2018-07-06 15:19:55');
+INSERT INTO `Menu` VALUES (24, '4', '系统管理', '系统管理', NULL, NULL, 0, 0, 5, 'fas fa-cog', 1, '2018-07-06 15:20:38', '2020-04-19 19:08:58');
+INSERT INTO `Menu` VALUES (25, '401', '在线用户', '在线用户', '/online/users', 'onlineUsers', 24, 1, 1, 'fas fa-chess-queen', 1, '2018-07-06 15:21:00', '2018-07-24 14:58:22');
+INSERT INTO `Menu` VALUES (32, '1000001992372345', '在线用户查询', '在线用户查询', '/online/user/list', 'onlineUser:list', 25, 2, 0, '', 1, '2018-07-24 15:02:23', '2018-07-24 15:02:23');
+INSERT INTO `Menu` VALUES (33, '1000002083579304', '踢出用户', '踢出用户', '/online/user/kickOut', 'onlineUser:kickOut', 25, 2, 0, '', 1, '2018-07-24 15:03:16', '2018-07-24 15:03:16');
+INSERT INTO `Menu` VALUES (34, '1000000171409776', '批量踢出', '批量踢出', '/online/user/batch/kickOut', 'onlineUser:batchKickout', 25, 2, 0, '', 1, '2018-07-24 15:04:09', '2018-07-24 15:04:09');
+INSERT INTO `Menu` VALUES (35, '1000000863853891', '网站管理', '网站管理', NULL, NULL, 0, 0, 3, 'fas fa-columns', 1, '2018-07-24 15:44:23', '2020-04-19 19:08:46');
+INSERT INTO `Menu` VALUES (36, '1000001264798222', '基础信息', '基础设置', '/siteinfo', 'siteinfo', 35, 1, 1, 'fas fa-chess-queen', 1, '2018-07-24 15:48:13', '2018-07-24 17:43:39');
+INSERT INTO `Menu` VALUES (37, '1000000432183856', '保存', '基础设置-保存', '/siteinfo/save', 'siteinfo:save', 36, 2, 0, '', 1, '2018-07-24 15:49:12', '2018-07-24 15:49:12');
+INSERT INTO `Menu` VALUES (38, '1000001792841328', '系统公告', '系统公告', '/notifies', 'notifies', 35, 1, 2, 'fas fa-chess-queen', 0, '2018-07-24 23:40:45', '2018-09-13 12:34:18');
+INSERT INTO `Menu` VALUES (39, '1000001351219537', '查询', '系统公告-查询', '/notify/list', 'notify:list', 38, 2, 0, '', 0, '2018-07-24 23:41:30', '2018-09-13 12:33:19');
+INSERT INTO `Menu` VALUES (40, '1000000791685519', '新增', '系统公告-新增', '/notify/add', 'notify:add', 38, 2, 0, '', 0, '2018-07-24 23:42:20', '2018-09-13 12:33:26');
+INSERT INTO `Menu` VALUES (42, '1000001531648485', '编辑', '系统公告-编辑', '/notify/edit', 'notify:edit', 38, 2, 0, '', 0, '2018-07-24 23:44:39', '2018-09-13 12:33:52');
+INSERT INTO `Menu` VALUES (43, '1000001548165826', '删除', '系统公告-删除', '/notify/delete', 'notify:delete', 38, 2, 0, '', 0, '2018-07-24 23:45:27', '2018-09-13 12:33:57');
+INSERT INTO `Menu` VALUES (44, '1000001530229707', '批量删除', '批量删除公告', '/notify/batch/delete', 'notify:batchDelete', 38, 2, 0, '', 0, '2018-07-24 23:46:25', '2018-09-13 12:34:02');
+INSERT INTO `Menu` VALUES (45, '1000000237721285', '友链管理', '友情链接', '/links', 'links', 35, 1, 3, 'fas fa-chess-queen', 1, '2018-07-25 11:05:49', '2018-07-25 11:07:03');
+INSERT INTO `Menu` VALUES (46, '1000001238193773', '查询', '友链-查询', '/link/list', 'link:list', 45, 2, 0, '', 1, '2018-07-25 11:06:44', '2018-07-25 11:06:44');
+INSERT INTO `Menu` VALUES (47, '1000001305005793', '新增', '友链-新增', '/link/add', 'link:add', 45, 2, 0, '', 1, '2018-07-25 11:07:46', '2018-07-25 11:07:46');
+INSERT INTO `Menu` VALUES (48, '1000001679037501', '编辑', '友链-编辑', '/link/edit', 'link:edit', 45, 2, 0, '', 1, '2018-07-25 11:08:21', '2018-07-25 11:08:21');
+INSERT INTO `Menu` VALUES (49, '1000001011730177', '删除', '友链-删除', '/link/delete', 'link:delete', 45, 2, 0, '', 1, '2018-07-25 11:08:53', '2018-07-25 11:08:53');
+INSERT INTO `Menu` VALUES (50, '1000001312374743', '批量删除', '友链-批量删除', '/link/batch/delete', 'link:batchDelete', 45, 2, 0, '', 1, '2018-07-25 11:09:40', '2018-07-25 11:09:40');
+INSERT INTO `Menu` VALUES (51, '1000001507480127', '审核', '友链-审核', '/link/audit', 'link:audit', 45, 2, 0, '', 1, '2018-07-25 11:42:28', '2018-07-25 11:42:28');
+INSERT INTO `Menu` VALUES (52, '1000000602555213', '文章管理', '文章管理', NULL, NULL, 0, 0, 2, 'fas fa-newspaper', 1, '2018-07-25 17:43:12', '2020-04-19 19:04:49');
+INSERT INTO `Menu` VALUES (53, '1000001729104792', '分类管理', '分类管理', '/categories', 'categories', 52, 1, 3, 'fas fa-chess-queen', 1, '2018-07-25 17:43:50', '2020-04-19 20:33:27');
+INSERT INTO `Menu` VALUES (54, '1000000015836901', '新增', '新增分类', '/category/add', 'category:add', 53, 2, 0, '', 1, '2018-07-25 17:44:28', '2018-07-25 17:44:28');
+INSERT INTO `Menu` VALUES (55, '1000001439189167', '编辑', '编辑分类', '/category/edit', 'category:edit', 53, 2, 0, '', 1, '2018-07-25 17:44:52', '2018-07-25 17:44:52');
+INSERT INTO `Menu` VALUES (56, '1000001647995753', '删除', '删除分类', '/category/delete', 'category:delete', 53, 2, 0, '', 1, '2018-07-25 17:45:28', '2018-07-25 17:45:28');
+INSERT INTO `Menu` VALUES (58, '1000000841419865', '查询', '分类查询', '/category/list', 'category:list', 53, 2, 0, '', 1, '2018-07-25 17:49:43', '2018-07-25 17:49:43');
+INSERT INTO `Menu` VALUES (59, '1000000976625379', '标签管理', '标签管理', '/tags', 'tags', 52, 1, 4, 'fas fa-chess-queen', 1, '2018-07-25 18:50:47', '2020-04-19 20:33:35');
+INSERT INTO `Menu` VALUES (60, '1000002127467055', '查询', '查询标签列表', '/tag/list', 'tag:list', 59, 2, 0, '', 1, '2018-07-25 18:51:20', '2018-07-25 18:51:20');
+INSERT INTO `Menu` VALUES (61, '1000001458372033', '新增', '新增标签', '/tag/add', 'tag:add', 59, 2, 0, '', 1, '2018-07-25 18:51:42', '2018-07-25 18:51:42');
+INSERT INTO `Menu` VALUES (62, '1000001832967209', '编辑', '编辑标签', '/tag/edit', 'tag:edit', 59, 2, 0, '', 1, '2018-07-25 18:52:17', '2018-07-25 18:52:17');
+INSERT INTO `Menu` VALUES (63, '1000000754923037', '删除', '删除标签', '/tag/delete', 'tag:delete', 59, 2, 0, '', 1, '2018-07-25 18:52:40', '2018-07-25 18:52:40');
+INSERT INTO `Menu` VALUES (64, '1000000759248744', '批量删除', '批量删除标签', '/tag/batch/delete', 'tag:batchDelete', 59, 2, 0, '', 1, '2018-07-25 18:53:14', '2018-07-25 18:53:14');
+INSERT INTO `Menu` VALUES (65, '1000001038456544', '文章列表', '文章列表', '/articles', 'articles', 52, 1, 2, 'fas fa-chess-queen', 1, '2018-07-29 20:20:23', '2020-04-19 19:23:06');
+INSERT INTO `Menu` VALUES (66, '1000000686545782', '查询', '查询文章', '/article/list', 'article:list', 65, 2, 0, '', 1, '2018-07-29 20:20:54', '2018-07-29 20:20:54');
+INSERT INTO `Menu` VALUES (67, '1000001642272578', '新增', '新增文章', '/article/add', 'article:add', 65, 2, 0, '', 1, '2018-07-29 20:21:21', '2018-07-29 20:21:21');
+INSERT INTO `Menu` VALUES (68, '1000000804049447', '编辑', '编辑文章', '/article/edit', 'article:edit', 65, 2, 0, '', 1, '2018-07-29 20:21:50', '2018-07-29 20:21:50');
+INSERT INTO `Menu` VALUES (69, '1000000488864959', '删除', '删除文章', '/article/delete', 'article:delete', 65, 2, 0, '', 1, '2018-07-29 20:23:27', '2018-07-29 20:23:27');
+INSERT INTO `Menu` VALUES (70, '1000000512435306', '批量删除', '批量删除文章', '/article/batch/delete', 'article:batchDelete', 65, 2, 0, '', 1, '2018-07-29 20:23:49', '2018-07-29 20:23:49');
+INSERT INTO `Menu` VALUES (71, '1000000899091444', '发布文章', '写文章', '/article/add', 'article:add', 52, 1, 1, 'fas fa-chess-queen', 1, '2018-07-29 20:39:49', '2020-04-19 19:16:06');
+INSERT INTO `Menu` VALUES (72, '1000000224901858', '评论管理', '评论管理', '/comments', 'comments', 35, 1, 4, 'fas fa-chess-queen', 1, '2018-08-10 09:44:41', '2018-09-19 15:44:13');
+INSERT INTO `Menu` VALUES (73, '1000001579533936', '查询', '查询', '/comment/list', 'comment:list', 72, 2, 0, '', 1, '2018-08-10 09:46:54', '2018-08-10 09:46:54');
+INSERT INTO `Menu` VALUES (74, '1000000663968031', '审核', '审核评论', '/comment/audit', 'comment:audit', 72, 2, 0, '', 1, '2018-08-10 09:57:11', '2018-08-10 09:57:11');
+INSERT INTO `Menu` VALUES (75, '1000000322655547', '回复', '回复评论', '/comment/reply', 'comment:audit', 72, 2, 0, '', 1, '2018-08-10 10:04:28', '2018-08-10 10:04:28');
+INSERT INTO `Menu` VALUES (76, '1000001419287014', '删除', '删除评论', '/comment/delete', 'comment:delete', 72, 2, 0, '', 1, '2018-08-10 10:06:27', '2018-08-10 10:06:27');
+INSERT INTO `Menu` VALUES (77, '1000002075182223', '批量删除', '批量删除评论', '/comment/batch/delete', 'comment:batchDelete', 72, 2, 0, '', 1, '2018-08-10 10:07:57', '2018-08-10 10:07:57');
+INSERT INTO `Menu` VALUES (78, '1000000587822241', '上传管理', '上传管理', NULL, NULL, 0, 0, 6, 'fas fa-cloud-upload-alt', 1, '2018-09-12 17:08:41', '2020-04-19 19:09:35');
+INSERT INTO `Menu` VALUES (79, '1000000493635111', '云存储配置', '云存储配置', '/attachment/config', 'upload:config', 78, 1, 1, 'fas fa-chess-queen', 1, '2018-09-12 17:10:09', '2020-03-07 14:31:41');
+INSERT INTO `Menu` VALUES (80, '1000000318760332', '保存', '保存云存储配置', '/upload/saveConfig', 'upload:saveConfig', 79, 2, 0, '', 1, '2018-09-12 17:10:42', '2018-09-12 17:10:42');
+INSERT INTO `Menu` VALUES (81, '1000000919723998', '主题管理', '主题管理', '/themes', 'themes', 35, 1, 2, 'fas fa-chess-queen', 1, '2018-09-19 15:43:50', '2018-09-19 15:43:50');
+INSERT INTO `Menu` VALUES (82, '1000000784272506', '查询', '主题列表', '/theme/list', 'theme:list', 81, 2, 0, '', 1, '2018-09-19 15:44:50', '2018-09-19 15:44:50');
+INSERT INTO `Menu` VALUES (83, '1000000215201942', '新增', '新增主题', '/theme/add', 'theme:add', 81, 2, 0, '', 1, '2018-09-19 15:45:34', '2018-09-19 15:45:34');
+INSERT INTO `Menu` VALUES (84, '1000001065007557', '启用', '启用主题', '/theme/use', 'theme:use', 81, 2, 0, '', 1, '2018-09-19 15:46:28', '2018-09-19 15:46:28');
+INSERT INTO `Menu` VALUES (85, '1000000431577803', '删除', '删除主题', '/theme/delete', 'theme:delete', 81, 2, 0, '', 1, '2018-09-19 15:48:06', '2018-09-19 15:48:06');
+INSERT INTO `Menu` VALUES (86, '1000000207002458', '批量删除', '批量删除主题', 'theme/batch/delete', 'theme:batchDelete', 81, 2, 0, '', 1, '2018-09-19 15:48:39', '2018-09-19 15:48:39');
+INSERT INTO `Menu` VALUES (87, '1000002051091207', '编辑', '编辑主题', '/theme/edit', 'theme:edit', 81, 2, 0, '', 1, '2018-09-19 15:54:34', '2018-09-19 15:54:34');
+INSERT INTO `Menu` VALUES (88, '5011629010561508', '批量推送', '批量推送百度', '/article/batch/push', 'article:batchPush', 65, 2, 0, '', 1, '2018-10-28 15:15:00', '2018-10-28 15:15:00');
 
 COMMIT;
 

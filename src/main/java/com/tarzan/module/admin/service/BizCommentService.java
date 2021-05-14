@@ -1,6 +1,7 @@
 package com.tarzan.module.admin.service;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.tarzan.common.util.Pagination;
 import com.tarzan.module.admin.mapper.BizCommentMapper;
@@ -23,6 +24,6 @@ public class BizCommentService extends ServiceImpl<BizCommentMapper, BizComment>
     }
 
     public int deleteBatch(Integer[] ids) {
-        return baseMapper.deleteBatch(ids);
+        return baseMapper.delete(Wrappers.<BizComment>lambdaQuery().in(BizComment::getId,ids).or().in(BizComment::getPid,ids));
     }
 }

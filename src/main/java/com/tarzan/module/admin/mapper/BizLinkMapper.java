@@ -14,8 +14,4 @@ import java.util.List;
  */
 public interface BizLinkMapper extends BaseMapper<BizLink> {
 
-    List<BizLink> selectLinks(@Param("page") IPage<BizLink> page, @Param("bizLink") BizLink bizLink);
-
-    int deleteBatch(Integer[] ids);
-
 }

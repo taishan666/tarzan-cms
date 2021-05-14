@@ -38,7 +38,6 @@ public class CommentController {
 
     @PostMapping("list")
     public PageResultVo loadNotify(CommentConditionVo vo, Integer pageNumber, Integer pageSize) {
-
         IPage<BizComment> commentPage = commentService.selectComments(vo, pageNumber, pageSize);
         return ResultUtil.table(commentPage.getRecords(), commentPage.getTotal());
     }

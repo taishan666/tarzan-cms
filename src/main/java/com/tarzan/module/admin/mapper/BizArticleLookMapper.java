@@ -15,8 +15,6 @@ import java.util.List;
  */
 public interface BizArticleLookMapper extends BaseMapper<BizArticleLook> {
 
-    int checkArticleLook(@Param("articleId") Integer articleId, @Param("userIp") String userIp, @Param("lookTime") Date lookTime);
-
     List<CountVo> lookCountByDay(int day);
 
     List<CountVo> userCountByDay(int day);

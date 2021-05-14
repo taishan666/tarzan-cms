@@ -4,10 +4,10 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.tarzan.common.shiro.MyShiroRealm;
 import com.tarzan.common.util.CoreConst;
 import com.tarzan.common.util.ResultUtil;
-import com.tarzan.module.admin.model.Permission;
+import com.tarzan.module.admin.model.Menu;
 import com.tarzan.module.admin.model.Role;
 import com.tarzan.module.admin.model.User;
-import com.tarzan.module.admin.service.PermissionService;
+import com.tarzan.module.admin.service.MenuService;
 import com.tarzan.module.admin.service.RoleService;
 import com.tarzan.module.admin.vo.PermissionTreeListVo;
 import com.tarzan.module.admin.vo.base.PageResultVo;
@@ -39,7 +39,7 @@ import java.util.List;
 public class RoleController {
 
     private final RoleService roleService;
-    private final PermissionService permissionService;
+    private final MenuService MenuService;
     private final MyShiroRealm myShiroRealm;
 
 
@@ -112,8 +112,8 @@ public class RoleController {
 
     /*编辑角色详情*/
     @GetMapping("/edit")
-    public String detail(Model model, Integer roleId) {
-        Role role = roleService.findById(roleId);
+    public String detail(Model model, Integer id) {
+        Role role = roleService.getById(id);
         model.addAttribute("role", role);
         return CoreConst.ADMIN_PREFIX + "role/form";
     }
@@ -122,8 +122,8 @@ public class RoleController {
     @PostMapping("/edit")
     @ResponseBody
     public ResponseVo editRole(@ModelAttribute("role") Role role) {
-        int a = roleService.updateByRoleId(role);
-        if (a > 0) {
+        boolean flag = roleService.updateById(role);
+        if (flag) {
             return ResultUtil.success("编辑角色成功");
         } else {
             return ResultUtil.error("编辑角色失败");
@@ -131,21 +131,21 @@ public class RoleController {
     }
 
     /*分配权限列表查询*/
-    @PostMapping("/assign/permission/list")
+    @PostMapping("/assign/Menu/list")
     @ResponseBody
     public List<PermissionTreeListVo> assignRole(String roleId) {
         List<PermissionTreeListVo> listVos = new ArrayList<>();
-        List<Permission> allPermissions = permissionService.selectAll(CoreConst.STATUS_VALID);
-        List<Permission> hasPermissions = roleService.findPermissionsByRoleId(roleId);
-        for (Permission permission : allPermissions) {
+        List<Menu> allPermissions = MenuService.selectAll(CoreConst.STATUS_VALID);
+        List<Menu> hasPermissions = roleService.findPermissionsByRoleId(roleId);
+        for (Menu Menu : allPermissions) {
             PermissionTreeListVo vo = new PermissionTreeListVo();
-            vo.setId(permission.getId());
-            vo.setPermissionId(permission.getPermissionId());
-            vo.setName(permission.getName());
-            vo.setParentId(permission.getParentId());
-            for (Permission hasPermission : hasPermissions) {
+            vo.setId(Menu.getId());
+            vo.setPermissionId(Menu.getPermissionId());
+            vo.setName(Menu.getName());
+            vo.setParentId(Menu.getParentId());
+            for (Menu hasPermission : hasPermissions) {
                 //有权限则选中
-                if (hasPermission.getPermissionId().equals(permission.getPermissionId())) {
+                if (hasPermission.getPermissionId().equals(Menu.getPermissionId())) {
                     vo.setChecked(true);
                     break;
                 }
@@ -157,7 +157,7 @@ public class RoleController {
 
 
     /*分配权限*/
-    @PostMapping("/assign/permission")
+    @PostMapping("/assign/Menu")
     @ResponseBody
     public ResponseVo assignRole(String roleId, String permissionIdStr) {
         List<String> permissionIdsList = new ArrayList<>();

@@ -3,6 +3,7 @@ package com.tarzan.module.admin.model;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -15,6 +16,7 @@ import java.util.List;
  * @date 2021年5月11日
  */
 @Data
+@TableName("sys_user")
 public class User implements Serializable {
     private static final long serialVersionUID = -8736616045315083846L;
 

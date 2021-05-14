@@ -1,5 +1,6 @@
 package com.tarzan.module.admin.model;
 
+import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -10,6 +11,7 @@ import java.io.Serializable;
  * @date 2021年5月11日
  */
 @Data
+@TableName("sys_user_role")
 public class UserRole implements Serializable {
 
     private static final long serialVersionUID = 2455220013366482894L;

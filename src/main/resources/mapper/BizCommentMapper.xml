@@ -38,32 +38,6 @@
 			<result property="title" jdbcType="VARCHAR" column="article_title"/>
 		</association>
 	</resultMap>
-	<sql id="Base_Column_List">
-		id,
-		sid,
-		user_id,
-		pid,
-		qq,
-		nickname,
-		avatar,
-		email,
-		url,
-		status,
-		ip,
-		lng,
-		lat,
-		address,
-		os,
-		os_short_name,
-		browser,
-		browser_short_name,
-		content,
-		remark,
-		support,
-		oppose,
-		create_time,
-		update_time
-	</sql>
 	<select id="selectComments" parameterType="com.tarzan.module.admin.vo.CommentConditionVo" resultMap="rm">
 		SELECT
 		t.*,
@@ -108,18 +82,6 @@
 		t.create_time DESC
 	</select>
 
-	<delete id="deleteBatch" parameterType="map">
-		DELETE FROM
-		biz_comment
-		where
-		id in
-		<foreach collection="array" item="item" index="index" open="(" separator="," close=")">
-			#{item}
-		</foreach>
-		or pid in
-		<foreach collection="array" item="item" index="index" open="(" separator="," close=")">
-			#{item}
-		</foreach>
-	</delete>
+
 </mapper>
 

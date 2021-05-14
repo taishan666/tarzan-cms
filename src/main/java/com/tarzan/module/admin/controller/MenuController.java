@@ -3,8 +3,8 @@ package com.tarzan.module.admin.controller;
 import com.tarzan.common.shiro.ShiroService;
 import com.tarzan.common.util.CoreConst;
 import com.tarzan.common.util.ResultUtil;
-import com.tarzan.module.admin.model.Permission;
-import com.tarzan.module.admin.service.PermissionService;
+import com.tarzan.module.admin.model.Menu;
+import com.tarzan.module.admin.service.MenuService;
 import com.tarzan.module.admin.vo.base.ResponseVo;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -27,34 +27,34 @@ import java.util.List;
  */
 @Slf4j
 @Controller
-@RequestMapping("/permission")
+@RequestMapping("/Menu")
 @AllArgsConstructor
-public class PermissionController {
+public class MenuController {
 
     /**
      * 1:全部资源，2：菜单资源
      */
     private static final String[] MENU_FLAG = {"1", "2"};
 
-    private final PermissionService permissionService;
+    private final MenuService menuService;
     private final ShiroService shiroService;
 
 
     @GetMapping("/add")
     public String add(Model model) {
-        model.addAttribute("permission", new Permission().setType(0));
-        return CoreConst.ADMIN_PREFIX + "permission/form";
+        model.addAttribute("Menu", new Menu().setType(0));
+        return CoreConst.ADMIN_PREFIX + "Menu/form";
     }
 
     /*权限列表数据*/
     @PostMapping("/list")
     @ResponseBody
-    public List<Permission> loadPermissions(String flag) {
-        List<Permission> permissionListList = new ArrayList<Permission>();
+    public List<Menu> loadPermissions(String flag) {
+        List<Menu> permissionListList = new ArrayList<Menu>();
         if (StringUtils.isBlank(flag) || MENU_FLAG[0].equals(flag)) {
-            permissionListList = permissionService.selectAll(CoreConst.STATUS_VALID);
+            permissionListList = menuService.selectAll(CoreConst.STATUS_VALID);
         } else if (MENU_FLAG[1].equals(flag)) {
-            permissionListList = permissionService.selectAllMenuName(CoreConst.STATUS_VALID);
+            permissionListList = menuService.selectAllMenuName(CoreConst.STATUS_VALID);
         }
         return permissionListList;
     }
@@ -62,9 +62,9 @@ public class PermissionController {
     /*添加权限*/
     @ResponseBody
     @PostMapping("/add")
-    public ResponseVo addPermission(Permission permission) {
+    public ResponseVo addPermission(Menu Menu) {
         try {
-            int a = permissionService.insert(permission);
+            int a = menuService.insert(Menu);
             if (a > 0) {
                 shiroService.updatePermission();
                 return ResultUtil.success("添加权限成功");
@@ -80,13 +80,13 @@ public class PermissionController {
     /*删除权限*/
     @ResponseBody
     @PostMapping("/delete")
-    public ResponseVo deletePermission(String permissionId) {
+    public ResponseVo deletePermission(Integer id) {
         try {
-            int subPermsByPermissionIdCount = permissionService.selectSubPermsByPermissionId(permissionId);
+            int subPermsByPermissionIdCount = menuService.selectSubPermsByPermissionId(id);
             if (subPermsByPermissionIdCount > 0) {
                 return ResultUtil.error("改资源存在下级资源，无法删除！");
             }
-            int a = permissionService.updateStatus(permissionId, CoreConst.STATUS_INVALID);
+            int a = menuService.updateStatus(id, CoreConst.STATUS_INVALID);
             if (a > 0) {
                 shiroService.updatePermission();
                 return ResultUtil.success("删除权限成功");
@@ -101,22 +101,22 @@ public class PermissionController {
 
     /*权限详情*/
     @GetMapping("/edit")
-    public ModelAndView detail(Model model, String permissionId) {
+    public ModelAndView detail(Model model, String menuId) {
         ModelAndView modelAndView = new ModelAndView();
-        Permission permission = permissionService.findByPermissionId(permissionId);
-        if (null != permission) {
-            if (CoreConst.TOP_MENU_ID.equals(permission.getParentId())) {
+        Menu Menu = menuService.getById(menuId);
+        if (null != Menu) {
+            if (CoreConst.TOP_MENU_ID.equals(Menu.getParentId())) {
                 model.addAttribute("parentName", CoreConst.TOP_MENU_NAME);
             } else {
-                Permission parent = permissionService.findById(permission.getParentId());
+                Menu parent = menuService.getById(Menu.getParentId());
                 if (parent != null) {
                     model.addAttribute("parentName", parent.getName());
                 }
             }
-            model.addAttribute("permission", permission);
-            modelAndView.setViewName(CoreConst.ADMIN_PREFIX + "permission/form");
+            model.addAttribute("Menu", Menu);
+            modelAndView.setViewName(CoreConst.ADMIN_PREFIX + "Menu/form");
         } else {
-            log.error("根据权限id获取权限详情失败，权限id: {}", permissionId);
+            log.error("根据权限id获取权限详情失败，权限id: {}", menuId);
             modelAndView.setView(new RedirectView("/error/500", true, false));
         }
         return modelAndView;
@@ -125,9 +125,9 @@ public class PermissionController {
     /*编辑权限*/
     @ResponseBody
     @PostMapping("/edit")
-    public ResponseVo editPermission(@ModelAttribute("permission") Permission permission) {
-        int a = permissionService.updateByPermissionId(permission);
-        if (a > 0) {
+    public ResponseVo editPermission(@ModelAttribute("Menu") Menu Menu) {
+        boolean flag = menuService.updateById(Menu);
+        if (flag) {
             shiroService.updatePermission();
             return ResultUtil.success("编辑权限成功");
         } else {

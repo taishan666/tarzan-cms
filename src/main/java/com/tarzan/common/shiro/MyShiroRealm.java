@@ -3,7 +3,7 @@ package com.tarzan.common.shiro;
 import com.tarzan.common.util.CoreConst;
 import com.tarzan.common.util.IpUtil;
 import com.tarzan.module.admin.model.User;
-import com.tarzan.module.admin.service.PermissionService;
+import com.tarzan.module.admin.service.MenuService;
 import com.tarzan.module.admin.service.RoleService;
 import com.tarzan.module.admin.service.UserService;
 import org.apache.commons.collections4.CollectionUtils;
@@ -49,7 +49,7 @@ public class MyShiroRealm extends AuthorizingRealm {
     @Lazy @Resource
     private RoleService roleService;
     @Lazy @Resource
-    private PermissionService permissionService;
+    private MenuService MenuService;
     @Lazy @Resource
     private RedisSessionDAO redisSessionDAO;
 
@@ -67,7 +67,7 @@ public class MyShiroRealm extends AuthorizingRealm {
         User user = (User) principals.getPrimaryPrincipal();
         SimpleAuthorizationInfo info = new SimpleAuthorizationInfo();
         info.setRoles(roleService.findRoleByUserId(user.getUserId()));
-        info.setStringPermissions(permissionService.findPermsByUserId(user.getUserId()));
+        info.setStringPermissions(MenuService.findPermsByUserId(user.getUserId()));
         return info;
     }
 

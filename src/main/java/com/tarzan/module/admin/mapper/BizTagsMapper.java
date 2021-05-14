@@ -14,6 +14,5 @@ import java.util.List;
  */
 public interface BizTagsMapper extends BaseMapper<BizTags> {
 
-    List<BizTags> selectTags(@Param("page") IPage<BizTags> page, @Param("bizTags") BizTags bizTags);
 
 }

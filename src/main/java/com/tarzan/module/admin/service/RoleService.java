@@ -1,22 +1,18 @@
 package com.tarzan.module.admin.service;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.tarzan.common.util.Pagination;
 import com.tarzan.common.util.UUIDUtil;
-import com.tarzan.module.admin.mapper.PermissionMapper;
-import com.tarzan.module.admin.mapper.RoleMapper;
-import com.tarzan.module.admin.mapper.RolePermissionMapper;
-import com.tarzan.module.admin.mapper.UserMapper;
-import com.tarzan.module.admin.model.Permission;
-import com.tarzan.module.admin.model.Role;
-import com.tarzan.module.admin.model.RolePermission;
-import com.tarzan.module.admin.model.User;
+import com.tarzan.module.admin.mapper.*;
+import com.tarzan.module.admin.model.*;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * @author tarzan liu
@@ -27,17 +23,22 @@ import java.util.*;
 @AllArgsConstructor
 public class RoleService extends ServiceImpl<RoleMapper, Role> {
 
-    private final PermissionMapper permissionMapper;
-    private final RolePermissionMapper rolePermissionMapper;
+    private final MenuMapper MenuMapper;
+    private final RoleMenuMapper RoleMenuMapper;
     private final UserMapper userMapper;
+    private final UserRoleMapper userRoleMapper;
 
     public Set<String> findRoleByUserId(String userId) {
-        return baseMapper.findRoleByUserId(userId);
+        List<UserRole> list=userRoleMapper.selectList(Wrappers.<UserRole>lambdaQuery().eq(UserRole::getUserId, userId));
+        if(list==null){
+            return null;
+        }
+        return  list.stream().map(UserRole::getRoleId).collect(Collectors.toSet());
     }
 
     public IPage<Role> selectRoles(Role role, Integer pageNumber, Integer pageSize) {
         IPage<Role> page = new Pagination<>(pageNumber, pageSize);
-        return baseMapper.selectRoles(page, role);
+        return baseMapper.selectPage(page, Wrappers.<Role>lambdaQuery().eq(Role::getStatus, 1).like(StringUtils.isNotBlank(role.getName()),Role::getName,role.getName()));
     }
 
     public int insert(Role role) {
@@ -48,35 +49,20 @@ public class RoleService extends ServiceImpl<RoleMapper, Role> {
     }
 
     public int updateStatusBatch(List<String> roleIds, Integer status) {
-        Map<String, Object> params = new HashMap<String, Object>(2);
-        params.put("roleIds", roleIds);
-        params.put("status", status);
-        return baseMapper.updateStatusBatch(params);
+        return baseMapper.update(new Role().setStatus(status),Wrappers.<Role>lambdaUpdate().in(Role::getRoleId, roleIds));
     }
 
-    public Role findById(Integer roleId) {
-        return baseMapper.selectOne(Wrappers.<Role>lambdaQuery().eq(Role::getRoleId, roleId));
-    }
-
-    public int updateByRoleId(Role role) {
-        Map<String, Object> params = new HashMap<>(3);
-        params.put("name", role.getName());
-        params.put("description", role.getDescription());
-        params.put("role_id", role.getRoleId());
-        return baseMapper.updateByRoleId(params);
-    }
-
-    public List<Permission> findPermissionsByRoleId(String roleId) {
-        return permissionMapper.findByRoleId(roleId);
+    public List<Menu> findPermissionsByRoleId(String roleId) {
+        return MenuMapper.findByRoleId(roleId);
     }
 
     public void addAssignPermission(String roleId, List<String> permissionIds) {
-        rolePermissionMapper.delete(Wrappers.<RolePermission>lambdaQuery().eq(RolePermission::getRoleId, roleId));
+        RoleMenuMapper.delete(Wrappers.<RoleMenu>lambdaQuery().eq(RoleMenu::getRoleId, roleId));
         for (String permissionId : permissionIds) {
-            RolePermission rolePermission = new RolePermission();
-            rolePermission.setRoleId(roleId);
-            rolePermission.setPermissionId(permissionId);
-            rolePermissionMapper.insert(rolePermission);
+            RoleMenu RoleMenu = new RoleMenu();
+            RoleMenu.setRoleId(roleId);
+            RoleMenu.setPermissionId(permissionId);
+            RoleMenuMapper.insert(RoleMenu);
         }
     }
 

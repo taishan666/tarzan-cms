@@ -13,7 +13,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Arrays;
 import java.util.Date;
+import java.util.List;
 
 /**
  * 后台友情链接管理
@@ -80,14 +82,14 @@ public class LinksController {
     @PostMapping("/delete")
     @ResponseBody
     public ResponseVo delete(Integer id) {
-        return deleteBatch(new Integer[]{id});
+        return deleteBatch(Arrays.asList(id));
     }
 
     @PostMapping("/batch/delete")
     @ResponseBody
-    public ResponseVo deleteBatch(@RequestParam("ids[]") Integer[] ids) {
-        int i = linkService.deleteBatch(ids);
-        if (i > 0) {
+    public ResponseVo deleteBatch(@RequestParam("ids") List<Integer> ids) {
+        boolean flag = linkService.deleteBatch(ids);
+        if (flag) {
             return ResultUtil.success("删除友链成功");
         } else {
             return ResultUtil.error("删除友链失败");

@@ -13,7 +13,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Arrays;
 import java.util.Date;
+import java.util.List;
 
 /**
  * 后台标签配置
@@ -80,14 +82,14 @@ public class TagController {
     @PostMapping("/delete")
     @ResponseBody
     public ResponseVo delete(Integer id) {
-        return deleteBatch(new Integer[]{id});
+        return deleteBatch(Arrays.asList(id));
     }
 
     @PostMapping("/batch/delete")
     @ResponseBody
-    public ResponseVo deleteBatch(@RequestParam("ids[]") Integer[] ids) {
-        int i = tagsService.deleteBatch(ids);
-        if (i > 0) {
+    public ResponseVo deleteBatch(@RequestParam("ids") List<Integer> ids) {
+        boolean flag = tagsService.deleteBatch(ids);
+        if (flag) {
             return ResultUtil.success("删除标签成功");
         } else {
             return ResultUtil.error("删除标签失败");

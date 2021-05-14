@@ -1,6 +1,8 @@
 package com.tarzan.module.admin.service;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.core.toolkit.StringUtils;
+import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.tarzan.common.util.Pagination;
 import com.tarzan.module.admin.mapper.BizTagsMapper;
@@ -23,16 +25,20 @@ public class BizTagsService extends ServiceImpl<BizTagsMapper, BizTags> {
 
     @Cacheable(value = "tag", key = "'list'")
     public List<BizTags> selectTags(BizTags bizTags) {
-        return baseMapper.selectTags(null, bizTags);
+        return baseMapper.selectList(Wrappers.<BizTags>lambdaQuery()
+                .like(StringUtils.isBlank(bizTags.getName()),BizTags::getName,bizTags.getName())
+                .like(StringUtils.isBlank(bizTags.getDescription()),BizTags::getDescription,bizTags.getDescription()));
     }
 
     public IPage<BizTags> pageTags(BizTags bizTags, Integer pageNumber, Integer pageSize) {
         IPage<BizTags> page = new Pagination<>(pageNumber, pageSize);
-        return page.setRecords(baseMapper.selectTags(page, bizTags));
+        return baseMapper.selectPage(page,Wrappers.<BizTags>lambdaQuery()
+                .like(StringUtils.isBlank(bizTags.getName()),BizTags::getName,bizTags.getName())
+                .like(StringUtils.isBlank(bizTags.getDescription()),BizTags::getDescription,bizTags.getDescription()));
     }
 
     @CacheEvict(value = "tag", allEntries = true)
-    public int deleteBatch(Integer[] ids) {
-        return baseMapper.deleteBatchIds(Arrays.asList(ids));
+    public boolean deleteBatch(List<Integer> ids) {
+        return removeByIds(ids);
     }
 }

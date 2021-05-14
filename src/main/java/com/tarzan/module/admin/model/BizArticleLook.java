@@ -3,6 +3,7 @@ package com.tarzan.module.admin.model;
 import com.tarzan.module.admin.vo.base.BaseVo;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.experimental.Accessors;
 
 import java.util.Date;
 
@@ -13,6 +14,7 @@ import java.util.Date;
  */
 @EqualsAndHashCode(callSuper = true)
 @Data
+@Accessors(chain = true)
 public class BizArticleLook extends BaseVo {
     private static final long serialVersionUID = 1052723347580827581L;
 

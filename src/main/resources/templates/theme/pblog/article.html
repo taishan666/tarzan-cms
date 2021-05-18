@@ -18,8 +18,8 @@
 		<header id="header">
 			<div th:replace="home/fragments/navbar :: navbar"></div>
 		</header>
-		<div class="pb-container pb-content">
-			<div class="pb-main">
+		<div class="tz-container tz-content">
+			<div class="tz-main">
 				<div class="article-main">
 					<h3 th:text="${article.title}" class="article-title"></h3>
 					<span th:text="${article.original==1 ? '原创' : '转载'}" class="article-original"></span>
@@ -83,7 +83,7 @@
 		<script th:src="@{/libs/theme/pblog/js/tagcloud.js}"></script>
 		<script th:src="@{/js/hc-sticky.js}"></script>
 		<script th:src="@{/js/core.js}"></script>
-		<script th:src="@{/libs/theme/pblog/js/pb-blog.js}"></script>
+		<script th:src="@{/libs/theme/pblog/js/tz-blog.js}"></script>
 		<script>
 			var sid=[[${article.id}]];
 			Core.postAjax("/blog/api/article/look",{"articleId":sid})

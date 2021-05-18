@@ -73,12 +73,12 @@
                     hasSelectItem = true;
                     var td = $('<td style="text-align:center;width:50px;text-overflow:unset"></td>');
                     if(column.radio){
-                        td.addClass("pb-radio");
+                        td.addClass("tz-radio");
                         var _ipt = $('<input name="select_item" type="radio" value="'+item[options.id]+'"/><label></label>');
                         td.append(_ipt);
                     }
                     if(column.checkbox){
-                        td.addClass("pb-radio");
+                        td.addClass("tz-radio");
                         var _ipt = $('<input name="select_item" type="checkbox" value="'+item[options.id]+'"/><label></label>');
                         td.append(_ipt);
                     }

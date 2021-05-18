@@ -188,7 +188,7 @@ var Core = (function () {
                     var name = $check.attr("name");
                     var id = name + "-" + i;
                     var $label = (i == 0 ? $('<label for="' + id + '"></label>') : $('<label></label>'));
-                    $check.attr("id", id).parent().addClass("pb-checkbox").append($label);
+                    $check.attr("id", id).parent().addClass("tz-checkbox").append($label);
                 });
                 $(tableOptions.id).find("input:radio").each(function (i) {
                     var $check = $(this);
@@ -198,7 +198,7 @@ var Core = (function () {
                     var name = $check.attr("name");
                     var id = name + "-" + i;
                     var $label = (i == 0 ? $('<label for="' + id + '"></label>') : (tableOptions.clickToSelect == true ? $('<label></label>') : $('<label for="' + id + '"></label>')));
-                    $check.attr("id", id).parent().addClass("pb-radio").append($label);
+                    $check.attr("id", id).parent().addClass("tz-radio").append($label);
                 });
                 if ($.isFunction(options.onPostBody)) {
                     options.onPostBody();

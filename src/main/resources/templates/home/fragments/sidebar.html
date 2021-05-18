@@ -1,4 +1,4 @@
-<div th:fragment="sidebar" class="pb-sidebar">
+<div th:fragment="sidebar" class="tz-sidebar">
     <div class="about panel panel-default">
         <div class="panel-heading">
             <h3 class="panel-title">关于本站</h3>
@@ -19,7 +19,7 @@
             <a class="btn btn-default btn-xs" th:each="item:${TAG_LIST}" th:href="@{${'/blog/tag/'+item.id}}" th:text="${item.name}"></a>
         </div>
     </div>
-    <div class="pb-sidebar-tabs">
+    <div class="tz-sidebar-tabs">
         <ul id="myTab" class="nav nav-tabs">
             <li class="active"><a href="#latest" data-toggle="tab">最新文章</a></li>
             <li><a href="#recommend" data-toggle="tab">站长推荐</a></li>

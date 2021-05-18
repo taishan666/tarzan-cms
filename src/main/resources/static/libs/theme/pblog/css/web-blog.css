@@ -8,27 +8,27 @@ body{
 	line-height: 35px;
 }
 
-.pb-content{
+.tz-content{
     position: relative;
     margin-top: 55px;
 }
 
-.pb-main{
+.tz-main{
     float: left;
     margin-top: 20px;
     width: 100%;
 }
 
-.pb-sidebar {
+.tz-sidebar {
     float: left;
     width: 100%;
 }
 
 @media (min-width: 1024px){
-	.pb-main {
+	.tz-main {
 	    width: 70%;
 	}
-	.pb-sidebar{
+	.tz-sidebar{
 		width: 30%;
 		margin-top: 20px;
 		padding-left: 20px;
@@ -153,25 +153,25 @@ body{
     border-color: #0077dd;
 }
 
-.pb-sidebar-tabs{
+.tz-sidebar-tabs{
 	background-color: #fff;
 	border: 1px solid #ddd;
     border-radius: 4px;
     margin-bottom: 20px;
 }
-.pb-sidebar-tabs .nav-tabs{
+.tz-sidebar-tabs .nav-tabs{
 	background-color: #f5f5f5;
 }
 
-.pb-sidebar-tabs .nav-tabs>li{
+.tz-sidebar-tabs .nav-tabs>li{
 	width: 33.33%;
 	text-align: center;
 	border-right: 1px solid #ddd;
 }
-.pb-sidebar-tabs .nav-tabs>li:last-child{
+.tz-sidebar-tabs .nav-tabs>li:last-child{
 	border-right: none;
 }
-.pb-sidebar-tabs .nav-tabs>li>a{
+.tz-sidebar-tabs .nav-tabs>li>a{
     color: #333;
     margin-right: 0;
     border: none;
@@ -180,14 +180,14 @@ body{
     border-top: 2px solid transparent;
 }
 
-.pb-sidebar-tabs .nav-tabs>li.active>a, .pb-sidebar-tabs .nav-tabs>li.active>a:focus{
+.tz-sidebar-tabs .nav-tabs>li.active>a, .tz-sidebar-tabs .nav-tabs>li.active>a:focus{
     background-color: #fff;
     color: #0077dd;
     border: none;
     border-top: 2px solid #0077e4;
 }
 
-.pb-sidebar-tabs .tab-content{
+.tz-sidebar-tabs .tab-content{
 	padding: 5px 15px;
 }
 .article-list li{
@@ -531,23 +531,23 @@ body{
 .superscript-new{
     color: #f23131;
 }
-.pb-main .swiper-slide img {
+.tz-main .swiper-slide img {
     width: 100%;
 }
-.pb-main .swiper-pagination{
+.tz-main .swiper-pagination{
     text-align: right;
     padding-right: 10px;
 }
-.pb-main .swiper-pagination-bullet{
+.tz-main .swiper-pagination-bullet{
     width: 10px;
     height: 10px;
     opacity: 0.5;
 }
-.pb-main .swiper-pagination-bullet-active{
+.tz-main .swiper-pagination-bullet-active{
     background: #fff;
     opacity: 1;
 }
-.pb-main .swiper-slide .slider-title{
+.tz-main .swiper-slide .slider-title{
     position: absolute;
     bottom: 0;
     left: 0;

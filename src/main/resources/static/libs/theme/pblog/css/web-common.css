@@ -67,20 +67,20 @@ img{
 }
 
 /*-------top-start------*/
-.pb-container{
+.tz-container{
     margin-right: auto;
     margin-left: auto;
     padding-left: 15px;
     padding-right: 15px;
 }
 /*@media (min-width: 992px){
-    .pb-container {
+    .tz-container {
         width: 970px;
     }
 }*/
 
 @media (min-width: 1200px){
-    .pb-container {
+    .tz-container {
         width: 1170px;
     }
 }

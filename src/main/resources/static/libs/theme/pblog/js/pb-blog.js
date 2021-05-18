@@ -69,8 +69,8 @@ $(document).ready(function () {
         });
     }
 
-    var Sticky = new hcSticky('.pb-sidebar', {
-        stickTo: '.pb-main',
+    var Sticky = new hcSticky('.tz-sidebar', {
+        stickTo: '.tz-main',
         followScroll: false,
         queries: {
             768: {

@@ -1,7 +1,7 @@
 $(function () {
-    var pblogNickName=Core.getCookie("pb-cms-username");
-    var pblogQQ=Core.getCookie("pb-cms-qq");
-    var pblogEmail=Core.getCookie("pb-cms-email");
+    var pblogNickName=Core.getCookie("tz-cms-username");
+    var pblogQQ=Core.getCookie("tz-cms-qq");
+    var pblogEmail=Core.getCookie("tz-cms-email");
     if(pblogNickName!=""){
         $("#user-name-content").show();
         $("#user-name").text(pblogNickName);
@@ -168,10 +168,10 @@ $(function () {
                         }
                         $("#reply-comment-textarea").val(replySimplemde.markdown(replySimplemde.value()));
                         Core.postAjax("/blog/api/comment/save",$("#reply-comment-form").serialize(),function (data) {
-                            if(Core.getCookie("pb-cms-username")==""){
-                                Core.setCookie("pb-cms-username",$("#reply-nickname").val(),30);
-                                Core.setCookie("pb-cms-qq",$("#reply-qq").val(),30);
-                                Core.setCookie("pb-cms-email",$("#reply-email").val(),30);
+                            if(Core.getCookie("tz-cms-username")==""){
+                                Core.setCookie("tz-cms-username",$("#reply-nickname").val(),30);
+                                Core.setCookie("tz-cms-qq",$("#reply-qq").val(),30);
+                                Core.setCookie("tz-cms-email",$("#reply-email").val(),30);
                             }
                             layer.msg(data.msg, {
                                 offset: '30%',
@@ -221,9 +221,9 @@ $(function () {
             }, function () {
                 if(data.status==200){
                     if(pblogNickName!=$("#nickname").val()||pblogQQ!=$("#qq").val()||pblogEmail!=$("#email").val()){
-                        Core.setCookie("pb-cms-username",$("#nickname").val(),30);
-                        Core.setCookie("pb-cms-qq",$("#qq").val(),30);
-                        Core.setCookie("pb-cms-email",$("#email").val(),30);
+                        Core.setCookie("tz-cms-username",$("#nickname").val(),30);
+                        Core.setCookie("tz-cms-qq",$("#qq").val(),30);
+                        Core.setCookie("tz-cms-email",$("#email").val(),30);
                     }
                     location.reload();
                 }

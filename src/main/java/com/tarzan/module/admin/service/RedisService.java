@@ -2,7 +2,7 @@ package com.tarzan.module.admin.service;
 
 import com.alibaba.fastjson.JSON;
 import lombok.AllArgsConstructor;
-import org.apache.commons.collections4.CollectionUtils;
+import org.apache.commons.collections.CollectionUtils;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 

@@ -1,11 +1,11 @@
 package com.tarzan.common.config;
 
 import at.pollux.thymeleaf.shiro.dialect.ShiroDialect;
+import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import com.tarzan.common.shiro.MyShiroRealm;
 import com.tarzan.common.shiro.filter.KickOutSessionControlFilter;
 import com.tarzan.common.shiro.redis.RedisManager;
 import com.tarzan.common.util.CoreConst;
-import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.mgt.SecurityManager;
 import org.apache.shiro.spring.LifecycleBeanPostProcessor;
 import org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor;

@@ -1,15 +1,14 @@
 package com.tarzan.module.admin.service;
 
+import com.baomidou.mybatisplus.core.toolkit.CollectionUtils;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.tarzan.common.util.CoreConst;
-import com.tarzan.common.util.UUIDUtil;
 import com.tarzan.module.admin.mapper.MenuMapper;
 import com.tarzan.module.admin.model.Menu;
 import lombok.AllArgsConstructor;
-import org.apache.commons.collections4.CollectionUtils;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
+import org.thymeleaf.util.StringUtils;
 
 import java.util.*;
 import java.util.regex.Pattern;

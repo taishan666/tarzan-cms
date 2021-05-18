@@ -1,5 +1,6 @@
 package com.tarzan.module.admin.controller;
 
+import com.baomidou.mybatisplus.core.toolkit.CollectionUtils;
 import com.tarzan.common.util.CoreConst;
 import com.tarzan.common.util.ResultUtil;
 import com.tarzan.module.admin.model.BizArticle;
@@ -8,7 +9,6 @@ import com.tarzan.module.admin.service.BizArticleService;
 import com.tarzan.module.admin.service.BizCategoryService;
 import com.tarzan.module.admin.vo.base.ResponseVo;
 import lombok.AllArgsConstructor;
-import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

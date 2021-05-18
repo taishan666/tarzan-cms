@@ -1,5 +1,6 @@
 package com.tarzan.module.admin.service;
 
+import com.baomidou.mybatisplus.core.toolkit.CollectionUtils;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.google.common.collect.Maps;
@@ -8,7 +9,6 @@ import com.tarzan.common.util.DateUtil;
 import com.tarzan.module.admin.mapper.BizArticleLookMapper;
 import com.tarzan.module.admin.model.BizArticleLook;
 import com.tarzan.module.admin.vo.CountVo;
-import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.RandomUtils;
 import org.springframework.stereotype.Service;
 

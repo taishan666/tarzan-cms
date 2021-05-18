@@ -1,12 +1,12 @@
 package com.tarzan.common.shiro;
 
+import com.baomidou.mybatisplus.core.toolkit.CollectionUtils;
 import com.tarzan.common.util.CoreConst;
 import com.tarzan.common.util.IpUtil;
 import com.tarzan.module.admin.model.User;
 import com.tarzan.module.admin.service.MenuService;
 import com.tarzan.module.admin.service.RoleService;
 import com.tarzan.module.admin.service.UserService;
-import org.apache.commons.collections4.CollectionUtils;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.*;
 import org.apache.shiro.authc.credential.CredentialsMatcher;

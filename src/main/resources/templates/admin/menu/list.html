@@ -20,7 +20,7 @@
 <section class="content">
     <div class="card card-body">
         <div id="toolbar">
-            <shiro:hasPermission name="Menu:add">
+            <shiro:hasPermission name="menu:add">
                 <button id="btn_add" type="button" class="btn btn-primary">
                     <span class="fas fa-plus" aria-hidden="true"></span>新增
                 </button>
@@ -62,8 +62,8 @@
 <script th:src="@{admin/plugins/treegrid/tree.table.js}"></script>
 <script>
 
-    var editFlag = Core.parseBool("[[${@perms.hasPerm('Menu:edit')}]]");
-    var deleteFlag = Core.parseBool("[[${@perms.hasPerm('Menu:delete')}]]");
+    var editFlag = Core.parseBool("[[${@perms.hasPerm('menu:edit')}]]");
+    var deleteFlag = Core.parseBool("[[${@perms.hasPerm('menu:delete')}]]");
 
     var menuType = "1";/*默认选中菜单类型*/
     var menuCheckedType = 0;/*选中的上级的菜单类型*/
@@ -137,9 +137,9 @@
                 title: '操作',
                 align: "center",
                 width: '150px',
-                formatter: function (row, index) {
-                    var edit = editFlag && row.status === 1 ? '<button class="btn btn-info btn-sm btn_edit" onclick="editRow(' + row.permissionId + ')">编辑</button>' : '';
-                    var del = deleteFlag ? '<button class="btn btn-danger btn-sm ml-1 btn_del" onclick="deleteRow(' + row.permissionId + ')">删除</button>' : '';
+                formatter: function (row) {
+                    var edit = editFlag && row.status === 1 ? '<button class="btn btn-info btn-sm btn_edit" onclick="editRow(' + row.id + ')">编辑</button>' : '';
+                    var del = deleteFlag ? '<button class="btn btn-danger btn-sm ml-1 btn_del" onclick="deleteRow(' + row.id + ')">删除</button>' : '';
                     return edit + del;
                 }
             }
@@ -170,7 +170,7 @@
     function saveOrUpdate() {
         var $f = $('#permissionForm');
         var valid = $f[0].checkValidity();
-        var url = $f.find("input[name='permissionId']").val() ? "/menu/edit" : "/menu/add"
+        var url = $f.find("input[name='id']").val() ? "/menu/edit" : "/menu/add"
         if (valid) {
             if (detailMenuCheckedType != null) {
                 var detailMenuType = $f.find("input[name='type']:checked").val();
@@ -208,9 +208,9 @@
     }
 
     /*删除*/
-    function deleteRow(permissionId) {
+    function deleteRow(id) {
         Core.confirm("确定删除该分类？", function () {
-            Core.postAjax("/menu/delete", {"permissionId": permissionId}, function (data) {
+            Core.postAjax("/menu/delete", {"id": id}, function (data) {
                 if (data.status === 200) {
                     treeTableConf.table.refresh();
                 }

@@ -12,7 +12,7 @@ import org.springframework.stereotype.Component;
  */
 @Component("perms")
 public class PermsService {
-    public boolean hasPerm(String Menu) {
-        return SecurityUtils.getSubject().isPermitted(Menu);
+    public boolean hasPerm(String menu) {
+        return SecurityUtils.getSubject().isPermitted(menu);
     }
 }

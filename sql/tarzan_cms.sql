@@ -360,10 +360,10 @@ INSERT INTO `sys_menu` VALUES (14, '删除', '删除角色', '/role/delete', 'ro
 INSERT INTO `sys_menu` VALUES (15, '批量删除', '批量删除角色', '/role/batch/delete', 'role:batchDelete', 10, 2, 0, '', 1, '2018-07-10 22:20:43', '2018-07-10 22:20:43');
 INSERT INTO `sys_menu` VALUES (16, '分配权限', '分配权限', '/role/assign/Menu', 'role:assignPerms', 10, 2, 0, NULL, 1, '2017-09-26 07:33:05', '2018-02-27 10:53:14');
 INSERT INTO `sys_menu` VALUES (17, '资源管理', '资源管理', '/menus', 'menus', 2, 1, 3, 'fas fa-chess-queen', 1, '2017-09-26 07:33:51', '2018-02-27 10:53:14');
-INSERT INTO `sys_menu` VALUES (18, '列表查询', '资源列表', '/menu/list', 'Menu:list', 17, 2, 0, NULL, 1, '2018-07-12 16:25:28', '2018-07-12 16:25:33');
-INSERT INTO `sys_menu` VALUES (19, '新增', '新增资源', '/menu/add', 'Menu:add', 17, 2, 0, NULL, 1, '2017-09-26 08:06:58', '2018-02-27 10:53:14');
-INSERT INTO `sys_menu` VALUES (20, '编辑', '编辑资源', '/menu/edit', 'Menu:edit', 17, 2, 0, NULL, 1, '2017-09-27 21:29:04', '2018-02-27 10:53:14');
-INSERT INTO `sys_menu` VALUES (21, '删除', '删除资源', '/menu/delete', 'Menu:delete', 17, 2, 0, NULL, 1, '2017-09-27 21:29:50', '2018-02-27 10:53:14');
+INSERT INTO `sys_menu` VALUES (18, '列表查询', '资源列表', '/menu/list', 'menu:list', 17, 2, 0, NULL, 1, '2018-07-12 16:25:28', '2018-07-12 16:25:33');
+INSERT INTO `sys_menu` VALUES (19, '新增', '新增资源', '/menu/add', 'menu:add', 17, 2, 0, NULL, 1, '2017-09-26 08:06:58', '2018-02-27 10:53:14');
+INSERT INTO `sys_menu` VALUES (20, '编辑', '编辑资源', '/menu/edit', 'menu:edit', 17, 2, 0, NULL, 1, '2017-09-27 21:29:04', '2018-02-27 10:53:14');
+INSERT INTO `sys_menu` VALUES (21, '删除', '删除资源', '/menu/delete', 'menu:delete', 17, 2, 0, NULL, 1, '2017-09-27 21:29:50', '2018-02-27 10:53:14');
 INSERT INTO `sys_menu` VALUES (22, '运维管理', '运维管理', NULL, NULL, 0, 0, 7, 'fas fa-people-carry', 1, '2018-07-06 15:19:26', '2020-04-19 19:09:59');
 INSERT INTO `sys_menu` VALUES (23, '数据监控', '数据监控', '/database/monitoring', 'database', 22, 1, 1, 'fas fa-chess-queen', 1, '2018-07-06 15:19:55', '2018-07-06 15:19:55');
 INSERT INTO `sys_menu` VALUES (24, '系统管理', '系统管理', NULL, NULL, 0, 0, 5, 'fas fa-cog', 1, '2018-07-06 15:20:38', '2020-04-19 19:08:58');

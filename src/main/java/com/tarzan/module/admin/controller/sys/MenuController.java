@@ -42,14 +42,14 @@ public class MenuController {
 
     @GetMapping("/add")
     public String add(Model model) {
-        model.addAttribute("Menu", new Menu().setType(0));
+        model.addAttribute("menu", new Menu().setType(0));
         return CoreConst.ADMIN_PREFIX + "menu/form";
     }
 
     /*权限列表数据*/
     @PostMapping("/list")
     @ResponseBody
-    public List<Menu> loadPermissions(String flag) {
+    public List<Menu> loadMenus(String flag) {
         List<Menu> permissionListList = new ArrayList<Menu>();
         if (StringUtils.isBlank(flag) || MENU_FLAG[0].equals(flag)) {
             permissionListList = menuService.selectAll(CoreConst.STATUS_VALID);
@@ -62,9 +62,9 @@ public class MenuController {
     /*添加权限*/
     @ResponseBody
     @PostMapping("/add")
-    public ResponseVo addPermission(Menu Menu) {
+    public ResponseVo addMenu(Menu menu) {
         try {
-            int a = menuService.insert(Menu);
+            int a = menuService.insert(menu);
             if (a > 0) {
                 shiroService.updatePermission();
                 return ResultUtil.success("添加权限成功");
@@ -80,7 +80,7 @@ public class MenuController {
     /*删除权限*/
     @ResponseBody
     @PostMapping("/delete")
-    public ResponseVo deletePermission(Integer id) {
+    public ResponseVo deleteMenu(Integer id) {
         try {
             int subPermsByPermissionIdCount = menuService.selectSubPermsByPermissionId(id);
             if (subPermsByPermissionIdCount > 0) {
@@ -101,22 +101,22 @@ public class MenuController {
 
     /*权限详情*/
     @GetMapping("/edit")
-    public ModelAndView detail(Model model, String menuId) {
+    public ModelAndView detail(Model model, Integer id) {
         ModelAndView modelAndView = new ModelAndView();
-        Menu Menu = menuService.getById(menuId);
-        if (null != Menu) {
-            if (CoreConst.TOP_MENU_ID.equals(Menu.getParentId())) {
+        Menu menu = menuService.getById(id);
+        if (null != menu) {
+            if (CoreConst.TOP_MENU_ID.equals(menu.getParentId())) {
                 model.addAttribute("parentName", CoreConst.TOP_MENU_NAME);
             } else {
-                Menu parent = menuService.getById(Menu.getParentId());
+                Menu parent = menuService.getById(menu.getParentId());
                 if (parent != null) {
                     model.addAttribute("parentName", parent.getName());
                 }
             }
-            model.addAttribute("Menu", Menu);
+            model.addAttribute("menu", menu);
             modelAndView.setViewName(CoreConst.ADMIN_PREFIX + "menu/form");
         } else {
-            log.error("根据权限id获取权限详情失败，权限id: {}", menuId);
+            log.error("根据权限id获取权限详情失败，权限id: {}", id);
             modelAndView.setView(new RedirectView("/error/500", true, false));
         }
         return modelAndView;
@@ -125,7 +125,7 @@ public class MenuController {
     /*编辑权限*/
     @ResponseBody
     @PostMapping("/edit")
-    public ResponseVo editPermission(@ModelAttribute("Menu") Menu Menu) {
+    public ResponseVo editMenu(@ModelAttribute("menu") Menu Menu) {
         boolean flag = menuService.updateById(Menu);
         if (flag) {
             shiroService.updatePermission();

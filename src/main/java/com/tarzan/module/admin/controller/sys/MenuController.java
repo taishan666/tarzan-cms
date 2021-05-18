@@ -27,7 +27,7 @@ import java.util.List;
  */
 @Slf4j
 @Controller
-@RequestMapping("/Menu")
+@RequestMapping("/menu")
 @AllArgsConstructor
 public class MenuController {
 
@@ -43,7 +43,7 @@ public class MenuController {
     @GetMapping("/add")
     public String add(Model model) {
         model.addAttribute("Menu", new Menu().setType(0));
-        return CoreConst.ADMIN_PREFIX + "Menu/form";
+        return CoreConst.ADMIN_PREFIX + "menu/form";
     }
 
     /*权限列表数据*/
@@ -114,7 +114,7 @@ public class MenuController {
                 }
             }
             model.addAttribute("Menu", Menu);
-            modelAndView.setViewName(CoreConst.ADMIN_PREFIX + "Menu/form");
+            modelAndView.setViewName(CoreConst.ADMIN_PREFIX + "menu/form");
         } else {
             log.error("根据权限id获取权限详情失败，权限id: {}", menuId);
             modelAndView.setView(new RedirectView("/error/500", true, false));

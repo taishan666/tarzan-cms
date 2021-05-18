@@ -20,7 +20,7 @@ public interface MenuMapper extends BaseMapper<Menu> {
      * @param userId 状态
      * @return set
      */
-    Set<String> findPermsByUserId(String userId);
+    Set<String> findPermsByUserId(Integer userId);
 
     /**
      * 根据角色id查询权限
@@ -36,6 +36,6 @@ public interface MenuMapper extends BaseMapper<Menu> {
      * @param userId 用户id
      * @return the list
      */
-    List<Menu> selectMenuByUserId(String userId);
+    List<Menu> selectMenuByUserId(Integer userId);
 
 }

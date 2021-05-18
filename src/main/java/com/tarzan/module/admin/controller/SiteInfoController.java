@@ -31,7 +31,7 @@ public class SiteInfoController {
     private final SysConfigService configService;
     private final StaticHtmlService staticHtmlService;
 
-    @PostMapping("/siteinfo/edit")
+    @PostMapping("/siteInfo/edit")
     @ResponseBody
     public ResponseVo save(@RequestParam Map<String, String> map, HttpServletRequest request, HttpServletResponse response) {
         try {

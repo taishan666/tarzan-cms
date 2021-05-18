@@ -147,9 +147,9 @@
     }
 
     $(function () {
-        var table = new TreeTable(treeTableConf.id, "/Menu/list", treeTableConf.columns, "permissionId");
+        var table = new TreeTable(treeTableConf.id, "/menu/list", treeTableConf.columns, "id");
         table.setExpandColumn(1);
-        table.setIdField("permissionId");
+        table.setIdField("id");
         table.setCodeField("id");
         table.setParentCodeField("parentId");
         /*table.setExpandAll(true);*/
@@ -160,7 +160,7 @@
 
     // 新增
     $('#btn_add').on('click', function () {
-        Core.load("#formContent", "/Menu/add", function () {
+        Core.load("#formContent", "/menu/add", function () {
             $('#formTitle').text('新增')
             $("#formModal").modal('show');
         });
@@ -170,7 +170,7 @@
     function saveOrUpdate() {
         var $f = $('#permissionForm');
         var valid = $f[0].checkValidity();
-        var url = $f.find("input[name='permissionId']").val() ? "/Menu/edit" : "/Menu/add"
+        var url = $f.find("input[name='permissionId']").val() ? "/menu/edit" : "/menu/add"
         if (valid) {
             if (detailMenuCheckedType != null) {
                 var detailMenuType = $f.find("input[name='type']:checked").val();
@@ -200,8 +200,8 @@
     }
 
     /*编辑*/
-    function editRow(permissionId) {
-        Core.load("#formContent", "/Menu/edit?permissionId=" + permissionId, function () {
+    function editRow(id) {
+        Core.load("#formContent", "/menu/edit?id=" + id, function () {
             $('#formTitle').text('编辑')
             $("#formModal").modal('show');
         });
@@ -210,7 +210,7 @@
     /*删除*/
     function deleteRow(permissionId) {
         Core.confirm("确定删除该分类？", function () {
-            Core.postAjax("/Menu/delete", {"permissionId": permissionId}, function (data) {
+            Core.postAjax("/menu/delete", {"permissionId": permissionId}, function (data) {
                 if (data.status === 200) {
                     treeTableConf.table.refresh();
                 }
@@ -232,7 +232,7 @@
                 }
             }
         };
-        Core.postAjax('/Menu/list', {flag: "2"}, function (data) {
+        Core.postAjax('/menu/list', {flag: "2"}, function (data) {
             var topMenu = {
                 name: "顶层菜单",
                 id: 0,

@@ -271,7 +271,7 @@
         // 分配权限
         function assignPermission(roleId) {
             roleIdChecked = roleId;
-            Core.postAjax("/role/assign/Menu/list", {"roleId": roleId}, function (data) {
+            Core.postAjax("/role/assign/menu/list", {"roleId": roleId}, function (data) {
                 var zNodes = data;
                 $.fn.zTree.init($("#permissionTree"), treeSetting, zNodes);
                 $("#assignPermissionModal").modal("show");
@@ -295,7 +295,7 @@
                     permissionIdStr += nodes[i].permissionId + ",";
                 }
             }
-            Core.postAjax('/role/assign/Menu', {
+            Core.postAjax('/role/assign/menu', {
                 roleId: roleIdChecked,
                 permissionIdStr: permissionIdStr
             }, function (data) {

@@ -40,7 +40,7 @@ public class AdminRenderController {
      */
     @RequestMapping("/admin")
     public String index(Model model) {
-        model.addAttribute("menuTree", MenuService.selectMenuTreeByUserId(((User) SecurityUtils.getSubject().getPrincipal()).getUserId()));
+        model.addAttribute("menuTree", MenuService.selectMenuTreeByUserId(((User) SecurityUtils.getSubject().getPrincipal()).getId()));
         return CoreConst.ADMIN_PREFIX + "index/index";
     }
 
@@ -72,9 +72,9 @@ public class AdminRenderController {
     /**
      * 权限列表入口
      */
-    @GetMapping("/permissions")
+    @GetMapping("/menus")
     public String permissionList() {
-        return CoreConst.ADMIN_PREFIX + "Menu/list";
+        return CoreConst.ADMIN_PREFIX + "menu/list";
     }
 
     /**
@@ -90,11 +90,11 @@ public class AdminRenderController {
      *
      * @param model
      */
-    @GetMapping("/siteinfo")
-    public String siteinfo(Model model) {
+    @GetMapping("/siteInfo")
+    public String siteInfo(Model model) {
         Map<String, String> map = sysConfigService.selectAll();
-        model.addAttribute("siteinfo", map);
-        return CoreConst.ADMIN_PREFIX + "site/siteinfo";
+        model.addAttribute("siteInfo", map);
+        return CoreConst.ADMIN_PREFIX + "site/siteInfo";
     }
 
     /**

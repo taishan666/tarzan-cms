@@ -76,7 +76,7 @@ public class ArticleController {
     public ResponseVo add(BizArticle bizArticle, Integer[] tag) {
         try {
             User user = (User) SecurityUtils.getSubject().getPrincipal();
-            bizArticle.setUserId(user.getUserId());
+            bizArticle.setUserId(user.getId());
             bizArticle.setAuthor(user.getNickname());
             BizArticle article = articleService.insertArticle(bizArticle);
             articleTagsService.insertList(tag, article.getId());

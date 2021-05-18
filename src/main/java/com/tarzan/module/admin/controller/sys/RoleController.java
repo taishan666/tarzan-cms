@@ -81,11 +81,11 @@ public class RoleController {
     /*删除角色*/
     @PostMapping("/delete")
     @ResponseBody
-    public ResponseVo deleteRole(String roleId) {
+    public ResponseVo deleteRole(Integer roleId) {
         if (roleService.findByRoleId(roleId).size() > 0) {
             return ResultUtil.error("删除失败,该角色下存在用户");
         }
-        List<String> roleIdsList = Collections.singletonList(roleId);
+        List<Integer> roleIdsList = Collections.singletonList(roleId);
         int a = roleService.updateStatusBatch(roleIdsList, CoreConst.STATUS_INVALID);
         if (a > 0) {
             return ResultUtil.success("删除角色成功");
@@ -97,12 +97,11 @@ public class RoleController {
     /*批量删除角色*/
     @PostMapping("/batch/delete")
     @ResponseBody
-    public ResponseVo batchDeleteRole(@RequestParam("ids[]") String[] ids) {
-        List<String> roleIdsList = Arrays.asList(ids);
-        if (CollectionUtils.isNotEmpty(roleService.findByRoleIds(roleIdsList))) {
+    public ResponseVo batchDeleteRole(@RequestParam("ids") List<Integer> ids) {
+        if (CollectionUtils.isNotEmpty(roleService.findByRoleIds(ids))) {
             return ResultUtil.error("删除失败,选择的角色下存在用户");
         }
-        int a = roleService.updateStatusBatch(roleIdsList, CoreConst.STATUS_INVALID);
+        int a = roleService.updateStatusBatch(ids, CoreConst.STATUS_INVALID);
         if (a > 0) {
             return ResultUtil.success("删除角色成功");
         } else {
@@ -131,21 +130,21 @@ public class RoleController {
     }
 
     /*分配权限列表查询*/
-    @PostMapping("/assign/Menu/list")
+    @PostMapping("/assign/menu/list")
     @ResponseBody
     public List<PermissionTreeListVo> assignRole(String roleId) {
         List<PermissionTreeListVo> listVos = new ArrayList<>();
-        List<Menu> allPermissions = MenuService.selectAll(CoreConst.STATUS_VALID);
-        List<Menu> hasPermissions = roleService.findPermissionsByRoleId(roleId);
-        for (Menu Menu : allPermissions) {
+        List<Menu> allMenus = MenuService.selectAll(CoreConst.STATUS_VALID);
+        List<Menu> hasMenus = roleService.findPermissionsByRoleId(roleId);
+        for (Menu menu : allMenus) {
             PermissionTreeListVo vo = new PermissionTreeListVo();
-            vo.setId(Menu.getId());
-            vo.setPermissionId(Menu.getPermissionId());
-            vo.setName(Menu.getName());
-            vo.setParentId(Menu.getParentId());
-            for (Menu hasPermission : hasPermissions) {
+            vo.setId(menu.getId());
+            vo.setMenuId(menu.getId());
+            vo.setName(menu.getName());
+            vo.setParentId(menu.getParentId());
+            for (Menu hasMenu : hasMenus) {
                 //有权限则选中
-                if (hasPermission.getPermissionId().equals(Menu.getPermissionId())) {
+                if (hasMenu.getId().equals(menu.getId())) {
                     vo.setChecked(true);
                     break;
                 }
@@ -157,22 +156,22 @@ public class RoleController {
 
 
     /*分配权限*/
-    @PostMapping("/assign/Menu")
+    @PostMapping("/assign/menu")
     @ResponseBody
-    public ResponseVo assignRole(String roleId, String permissionIdStr) {
-        List<String> permissionIdsList = new ArrayList<>();
-        if (StringUtils.isNotBlank(permissionIdStr)) {
-            String[] permissionIds = permissionIdStr.split(",");
-            permissionIdsList = Arrays.asList(permissionIds);
+    public ResponseVo assignRole(Integer roleId, String menuIdStr) {
+        List<String> menuIdsList = new ArrayList<>();
+        if (StringUtils.isNotBlank(menuIdStr)) {
+            String[] permissionIds = menuIdStr.split(",");
+            menuIdsList = Arrays.asList(permissionIds);
         }
         try {
-            roleService.addAssignPermission(roleId, permissionIdsList);
+            roleService.addAssignPermission(roleId, menuIdsList);
             /*重新加载角色下所有用户权限*/
             List<User> userList = roleService.findByRoleId(roleId);
             if (!userList.isEmpty()) {
-                List<String> userIds = new ArrayList<>();
+                List<Integer> userIds = new ArrayList<>();
                 for (User user : userList) {
-                    userIds.add(user.getUserId());
+                    userIds.add(user.getId());
                 }
                 myShiroRealm.clearAuthorizationByUserId(userIds);
             }

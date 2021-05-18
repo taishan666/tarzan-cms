@@ -28,12 +28,12 @@ public class RoleService extends ServiceImpl<RoleMapper, Role> {
     private final UserMapper userMapper;
     private final UserRoleMapper userRoleMapper;
 
-    public Set<String> findRoleByUserId(String userId) {
+    public Set<String> findRoleByUserId(Integer userId) {
         List<UserRole> list=userRoleMapper.selectList(Wrappers.<UserRole>lambdaQuery().eq(UserRole::getUserId, userId));
         if(list==null){
             return null;
         }
-        return  list.stream().map(UserRole::getRoleId).collect(Collectors.toSet());
+        return  list.stream().map(e->String.valueOf(e.getRoleId())).collect(Collectors.toSet());
     }
 
     public IPage<Role> selectRoles(Role role, Integer pageNumber, Integer pageSize) {
@@ -48,7 +48,7 @@ public class RoleService extends ServiceImpl<RoleMapper, Role> {
         return baseMapper.insert(role);
     }
 
-    public int updateStatusBatch(List<String> roleIds, Integer status) {
+    public int updateStatusBatch(List<Integer> roleIds, Integer status) {
         return baseMapper.update(new Role().setStatus(status),Wrappers.<Role>lambdaUpdate().in(Role::getRoleId, roleIds));
     }
 
@@ -56,21 +56,21 @@ public class RoleService extends ServiceImpl<RoleMapper, Role> {
         return MenuMapper.findByRoleId(roleId);
     }
 
-    public void addAssignPermission(String roleId, List<String> permissionIds) {
+    public void addAssignPermission(Integer roleId, List<String> menuIds) {
         RoleMenuMapper.delete(Wrappers.<RoleMenu>lambdaQuery().eq(RoleMenu::getRoleId, roleId));
-        for (String permissionId : permissionIds) {
+        for (String menuId : menuIds) {
             RoleMenu RoleMenu = new RoleMenu();
             RoleMenu.setRoleId(roleId);
-            RoleMenu.setPermissionId(permissionId);
+            RoleMenu.setMenuId(Integer.valueOf(menuId));
             RoleMenuMapper.insert(RoleMenu);
         }
     }
 
-    public List<User> findByRoleId(String roleId) {
+    public List<User> findByRoleId(Integer roleId) {
         return userMapper.findByRoleId(roleId);
     }
 
-    public List<User> findByRoleIds(List<String> roleIds) {
+    public List<User> findByRoleIds(List<Integer> roleIds) {
         return userMapper.findByRoleIds(roleIds);
     }
 

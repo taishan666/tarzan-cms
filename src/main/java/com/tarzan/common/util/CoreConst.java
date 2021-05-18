@@ -21,8 +21,8 @@ public class CoreConst {
     public static final Integer PAGE_SIZE = 10;
     public static final Integer TOP_MENU_ID = 0;
     public static final String TOP_MENU_NAME = "顶层菜单";
-    public static final String SHIRO_REDIS_SESSION_PREFIX = "pb_cms:session:";
-    public static final String SHIRO_REDIS_CACHE_NAME = "shiro_pb_cms";
+    public static final String SHIRO_REDIS_SESSION_PREFIX = "tarzan_cms:session:";
+    public static final String SHIRO_REDIS_CACHE_NAME = "shiro_tarzan_cms";
 
     public static final String ADMIN_PREFIX = "admin/";
 

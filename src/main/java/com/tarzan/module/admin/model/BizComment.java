@@ -15,7 +15,7 @@ import lombok.EqualsAndHashCode;
 public class BizComment extends BaseVo {
     private static final long serialVersionUID = -7221371985694751121L;
 
-    private String userId;
+    private Integer userId;
     private Integer sid;
     private Integer pid;
     private String qq;

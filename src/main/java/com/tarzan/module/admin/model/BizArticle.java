@@ -20,7 +20,7 @@ public class BizArticle extends BaseVo {
     private static final long serialVersionUID = 7238198006412851176L;
 
     private String title;
-    private String userId;
+    private Integer userId;
     private String author;
     private String coverImage;
     private String qrcodePath;

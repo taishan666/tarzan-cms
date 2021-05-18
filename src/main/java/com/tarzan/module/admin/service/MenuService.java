@@ -37,18 +37,18 @@ public class MenuService extends ServiceImpl<MenuMapper, Menu> {
         return rootLevelPermissionList;
     }
 
-    private static void fetchChildren(List<Menu> permissionList, Map<Integer, List<Menu>> parentIdToPermissionListMap) {
-        if (CollectionUtils.isEmpty(permissionList)) {
+    private static void fetchChildren(List<Menu> menuListList, Map<Integer, List<Menu>> parentIdToPermissionListMap) {
+        if (CollectionUtils.isEmpty(menuListList)) {
             return;
         }
-        for (Menu Menu : permissionList) {
-            List<Menu> childrenList = parentIdToPermissionListMap.get(Menu.getId());
+        for (Menu menu : menuListList) {
+            List<Menu> childrenList = parentIdToPermissionListMap.get(menu.getId());
             fetchChildren(childrenList, parentIdToPermissionListMap);
-            Menu.setChildren(childrenList);
+            menu.setChildren(childrenList);
         }
     }
 
-    public Set<String> findPermsByUserId(String userId) {
+    public Set<String> findPermsByUserId(Integer userId) {
         return baseMapper.findPermsByUserId(userId);
     }
 
@@ -60,17 +60,16 @@ public class MenuService extends ServiceImpl<MenuMapper, Menu> {
         return  baseMapper.selectList(Wrappers.<Menu>lambdaQuery().eq(Menu::getStatus,status).orderByAsc(Menu::getOrderNum));
     }
 
-    public List<Menu> selectMenuByUserId(String userId) {
+    public List<Menu> selectMenuByUserId(Integer userId) {
         return baseMapper.selectMenuByUserId(userId);
     }
 
-    public List<Menu> selectMenuTreeByUserId(String userId) {
+    public List<Menu> selectMenuTreeByUserId(Integer userId) {
         return buildPermissionTree(baseMapper.selectMenuByUserId(userId));
     }
 
     public int insert(Menu Menu) {
         Date date = new Date();
-        Menu.setPermissionId(UUIDUtil.getUniqueIdByUUId());
         Menu.setStatus(CoreConst.STATUS_VALID);
         Menu.setCreateTime(date);
         Menu.setUpdateTime(date);

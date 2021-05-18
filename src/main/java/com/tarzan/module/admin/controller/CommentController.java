@@ -95,7 +95,7 @@ public class CommentController {
     private void completeComment(BizComment comment) {
         HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
         User user = (User) SecurityUtils.getSubject().getPrincipal();
-        comment.setUserId(user.getUserId());
+        comment.setUserId(user.getId());
         comment.setNickname(user.getNickname());
         comment.setEmail(user.getEmail());
         comment.setAvatar(user.getImg());

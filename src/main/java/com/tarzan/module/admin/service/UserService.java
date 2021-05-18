@@ -97,7 +97,7 @@ public class UserService extends ServiceImpl<UserMapper, User> {
         return baseMapper.selectUsers(page, user);
     }
 
-    public User selectByUserId(String userId) {
+    public User selectByUserId(Integer userId) {
         return baseMapper.selectById(userId);
     }
 
@@ -108,17 +108,17 @@ public class UserService extends ServiceImpl<UserMapper, User> {
     }
 
     public boolean updateStatusBatch(List<String> userIds, Integer status) {
-        return update(Wrappers.<User>lambdaUpdate().in(User::getUserId, userIds)
+        return update(Wrappers.<User>lambdaUpdate().in(User::getId, userIds)
                 .set(User::getStatus, status).set(User::getUpdateTime, new Date()));
     }
 
     @Transactional(rollbackFor = Exception.class)
-    public void addAssignRole(String userId, List<String> roleIds) {
+    public void addAssignRole(Integer userId, List<String> roleIds) {
         userRoleMapper.delete(Wrappers.<UserRole>lambdaQuery().eq(UserRole::getUserId, userId));
         for (String roleId : roleIds) {
             UserRole userRole = new UserRole();
             userRole.setUserId(userId);
-            userRole.setRoleId(roleId);
+            userRole.setRoleId(Integer.valueOf(roleId));
             userRoleMapper.insert(userRole);
         }
     }

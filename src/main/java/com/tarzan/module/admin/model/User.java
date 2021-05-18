@@ -24,14 +24,17 @@ public class User implements Serializable {
     /**
      * 用户id
      */
-    @TableId(type = IdType.UUID)
-    private String userId;
+    @TableId(type = IdType.AUTO)
+    private Integer id;
 
     /**
      * 用户名
      */
     private String username;
 
+    /**
+     * 用户密码
+     */
     private String password;
 
     /**

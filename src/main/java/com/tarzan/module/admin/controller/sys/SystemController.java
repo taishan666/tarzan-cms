@@ -195,7 +195,7 @@ public class SystemController {
     @PostMapping("/menu")
     @ResponseBody
     public List<Menu> getMenus() {
-        return MenuService.selectMenuByUserId(((User) SecurityUtils.getSubject().getPrincipal()).getUserId());
+        return MenuService.selectMenuByUserId(((User) SecurityUtils.getSubject().getPrincipal()).getId());
     }
 
     private void getSysConfig(Model model) {

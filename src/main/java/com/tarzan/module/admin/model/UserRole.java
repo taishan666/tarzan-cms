@@ -21,11 +21,11 @@ public class UserRole implements Serializable {
     /**
      * 用户id
      */
-    private String userId;
+    private Integer userId;
 
     /**
      * 角色id
      */
-    private String roleId;
+    private Integer roleId;
 
 }

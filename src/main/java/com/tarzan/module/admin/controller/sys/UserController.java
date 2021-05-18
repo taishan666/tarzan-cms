@@ -70,7 +70,6 @@ public class UserController {
                 return ResultUtil.error("两次密码不一致");
             }
         }
-        userForm.setUserId(UUIDUtil.getUniqueIdByUUId());
         userForm.setStatus(CoreConst.STATUS_VALID);
         Date date = new Date();
         userForm.setCreateTime(date);
@@ -89,7 +88,7 @@ public class UserController {
      * 编辑用户详情
      */
     @GetMapping("/edit")
-    public String userDetail(Model model, String userId) {
+    public String userDetail(Model model, Integer userId) {
         User user = userService.selectByUserId(userId);
         model.addAttribute("user", user);
         return CoreConst.ADMIN_PREFIX + "user/form";
@@ -144,7 +143,7 @@ public class UserController {
      */
     @PostMapping("/assign/role/list")
     @ResponseBody
-    public Map<String, Object> assignRoleList(String userId) {
+    public Map<String, Object> assignRoleList(Integer userId) {
         List<Role> roleList = roleService.list(Wrappers.<Role>lambdaQuery().eq(Role::getStatus, 1));
         Set<String> hasRoles = roleService.findRoleByUserId(userId);
         Map<String, Object> jsonMap = new HashMap<>(2);
@@ -158,7 +157,7 @@ public class UserController {
      */
     @PostMapping("/assign/role")
     @ResponseBody
-    public ResponseVo assignRole(String userId, String roleIdStr) {
+    public ResponseVo assignRole(Integer userId, String roleIdStr) {
         ResponseVo responseVo;
         String[] roleIds = roleIdStr.split(",");
         List<String> roleIdsList = Arrays.asList(roleIds);
@@ -181,7 +180,7 @@ public class UserController {
         if (!changePasswordVo.getNewPassword().equals(changePasswordVo.getConfirmNewPassword())) {
             return ResultUtil.error("两次密码输入不一致");
         }
-        User loginUser = userService.selectByUserId(((User) SecurityUtils.getSubject().getPrincipal()).getUserId());
+        User loginUser = userService.selectByUserId(((User) SecurityUtils.getSubject().getPrincipal()).getId());
         User newUser = CopyUtil.getCopy(loginUser, User.class);
         String sysOldPassword = loginUser.getPassword();
         newUser.setPassword(changePasswordVo.getOldPassword());
@@ -191,8 +190,8 @@ public class UserController {
             PasswordHelper.encryptPassword(newUser);
             userService.updateById(newUser);
             //*清除登录缓存*//
-            List<String> userIds = new ArrayList<>();
-            userIds.add(loginUser.getUserId());
+            List<Integer> userIds = new ArrayList<>();
+            userIds.add(loginUser.getId());
             shiroRealm.removeCachedAuthenticationInfo(userIds);
             /*SecurityUtils.getSubject().logout();*/
         } else {

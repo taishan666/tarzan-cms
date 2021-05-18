@@ -66,8 +66,8 @@ public class MyShiroRealm extends AuthorizingRealm {
         }
         User user = (User) principals.getPrimaryPrincipal();
         SimpleAuthorizationInfo info = new SimpleAuthorizationInfo();
-        info.setRoles(roleService.findRoleByUserId(user.getUserId()));
-        info.setStringPermissions(MenuService.findPermsByUserId(user.getUserId()));
+        info.setRoles(roleService.findRoleByUserId(user.getId()));
+        info.setStringPermissions(MenuService.findPermsByUserId(user.getId()));
         return info;
     }
 
@@ -106,7 +106,7 @@ public class MyShiroRealm extends AuthorizingRealm {
      *
      * @param userIds 待清除认证信息的userId列表
      */
-    public void removeCachedAuthenticationInfo(List<String> userIds) {
+    public void removeCachedAuthenticationInfo(List<Integer> userIds) {
         if (CollectionUtils.isNotEmpty(userIds)) {
             Set<SimplePrincipalCollection> set = getSpcListByUserIds(userIds);
             RealmSecurityManager securityManager = (RealmSecurityManager) SecurityUtils.getSecurityManager();
@@ -122,7 +122,7 @@ public class MyShiroRealm extends AuthorizingRealm {
      *
      * @param userIds 已经修改了权限的userId列表
      */
-    public void clearAuthorizationByUserId(List<String> userIds) {
+    public void clearAuthorizationByUserId(List<Integer> userIds) {
         if (CollectionUtils.isNotEmpty(userIds)) {
             Set<SimplePrincipalCollection> set = getSpcListByUserIds(userIds);
             RealmSecurityManager securityManager = (RealmSecurityManager) SecurityUtils.getSecurityManager();
@@ -140,7 +140,7 @@ public class MyShiroRealm extends AuthorizingRealm {
      * @param userIds 已经修改了权限的userId
      * @return
      */
-    private Set<SimplePrincipalCollection> getSpcListByUserIds(List<String> userIds) {
+    private Set<SimplePrincipalCollection> getSpcListByUserIds(List<Integer> userIds) {
         //获取所有session
         Collection<Session> sessions = redisSessionDAO.getActiveSessions();
         //定义返回
@@ -156,7 +156,7 @@ public class MyShiroRealm extends AuthorizingRealm {
                 if (obj instanceof User) {
                     User user = (User) obj;
                     //比较用户ID，符合即加入集合
-                    if (user != null && userIds.contains(user.getUserId())) {
+                    if (user != null && userIds.contains(user.getId())) {
                         set.add(spc);
                     }
                 }

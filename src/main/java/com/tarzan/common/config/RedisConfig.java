@@ -38,7 +38,7 @@ public class RedisConfig extends CachingConfigurerSupport {
         RedisCacheConfiguration cacheConfiguration = RedisCacheConfiguration
                 .defaultCacheConfig()
                 .entryTtl(Duration.ofDays(30))
-                .computePrefixWith(CacheKeyPrefix.prefixed("pb:cms:"))
+                .computePrefixWith(CacheKeyPrefix.prefixed("tarzan:cms:"))
                 .serializeValuesWith(RedisSerializationContext.SerializationPair.fromSerializer(jackson2JsonRedisSerializer()));
         return RedisCacheManager
                 .builder(RedisCacheWriter.nonLockingRedisCacheWriter(factory))

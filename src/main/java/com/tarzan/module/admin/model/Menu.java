@@ -24,11 +24,6 @@ public class Menu implements Serializable {
     private Integer id;
 
     /**
-     * 权限id
-     */
-    private String permissionId;
-
-    /**
      * 权限名称
      */
     private String name;

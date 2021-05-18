@@ -19,11 +19,11 @@ public class RoleMenu implements Serializable {
     /**
      * 角色id
      */
-    private String roleId;
+    private Integer roleId;
 
     /**
      * 权限id
      */
-    private String permissionId;
+    private Integer menuId;
 
 }

@@ -61,8 +61,8 @@ public class ShiroService {
         filterChainDefinitionMap.put("/verificationCode", "anon");
         filterChainDefinitionMap.put(fileUploadProperties.getAccessPathPattern(), "anon");
         filterChainDefinitionMap.put(staticHtmlProperties.getAccessPathPattern(), "anon");
-        List<Menu> permissionList = MenuService.selectAll(CoreConst.STATUS_VALID);
-        for (Menu menu : permissionList) {
+        List<Menu> menuList = MenuService.selectAll(CoreConst.STATUS_VALID);
+        for (Menu menu : menuList) {
             if (StringUtils.isNotBlank(menu.getUrl()) && StringUtils.isNotBlank(menu.getPerms())) {
                 String perm = "perms[" + menu.getPerms() + ']';
                 filterChainDefinitionMap.put(menu.getUrl(), perm + ",kickOut");

@@ -4,7 +4,7 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Maps;
-import com.tarzan.common.config.properties.StaticizeProperties;
+import com.tarzan.common.config.properties.StaticHtmlProperties;
 import com.tarzan.common.util.CoreConst;
 import com.tarzan.common.util.Pagination;
 import com.tarzan.component.CommonDataService;
@@ -35,7 +35,7 @@ import static com.tarzan.common.util.CoreConst.THEME_PREFIX;
 @AllArgsConstructor
 public class StaticHtmlService {
 
-    private final StaticizeProperties staticizeProperties;
+    private final StaticHtmlProperties staticHtmlProperties;
     private final TemplateEngine templateEngine;
     private final BizArticleService bizArticleService;
     private final BizCategoryService bizCategoryService;
@@ -145,7 +145,7 @@ public class StaticHtmlService {
 
 
     public void createHtml(HttpServletRequest request, HttpServletResponse response, Boolean force, Map<String, Object> map, String templateUrl, String fileName) {
-        if (StringUtils.isBlank(staticizeProperties.getFolder())) {
+        if (StringUtils.isBlank(staticHtmlProperties.getFolder())) {
             throw new IllegalArgumentException("请先在Yml配置静态页面生成路径");
         }
         log.info("开始生成静态页面: {}", fileName);
@@ -162,7 +162,7 @@ public class StaticHtmlService {
             // 把数据放入上下文对象
             context.setVariables(paramMap);
             // 文件生成路径
-            String fileUrl = StringUtils.appendIfMissing(staticizeProperties.getFolder(), File.separator) + templateUrl + File.separator + fileName + ".html";
+            String fileUrl = StringUtils.appendIfMissing(staticHtmlProperties.getFolder(), File.separator) + templateUrl + File.separator + fileName + ".html";
             // 自动创建上层文件夹
             File directory = new File(StringUtils.substringBeforeLast(fileUrl, File.separator));
             if (!directory.exists()) {

@@ -5,9 +5,9 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 
 @Data
 @ConfigurationProperties(prefix = "static")
-public class StaticizeProperties {
+public class StaticHtmlProperties {
 
-    private String accessPathPattern = "/html/**";
+    private String accessPathPattern;
 
     private String folder;
 }

@@ -22,6 +22,6 @@ file:
   #上传的文件对外暴露的访问路径
   access-path-pattern: /u/**
   #文件上传目录
-  upload-folder: /data/wwwroot/www.puboot.com/upload/
+  upload-folder: /data/wwwroot/www.tarzan.com/upload/
   #文件预览、下载的绝对路径
-  access-prefix-url: https://www.puboot.com/u
+  access-prefix-url: https://www.tarzan.com/u

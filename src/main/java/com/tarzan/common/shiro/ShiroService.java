@@ -1,7 +1,7 @@
 package com.tarzan.common.shiro;
 
 import com.tarzan.common.config.properties.FileUploadProperties;
-import com.tarzan.common.config.properties.StaticizeProperties;
+import com.tarzan.common.config.properties.StaticHtmlProperties;
 import com.tarzan.common.util.CoreConst;
 import com.tarzan.module.admin.model.Menu;
 import com.tarzan.module.admin.service.MenuService;
@@ -34,7 +34,7 @@ public class ShiroService {
     private final ShiroFilterFactoryBean shiroFilterFactoryBean;
 
     private final FileUploadProperties fileUploadProperties;
-    private final StaticizeProperties staticizeProperties;
+    private final StaticHtmlProperties staticHtmlProperties;
 
     @PostConstruct
     public void init() {
@@ -60,7 +60,7 @@ public class ShiroService {
         filterChainDefinitionMap.put("/favicon.ico", "anon");
         filterChainDefinitionMap.put("/verificationCode", "anon");
         filterChainDefinitionMap.put(fileUploadProperties.getAccessPathPattern(), "anon");
-        filterChainDefinitionMap.put(staticizeProperties.getAccessPathPattern(), "anon");
+        filterChainDefinitionMap.put(staticHtmlProperties.getAccessPathPattern(), "anon");
         List<Menu> permissionList = MenuService.selectAll(CoreConst.STATUS_VALID);
         for (Menu Menu : permissionList) {
             if (StringUtils.isNotBlank(Menu.getUrl()) && StringUtils.isNotBlank(Menu.getPerms())) {

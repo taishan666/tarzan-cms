@@ -1,7 +1,7 @@
 package com.tarzan.common.config;
 
 import com.tarzan.common.config.properties.FileUploadProperties;
-import com.tarzan.common.config.properties.StaticizeProperties;
+import com.tarzan.common.config.properties.StaticHtmlProperties;
 import com.tarzan.common.intercepter.CommonDataInterceptor;
 import lombok.AllArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
@@ -21,11 +21,11 @@ import java.io.File;
  */
 @Configuration
 @AllArgsConstructor
-@EnableConfigurationProperties({FileUploadProperties.class, StaticizeProperties.class})
+@EnableConfigurationProperties({FileUploadProperties.class, StaticHtmlProperties.class})
 public class WebMvcConfig implements WebMvcConfigurer {
 
     private final FileUploadProperties fileUploadProperties;
-    private final StaticizeProperties staticizeProperties;
+    private final StaticHtmlProperties staticHtmlProperties;
     private final CommonDataInterceptor commonDataInterceptor;
 
     /**
@@ -42,9 +42,9 @@ public class WebMvcConfig implements WebMvcConfigurer {
         registry.addResourceHandler(fileUploadProperties.getAccessPathPattern())
                 .addResourceLocations("file:" + uploadFolder);
         // 静态化
-        String staticFolder = staticizeProperties.getFolder();
+        String staticFolder = staticHtmlProperties.getFolder();
         staticFolder = StringUtils.appendIfMissing(staticFolder, File.separator);
-        registry.addResourceHandler(staticizeProperties.getAccessPathPattern())
+        registry.addResourceHandler(staticHtmlProperties.getAccessPathPattern())
                 .addResourceLocations("file:" + staticFolder);
     }
 

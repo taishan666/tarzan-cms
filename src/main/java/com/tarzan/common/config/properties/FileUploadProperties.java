@@ -13,7 +13,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 @ConfigurationProperties(prefix = "file")
 public class FileUploadProperties {
 
-    private String accessPathPattern = "/u/**";
+    private String accessPathPattern;
     private String uploadFolder;
     private String accessPrefixUrl;
 }

@@ -5,7 +5,7 @@ server:
   max-http-header-size: 1MB
 spring:
   profiles:
-    active: prod
+    active: dev
   datasource:
     druid:
       initial-size: 1

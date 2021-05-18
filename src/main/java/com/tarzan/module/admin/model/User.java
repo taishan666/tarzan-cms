@@ -107,7 +107,7 @@ public class User implements Serializable {
      * @return the credentials salt
      */
     public String getCredentialsSalt() {
-        return username + "puboot.com" + salt;
+        return username + "tarzan.com" + salt;
     }
 
 

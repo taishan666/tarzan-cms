@@ -40,7 +40,7 @@
             if(typeof(options.accepts) == "string"){
                 accepts=options.accepts;
             }
-            var basic_server = "http://www.puboot.com/upload";
+            var basic_server = "http://www.tarzan.com/upload";
             var swf = "https://static.dev.egtcp.com/static/plugins/gt_uploader/Uploader.swf";
 
 

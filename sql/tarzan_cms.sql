@@ -292,7 +292,7 @@ CREATE TABLE `biz_theme`  (
 -- ----------------------------
 -- Records of biz_theme
 -- ----------------------------
-INSERT INTO `biz_theme` VALUES (1, 'pblog', '默认主题', '', 1, '2018-09-19 15:50:45', '2018-09-19 15:50:45');
+INSERT INTO `biz_theme` VALUES (1, 'default', '默认主题', '', 1, '2018-09-19 15:50:45', '2018-09-19 15:50:45');
 
 -- ----------------------------
 -- Table structure for sys_config

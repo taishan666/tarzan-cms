@@ -17,7 +17,7 @@
 </head>
 <body>
 <header id="header">
-    <div th:replace="home/fragments/navbar :: navbar"></div>
+    <div th:replace="theme/default/module/navbar :: navbar"></div>
 </header>
 <div class="main-content login-content">
     <div class="login-bg"></div>
@@ -61,7 +61,7 @@
     </div>
 
 </div>
-<div th:replace="home/fragments/footer :: copyrightCommon"></div>
+<div th:replace="theme/default/module/footer :: copyrightCommon"></div>
 
 <script th:src="@{/libs/bootstrap/bootstrap.min.js}"></script>
 <script th:src="@{/libs/layer/layer.js}"></script>

@@ -14,12 +14,12 @@
 </head>
 <body>
 <header id="header">
-    <div th:replace="home/fragments/navbar :: navbar"></div>
+    <div th:replace="theme/default/module/navbar :: navbar"></div>
 </header>
 <div class="main-content" style="margin:150px 0 80px; text-align: center"><span>您已被踢出！ 点此<a th:href="@{/login}">重新登录</a></span></div>
 
 
-<div th:replace="home/fragments/footer :: copyrightCommon"></div>
+<div th:replace="theme/default/module/footer :: copyrightCommon"></div>
 
 <script th:src="@{/libs/bootstrap/bootstrap.min.js}"></script>
 <script th:src="@{/libs/layer/layer.js}"></script>

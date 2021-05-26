@@ -16,7 +16,7 @@
 </head>
 <body>
 <header id="header">
-	<div th:replace="home/fragments/navbar :: navbar"></div>
+	<div th:replace="theme/default/module/navbar :: navbar"></div>
 </header>
 <div class="tz-container tz-content">
 	<div class="tz-main">
@@ -69,9 +69,9 @@
 			</ul>
 		</div>
 	</div>
-	<div th:replace="home/fragments/sidebar :: sidebar"></div>
+	<div th:replace="theme/default/module/sidebar :: sidebar"></div>
 </div>
-<div th:replace="home/fragments/footer :: copyrightDark"></div>
+<div th:replace="theme/default/module/footer :: copyrightDark"></div>
 <div class="return_top"><a class=" fa fa-arrow-up"></a></div>
 
 <script th:inline="javascript">var ctx = [[@{/}]];</script>

@@ -11,8 +11,8 @@
 	<link rel="stylesheet" th:href="@{/libs/markdown/simplemde.min.css}">
 	<link rel="stylesheet" th:href="@{/libs/markdown/github-markdown.min.css}">
 	<link rel="stylesheet" th:href="@{/libs/markdown/highlight.min.css}">
-	<link rel="stylesheet" th:href="@{/libs/theme/default/css/web-common.css}" />
-	<link rel="stylesheet" th:href="@{/libs/theme/default/css/web-blog.css}" />
+	<link rel="stylesheet" th:href="@{/theme/default/source/css/web-common.css}" />
+	<link rel="stylesheet" th:href="@{/theme/default/source/css/web-blog.css}" />
 </head>
 <body>
 <header id="header">
@@ -34,8 +34,8 @@
 				<span class="thumbs-button fa fa-thumbs-up"> 点赞 <span id="loveCount" th:text="${article.loveCount}"></span></span>
 				<span class="reward-button fa fa-money"> 打赏
 						<p class="reward-content">
-							<span class="reward-img"><img th:src="@{/libs/theme/default/img/weixin.png}"><br>微信赞赏</span>
-							<span class="reward-img"><img th:src="@{/libs/theme/default/img/zhifubao.png}"><br>支付宝赞赏</span></p>
+							<span class="reward-img"><img th:src="@{/theme/default/source/img/weixin.png}"><br>微信赞赏</span>
+							<span class="reward-img"><img th:src="@{/theme/default/source/img/zhifubao.png}"><br>支付宝赞赏</span></p>
 						<span class="reward-bottom"></span>
 						<span class="reward-bottom-top"></span>
 						</span>
@@ -80,10 +80,10 @@
 <script th:src="@{/libs/markdown/highlight.min.js}"></script>
 <script th:src="@{/libs/markdown/simplemde.min.js}"></script>
 <script th:src="@{/libs/layer/layer.js}"></script>
-<script th:src="@{/libs/theme/default/js/tagcloud.js}"></script>
+<script th:src="@{/theme/default/source/js/tagcloud.js}"></script>
 <script th:src="@{/js/hc-sticky.js}"></script>
 <script th:src="@{/js/core.js}"></script>
-<script th:src="@{/libs/theme/default/js/tz-blog.js}"></script>
+<script th:src="@{/theme/default/source/js/tz-blog.js}"></script>
 <script>
 	var sid=[[${article.id}]];
 	Core.postAjax("/blog/api/article/look",{"articleId":sid})

@@ -18,9 +18,9 @@ import java.net.UnknownHostException;
 @SpringBootApplication
 public class SpringbootApplication {
 
+
     public static void main(String[] args) throws UnknownHostException {
         ConfigurableApplicationContext application = SpringApplication.run(SpringbootApplication.class, args);
-
         Environment env = application.getEnvironment();
         String ip = InetAddress.getLocalHost().getHostAddress();
         String port = env.getProperty("server.port");

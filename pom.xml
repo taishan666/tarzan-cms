@@ -120,6 +120,7 @@
             <version>30.0-jre</version>
             <scope>compile</scope>
         </dependency>
+        <!-- 内嵌redis server-->
         <dependency>
             <groupId>com.github.caryyu</groupId>
             <artifactId>spring-embedded-redis-server</artifactId>

@@ -8,6 +8,8 @@ import redis.embedded.RedisServer;
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 @Component
 public class RedisServerMock {
@@ -21,7 +23,12 @@ public class RedisServerMock {
      */
     @PostConstruct
     public void startRedis() throws IOException {
-        redisServer = new RedisServer(6379);
+        //redisServer = new RedisServer(6379);
+        redisServer = RedisServer.builder()
+                .port(6379) //端口
+                .setting("bind localhost") //绑定ip
+                .setting("requirepass 123456") //设置密码
+                .build();
         redisServer.start();
     }
 

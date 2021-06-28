@@ -26,15 +26,15 @@ public class BizTagsService extends ServiceImpl<BizTagsMapper, BizTags> {
     @Cacheable(value = "tag", key = "'list'")
     public List<BizTags> selectTags(BizTags bizTags) {
         return baseMapper.selectList(Wrappers.<BizTags>lambdaQuery()
-                .like(StringUtils.isBlank(bizTags.getName()),BizTags::getName,bizTags.getName())
-                .like(StringUtils.isBlank(bizTags.getDescription()),BizTags::getDescription,bizTags.getDescription()));
+                .like(StringUtils.isNotBlank(bizTags.getName()),BizTags::getName,bizTags.getName())
+                .like(StringUtils.isNotBlank(bizTags.getDescription()),BizTags::getDescription,bizTags.getDescription()));
     }
 
     public IPage<BizTags> pageTags(BizTags bizTags, Integer pageNumber, Integer pageSize) {
         IPage<BizTags> page = new Pagination<>(pageNumber, pageSize);
         return baseMapper.selectPage(page,Wrappers.<BizTags>lambdaQuery()
-                .like(StringUtils.isBlank(bizTags.getName()),BizTags::getName,bizTags.getName())
-                .like(StringUtils.isBlank(bizTags.getDescription()),BizTags::getDescription,bizTags.getDescription()));
+                .like(StringUtils.isNotBlank(bizTags.getName()),BizTags::getName,bizTags.getName())
+                .like(StringUtils.isNotBlank(bizTags.getDescription()),BizTags::getDescription,bizTags.getDescription()));
     }
 
     @CacheEvict(value = "tag", allEntries = true)

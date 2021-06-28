@@ -133,12 +133,14 @@ public class ArticleController {
 
     @PostMapping("/delete")
     @ResponseBody
+    @CacheEvict(value = "article", allEntries = true)
     public ResponseVo delete(Integer id) {
         return deleteBatch(Arrays.asList(id));
     }
 
     @PostMapping("/batch/delete")
     @ResponseBody
+    @CacheEvict(value = "article", allEntries = true)
     public ResponseVo deleteBatch(@RequestParam("ids") List<Integer> ids) {
         boolean flag = articleService.removeByIds(ids);
         if (flag) {

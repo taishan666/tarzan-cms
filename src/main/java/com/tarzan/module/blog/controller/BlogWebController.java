@@ -95,13 +95,10 @@ public class BlogWebController {
      * @param keywords
      * @return
      */
-    @GetMapping({"/blog/list/{keywords}","/blog/list/{keywords}/{pageNumber}"})
-    public String list(@PathVariable("keywords") String keywords,
+    @GetMapping({"/blog/list","/blog/list/{pageNumber}"})
+    public String list(@RequestParam("keywords") String keywords,
                            @PathVariable(value = "pageNumber", required = false) Integer pageNumber,
                            Model model) {
-        if (CoreConst.SITE_STATIC.get()) {
-            return "forward:/html/index/list/"+ (pageNumber == null ? keywords : keywords + "/" + pageNumber)  +".html";
-        }
         ArticleConditionVo vo = new ArticleConditionVo();
         vo.setKeywords(keywords);
         if (pageNumber != null) {

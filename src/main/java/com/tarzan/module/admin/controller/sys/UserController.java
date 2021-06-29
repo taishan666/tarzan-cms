@@ -158,7 +158,6 @@ public class UserController {
     @PostMapping("/assign/role")
     @ResponseBody
     public ResponseVo assignRole(Integer id, String roleIdStr) {
-       // ResponseVo responseVo;
         String[] roleIds = roleIdStr.split(",");
         List<String> roleIdsList = Arrays.asList(roleIds);
         try {

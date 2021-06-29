@@ -100,6 +100,7 @@ public class User implements Serializable {
     /**
      * 角色名称（附加值）
      */
+    @TableField(exist = false)
     private String roleName;
 
     /**

@@ -49,7 +49,7 @@ public class StaticHtmlService {
         createArticleHtml(request, response, true);
         createCategoryHtml(request, response, true);
         createTagHtml(request, response, true);
-        createCommmentHtml(request, response, true);
+        createCommentHtml(request, response, true);
     }
 
     public void createIndexHtml(HttpServletRequest request, HttpServletResponse response, Boolean force) {
@@ -84,7 +84,7 @@ public class StaticHtmlService {
         }
     }
 
-    public void createCommmentHtml(HttpServletRequest request, HttpServletResponse response, Boolean force) {
+    public void createCommentHtml(HttpServletRequest request, HttpServletResponse response, Boolean force) {
         createHtml(request, response, force, Collections.emptyMap(), "comment", "comment");
     }
 

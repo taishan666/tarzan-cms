@@ -204,7 +204,7 @@ CREATE TABLE `biz_link`  (
 -- ----------------------------
 -- Records of biz_link
 -- ----------------------------
-INSERT INTO `tarzan_cms`.`biz_link`(`id`, `name`, `url`, `description`, `img`, `email`, `qq`, `status`, `origin`, `remark`, `create_time`, `update_time`) VALUES (1, 'CSDN', 'https://blog.csdn.net/weixin_40986713', '洛阳泰山博客', 'https://profile.csdnimg.cn/2/A/B/3_weixin_40986713', '1334512682@qq.com', '1334512682', 1, 1, '', '2018-09-13 23:24:25', '2021-06-28 10:51:18');
+INSERT INTO `tarzan_cms`.`biz_link`(`id`, `name`, `url`, `description`, `img`, `email`, `qq`, `status`, `origin`, `remark`, `create_time`, `update_time`) VALUES (1, 'CSDN', 'https://tarzan.blog.csdn.net', '洛阳泰山博客', 'https://profile.csdnimg.cn/2/A/B/3_weixin_40986713', '1334512682@qq.com', '1334512682', 1, 1, '', '2018-09-13 23:24:25', '2021-06-28 10:51:18');
 -- ----------------------------
 -- Table structure for biz_love
 -- ----------------------------
@@ -243,7 +243,7 @@ CREATE TABLE `biz_site_info`  (
 -- ----------------------------
 -- Records of biz_site_info
 -- ----------------------------
-INSERT INTO `biz_site_info` VALUES (1, 'PUBOOT', '热爱编程，热爱学习，喜欢分享，少走弯路。', 'https://tse1-mm.cn.bing.net/th/id/OIP.Ups1Z8igjNjLuDfO38XhTgHaHa?pid=Api&rs=1', '2018-07-22 22:13:26', '2018-07-22 22:13:29');
+INSERT INTO `biz_site_info` VALUES (1, 'TARZAN-CMS', '热爱编程，热爱学习，喜欢分享，少走弯路。', 'https://tse1-mm.cn.bing.net/th/id/OIP.Ups1Z8igjNjLuDfO38XhTgHaHa?pid=Api&rs=1', '2018-07-22 22:13:26', '2018-07-22 22:13:29');
 
 -- ----------------------------
 -- Table structure for biz_tags

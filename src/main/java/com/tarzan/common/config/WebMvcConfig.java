@@ -27,7 +27,6 @@ public class WebMvcConfig implements WebMvcConfigurer {
     private final FileUploadProperties fileUploadProperties;
     private final StaticHtmlProperties staticHtmlProperties;
     private final CommonDataInterceptor commonDataInterceptor;
-    public static final String USER_HOME = System.getProperty("user.home");
 
     /**
      * 配置本地文件上传的虚拟路径和静态化的文件生成路径

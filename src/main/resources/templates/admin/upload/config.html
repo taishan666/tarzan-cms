@@ -1,10 +1,19 @@
-<section class="content-header">
-    <ol class="breadcrumb">
-        <li><a href="#"><i class="fa fa-dashboard"></i> 首页</a></li>
-        <li><a href="#">文件管理</a></li>
-        <li class="active">上传配置</li>
-    </ol>
-</section>
+<div class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1 class="m-0 text-dark">存储配置</h1>
+            </div><!-- /.col -->
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a th:href="@{admin}">首页</a></li>
+                    <li class="breadcrumb-item active">上传管理</li>
+                    <li class="breadcrumb-item active">存储配置</li>
+                </ol>
+            </div><!-- /.col -->
+        </div><!-- /.row -->
+    </div><!-- /.container-fluid -->
+</div>
 <!-- Main content -->
 <section class="content">
     <div class="box box-primary">
@@ -96,7 +105,9 @@
                         </div>
                     </div>
 
-                    <div id="oss-type-4"><h4>已开启本地默认配置</h4></div>
+                    <div id="oss-type-4">
+                        <h4>已开启本地默认配置</h4>
+                    </div>
                 </div>
 
                 <shiro:hasPermission name="upload:saveConfig">

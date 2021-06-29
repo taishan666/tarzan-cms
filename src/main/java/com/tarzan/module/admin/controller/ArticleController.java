@@ -44,7 +44,6 @@ public class ArticleController {
     private final BizArticleTagsService articleTagsService;
     private final BizCategoryService categoryService;
     private final BizTagsService tagsService;
-    private final SysConfigService configService;
 
     @PostMapping("list")
     @ResponseBody
@@ -152,20 +151,4 @@ public class ArticleController {
         }
     }
 
-    @PostMapping("/batch/push")
-    @ResponseBody
-    public ResponseVo pushBatch(@RequestParam("urls[]") String[] urls) {
-        try {
-            String url = configService.selectAll().get(SysConfigKey.BAIDU_PUSH_URL.getValue());
-            BaiduPushResVo baiduPushResVo = JSON.parseObject(PushArticleUtil.postBaidu(url, urls), BaiduPushResVo.class);
-            if (baiduPushResVo.getNotSameSite() == null && baiduPushResVo.getNotValid() == null) {
-                return ResultUtil.success("推送文章成功");
-            } else {
-                return ResultUtil.error("推送文章失败", baiduPushResVo);
-            }
-        } catch (Exception e) {
-            return ResultUtil.error("推送文章失败,请检查百度推送接口！");
-        }
-
-    }
 }

@@ -32,13 +32,12 @@
             </div>-->
 			<div class="thumbs-content">
 				<span class="thumbs-button fa fa-thumbs-up"> 点赞 <span id="loveCount" th:text="${article.loveCount}"></span></span>
-				<span class="reward-button fa fa-money"> 打赏
+			<span class="reward-button fa fa-money"> 打赏
 						<p class="reward-content">
 							<span class="reward-img"><img th:src="@{/theme/default/source/img/weixin.png}"><br>微信赞赏</span>
-							<span class="reward-img"><img th:src="@{/theme/default/source/img/zhifubao.png}"><br>支付宝赞赏</span></p>
 						<span class="reward-bottom"></span>
 						<span class="reward-bottom-top"></span>
-						</span>
+				</span>
 			</div>
 		</div>
 		<div th:if="${article.comment==1}" id="comment" class="comment comment-main">

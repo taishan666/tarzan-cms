@@ -3,30 +3,68 @@
     <mapper namespace="com.tarzan.module.admin.mapper.UserMapper">
 
     <select id="selectUsers" resultType="com.tarzan.module.admin.model.User" parameterType="com.tarzan.module.admin.model.User">
-        SELECT a.*,c.role_id AS role_id,c.name AS role_name,c.description AS  role_description
-        FROM sys_user a
-        left join sys_user_role b on a.user_id = b.user_id
-        left join sys_role c on b.role_id = c.role_id
-        WHERE a.status=1
+        SELECT
+        u.id,
+        u.username,
+        u.email,
+        u.phone,
+        u.status,
+        GROUP_CONCAT(r.NAME) AS role_name
+        FROM
+        sys_user u
+        LEFT JOIN sys_user_role ur ON u.id = ur.user_id
+        LEFT JOIN sys_role r ON ur.role_id = r.id
+        WHERE
+        u.STATUS = 1
         <if test="user.username !=null and user.username != ''">
-            AND a.username like concat('%', #{user.username}, '%')
+            AND u.username like concat('%', #{user.username}, '%')
         </if>
         <if test="user.email !=null and user.email != ''">
-            AND a.email like concat('%', #{user.email}, '%')
+            AND u.email like concat('%', #{user.email}, '%')
         </if>
         <if test="user.phone !=null and user.phone != ''">
-            AND a.phone like concat('%', #{user.phone}, '%')
+            AND u.phone like concat('%', #{user.phone}, '%')
         </if>
+        GROUP BY u.id
     </select>
 
     <select id="findByRoleId" resultType="com.tarzan.module.admin.model.User">
-        SELECT a.user_id, a.username, a.password, a.salt, a.email, a.phone, a.sex, a.age, a.status,
-        a.create_time, a.update_time, a.last_login_time FROM sys_user a INNER JOIN sys_user_role b ON a.user_id = b.user_id WHERE b.role_id = #{roleId,jdbcType=VARCHAR}
+        SELECT
+            a.id,
+            a.username,
+            a.PASSWORD,
+            a.salt,
+            a.email,
+            a.phone,
+            a.sex,
+            a.age,
+            a.STATUS,
+            a.create_time,
+            a.update_time,
+            a.last_login_time
+        FROM
+            sys_user a
+                INNER JOIN sys_user_role b ON a.id = b.user_id
+        WHERE b.role_id = #{roleId,jdbcType=VARCHAR}
     </select>
 
     <select id="findByRoleIds" resultType="com.tarzan.module.admin.model.User">
-        SELECT a.user_id, a.username, a.password, a.salt, a.email, a.phone, a.sex, a.age, a.status,
-        a.create_time, a.update_time, a.last_login_time FROM sys_user a INNER JOIN sys_user_role b ON a.user_id = b.user_id
+        SELECT
+        a.id,
+        a.username,
+        a.PASSWORD,
+        a.salt,
+        a.email,
+        a.phone,
+        a.sex,
+        a.age,
+        a.STATUS,
+        a.create_time,
+        a.update_time,
+        a.last_login_time
+        FROM
+        sys_user a
+        INNER JOIN sys_user_role b ON a.id = b.user_id
         WHERE b.role_id IN
         <foreach collection="list" item="item" index="index" open="(" separator="," close=")">
             #{item}

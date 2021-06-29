@@ -1,6 +1,8 @@
 package com.tarzan.module.admin.model;
 
+import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
+import lombok.experimental.Accessors;
 
 import java.io.Serializable;
 
@@ -10,6 +12,8 @@ import java.io.Serializable;
  * @date 2021年5月11日
  */
 @Data
+@Accessors(chain = true)
+@TableName("sys_role_menu")
 public class RoleMenu implements Serializable {
 
     private static final long serialVersionUID = -902800328539403089L;

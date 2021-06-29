@@ -9,8 +9,8 @@
     WHERE ur.user_id = #{userId} and m.perms is not null and m.perms!='' and m.status=1
   </select>
 
-  <select id="findByRoleId" parameterType="string" resultType="com.tarzan.module.admin.model.Menu">
-    SELECT  a.id,b.name,b.parent_id FROM sys_role_menu a LEFT JOIN sys_menu b on a.menu_id = b.id WHERE a.role_id = #{roleId} and b.status=1
+  <select id="findByRoleId" parameterType="integer" resultType="com.tarzan.module.admin.model.Menu">
+    SELECT  b.id,b.name,b.parent_id FROM sys_role_menu a LEFT JOIN sys_menu b on a.menu_id = b.id WHERE a.role_id = #{roleId} and b.status=1
   </select>
 
   <select id="selectMenuByUserId" parameterType="integer" resultType="com.tarzan.module.admin.model.Menu">

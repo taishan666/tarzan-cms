@@ -42,17 +42,16 @@ public class RoleService extends ServiceImpl<RoleMapper, Role> {
     }
 
     public int insert(Role role) {
-        role.setRoleId(UUIDUtil.getUniqueIdByUUId());
         role.setStatus(1);
         role.setCreateTime(new Date());
         return baseMapper.insert(role);
     }
 
     public int updateStatusBatch(List<Integer> roleIds, Integer status) {
-        return baseMapper.update(new Role().setStatus(status),Wrappers.<Role>lambdaUpdate().in(Role::getRoleId, roleIds));
+        return baseMapper.update(new Role().setStatus(status),Wrappers.<Role>lambdaUpdate().in(Role::getId, roleIds));
     }
 
-    public List<Menu> findPermissionsByRoleId(String roleId) {
+    public List<Menu> findPermissionsByRoleId(Integer roleId) {
         return MenuMapper.findByRoleId(roleId);
     }
 

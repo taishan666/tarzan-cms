@@ -107,15 +107,15 @@
         window.operateEvents = {
             // 点击编辑
             'click .btn_edit': function (e, value, row, index) {
-                editRow(row.roleId)
+                editRow(row.id)
             },
             // 点击分配角色
             'click .btn_assign': function (e, value, row, index) {
-                assignPermission(row.roleId)
+                assignPermission(row.id)
             },
             // 点击删除
             'click .btn_del': function (e, value, row, index) {
-                deleteRow(row.roleId)
+                deleteRow(row.id)
             }
         }
         var columns = [
@@ -190,16 +190,16 @@
 
         // 编辑
         function editRow(id) {
-            Core.load("#formContent", "/role/edit?roleId=" + id, function () {
+            Core.load("#formContent", "/role/edit?id=" + id, function () {
                 $('#formTitle').text('编辑')
                 $("#formModal").modal('show');
             }, 2);
         }
 
         // 删除
-        function deleteRow(roleId) {
+        function deleteRow(id) {
             Core.confirm("确定删除？", function () {
-                Core.postAjax("/role/delete", {"roleId": roleId}, function (data) {
+                Core.postAjax("/role/delete", {"id": id}, function (data) {
                     if (data.status === 200) {
                         refreshTable();
                     }
@@ -215,7 +215,7 @@
                 Core.confirm("确定删除选中的" + checkedRows.length + "条记录？", function () {
                     var ids = [];
                     $.each(checkedRows, function (i, item) {
-                        ids.push(item.roleId);
+                        ids.push(item.id);
                     })
                     Core.postAjax("/role/batch/delete", {"ids": ids}, function (data) {
                         if (data.status === 200) {
@@ -231,7 +231,7 @@
         $('#saveOrUpdateBtn').on('click', function () {
             var $f = $('#userForm');
             var valid = $f[0].checkValidity();
-            var url = $f.find("input[name='roleId']").val() ? "/role/edit" : "/role/add"
+            var url = $f.find("input[name='id']").val() ? "/role/edit" : "/role/add"
             if (valid) {
                 Core.mask("#saveOrUpdateBtn");
                 Core.postAjax(url, $f.serialize(), function (data) {
@@ -269,9 +269,9 @@
         };
 
         // 分配权限
-        function assignPermission(roleId) {
-            roleIdChecked = roleId;
-            Core.postAjax("/role/assign/menu/list", {"roleId": roleId}, function (data) {
+        function assignPermission(id) {
+            roleIdChecked = id;
+            Core.postAjax("/role/assign/menu/list", {"id": id}, function (data) {
                 var zNodes = data;
                 $.fn.zTree.init($("#permissionTree"), treeSetting, zNodes);
                 $("#assignPermissionModal").modal("show");
@@ -285,19 +285,19 @@
 
         $('#assignPermissionSaveOrUpdateBtn').on('click', function () {
             Core.mask("#assignPermissionSaveOrUpdateBtn")
-            var permissionIdStr = "";
+            var menuIdStr = "";
             var treeObj = $.fn.zTree.getZTreeObj("permissionTree");
             var nodes = treeObj.getCheckedNodes(true);
             for (var i = 0; i < nodes.length; i++) {
                 if (i === (nodes.length - 1)) {
-                    permissionIdStr += nodes[i].permissionId;
+                    menuIdStr += nodes[i].menuId;
                 } else {
-                    permissionIdStr += nodes[i].permissionId + ",";
+                    menuIdStr += nodes[i].menuId + ",";
                 }
             }
             Core.postAjax('/role/assign/menu', {
-                roleId: roleIdChecked,
-                permissionIdStr: permissionIdStr
+                id: roleIdChecked,
+                menuIdStr: menuIdStr
             }, function (data) {
                 Core.unmask("#assignPermissionSaveOrUpdateBtn");
                 if (data.status === 200) {

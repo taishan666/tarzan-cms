@@ -88,8 +88,8 @@ public class UserController {
      * 编辑用户详情
      */
     @GetMapping("/edit")
-    public String userDetail(Model model, Integer userId) {
-        User user = userService.selectByUserId(userId);
+    public String userDetail(Model model, Integer id) {
+        User user = userService.getById(id);
         model.addAttribute("user", user);
         return CoreConst.ADMIN_PREFIX + "user/form";
     }
@@ -113,10 +113,10 @@ public class UserController {
      */
     @PostMapping("/delete")
     @ResponseBody
-    public ResponseVo deleteUser(String userId) {
-        List<String> userIdsList = Arrays.asList(userId);
-        boolean a = userService.updateStatusBatch(userIdsList, CoreConst.STATUS_INVALID);
-        if (a) {
+    public ResponseVo deleteUser(Integer id) {
+        List<Integer> userIdsList = Arrays.asList(id);
+        boolean flag = userService.updateStatusBatch(userIdsList, CoreConst.STATUS_INVALID);
+        if (flag) {
             return ResultUtil.success("删除用户成功");
         } else {
             return ResultUtil.error("删除用户失败");
@@ -128,8 +128,8 @@ public class UserController {
      */
     @PostMapping("/batch/delete")
     @ResponseBody
-    public ResponseVo batchDeleteUser(@RequestParam("ids[]") String[] ids) {
-        List<String> userIdsList = Arrays.asList(ids);
+    public ResponseVo batchDeleteUser(@RequestParam("ids[]") Integer[] ids) {
+        List<Integer> userIdsList = Arrays.asList(ids);
         boolean a = userService.updateStatusBatch(userIdsList, CoreConst.STATUS_INVALID);
         if (a) {
             return ResultUtil.success("删除用户成功");
@@ -143,9 +143,9 @@ public class UserController {
      */
     @PostMapping("/assign/role/list")
     @ResponseBody
-    public Map<String, Object> assignRoleList(Integer userId) {
+    public Map<String, Object> assignRoleList(Integer id) {
         List<Role> roleList = roleService.list(Wrappers.<Role>lambdaQuery().eq(Role::getStatus, 1));
-        Set<String> hasRoles = roleService.findRoleByUserId(userId);
+        Set<String> hasRoles = roleService.findRoleByUserId(id);
         Map<String, Object> jsonMap = new HashMap<>(2);
         jsonMap.put("rows", roleList);
         jsonMap.put("hasRoles", hasRoles);
@@ -157,20 +157,19 @@ public class UserController {
      */
     @PostMapping("/assign/role")
     @ResponseBody
-    public ResponseVo assignRole(Integer userId, String roleIdStr) {
-        ResponseVo responseVo;
+    public ResponseVo assignRole(Integer id, String roleIdStr) {
+       // ResponseVo responseVo;
         String[] roleIds = roleIdStr.split(",");
         List<String> roleIdsList = Arrays.asList(roleIds);
         try {
             // 给用户分配角色
-            userService.addAssignRole(userId, roleIdsList);
+            userService.addAssignRole(id, roleIdsList);
             // 重置用户权限
-            myShiroRealm.clearAuthorizationByUserId(Collections.singletonList(userId));
-            responseVo = ResultUtil.success("分配角色成功");
+            myShiroRealm.clearAuthorizationByUserId(Collections.singletonList(id));
+            return ResultUtil.success("分配角色成功");
         } catch (Exception e) {
-            responseVo = ResultUtil.error("分配角色失败");
+            return ResultUtil.error("分配角色失败");
         }
-        return responseVo;
     }
 
     /*修改密码*/

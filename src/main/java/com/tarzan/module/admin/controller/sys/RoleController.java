@@ -81,11 +81,11 @@ public class RoleController {
     /*删除角色*/
     @PostMapping("/delete")
     @ResponseBody
-    public ResponseVo deleteRole(Integer roleId) {
-        if (roleService.findByRoleId(roleId).size() > 0) {
+    public ResponseVo deleteRole(Integer id) {
+        if (roleService.findByRoleId(id).size() > 0) {
             return ResultUtil.error("删除失败,该角色下存在用户");
         }
-        List<Integer> roleIdsList = Collections.singletonList(roleId);
+        List<Integer> roleIdsList = Collections.singletonList(id);
         int a = roleService.updateStatusBatch(roleIdsList, CoreConst.STATUS_INVALID);
         if (a > 0) {
             return ResultUtil.success("删除角色成功");
@@ -97,7 +97,7 @@ public class RoleController {
     /*批量删除角色*/
     @PostMapping("/batch/delete")
     @ResponseBody
-    public ResponseVo batchDeleteRole(@RequestParam("ids") List<Integer> ids) {
+    public ResponseVo batchDeleteRole(@RequestParam("ids[]") List<Integer> ids) {
         if (CollectionUtils.isNotEmpty(roleService.findByRoleIds(ids))) {
             return ResultUtil.error("删除失败,选择的角色下存在用户");
         }
@@ -132,10 +132,10 @@ public class RoleController {
     /*分配权限列表查询*/
     @PostMapping("/assign/menu/list")
     @ResponseBody
-    public List<PermissionTreeListVo> assignRole(String roleId) {
+    public List<PermissionTreeListVo> assignRole(Integer id) {
         List<PermissionTreeListVo> listVos = new ArrayList<>();
         List<Menu> allMenus = MenuService.selectAll(CoreConst.STATUS_VALID);
-        List<Menu> hasMenus = roleService.findPermissionsByRoleId(roleId);
+        List<Menu> hasMenus = roleService.findPermissionsByRoleId(id);
         for (Menu menu : allMenus) {
             PermissionTreeListVo vo = new PermissionTreeListVo();
             vo.setId(menu.getId());
@@ -158,16 +158,16 @@ public class RoleController {
     /*分配权限*/
     @PostMapping("/assign/menu")
     @ResponseBody
-    public ResponseVo assignRole(Integer roleId, String menuIdStr) {
+    public ResponseVo assignRole(Integer id, String menuIdStr) {
         List<String> menuIdsList = new ArrayList<>();
         if (StringUtils.isNotBlank(menuIdStr)) {
             String[] permissionIds = menuIdStr.split(",");
             menuIdsList = Arrays.asList(permissionIds);
         }
         try {
-            roleService.addAssignPermission(roleId, menuIdsList);
+            roleService.addAssignPermission(id, menuIdsList);
             /*重新加载角色下所有用户权限*/
-            List<User> userList = roleService.findByRoleId(roleId);
+            List<User> userList = roleService.findByRoleId(id);
             if (!userList.isEmpty()) {
                 List<Integer> userIds = new ArrayList<>();
                 for (User user : userList) {

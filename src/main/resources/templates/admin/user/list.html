@@ -115,15 +115,15 @@
         window.operateEvents = {
             // 点击编辑
             'click .btn_edit': function (e, value, row, index) {
-                editRow(row.userId)
+                editRow(row.id)
             },
             // 点击分配角色
             'click .btn_assign': function (e, value, row, index) {
-                assignRole(row.userId)
+                assignRole(row.id)
             },
             // 点击删除
             'click .btn_del': function (e, value, row, index) {
-                deleteRow(row.userId)
+                deleteRow(row.id)
             }
         }
         var columns = [
@@ -139,21 +139,11 @@
             }, {
                 field: 'phone',
                 title: '电话',
-                align: "center",
+                align: "center"
             }, {
-                field: 'roles',
+                field: 'roleName',
                 title: '角色',
-                align: "center",
-                formatter: function (value, row, index) {
-                    var roles = "";
-                    $.each(value, function (i, item) {
-                        roles += item.name + ",";
-                    })
-                    if (roles !== "") {
-                        roles = roles.substr(0, roles.length - 1);
-                    }
-                    return roles;
-                }
+                align: "center"
             },
             {
                 field: 'status',
@@ -221,16 +211,16 @@
 
         // 编辑
         function editRow(id) {
-            Core.load("#formContent", "/user/edit?userId=" + id, function () {
+            Core.load("#formContent", "/user/edit?id=" + id, function () {
                 $('#formTitle').text('编辑')
                 $("#formModal").modal('show');
             }, 2);
         }
 
         // 删除
-        function deleteRow(userId) {
+        function deleteRow(id) {
             Core.confirm("确定删除？", function () {
-                Core.postAjax("/user/delete", {"userId": userId}, function (data) {
+                Core.postAjax("/user/delete", {"id": id}, function (data) {
                     if (data.status === 200) {
                         refreshTable();
                     }
@@ -246,7 +236,7 @@
                 Core.confirm("确定删除选中的" + checkedRows.length + "条记录？", function () {
                     var ids = [];
                     $.each(checkedRows, function (i, item) {
-                        ids.push(item.userId);
+                        ids.push(item.id);
                     })
                     Core.postAjax("/user/batch/delete", {"ids": ids}, function (data) {
                         if (data.status === 200) {
@@ -262,7 +252,7 @@
         $('#saveOrUpdateBtn').on('click', function () {
             var $f = $('#userForm');
             var valid = $f[0].checkValidity();
-            var url = $f.find("input[name='userId']").val() ? "/user/edit" : "/user/add"
+            var url = $f.find("input[name='id']").val() ? "/user/edit" : "/user/add"
             if (valid) {
                 Core.mask("#saveOrUpdateBtn");
                 Core.postAjax(url, $f.serialize(), function (data) {
@@ -284,8 +274,8 @@
         var loadRoleCount = 0;
 
         // 分配角色
-        function assignRole(userId) {
-            userIdChecked = userId;
+        function assignRole(id) {
+            userIdChecked = id;
             if (loadRoleCount === 0) {
                 var roleColumns = [
                     {checkbox: true},
@@ -312,11 +302,11 @@
                     columns: roleColumns,
                     pagination: false,
                     queryParams: {
-                        userId: userId
+                        id: id
                     },
                     onLoadSuccess: function () {
                         loadRoleCount = 1;
-                        Core.checkTableBy("#assignRoleTable", {field: "roleId", values: selectRoleIds});
+                        Core.checkTableBy("#assignRoleTable", {field: "id", values: selectRoleIds+''});
                     },
                     responseHandler: handleRoleData,
                 }
@@ -339,10 +329,10 @@
                 Core.mask("#assignRoleSaveOrUpdateBtn");
                 roleIdStr = "";
                 $.each(checkedRows, function (i, item) {
-                    roleIdStr += (item.roleId + ",");
+                    roleIdStr += (item.id + ",");
                 })
                 roleIdStr = roleIdStr.substring(0, roleIdStr.length - 1);
-                Core.postAjax('/user/assign/role', {userId: userIdChecked, roleIdStr: roleIdStr}, function (data) {
+                Core.postAjax('/user/assign/role', {id: userIdChecked, roleIdStr: roleIdStr}, function (data) {
                     Core.unmask("#assignRoleSaveOrUpdateBtn");
                     if (data.status === 200) {
                         $("#assignRoleModal").modal("hide");

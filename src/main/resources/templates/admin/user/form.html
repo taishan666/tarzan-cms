@@ -1,5 +1,5 @@
 <form id="userForm">
-    <input type="hidden" name="userId" th:value="${user?.userId}">
+    <input type="hidden" name="id" th:value="${user?.id}">
     <div th:if="${user?.username != null}" class="form-group row">
         <label for="username" class="col-sm-2 col-form-label">用户名</label>
         <div class="col-sm-10">

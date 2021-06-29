@@ -28,7 +28,7 @@ public interface MenuMapper extends BaseMapper<Menu> {
      * @param id 角色id
      * @return the list
      */
-    List<Menu> findByRoleId(String id);
+    List<Menu> findByRoleId(Integer id);
 
     /**
      * 根据用户id查询菜单

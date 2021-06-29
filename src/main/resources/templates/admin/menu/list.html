@@ -174,8 +174,6 @@
         if (valid) {
             if (detailMenuCheckedType != null) {
                 var detailMenuType = $f.find("input[name='type']:checked").val();
-                console.log(detailMenuType)
-                console.log(detailMenuCheckedType)
                 if ((detailMenuType === "0" || detailMenuType === "1") && detailMenuCheckedType !== 0) {
                     layer.msg("上级资源只能是目录类型！")
                     return;

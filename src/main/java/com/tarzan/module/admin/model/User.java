@@ -98,10 +98,9 @@ public class User implements Serializable {
     private String loginIpAddress;
 
     /**
-     * 角色
+     * 角色名称（附加值）
      */
-    @TableField(exist = false)
-    private List<Role> roles;
+    private String roleName;
 
     /**
      * 重写获取盐值方法，自定义realm使用

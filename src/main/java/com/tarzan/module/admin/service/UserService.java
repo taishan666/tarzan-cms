@@ -107,7 +107,7 @@ public class UserService extends ServiceImpl<UserMapper, User> {
         return baseMapper.updateById(user);
     }
 
-    public boolean updateStatusBatch(List<String> userIds, Integer status) {
+    public boolean updateStatusBatch(List<Integer> userIds, Integer status) {
         return update(Wrappers.<User>lambdaUpdate().in(User::getId, userIds)
                 .set(User::getStatus, status).set(User::getUpdateTime, new Date()));
     }

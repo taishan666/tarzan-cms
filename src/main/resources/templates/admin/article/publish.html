@@ -81,18 +81,10 @@
 
                 <div class="form-group col-xs-12">
                     <label class="control-label label-four">文章类型:</label>
-                    <div class="ml-3">
-                        <div class="icheck-primary icheck-inline">
-                            <input type="radio" id="artile_source_original" name="original" value="1"
-                                   th:field="*{article.original}"/>
-                            <label for="artile_source_original">原创</label>
-                        </div>
-                        <div class="icheck-primary icheck-inline">
-                            <input type="radio" id="artile_source_reprint" name="original" value="0"
-                                   th:field="*{article.original}"/>
-                            <label for="artile_source_reprint">转载</label>
-                        </div>
-                    </div>
+                    <select id="original-select" class="form-control" name="original" required>
+                            <option value="1" label="原创" th:selected="${article?.original == 1}"></option>
+                        <option value="0" label="转载" th:selected="${article?.original == 0}"></option>
+                    </select>
                 </div>
                 <div class="form-group col-xs-12">
                     <label class="control-label">是否轮播:</label>
@@ -268,12 +260,13 @@
             $('input[name="tag"]:checked').each(function () {
                 tags.push($(this).val());
             });
-            if (tags.length > 0) {
+            return true;
+/*            if (tags.length > 0) {
                 return true;
             } else {
                 layer.msg("请选择文章标签！")
                 return false;
-            }
+            }*/
         } else {
             layer.msg("请输入文章内容！")
             return false;

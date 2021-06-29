@@ -73,13 +73,15 @@ public class ArticleController {
     @ResponseBody
     @Transactional
     @CacheEvict(value = "article", allEntries = true)
-    public ResponseVo add(BizArticle bizArticle, Integer[] tag) {
+    public ResponseVo add(BizArticle bizArticle, Integer[] tags) {
         try {
             User user = (User) SecurityUtils.getSubject().getPrincipal();
             bizArticle.setUserId(user.getId());
             bizArticle.setAuthor(user.getNickname());
             BizArticle article = articleService.insertArticle(bizArticle);
-            articleTagsService.insertList(tag, article.getId());
+            if(null!=tags && tags.length>0){
+                articleTagsService.insertList(tags, article.getId());
+            }
             return ResultUtil.success("保存文章成功");
         } catch (Exception e) {
             return ResultUtil.error("保存文章失败");

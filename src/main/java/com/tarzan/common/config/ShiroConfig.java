@@ -6,6 +6,7 @@ import com.tarzan.common.shiro.MyShiroRealm;
 import com.tarzan.common.shiro.filter.KickOutSessionControlFilter;
 import com.tarzan.common.shiro.redis.RedisManager;
 import com.tarzan.common.util.CoreConst;
+import org.apache.shiro.codec.Base64;
 import org.apache.shiro.mgt.SecurityManager;
 import org.apache.shiro.spring.LifecycleBeanPostProcessor;
 import org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor;
@@ -114,6 +115,8 @@ public class ShiroConfig {
     public CookieRememberMeManager rememberMeManager() {
         CookieRememberMeManager cookieRememberMeManager = new CookieRememberMeManager();
         cookieRememberMeManager.setCookie(rememberMeCookie());
+        //手动设置对称加密秘钥，防止重启系统后系统生成新的随机秘钥，防止导致客户端cookie无效
+        cookieRememberMeManager.setCipherKey(Base64.decode("tZmI6I2j3Y+R1aSn5BOlAA=="));
         return cookieRememberMeManager;
     }
 

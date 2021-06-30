@@ -1,6 +1,8 @@
 package com.tarzan.module.admin.controller;
 
 import com.wf.captcha.ArithmeticCaptcha;
+import com.wf.captcha.GifCaptcha;
+import com.wf.captcha.base.Captcha;
 import com.wf.captcha.utils.CaptchaUtil;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -21,7 +23,7 @@ import java.io.IOException;
 @Slf4j
 @Controller
 @AllArgsConstructor
-public class KaptchaController {
+public class CaptchaController {
 
 
     /**
@@ -34,8 +36,8 @@ public class KaptchaController {
      */
     @RequestMapping("/verificationCode")
     public void getCaptchaCode(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        ArithmeticCaptcha captcha = new ArithmeticCaptcha(130, 48);
-        captcha.setLen(2);
+        GifCaptcha captcha = new GifCaptcha(130, 48);
+        captcha.setLen(4);
         CaptchaUtil.out(captcha, request, response);
     }
 }

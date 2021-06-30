@@ -2,7 +2,7 @@ package com.tarzan.module.blog.controller;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.tarzan.common.constant.CoreConst;
-import com.tarzan.common.util.Pagination;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.tarzan.exception.ArticleNotFoundException;
 import com.tarzan.module.admin.model.BizArticle;
 import com.tarzan.module.admin.model.BizCategory;
@@ -174,7 +174,7 @@ public class BlogWebController {
 
     private void loadMainPage(Model model, ArticleConditionVo vo) {
         vo.setStatus(CoreConst.STATUS_VALID);
-        IPage<BizArticle> page = new Pagination<>(vo.getPageNumber(), vo.getPageSize());
+        IPage<BizArticle> page = new Page<>(vo.getPageNumber(), vo.getPageSize());
         List<BizArticle> articleList = bizArticleService.findByCondition(page, vo);
         model.addAttribute("page", page);
         model.addAttribute("articleList", articleList);//文章列表

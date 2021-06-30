@@ -3,9 +3,9 @@ package com.tarzan.module.admin.service;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.toolkit.CollectionUtils;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.tarzan.common.constant.CoreConst;
-import com.tarzan.common.util.Pagination;
 import com.tarzan.module.admin.mapper.BizArticleMapper;
 import com.tarzan.module.admin.model.BizArticle;
 import com.tarzan.module.admin.vo.ArticleConditionVo;
@@ -62,7 +62,7 @@ public class BizArticleService extends ServiceImpl<BizArticleMapper, BizArticle>
         vo.setRecommended(true);
         vo.setStatus(CoreConst.STATUS_VALID);
         vo.setPageSize(pageSize);
-        IPage<BizArticle> page = new Pagination<>(vo.getPageNumber(), vo.getPageSize());
+        IPage<BizArticle> page = new Page<>(vo.getPageNumber(), vo.getPageSize());
         return this.findByCondition(page, vo);
     }
 
@@ -72,7 +72,7 @@ public class BizArticleService extends ServiceImpl<BizArticleMapper, BizArticle>
         vo.setPageSize(pageSize);
         vo.setStatus(CoreConst.STATUS_VALID);
         vo.setRecentFlag(true);
-        IPage<BizArticle> page = new Pagination<>(vo.getPageNumber(), vo.getPageSize());
+        IPage<BizArticle> page = new Page<>(vo.getPageNumber(), vo.getPageSize());
         return this.findByCondition(page, vo);
     }
 
@@ -82,13 +82,13 @@ public class BizArticleService extends ServiceImpl<BizArticleMapper, BizArticle>
         vo.setRandom(true);
         vo.setStatus(CoreConst.STATUS_VALID);
         vo.setPageSize(pageSize);
-        IPage<BizArticle> page = new Pagination<>(vo.getPageNumber(), vo.getPageSize());
+        IPage<BizArticle> page = new Page<>(vo.getPageNumber(), vo.getPageSize());
         return this.findByCondition(page, vo);
     }
 
     @Cacheable(value = "article", key = "'hot'")
     public List<BizArticle> hotList(int pageSize) {
-        IPage<BizArticle> page = new Pagination<>(1, pageSize);
+        IPage<BizArticle> page = new Page<>(1, pageSize);
         return baseMapper.hotList(page);
     }
 

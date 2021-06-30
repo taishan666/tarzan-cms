@@ -2,7 +2,7 @@ package com.tarzan.module.admin.controller;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.tarzan.common.constant.CoreConst;
-import com.tarzan.common.util.Pagination;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.tarzan.common.util.ResultUtil;
 import com.tarzan.module.admin.model.BizArticle;
 import com.tarzan.module.admin.model.BizCategory;
@@ -45,7 +45,7 @@ public class ArticleController {
     @ResponseBody
     public PageResultVo loadArticle(ArticleConditionVo articleConditionVo, Integer pageNumber, Integer pageSize) {
         articleConditionVo.setSliderFlag(true);
-        IPage<BizArticle> page = new Pagination<>(pageNumber, pageSize);
+        IPage<BizArticle> page = new Page<>(pageNumber, pageSize);
         List<BizArticle> articleList = articleService.findByCondition(page, articleConditionVo);
         return ResultUtil.table(articleList, page.getTotal());
     }

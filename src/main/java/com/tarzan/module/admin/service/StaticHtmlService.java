@@ -6,7 +6,7 @@ import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Maps;
 import com.tarzan.common.config.properties.StaticHtmlProperties;
 import com.tarzan.common.constant.CoreConst;
-import com.tarzan.common.util.Pagination;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.tarzan.component.CommonDataService;
 import com.tarzan.module.admin.model.BizArticle;
 import com.tarzan.module.admin.model.BizArticleTags;
@@ -58,13 +58,13 @@ public class StaticHtmlService {
         vo.setStatus(CoreConst.STATUS_VALID);
         int total = bizArticleService.count(Wrappers.<BizArticle>lambdaQuery().eq(BizArticle::getStatus, CoreConst.STATUS_VALID));
         if (total == 0) {
-            Map<String, Object> paramMap = ImmutableMap.of("pageUrl", "blog/index", "categoryId", "index", "sliderList", sliderList, "page", new Pagination<>(1, 10), "articleList", Collections.emptyList());
+            Map<String, Object> paramMap = ImmutableMap.of("pageUrl", "blog/index", "categoryId", "index", "sliderList", sliderList, "page", new Page<>(1, 10), "articleList", Collections.emptyList());
             createHtml(request, response, force, paramMap, "index", "index");
             return;
         }
-        IPage<Object> pagination = new Pagination<>(vo.getPageNumber(), vo.getPageSize()).setTotal(total);
+        IPage<Object> pagination = new Page<>(vo.getPageNumber(), vo.getPageSize()).setTotal(total);
         for (long pageNum = 1; pageNum <= pagination.getPages(); pageNum++) {
-            IPage<BizArticle> page = new Pagination<>(vo.getPageNumber(), vo.getPageSize());
+            IPage<BizArticle> page = new Page<>(vo.getPageNumber(), vo.getPageSize());
             List<BizArticle> articleList = bizArticleService.findByCondition(page, vo);
             Map<String, Object> paramMap = ImmutableMap.of("pageUrl", "blog/index", "categoryId", "index", "sliderList", sliderList, "page", page, "articleList", articleList);
             if (pageNum == 1) {
@@ -75,7 +75,7 @@ public class StaticHtmlService {
     }
 
     public void createArticleHtml(HttpServletRequest request, HttpServletResponse response, Boolean force) {
-        List<BizArticle> articleList = bizArticleService.findByCondition(new Pagination<>(1, 99999), new ArticleConditionVo().setStatus(CoreConst.STATUS_VALID));
+        List<BizArticle> articleList = bizArticleService.findByCondition(new Page<>(1, 99999), new ArticleConditionVo().setStatus(CoreConst.STATUS_VALID));
         for (BizArticle article : articleList) {
             Map<String, Object> paramMap = Maps.newHashMap();
             paramMap.put("article", article);
@@ -102,10 +102,10 @@ public class StaticHtmlService {
                 createHtml(request, response, force, paramMap, "index", "category" + File.separator + category.getId());
                 continue;
             }
-            IPage<Object> pagination = new Pagination<>(vo.getPageNumber(), vo.getPageSize()).setTotal(total);
+            IPage<Object> pagination = new Page<>(vo.getPageNumber(), vo.getPageSize()).setTotal(total);
             for (long pageNum = 1; pageNum <= pagination.getPages(); pageNum++) {
 
-                Pagination<BizArticle> page = new Pagination<>(pageNum, vo.getPageSize());
+                IPage<BizArticle> page = new Page<>(pageNum, vo.getPageSize());
                 List<BizArticle> articleList = bizArticleService.findByCondition(page, vo);
                 Map<String, Object> paramMap = ImmutableMap.of("pageUrl", "blog/category/" + category.getId(), "categoryId", category.getId(), "categoryName", category.getName(), "page", page, "articleList", articleList);
                 if (pageNum == 1) {
@@ -129,10 +129,10 @@ public class StaticHtmlService {
                 createHtml(request, response, force, paramMap, "index", "tag" + File.separator + tag.getId());
                 continue;
             }
-            IPage<Object> pagination = new Pagination<>(vo.getPageNumber(), vo.getPageSize()).setTotal(total);
+            IPage<Object> pagination = new Page<>(vo.getPageNumber(), vo.getPageSize()).setTotal(total);
             for (long pageNum = 1; pageNum <= pagination.getPages(); pageNum++) {
 
-                Pagination<BizArticle> page = new Pagination<>(pageNum, vo.getPageSize());
+                IPage<BizArticle> page = new Page<>(pageNum, vo.getPageSize());
                 List<BizArticle> articleList = bizArticleService.findByCondition(page, vo);
                 Map<String, Object> paramMap = ImmutableMap.of("pageUrl", "blog/tag/" + tag.getId(), "page", page, "articleList", articleList);
                 if (pageNum == 1) {

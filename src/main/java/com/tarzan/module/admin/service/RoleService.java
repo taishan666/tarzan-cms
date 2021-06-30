@@ -4,7 +4,7 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.tarzan.common.util.Pagination;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.tarzan.common.util.UUIDUtil;
 import com.tarzan.module.admin.mapper.*;
 import com.tarzan.module.admin.model.*;
@@ -37,7 +37,7 @@ public class RoleService extends ServiceImpl<RoleMapper, Role> {
     }
 
     public IPage<Role> selectRoles(Role role, Integer pageNumber, Integer pageSize) {
-        IPage<Role> page = new Pagination<>(pageNumber, pageSize);
+        IPage<Role> page = new Page<>(pageNumber, pageSize);
         return baseMapper.selectPage(page, Wrappers.<Role>lambdaQuery().eq(Role::getStatus, 1).like(StringUtils.isNotBlank(role.getName()),Role::getName,role.getName()));
     }
 

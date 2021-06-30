@@ -4,7 +4,7 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.tarzan.common.util.Pagination;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.tarzan.module.admin.mapper.BizTagsMapper;
 import com.tarzan.module.admin.model.BizTags;
 import org.springframework.cache.annotation.CacheEvict;
@@ -31,7 +31,7 @@ public class BizTagsService extends ServiceImpl<BizTagsMapper, BizTags> {
     }
 
     public IPage<BizTags> pageTags(BizTags bizTags, Integer pageNumber, Integer pageSize) {
-        IPage<BizTags> page = new Pagination<>(pageNumber, pageSize);
+        IPage<BizTags> page = new Page<>(pageNumber, pageSize);
         return baseMapper.selectPage(page,Wrappers.<BizTags>lambdaQuery()
                 .like(StringUtils.isNotBlank(bizTags.getName()),BizTags::getName,bizTags.getName())
                 .like(StringUtils.isNotBlank(bizTags.getDescription()),BizTags::getDescription,bizTags.getDescription()));

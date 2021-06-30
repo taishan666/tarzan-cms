@@ -4,7 +4,7 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.tarzan.common.util.Pagination;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.tarzan.module.admin.mapper.BizLinkMapper;
 import com.tarzan.module.admin.model.BizLink;
 import org.springframework.cache.annotation.CacheEvict;
@@ -31,7 +31,7 @@ public class BizLinkService extends ServiceImpl<BizLinkMapper, BizLink> {
     }
 
     public IPage<BizLink> pageLinks(BizLink bizLink, Integer pageNumber, Integer pageSize) {
-        IPage<BizLink> page = new Pagination<>(pageNumber, pageSize);
+        IPage<BizLink> page = new Page<>(pageNumber, pageSize);
         return baseMapper.selectPage(page,Wrappers.<BizLink>lambdaQuery()
                 .like(StringUtils.isNotBlank(bizLink.getName()),BizLink::getName, bizLink.getName())
                 .like(StringUtils.isNotBlank(bizLink.getUrl()),BizLink::getUrl, bizLink.getUrl())

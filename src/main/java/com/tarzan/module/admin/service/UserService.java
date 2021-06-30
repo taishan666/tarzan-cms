@@ -5,7 +5,7 @@ import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.tarzan.common.constant.CoreConst;
-import com.tarzan.common.util.Pagination;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.tarzan.module.admin.mapper.UserMapper;
 import com.tarzan.module.admin.mapper.UserRoleMapper;
 import com.tarzan.module.admin.model.User;
@@ -93,7 +93,7 @@ public class UserService extends ServiceImpl<UserMapper, User> {
     }
 
     public IPage<User> selectUsers(User user, Integer pageNumber, Integer pageSize) {
-        IPage<User> page = new Pagination<>(pageNumber, pageSize);
+        IPage<User> page = new Page<>(pageNumber, pageSize);
         return baseMapper.selectUsers(page, user);
     }
 

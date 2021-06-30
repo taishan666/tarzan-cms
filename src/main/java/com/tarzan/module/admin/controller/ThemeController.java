@@ -2,7 +2,7 @@ package com.tarzan.module.admin.controller;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.tarzan.common.constant.CoreConst;
-import com.tarzan.common.util.Pagination;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.tarzan.common.util.ResultUtil;
 import com.tarzan.module.admin.model.BizTheme;
 import com.tarzan.module.admin.service.BizThemeService;
@@ -34,7 +34,7 @@ public class ThemeController {
     @PostMapping("list")
     @ResponseBody
     public PageResultVo loadTheme(Integer pageNumber, Integer pageSize) {
-        IPage<BizTheme> page = new Pagination<>(pageNumber, pageSize);
+        IPage<BizTheme> page = new Page<>(pageNumber, pageSize);
         page = bizThemeService.page(page);
         return ResultUtil.table(page.getRecords(), page.getTotal());
     }

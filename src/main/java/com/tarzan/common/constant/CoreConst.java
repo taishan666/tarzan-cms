@@ -1,4 +1,4 @@
-package com.tarzan.common.util;
+package com.tarzan.common.constant;
 
 import lombok.experimental.UtilityClass;
 
@@ -40,7 +40,7 @@ public class CoreConst {
     /**
      * 是否启用演示模拟数据
      */
-    public static final boolean ENABLE_DEMO_DATA = true;
+    public static final boolean ENABLE_DEMO_DATA = false;
 
     /**
      * 网站是否静态化

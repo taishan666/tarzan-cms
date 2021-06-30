@@ -1,7 +1,7 @@
 package com.tarzan.module.blog.controller;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.tarzan.common.util.CoreConst;
+import com.tarzan.common.constant.CoreConst;
 import com.tarzan.common.util.Pagination;
 import com.tarzan.exception.ArticleNotFoundException;
 import com.tarzan.module.admin.model.BizArticle;
@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
-import static com.tarzan.common.util.CoreConst.THEME_PREFIX;
+import static com.tarzan.common.constant.CoreConst.THEME_PREFIX;
 
 /**
  * CMS页面相关接口

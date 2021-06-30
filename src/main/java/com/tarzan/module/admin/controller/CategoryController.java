@@ -1,7 +1,7 @@
 package com.tarzan.module.admin.controller;
 
 import com.baomidou.mybatisplus.core.toolkit.CollectionUtils;
-import com.tarzan.common.util.CoreConst;
+import com.tarzan.common.constant.CoreConst;
 import com.tarzan.common.util.ResultUtil;
 import com.tarzan.module.admin.model.BizArticle;
 import com.tarzan.module.admin.model.BizCategory;

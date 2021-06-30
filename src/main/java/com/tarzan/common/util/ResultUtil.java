@@ -1,5 +1,6 @@
 package com.tarzan.common.util;
 
+import com.tarzan.common.constant.CoreConst;
 import com.tarzan.module.admin.vo.base.PageResultVo;
 import com.tarzan.module.admin.vo.base.ResponseVo;
 import lombok.experimental.UtilityClass;

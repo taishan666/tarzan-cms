@@ -1,6 +1,6 @@
 package com.tarzan.module.admin.controller;
 
-import com.tarzan.common.util.CoreConst;
+import com.tarzan.common.constant.CoreConst;
 import com.tarzan.common.util.ResultUtil;
 import com.tarzan.module.admin.service.StaticHtmlService;
 import com.tarzan.module.admin.service.SysConfigService;
@@ -15,7 +15,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.Map;
 
-import static com.tarzan.common.util.CoreConst.SITE_STATIC_KEY;
+import static com.tarzan.common.constant.CoreConst.SITE_STATIC_KEY;
 
 /**
  * 后台网站信息配置

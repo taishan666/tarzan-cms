@@ -1,7 +1,7 @@
 package com.tarzan.component;
 
 import com.google.common.collect.Maps;
-import com.tarzan.common.util.CoreConst;
+import com.tarzan.common.constant.CoreConst;
 import com.tarzan.module.admin.model.BizCategory;
 import com.tarzan.module.admin.model.BizLink;
 import com.tarzan.module.admin.model.BizTags;

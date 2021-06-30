@@ -1,6 +1,6 @@
 package com.tarzan.module.admin.controller;
 
-import com.tarzan.common.util.CoreConst;
+import com.tarzan.common.constant.CoreConst;
 import com.tarzan.common.util.ResultUtil;
 import com.tarzan.module.admin.service.OssService;
 import com.tarzan.module.admin.vo.CloudStorageConfigVo;

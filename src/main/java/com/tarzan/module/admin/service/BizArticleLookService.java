@@ -4,7 +4,7 @@ import com.baomidou.mybatisplus.core.toolkit.CollectionUtils;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.google.common.collect.Maps;
-import com.tarzan.common.util.CoreConst;
+import com.tarzan.common.constant.CoreConst;
 import com.tarzan.common.util.DateUtil;
 import com.tarzan.module.admin.mapper.BizArticleLookMapper;
 import com.tarzan.module.admin.model.BizArticleLook;
@@ -42,7 +42,7 @@ public class BizArticleLookService extends ServiceImpl<BizArticleLookMapper, Biz
 
     public Map<String, Integer> lookCountByDay(int day) {
         List<CountVo> list = baseMapper.lookCountByDay(day);
-        Map<String, Integer> lookCountByDayMap = buildRecentDayMap(day + 1);
+        Map<String, Integer> lookCountByDayMap = buildRecentDayMap(day);
         if (CollectionUtils.isNotEmpty(list)) {
             lookCountByDayMap.putAll(list.stream().collect(Collectors.toMap(CountVo::getDay, CountVo::getCount)));
         }
@@ -51,7 +51,7 @@ public class BizArticleLookService extends ServiceImpl<BizArticleLookMapper, Biz
 
     public Map<String, Integer> userCountByDay(int day) {
         List<CountVo> list = baseMapper.userCountByDay(day);
-        Map<String, Integer> userCountByDayMap = buildRecentDayMap(day + 1);
+        Map<String, Integer> userCountByDayMap = buildRecentDayMap(day);
         if (CollectionUtils.isNotEmpty(list)) {
             userCountByDayMap.putAll(list.stream().collect(Collectors.toMap(CountVo::getDay, CountVo::getCount)));
         }

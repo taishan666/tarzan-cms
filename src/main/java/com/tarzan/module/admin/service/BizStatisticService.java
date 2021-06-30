@@ -27,7 +27,7 @@ public class BizStatisticService {
         int commentCount = commentService.count();
         int lookCount = articleLookService.count();
         int userCount = articleLookService.count(Wrappers.<BizArticleLook>query().select("DISTINCT user_ip"));
-        int recentDays = 6;
+        int recentDays = 7;
         Map<String, Integer> lookCountByDay = articleLookService.lookCountByDay(recentDays);
         Map<String, Integer> userCountByDay = articleLookService.userCountByDay(recentDays);
         return StatisticVo.builder().articleCount(articleCount).commentCount(commentCount).lookCount(lookCount).userCount(userCount).lookCountByDay(lookCountByDay).userCountByDay(userCountByDay).build();

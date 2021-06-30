@@ -1,6 +1,7 @@
 package com.tarzan.module.blog.controller;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.tarzan.common.constant.CoreConst;
 import com.tarzan.common.util.*;
 import com.tarzan.module.admin.model.BizArticleLook;
 import com.tarzan.module.admin.model.BizComment;
@@ -65,7 +66,7 @@ public class BlogApiController {
         } else if (StringUtils.isNotBlank(comment.getEmail())) {
             String entry = null;
             try {
-                entry = MD5.md5Hex(comment.getEmail());
+                entry = MD5Util.md5Hex(comment.getEmail());
             } catch (NoSuchAlgorithmException e) {
                 log.error("MD5出现异常{}", e.getMessage(), e);
             }

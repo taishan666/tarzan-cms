@@ -2,7 +2,7 @@ package com.tarzan.module.admin.service;
 
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.tarzan.common.util.CoreConst;
+import com.tarzan.common.constant.CoreConst;
 import com.tarzan.module.admin.mapper.SysConfigMapper;
 import com.tarzan.module.admin.model.SysConfig;
 import lombok.AllArgsConstructor;
@@ -17,7 +17,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static com.tarzan.common.util.CoreConst.SITE_STATIC_KEY;
+import static com.tarzan.common.constant.CoreConst.SITE_STATIC_KEY;
 
 /**
  * @author tarzan liu

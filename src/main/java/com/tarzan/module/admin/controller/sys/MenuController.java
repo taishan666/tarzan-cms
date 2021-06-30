@@ -1,7 +1,7 @@
 package com.tarzan.module.admin.controller.sys;
 
 import com.tarzan.common.shiro.ShiroService;
-import com.tarzan.common.util.CoreConst;
+import com.tarzan.common.constant.CoreConst;
 import com.tarzan.common.util.ResultUtil;
 import com.tarzan.module.admin.model.Menu;
 import com.tarzan.module.admin.service.MenuService;

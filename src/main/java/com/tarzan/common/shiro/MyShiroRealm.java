@@ -1,7 +1,7 @@
 package com.tarzan.common.shiro;
 
 import com.baomidou.mybatisplus.core.toolkit.CollectionUtils;
-import com.tarzan.common.util.CoreConst;
+import com.tarzan.common.constant.CoreConst;
 import com.tarzan.common.util.IpUtil;
 import com.tarzan.module.admin.model.User;
 import com.tarzan.module.admin.service.MenuService;

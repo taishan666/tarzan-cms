@@ -5,7 +5,7 @@ import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Maps;
 import com.tarzan.common.config.properties.StaticHtmlProperties;
-import com.tarzan.common.util.CoreConst;
+import com.tarzan.common.constant.CoreConst;
 import com.tarzan.common.util.Pagination;
 import com.tarzan.component.CommonDataService;
 import com.tarzan.module.admin.model.BizArticle;
@@ -28,7 +28,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
-import static com.tarzan.common.util.CoreConst.THEME_PREFIX;
+import static com.tarzan.common.constant.CoreConst.THEME_PREFIX;
 
 @Slf4j
 @Service

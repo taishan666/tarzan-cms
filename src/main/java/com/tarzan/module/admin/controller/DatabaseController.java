@@ -1,6 +1,6 @@
 package com.tarzan.module.admin.controller;
 
-import com.tarzan.common.util.CoreConst;
+import com.tarzan.common.constant.CoreConst;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;

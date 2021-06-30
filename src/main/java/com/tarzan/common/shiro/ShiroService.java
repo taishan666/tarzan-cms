@@ -2,7 +2,7 @@ package com.tarzan.common.shiro;
 
 import com.tarzan.common.config.properties.FileUploadProperties;
 import com.tarzan.common.config.properties.StaticHtmlProperties;
-import com.tarzan.common.util.CoreConst;
+import com.tarzan.common.constant.CoreConst;
 import com.tarzan.module.admin.model.Menu;
 import com.tarzan.module.admin.service.MenuService;
 import lombok.AllArgsConstructor;

@@ -2,6 +2,7 @@ package com.tarzan.module.admin.service;
 
 import com.alibaba.fastjson.JSON;
 import com.tarzan.common.config.properties.FileUploadProperties;
+import com.tarzan.common.constant.CoreConst;
 import com.tarzan.common.util.*;
 import com.tarzan.enums.SysConfigKey;
 import com.tarzan.exception.UploadFileNotFoundException;
@@ -41,7 +42,7 @@ public class OssService {
         String value = sysConfigService.selectAll().get(SysConfigKey.CLOUD_STORAGE_CONFIG.getValue());
         CloudStorageConfigVo cloudStorageConfig = JSON.parseObject(value, CloudStorageConfigVo.class);
 
-        String md5 = MD5.getMessageDigest(file.getBytes());
+        String md5 = MD5Util.getMessageDigest(file.getBytes());
         String dir;
         String filePath;
         String domain;

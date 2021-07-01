@@ -24,7 +24,7 @@ public class BizLinkService extends ServiceImpl<BizLinkMapper, BizLink> {
 
     @Cacheable(value = "link", key = "'list'")
     public List<BizLink> selectLinks(BizLink bizLink) {
-        return baseMapper.selectList(Wrappers.<BizLink>lambdaQuery()
+        return list(Wrappers.<BizLink>lambdaQuery()
                 .like(StringUtils.isNotBlank(bizLink.getName()),BizLink::getName, bizLink.getName())
                 .like(StringUtils.isNotBlank(bizLink.getUrl()),BizLink::getUrl, bizLink.getUrl())
                 .eq(Objects.nonNull(bizLink.getStatus()),BizLink::getStatus,bizLink.getStatus()));
@@ -32,7 +32,7 @@ public class BizLinkService extends ServiceImpl<BizLinkMapper, BizLink> {
 
     public IPage<BizLink> pageLinks(BizLink bizLink, Integer pageNumber, Integer pageSize) {
         IPage<BizLink> page = new Page<>(pageNumber, pageSize);
-        return baseMapper.selectPage(page,Wrappers.<BizLink>lambdaQuery()
+        return page(page,Wrappers.<BizLink>lambdaQuery()
                 .like(StringUtils.isNotBlank(bizLink.getName()),BizLink::getName, bizLink.getName())
                 .like(StringUtils.isNotBlank(bizLink.getUrl()),BizLink::getUrl, bizLink.getUrl())
                 .eq(Objects.nonNull(bizLink.getStatus()),BizLink::getStatus,bizLink.getStatus()));

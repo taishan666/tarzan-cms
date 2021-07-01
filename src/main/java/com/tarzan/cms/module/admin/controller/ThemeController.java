@@ -51,8 +51,8 @@ public class ThemeController {
         bizTheme.setCreateTime(date);
         bizTheme.setUpdateTime(date);
         bizTheme.setStatus(CoreConst.STATUS_INVALID);
-        boolean i = bizThemeService.save(bizTheme);
-        if (i) {
+        boolean flag = bizThemeService.save(bizTheme);
+        if (flag) {
             return ResultUtil.success("新增主题成功");
         } else {
             return ResultUtil.error("新增主题失败");
@@ -70,8 +70,8 @@ public class ThemeController {
     @ResponseBody
     public ResponseVo edit(BizTheme bizTheme) {
         bizTheme.setUpdateTime(new Date());
-        boolean i = bizThemeService.updateById(bizTheme);
-        if (i) {
+        boolean flag = bizThemeService.updateById(bizTheme);
+        if (flag) {
             return ResultUtil.success("编辑主题成功");
         } else {
             return ResultUtil.error("编辑主题失败");
@@ -81,8 +81,8 @@ public class ThemeController {
     @PostMapping("/use")
     @ResponseBody
     public ResponseVo use(Integer id) {
-        int i = bizThemeService.useTheme(id);
-        if (i > 0) {
+        boolean flag = bizThemeService.useTheme(id);
+        if (flag) {
             return ResultUtil.success("启用主题成功");
         } else {
             return ResultUtil.error("启用主题失败");
@@ -92,8 +92,8 @@ public class ThemeController {
     @PostMapping("/delete")
     @ResponseBody
     public ResponseVo delete(Integer id) {
-        boolean i = bizThemeService.removeById(id);
-        if (i) {
+        boolean flag = bizThemeService.removeById(id);
+        if (flag) {
             return ResultUtil.success("删除主题成功");
         } else {
             return ResultUtil.error("删除主题失败");

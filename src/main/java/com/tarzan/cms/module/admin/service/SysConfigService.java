@@ -36,7 +36,7 @@ public class SysConfigService extends ServiceImpl<SysConfigMapper, SysConfig> {
 
     @Cacheable(value = "site", key = "'config'")
     public Map<String, String> selectAll() {
-        List<SysConfig> sysConfigs = baseMapper.selectList(Wrappers.emptyWrapper());
+        List<SysConfig> sysConfigs =list();
         Map<String, String> map = new HashMap<>(sysConfigs.size());
         for (SysConfig config : sysConfigs) {
             map.put(config.getSysKey(), config.getSysValue());
@@ -54,7 +54,7 @@ public class SysConfigService extends ServiceImpl<SysConfigMapper, SysConfig> {
     }
 
     @CacheEvict(value = "site", key = "'config'", allEntries = true)
-    public void updateAll(Map<String, String> map, HttpServletRequest request, HttpServletResponse response) {
+    public void updateAll(Map<String, String> map) {
         map.forEach(this::updateByKey);
     }
 }

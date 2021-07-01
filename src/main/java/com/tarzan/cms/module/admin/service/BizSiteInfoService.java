@@ -1,6 +1,7 @@
 package com.tarzan.cms.module.admin.service;
 
 import com.tarzan.cms.module.admin.mapper.BizArticleMapper;
+import com.tarzan.cms.module.admin.vo.SiteInfoVo;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -17,7 +18,7 @@ public class BizSiteInfoService {
 
     private final BizArticleMapper bizArticleMapper;
 
-    public Map<String, Object> getSiteInfo() {
+    public SiteInfoVo getSiteInfo() {
         return bizArticleMapper.getSiteInfo();
     }
 

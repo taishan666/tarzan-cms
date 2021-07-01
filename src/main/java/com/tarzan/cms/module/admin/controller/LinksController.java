@@ -51,8 +51,8 @@ public class LinksController {
         Date date = new Date();
         bizLink.setCreateTime(date);
         bizLink.setUpdateTime(date);
-        boolean i = linkService.save(bizLink);
-        if (i) {
+        boolean flag = linkService.save(bizLink);
+        if (flag) {
             return ResultUtil.success("新增友链成功");
         } else {
             return ResultUtil.error("新增友链失败");
@@ -71,8 +71,8 @@ public class LinksController {
     @CacheEvict(value = "link", allEntries = true)
     public ResponseVo edit(BizLink bizLink) {
         bizLink.setUpdateTime(new Date());
-        boolean i = linkService.updateById(bizLink);
-        if (i) {
+        boolean flag = linkService.updateById(bizLink);
+        if (flag) {
             return ResultUtil.success("编辑友链成功");
         } else {
             return ResultUtil.error("编辑友链失败");

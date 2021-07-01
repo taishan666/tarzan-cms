@@ -37,7 +37,7 @@ public class BizArticleLookService extends ServiceImpl<BizArticleLookMapper, Biz
     }
 
     public int checkArticleLook(Integer articleId, String userIp, Date lookTime) {
-        return baseMapper.selectCount(Wrappers.lambdaQuery(new BizArticleLook().setArticleId(articleId).setUserIp(userIp).setLookTime(lookTime)));
+        return count(Wrappers.lambdaQuery(new BizArticleLook().setArticleId(articleId).setUserIp(userIp).setLookTime(lookTime)));
     }
 
     public Map<String, Integer> lookCountByDay(int day) {

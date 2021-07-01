@@ -37,9 +37,7 @@ public class CommonDataService {
             DataTypeEnum dataTypeEnum = DataTypeEnum.valueOf(moduleName);
             switch (dataTypeEnum) {
                 case CATEGORY_LIST:
-                    BizCategory bizCategory = new BizCategory();
-                    bizCategory.setStatus(CoreConst.STATUS_VALID);
-                    return bizCategoryService.selectCategories(bizCategory);
+                    return bizCategoryService.selectCategories(new BizCategory().setStatus(CoreConst.STATUS_VALID));
                 case TAG_LIST:
                     return bizTagsService.selectTags(new BizTags());
                 case SLIDER_LIST:
@@ -53,9 +51,7 @@ public class CommonDataService {
                 case RANDOM_LIST:
                     return bizArticleService.randomList(CoreConst.PAGE_SIZE);
                 case LINK_LIST:
-                    BizLink bizLink = new BizLink();
-                    bizLink.setStatus(CoreConst.STATUS_VALID);
-                    return bizLinkService.selectLinks(bizLink);
+                    return bizLinkService.selectLinks(new BizLink().setStatus(CoreConst.STATUS_VALID));
                 case SITE_INFO:
                     return siteInfoService.getSiteInfo();
                 case SITE_CONFIG:

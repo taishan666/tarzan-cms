@@ -1,14 +1,17 @@
 package com.tarzan.cms.module.admin.service;
 
+import com.baomidou.mybatisplus.core.toolkit.CollectionUtils;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.tarzan.cms.common.constant.CoreConst;
 import com.tarzan.cms.module.admin.mapper.BizCategoryMapper;
 import com.tarzan.cms.module.admin.model.BizCategory;
-import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * @author tarzan liu
@@ -21,21 +24,16 @@ public class BizCategoryService extends ServiceImpl<BizCategoryMapper, BizCatego
 
     @Cacheable(value = "category", key = "'tree'")
     public List<BizCategory> selectCategories(BizCategory bizCategory) {
-        return list();
-    }
-
-    @CacheEvict(value = "category", allEntries = true)
-    public boolean deleteBatch(List<Integer> ids) {
-        return removeByIds(ids);
+        return list(Wrappers.<BizCategory>lambdaQuery(bizCategory).orderByAsc(BizCategory::getSort));
     }
 
     public BizCategory selectById(Integer id) {
-        BizCategory category=baseMapper.selectById(id);
-        category.setParent(baseMapper.selectById(category.getPid()));
+        BizCategory category=getById(id);
+        category.setParent(getById(category.getPid()));
         return category;
     }
 
     public List<BizCategory> selectByPid(Integer pid) {
-        return baseMapper.selectList(Wrappers.<BizCategory>lambdaQuery().eq(BizCategory::getPid, pid));
+        return list(Wrappers.<BizCategory>lambdaQuery().eq(BizCategory::getPid, pid));
     }
 }

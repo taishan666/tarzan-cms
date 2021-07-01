@@ -15,6 +15,6 @@ import org.springframework.stereotype.Service;
 public class BizLoveService extends ServiceImpl<BizLoveMapper, BizLove> {
 
     public BizLove checkLove(Integer bizId, String userIp) {
-        return baseMapper.selectOne(Wrappers.lambdaQuery(new BizLove().setBizId(bizId).setUserIp(userIp)));
+        return getOne(Wrappers.lambdaQuery(new BizLove().setBizId(bizId).setUserIp(userIp)));
     }
 }

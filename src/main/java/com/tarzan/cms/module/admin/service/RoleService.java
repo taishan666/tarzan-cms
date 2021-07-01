@@ -22,8 +22,8 @@ import java.util.stream.Collectors;
 @AllArgsConstructor
 public class RoleService extends ServiceImpl<RoleMapper, Role> {
 
-    private final com.tarzan.cms.module.admin.mapper.MenuMapper MenuMapper;
-    private final com.tarzan.cms.module.admin.mapper.RoleMenuMapper RoleMenuMapper;
+    private final MenuMapper MenuMapper;
+    private final RoleMenuMapper RoleMenuMapper;
     private final UserMapper userMapper;
     private final UserRoleMapper userRoleMapper;
 
@@ -37,17 +37,17 @@ public class RoleService extends ServiceImpl<RoleMapper, Role> {
 
     public IPage<Role> selectRoles(Role role, Integer pageNumber, Integer pageSize) {
         IPage<Role> page = new Page<>(pageNumber, pageSize);
-        return baseMapper.selectPage(page, Wrappers.<Role>lambdaQuery().eq(Role::getStatus, 1).like(StringUtils.isNotBlank(role.getName()),Role::getName,role.getName()));
+        return page(page, Wrappers.<Role>lambdaQuery().eq(Role::getStatus, 1).like(StringUtils.isNotBlank(role.getName()),Role::getName,role.getName()));
     }
 
-    public int insert(Role role) {
+    public boolean insert(Role role) {
         role.setStatus(1);
         role.setCreateTime(new Date());
-        return baseMapper.insert(role);
+        return save(role);
     }
 
-    public int updateStatusBatch(List<Integer> roleIds, Integer status) {
-        return baseMapper.update(new Role().setStatus(status),Wrappers.<Role>lambdaUpdate().in(Role::getId, roleIds));
+    public boolean updateStatusBatch(List<Integer> roleIds, Integer status) {
+        return update(new Role().setStatus(status),Wrappers.<Role>lambdaUpdate().in(Role::getId, roleIds));
     }
 
     public List<Menu> findPermissionsByRoleId(Integer roleId) {

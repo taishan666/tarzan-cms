@@ -64,8 +64,8 @@ public class CategoryController {
         bizCategory.setCreateTime(date);
         bizCategory.setUpdateTime(date);
         bizCategory.setStatus(CoreConst.STATUS_VALID);
-        boolean i = categoryService.save(bizCategory);
-        if (i) {
+        boolean flag = categoryService.save(bizCategory);
+        if (flag) {
             return ResultUtil.success("新增分类成功");
         } else {
             return ResultUtil.error("新增分类失败");
@@ -84,8 +84,8 @@ public class CategoryController {
     @CacheEvict(value = "category", allEntries = true)
     public ResponseVo edit(BizCategory bizCategory) {
         bizCategory.setUpdateTime(new Date());
-        boolean i = categoryService.updateById(bizCategory);
-        if (i) {
+        boolean flag = categoryService.updateById(bizCategory);
+        if (flag) {
             return ResultUtil.success("编辑分类成功");
         } else {
             return ResultUtil.error("编辑分类失败");
@@ -103,8 +103,9 @@ public class CategoryController {
 
     @PostMapping("/batch/delete")
     @ResponseBody
+    @CacheEvict(value = "category", allEntries = true)
     public ResponseVo deleteBatch(@RequestParam("ids") List<Integer> ids) {
-        boolean flag = categoryService.deleteBatch(ids);
+        boolean flag = categoryService.removeByIds(ids);
         if (flag) {
             return ResultUtil.success("删除分类成功");
         } else {

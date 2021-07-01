@@ -82,14 +82,14 @@ public class UserService extends ServiceImpl<UserMapper, User> {
         return baseMapper.selectOne(Wrappers.<User>lambdaQuery().eq(User::getUsername, username).eq(User::getStatus, CoreConst.STATUS_VALID));
     }
 
-    public int register(User user) {
-        return baseMapper.insert(user);
+    public boolean register(User user) {
+        return save(user);
     }
 
     public void updateLastLoginTime(User user) {
         Assert.notNull(user, "param: user is null");
         user.setLastLoginTime(new Date());
-        baseMapper.updateById(user);
+        updateById(user);
     }
 
     public IPage<User> selectUsers(User user, Integer pageNumber, Integer pageSize) {
@@ -98,13 +98,13 @@ public class UserService extends ServiceImpl<UserMapper, User> {
     }
 
     public User selectByUserId(Integer userId) {
-        return baseMapper.selectById(userId);
+        return getById(userId);
     }
 
-    public int updateByUserId(User user) {
+    public boolean updateByUserId(User user) {
         Assert.notNull(user, "param: user is null");
         user.setUpdateTime(new Date());
-        return baseMapper.updateById(user);
+        return updateById(user);
     }
 
     public boolean updateStatusBatch(List<Integer> userIds, Integer status) {

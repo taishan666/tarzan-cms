@@ -45,8 +45,8 @@ public class CommentController {
     @PostMapping("/reply")
     public ResponseVo edit(BizComment comment) {
         completeComment(comment);
-        boolean i = commentService.save(comment);
-        if (i) {
+        boolean flag = commentService.save(comment);
+        if (flag) {
             return ResultUtil.success("回复评论成功");
         } else {
             return ResultUtil.error("回复评论失败");
@@ -56,8 +56,8 @@ public class CommentController {
     @PostMapping("/delete")
     public ResponseVo delete(Integer id) {
         Integer[] ids = {id};
-        int i = commentService.deleteBatch(ids);
-        if (i > 0) {
+        boolean flag = commentService.deleteBatch(ids);
+        if (flag) {
             return ResultUtil.success("删除评论成功");
         } else {
             return ResultUtil.error("删除评论失败");
@@ -66,8 +66,8 @@ public class CommentController {
 
     @PostMapping("/batch/delete")
     public ResponseVo deleteBatch(@RequestParam("ids[]") Integer[] ids) {
-        int i = commentService.deleteBatch(ids);
-        if (i > 0) {
+        boolean flag = commentService.deleteBatch(ids);
+        if (flag) {
             return ResultUtil.success("删除评论成功");
         } else {
             return ResultUtil.error("删除评论失败");

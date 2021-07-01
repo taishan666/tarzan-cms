@@ -56,9 +56,7 @@ public class ArticleController {
     /*文章*/
     @GetMapping("/add")
     public String addArticle(Model model) {
-        BizCategory bizCategory = new BizCategory();
-        bizCategory.setStatus(CoreConst.STATUS_VALID);
-        List<BizCategory> bizCategories = categoryService.selectCategories(bizCategory);
+        List<BizCategory> bizCategories = categoryService.selectCategories(new BizCategory().setStatus(CoreConst.STATUS_VALID));
         List<BizTags> tags = tagsService.list();
         model.addAttribute("categories", bizCategories);
         model.addAttribute("tags", tags);
@@ -90,9 +88,7 @@ public class ArticleController {
     public String edit(Model model, Integer id) {
         BizArticle bizArticle = articleService.selectById(id);
         model.addAttribute("article", bizArticle);
-        BizCategory bizCategory = new BizCategory();
-        bizCategory.setStatus(CoreConst.STATUS_VALID);
-        List<BizCategory> bizCategories = categoryService.selectCategories(bizCategory);
+        List<BizCategory> bizCategories = categoryService.selectCategories(new BizCategory().setStatus(CoreConst.STATUS_VALID));
         model.addAttribute("categories", bizCategories);
         List<BizTags> sysTags = tagsService.list();
         /*方便前端处理回显*/

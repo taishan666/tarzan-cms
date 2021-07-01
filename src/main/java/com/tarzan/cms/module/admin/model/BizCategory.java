@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.annotation.TableField;
 import com.tarzan.cms.module.admin.vo.base.BaseVo;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.experimental.Accessors;
 
 import java.util.List;
 
@@ -14,6 +15,7 @@ import java.util.List;
  */
 @EqualsAndHashCode(callSuper = true)
 @Data
+@Accessors(chain = true)
 public class BizCategory extends BaseVo {
 
     private Integer pid;
@@ -25,6 +27,7 @@ public class BizCategory extends BaseVo {
 
     @TableField(exist = false)
     private BizCategory parent;
-
+    @TableField(exist = false)
+    private List<BizCategory> children;
 
 }

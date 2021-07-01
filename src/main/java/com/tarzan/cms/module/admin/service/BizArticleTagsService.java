@@ -17,8 +17,8 @@ import java.util.Date;
 public class BizArticleTagsService extends ServiceImpl<BizArticleTagsMapper, BizArticleTags> {
 
 
-    public int removeByArticleId(Integer articleId) {
-        return baseMapper.delete(Wrappers.<BizArticleTags>lambdaQuery().eq(BizArticleTags::getArticleId, articleId));
+    public boolean removeByArticleId(Integer articleId) {
+        return remove(Wrappers.<BizArticleTags>lambdaQuery().eq(BizArticleTags::getArticleId, articleId));
     }
 
     public void insertList(Integer[] tagIds, Integer articleId) {

@@ -23,7 +23,7 @@ public class BizCommentService extends ServiceImpl<BizCommentMapper, BizComment>
         return page;
     }
 
-    public int deleteBatch(Integer[] ids) {
-        return baseMapper.delete(Wrappers.<BizComment>lambdaQuery().in(BizComment::getId,ids).or().in(BizComment::getPid,ids));
+    public boolean deleteBatch(Integer[] ids) {
+        return remove(Wrappers.<BizComment>lambdaQuery().in(BizComment::getId,ids).or().in(BizComment::getPid,ids));
     }
 }

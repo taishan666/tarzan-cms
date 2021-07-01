@@ -79,8 +79,8 @@ public class UserController {
         userForm.setUpdateTime(date);
         userForm.setLastLoginTime(date);
         PasswordHelper.encryptPassword(userForm);
-        int num = userService.register(userForm);
-        if (num > 0) {
+        boolean flag = userService.register(userForm);
+        if (flag) {
             return ResultUtil.success("添加用户成功");
         } else {
             return ResultUtil.error("添加用户失败");
@@ -103,8 +103,8 @@ public class UserController {
     @PostMapping("/edit")
     @ResponseBody
     public ResponseVo editUser(User userForm) {
-        int a = userService.updateByUserId(userForm);
-        if (a > 0) {
+        boolean flag = userService.updateByUserId(userForm);
+        if (flag) {
             return ResultUtil.success("编辑用户成功！");
         } else {
             return ResultUtil.error("编辑用户失败");

@@ -4,6 +4,8 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.tarzan.cms.module.admin.model.BizArticle;
 import com.tarzan.cms.module.admin.vo.ArticleConditionVo;
+import com.tarzan.cms.module.admin.vo.SiteInfoVo;
+import org.apache.ibatis.annotations.MapKey;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
@@ -55,5 +57,5 @@ public interface BizArticleMapper extends BaseMapper<BizArticle> {
      *
      * @return
      */
-    Map<String, Object> getSiteInfo();
+    SiteInfoVo getSiteInfo();
 }

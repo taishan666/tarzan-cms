@@ -107,9 +107,7 @@ public class SystemController {
             modelAndView.setView(new RedirectView("/admin", true, false));
             return modelAndView;
         }
-        BizCategory bizCategory = new BizCategory();
-        bizCategory.setStatus(CoreConst.STATUS_VALID);
-        model.addAttribute("categoryList", bizCategoryService.selectCategories(bizCategory));
+        model.addAttribute("categoryList", bizCategoryService.selectCategories(new BizCategory().setStatus(CoreConst.STATUS_VALID)));
         getSysConfig(model);
         modelAndView.setViewName("system/login");
         return modelAndView;
@@ -160,9 +158,7 @@ public class SystemController {
      */
     @GetMapping("/kickOut")
     public String kickOut(Model model) {
-        BizCategory bizCategory = new BizCategory();
-        bizCategory.setStatus(CoreConst.STATUS_VALID);
-        model.addAttribute("categoryList", bizCategoryService.selectCategories(bizCategory));
+        model.addAttribute("categoryList", bizCategoryService.selectCategories(new BizCategory().setStatus(CoreConst.STATUS_VALID)));
         getSysConfig(model);
         return "system/kickOut";
     }
@@ -200,9 +196,7 @@ public class SystemController {
     private void getSysConfig(Model model) {
         Map<String, String> map = configService.selectAll();
         model.addAttribute("sysConfig", map);
-        BizCategory bizCategory = new BizCategory();
-        bizCategory.setStatus(CoreConst.STATUS_VALID);
-        model.addAttribute("categoryList", bizCategoryService.selectCategories(bizCategory));
+        model.addAttribute("categoryList", bizCategoryService.selectCategories(new BizCategory().setStatus(CoreConst.STATUS_VALID)));
     }
 
 

@@ -51,8 +51,8 @@ public class TagController {
         Date date = new Date();
         bizTags.setCreateTime(date);
         bizTags.setUpdateTime(date);
-        boolean i = tagsService.save(bizTags);
-        if (i) {
+        boolean flag = tagsService.save(bizTags);
+        if (flag) {
             return ResultUtil.success("新增标签成功");
         } else {
             return ResultUtil.error("新增标签失败");
@@ -71,8 +71,8 @@ public class TagController {
     @CacheEvict(value = "tag", allEntries = true)
     public ResponseVo edit(BizTags bizTags) {
         bizTags.setUpdateTime(new Date());
-        boolean i = tagsService.updateById(bizTags);
-        if (i) {
+        boolean flag = tagsService.updateById(bizTags);
+        if (flag) {
             return ResultUtil.success("编辑标签成功");
         } else {
             return ResultUtil.error("编辑标签失败");

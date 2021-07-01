@@ -40,7 +40,7 @@ public class SiteInfoController {
                 }
                 CoreConst.SITE_STATIC.set(siteStaticOn);
             }
-            configService.updateAll(map, request, response);
+            configService.updateAll(map);
             return ResultUtil.success("保存网站信息成功");
         } catch (Exception e) {
             e.printStackTrace();

@@ -52,11 +52,11 @@ public class MenuService extends ServiceImpl<MenuMapper, Menu> {
     }
 
     public List<Menu> selectAll(Integer status) {
-        return  baseMapper.selectList(Wrappers.<Menu>lambdaQuery().eq(Menu::getStatus,status).orderByAsc(Menu::getOrderNum));
+        return  list(Wrappers.<Menu>lambdaQuery().eq(Menu::getStatus,status).orderByAsc(Menu::getOrderNum));
     }
 
     public List<Menu> selectAllMenuName(Integer status) {
-        return  baseMapper.selectList(Wrappers.<Menu>lambdaQuery().eq(Menu::getStatus,status).orderByAsc(Menu::getOrderNum));
+        return  list(Wrappers.<Menu>lambdaQuery().eq(Menu::getStatus,status).orderByAsc(Menu::getOrderNum));
     }
 
     public List<Menu> selectMenuByUserId(Integer userId) {

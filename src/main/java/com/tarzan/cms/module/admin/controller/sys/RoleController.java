@@ -65,8 +65,8 @@ public class RoleController {
     @ResponseBody
     public ResponseVo addRole(Role role) {
         try {
-            int a = roleService.insert(role);
-            if (a > 0) {
+            boolean flag = roleService.insert(role);
+            if (flag) {
                 return ResultUtil.success("添加角色成功");
             } else {
                 return ResultUtil.error("添加角色失败");
@@ -85,8 +85,8 @@ public class RoleController {
             return ResultUtil.error("删除失败,该角色下存在用户");
         }
         List<Integer> roleIdsList = Collections.singletonList(id);
-        int a = roleService.updateStatusBatch(roleIdsList, CoreConst.STATUS_INVALID);
-        if (a > 0) {
+        boolean flag = roleService.updateStatusBatch(roleIdsList, CoreConst.STATUS_INVALID);
+        if (flag) {
             return ResultUtil.success("删除角色成功");
         } else {
             return ResultUtil.error("删除角色失败");
@@ -100,8 +100,8 @@ public class RoleController {
         if (CollectionUtils.isNotEmpty(roleService.findByRoleIds(ids))) {
             return ResultUtil.error("删除失败,选择的角色下存在用户");
         }
-        int a = roleService.updateStatusBatch(ids, CoreConst.STATUS_INVALID);
-        if (a > 0) {
+        boolean flag = roleService.updateStatusBatch(ids, CoreConst.STATUS_INVALID);
+        if (flag) {
             return ResultUtil.success("删除角色成功");
         } else {
             return ResultUtil.error("删除角色失败");

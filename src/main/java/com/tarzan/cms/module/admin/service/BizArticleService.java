@@ -102,12 +102,12 @@ public class BizArticleService extends ServiceImpl<BizArticleMapper, BizArticle>
         Date date = new Date();
         bizArticle.setCreateTime(date);
         bizArticle.setUpdateTime(date);
-        baseMapper.insert(bizArticle);
+        save(bizArticle);
         return bizArticle;
     }
 
     public List<BizArticle> selectByCategoryId(Integer categoryId) {
-        return baseMapper.selectList(Wrappers.<BizArticle>lambdaQuery().eq(BizArticle::getCategoryId, categoryId));
+        return list(Wrappers.<BizArticle>lambdaQuery().eq(BizArticle::getCategoryId, categoryId));
     }
 
 }

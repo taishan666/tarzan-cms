@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.tarzan.module.admin.mapper.BizArticleLookMapper">
+<mapper namespace="com.tarzan.cms.module.admin.mapper.BizArticleLookMapper">
 
-    <select id="lookCountByDay" resultType="com.tarzan.module.admin.vo.CountVo">
+    <select id="lookCountByDay" resultType="com.tarzan.cms.module.admin.vo.CountVo">
         select DATE_FORMAT(look_time, '%Y-%m-%d') as day,
                count(1)                           as count
         from biz_article_look
@@ -10,7 +10,7 @@
         group by DATE_FORMAT(look_time, '%Y-%m-%d')
     </select>
 
-    <select id="userCountByDay" resultType="com.tarzan.module.admin.vo.CountVo">
+    <select id="userCountByDay" resultType="com.tarzan.cms.module.admin.vo.CountVo">
         select day,count(1) as count
         from
             (

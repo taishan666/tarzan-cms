@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-    <mapper namespace="com.tarzan.module.admin.mapper.UserMapper">
+    <mapper namespace="com.tarzan.cms.module.admin.mapper.UserMapper">
 
-    <select id="selectUsers" resultType="com.tarzan.module.admin.model.User" parameterType="com.tarzan.module.admin.model.User">
+    <select id="selectUsers" resultType="com.tarzan.cms.module.admin.model.User" parameterType="com.tarzan.cms.module.admin.model.User">
         SELECT
         u.id,
         u.username,
@@ -28,7 +28,7 @@
         GROUP BY u.id
     </select>
 
-    <select id="findByRoleId" resultType="com.tarzan.module.admin.model.User">
+    <select id="findByRoleId" resultType="com.tarzan.cms.module.admin.model.User">
         SELECT
             a.id,
             a.username,
@@ -48,7 +48,7 @@
         WHERE b.role_id = #{roleId,jdbcType=VARCHAR}
     </select>
 
-    <select id="findByRoleIds" resultType="com.tarzan.module.admin.model.User">
+    <select id="findByRoleIds" resultType="com.tarzan.cms.module.admin.model.User">
         SELECT
         a.id,
         a.username,

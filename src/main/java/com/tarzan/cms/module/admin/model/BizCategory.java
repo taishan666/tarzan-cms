@@ -23,10 +23,8 @@ public class BizCategory extends BaseVo {
     private Integer status;
     private String icon;
 
-
     @TableField(exist = false)
     private BizCategory parent;
-    @TableField(exist = false)
-    private List<BizCategory> children;
+
 
 }

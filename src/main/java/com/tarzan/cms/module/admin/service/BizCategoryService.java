@@ -21,7 +21,7 @@ public class BizCategoryService extends ServiceImpl<BizCategoryMapper, BizCatego
 
     @Cacheable(value = "category", key = "'tree'")
     public List<BizCategory> selectCategories(BizCategory bizCategory) {
-        return baseMapper.selectCategories(bizCategory);
+        return list();
     }
 
     @CacheEvict(value = "category", allEntries = true)
@@ -30,7 +30,9 @@ public class BizCategoryService extends ServiceImpl<BizCategoryMapper, BizCatego
     }
 
     public BizCategory selectById(Integer id) {
-        return baseMapper.getById(id);
+        BizCategory category=baseMapper.selectById(id);
+        category.setParent(baseMapper.selectById(category.getPid()));
+        return category;
     }
 
     public List<BizCategory> selectByPid(Integer pid) {

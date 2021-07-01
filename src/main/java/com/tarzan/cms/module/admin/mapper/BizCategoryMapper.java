@@ -12,7 +12,4 @@ import java.util.List;
  */
 public interface BizCategoryMapper extends BaseMapper<BizCategory> {
 
-    List<BizCategory> selectCategories(BizCategory bizCategory);
-
-    BizCategory getById(Integer id);
 }

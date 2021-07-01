@@ -11,11 +11,17 @@
     </select>
 
     <select id="userCountByDay" resultType="com.tarzan.module.admin.vo.CountVo">
-        select DATE_FORMAT(look_time, '%Y-%m-%d') as day,
-               count(1)                           as count
-        from biz_article_look
-        where date(look_time) >= DATE_SUB(CURDATE(), INTERVAL #{day} DAY)
-        group by DATE_FORMAT(look_time, '%Y-%m-%d')
+        select day,count(1) as count
+        from
+            (
+            select DISTINCT
+            user_ip,
+            DATE_FORMAT(look_time, '%Y-%m-%d' ) as day
+            from
+            biz_article_look
+            where
+            date( look_time ) >= DATE_SUB( CURDATE(), INTERVAL 7 DAY )) a
+        group by  day
     </select>
 
 </mapper>

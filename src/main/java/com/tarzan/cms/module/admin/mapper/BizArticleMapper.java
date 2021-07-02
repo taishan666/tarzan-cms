@@ -5,11 +5,9 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.tarzan.cms.module.admin.model.BizArticle;
 import com.tarzan.cms.module.admin.vo.ArticleConditionVo;
 import com.tarzan.cms.module.admin.vo.SiteInfoVo;
-import org.apache.ibatis.annotations.MapKey;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
-import java.util.Map;
 
 /**
  * @author tarzan liu

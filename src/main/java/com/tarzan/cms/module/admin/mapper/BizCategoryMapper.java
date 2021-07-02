@@ -3,7 +3,6 @@ package com.tarzan.cms.module.admin.mapper;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.tarzan.cms.module.admin.model.BizCategory;
 
-import java.util.List;
 
 /**
  * @author tarzan liu

@@ -1,8 +1,6 @@
 package com.tarzan.cms.module.admin.controller;
 
-import com.wf.captcha.ArithmeticCaptcha;
 import com.wf.captcha.GifCaptcha;
-import com.wf.captcha.base.Captcha;
 import com.wf.captcha.utils.CaptchaUtil;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

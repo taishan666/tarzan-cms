@@ -8,7 +8,7 @@ import com.tarzan.cms.module.admin.service.BizCategoryService;
 import com.tarzan.cms.module.admin.service.BizThemeService;
 import com.tarzan.cms.common.constant.CoreConst;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.tarzan.cms.exception.ArticleNotFoundException;
+import com.tarzan.cms.common.exception.ArticleNotFoundException;
 import com.tarzan.cms.module.admin.vo.ArticleConditionVo;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;

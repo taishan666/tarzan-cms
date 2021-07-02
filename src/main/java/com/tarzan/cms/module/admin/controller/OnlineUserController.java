@@ -1,6 +1,6 @@
 package com.tarzan.cms.module.admin.controller;
 
-import com.tarzan.cms.common.util.ResultUtil;
+import com.tarzan.cms.utils.ResultUtil;
 import com.tarzan.cms.module.admin.service.UserService;
 import com.tarzan.cms.module.admin.vo.UserOnlineVo;
 import com.tarzan.cms.module.admin.vo.UserSessionVo;

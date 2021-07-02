@@ -2,9 +2,9 @@ package com.tarzan.cms.common.config;
 
 import at.pollux.thymeleaf.shiro.dialect.ShiroDialect;
 import com.baomidou.mybatisplus.core.toolkit.StringUtils;
-import com.tarzan.cms.common.shiro.filter.KickOutSessionControlFilter;
-import com.tarzan.cms.common.shiro.redis.RedisManager;
-import com.tarzan.cms.common.shiro.MyShiroRealm;
+import com.tarzan.cms.shiro.filter.KickOutSessionControlFilter;
+import com.tarzan.cms.shiro.redis.RedisManager;
+import com.tarzan.cms.shiro.MyShiroRealm;
 import com.tarzan.cms.common.constant.CoreConst;
 import org.apache.shiro.codec.Base64;
 import org.apache.shiro.mgt.SecurityManager;

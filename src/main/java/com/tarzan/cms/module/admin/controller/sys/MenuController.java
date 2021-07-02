@@ -1,8 +1,8 @@
 package com.tarzan.cms.module.admin.controller.sys;
 
 import com.tarzan.cms.common.constant.CoreConst;
-import com.tarzan.cms.common.shiro.ShiroService;
-import com.tarzan.cms.common.util.ResultUtil;
+import com.tarzan.cms.shiro.ShiroService;
+import com.tarzan.cms.utils.ResultUtil;
 import com.tarzan.cms.module.admin.model.Menu;
 import com.tarzan.cms.module.admin.service.MenuService;
 import com.tarzan.cms.module.admin.vo.base.ResponseVo;

@@ -2,8 +2,8 @@ package com.tarzan.cms.module.admin.controller;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.tarzan.cms.common.constant.CoreConst;
-import com.tarzan.cms.common.util.IpUtil;
-import com.tarzan.cms.common.util.ResultUtil;
+import com.tarzan.cms.utils.IpUtil;
+import com.tarzan.cms.utils.ResultUtil;
 import com.tarzan.cms.module.admin.model.BizComment;
 import com.tarzan.cms.module.admin.model.User;
 import com.tarzan.cms.module.admin.service.BizCommentService;

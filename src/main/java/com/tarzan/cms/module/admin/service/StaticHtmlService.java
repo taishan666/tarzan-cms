@@ -4,7 +4,7 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Maps;
-import com.tarzan.cms.common.config.properties.StaticHtmlProperties;
+import com.tarzan.cms.common.properties.StaticHtmlProperties;
 import com.tarzan.cms.common.constant.CoreConst;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.tarzan.cms.component.CommonDataService;

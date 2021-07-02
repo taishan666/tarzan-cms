@@ -1,11 +1,11 @@
 package com.tarzan.cms.module.admin.service;
 
 import com.alibaba.fastjson.JSON;
-import com.tarzan.cms.common.config.properties.FileUploadProperties;
+import com.tarzan.cms.common.properties.FileUploadProperties;
 import com.tarzan.cms.common.constant.CoreConst;
-import com.tarzan.cms.common.util.*;
-import com.tarzan.cms.enums.SysConfigKey;
-import com.tarzan.cms.exception.UploadFileNotFoundException;
+import com.tarzan.cms.utils.*;
+import com.tarzan.cms.common.enums.SysConfigKey;
+import com.tarzan.cms.common.exception.UploadFileNotFoundException;
 import com.tarzan.cms.module.admin.vo.CloudStorageConfigVo;
 import com.tarzan.cms.module.admin.vo.UploadResponse;
 import com.tarzan.cms.module.admin.vo.base.ResponseVo;

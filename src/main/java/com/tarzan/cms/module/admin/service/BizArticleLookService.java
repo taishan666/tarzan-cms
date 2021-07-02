@@ -5,7 +5,7 @@ import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.google.common.collect.Maps;
 import com.tarzan.cms.common.constant.CoreConst;
-import com.tarzan.cms.common.util.DateUtil;
+import com.tarzan.cms.utils.DateUtil;
 import com.tarzan.cms.module.admin.mapper.BizArticleLookMapper;
 import com.tarzan.cms.module.admin.model.BizArticleLook;
 import com.tarzan.cms.module.admin.vo.CountVo;

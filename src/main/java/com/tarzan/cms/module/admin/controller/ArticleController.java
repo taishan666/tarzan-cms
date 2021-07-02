@@ -6,7 +6,7 @@ import com.tarzan.cms.module.admin.service.BizArticleTagsService;
 import com.tarzan.cms.module.admin.service.BizCategoryService;
 import com.tarzan.cms.common.constant.CoreConst;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.tarzan.cms.common.util.ResultUtil;
+import com.tarzan.cms.utils.ResultUtil;
 import com.tarzan.cms.module.admin.model.BizArticle;
 import com.tarzan.cms.module.admin.model.BizCategory;
 import com.tarzan.cms.module.admin.model.BizTags;

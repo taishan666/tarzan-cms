@@ -1,8 +1,8 @@
 package com.tarzan.cms.common.config;
 
-import com.tarzan.cms.common.config.properties.FileUploadProperties;
-import com.tarzan.cms.common.config.properties.StaticHtmlProperties;
-import com.tarzan.cms.common.intercepter.CommonDataInterceptor;
+import com.tarzan.cms.common.properties.FileUploadProperties;
+import com.tarzan.cms.common.properties.StaticHtmlProperties;
+import com.tarzan.cms.common.handle.CommonDataHandler;
 import lombok.AllArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
@@ -26,7 +26,7 @@ public class WebMvcConfig implements WebMvcConfigurer {
 
     private final FileUploadProperties fileUploadProperties;
     private final StaticHtmlProperties staticHtmlProperties;
-    private final CommonDataInterceptor commonDataInterceptor;
+    private final CommonDataHandler commonDataInterceptor;
 
     /**
      * 配置本地文件上传的虚拟路径和静态化的文件生成路径

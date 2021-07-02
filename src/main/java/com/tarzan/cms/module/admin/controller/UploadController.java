@@ -1,7 +1,7 @@
 package com.tarzan.cms.module.admin.controller;
 
 import com.tarzan.cms.common.constant.CoreConst;
-import com.tarzan.cms.common.util.ResultUtil;
+import com.tarzan.cms.utils.ResultUtil;
 import com.tarzan.cms.module.admin.service.OssService;
 import com.tarzan.cms.module.admin.vo.CloudStorageConfigVo;
 import com.tarzan.cms.module.admin.vo.UploadResponse;

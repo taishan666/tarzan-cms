@@ -2,7 +2,7 @@ package com.tarzan.cms.module.admin.controller;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.tarzan.cms.common.constant.CoreConst;
-import com.tarzan.cms.common.util.ResultUtil;
+import com.tarzan.cms.utils.ResultUtil;
 import com.tarzan.cms.module.admin.model.BizTags;
 import com.tarzan.cms.module.admin.service.BizTagsService;
 import com.tarzan.cms.module.admin.vo.base.PageResultVo;

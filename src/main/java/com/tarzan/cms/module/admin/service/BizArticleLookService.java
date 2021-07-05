@@ -41,7 +41,7 @@ public class BizArticleLookService extends ServiceImpl<BizArticleLookMapper, Biz
     }
 
     public Map<String, Integer> lookCountByDay(int day) {
-        List<CountVo> list = baseMapper.lookCountByDay(day);
+        List<CountVo> list = baseMapper.lookCountByDay(day-1);
         Map<String, Integer> lookCountByDayMap = buildRecentDayMap(day);
         if (CollectionUtils.isNotEmpty(list)) {
             lookCountByDayMap.putAll(list.stream().collect(Collectors.toMap(CountVo::getDay, CountVo::getCount)));
@@ -50,7 +50,7 @@ public class BizArticleLookService extends ServiceImpl<BizArticleLookMapper, Biz
     }
 
     public Map<String, Integer> userCountByDay(int day) {
-        List<CountVo> list = baseMapper.userCountByDay(day);
+        List<CountVo> list = baseMapper.userCountByDay(day-1);
         Map<String, Integer> userCountByDayMap = buildRecentDayMap(day);
         if (CollectionUtils.isNotEmpty(list)) {
             userCountByDayMap.putAll(list.stream().collect(Collectors.toMap(CountVo::getDay, CountVo::getCount)));

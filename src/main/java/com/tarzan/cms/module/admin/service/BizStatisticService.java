@@ -6,6 +6,7 @@ import com.tarzan.cms.module.admin.vo.StatisticVo;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -23,10 +24,11 @@ public class BizStatisticService {
     private final BizArticleLookService articleLookService;
 
     public StatisticVo indexStatistic() {
-        int articleCount = articleService.count();
-        int commentCount = commentService.count();
-        int lookCount = articleLookService.count();
-        int userCount = articleLookService.count(Wrappers.<BizArticleLook>lambdaQuery().groupBy(BizArticleLook::getUserId));
+        long articleCount = articleService.count();
+        long commentCount = commentService.count();
+        long lookCount = articleLookService.count();
+        List<BizArticleLook> userList=articleLookService.list(Wrappers.<BizArticleLook>lambdaQuery().select(BizArticleLook::getUserIp));
+        long userCount = userList.stream().distinct().count();
         int recentDays = 7;
         Map<String, Integer> lookCountByDay = articleLookService.lookCountByDay(recentDays);
         Map<String, Integer> userCountByDay = articleLookService.userCountByDay(recentDays);

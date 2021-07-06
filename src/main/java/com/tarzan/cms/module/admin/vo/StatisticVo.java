@@ -15,10 +15,10 @@ import java.util.Map;
 @Builder
 public class StatisticVo {
 
-    private Integer articleCount;
-    private Integer commentCount;
-    private Integer lookCount;
-    private Integer userCount;
+    private Long articleCount;
+    private Long commentCount;
+    private Long lookCount;
+    private Long userCount;
     private Map<String, Integer> lookCountByDay;
     private Map<String, Integer> userCountByDay;
 

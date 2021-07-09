@@ -2,10 +2,11 @@ package com.tarzan.cms.component;
 
 import com.google.common.collect.Maps;
 import com.tarzan.cms.common.constant.CoreConst;
-import com.tarzan.cms.module.admin.model.BizCategory;
-import com.tarzan.cms.module.admin.model.BizLink;
-import com.tarzan.cms.module.admin.model.BizTags;
-import com.tarzan.cms.module.admin.service.*;
+import com.tarzan.cms.module.admin.model.biz.Category;
+import com.tarzan.cms.module.admin.model.biz.Link;
+import com.tarzan.cms.module.admin.model.biz.Tags;
+import com.tarzan.cms.module.admin.service.biz.*;
+import com.tarzan.cms.module.admin.service.sys.SysConfigService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
@@ -25,11 +26,11 @@ import java.util.Map;
 @AllArgsConstructor
 public class CommonDataService {
 
-    private final BizCategoryService bizCategoryService;
-    private final BizArticleService bizArticleService;
-    private final BizTagsService bizTagsService;
-    private final BizLinkService bizLinkService;
-    private final BizSiteInfoService siteInfoService;
+    private final CategoryService bizCategoryService;
+    private final ArticleService bizArticleService;
+    private final TagsService bizTagsService;
+    private final LinkService bizLinkService;
+    private final SiteInfoService siteInfoService;
     private final SysConfigService sysConfigService;
 
     public Object get(String moduleName) {
@@ -37,9 +38,9 @@ public class CommonDataService {
             DataTypeEnum dataTypeEnum = DataTypeEnum.valueOf(moduleName);
             switch (dataTypeEnum) {
                 case CATEGORY_LIST:
-                    return bizCategoryService.selectCategories(new BizCategory().setStatus(CoreConst.STATUS_VALID));
+                    return bizCategoryService.selectCategories(new Category().setStatus(CoreConst.STATUS_VALID));
                 case TAG_LIST:
-                    return bizTagsService.selectTags(new BizTags());
+                    return bizTagsService.selectTags(new Tags());
                 case SLIDER_LIST:
                     return bizArticleService.sliderList();
                 case RECENT_LIST:
@@ -51,7 +52,7 @@ public class CommonDataService {
                 case RANDOM_LIST:
                     return bizArticleService.randomList(CoreConst.PAGE_SIZE);
                 case LINK_LIST:
-                    return bizLinkService.selectLinks(new BizLink().setStatus(CoreConst.STATUS_VALID));
+                    return bizLinkService.selectLinks(new Link().setStatus(CoreConst.STATUS_VALID));
                 case SITE_INFO:
                     return siteInfoService.getSiteInfo();
                 case SITE_CONFIG:

@@ -1,7 +1,7 @@
 package com.tarzan.cms.shiro.filter;
 
 import com.alibaba.fastjson.JSON;
-import com.tarzan.cms.module.admin.model.User;
+import com.tarzan.cms.module.admin.model.sys.User;
 import com.tarzan.cms.common.constant.CoreConst;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;

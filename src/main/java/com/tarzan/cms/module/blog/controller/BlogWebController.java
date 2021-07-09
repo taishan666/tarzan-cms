@@ -1,11 +1,11 @@
 package com.tarzan.cms.module.blog.controller;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.tarzan.cms.module.admin.model.BizArticle;
-import com.tarzan.cms.module.admin.model.BizCategory;
-import com.tarzan.cms.module.admin.service.BizArticleService;
-import com.tarzan.cms.module.admin.service.BizCategoryService;
-import com.tarzan.cms.module.admin.service.BizThemeService;
+import com.tarzan.cms.module.admin.model.biz.Article;
+import com.tarzan.cms.module.admin.model.biz.Category;
+import com.tarzan.cms.module.admin.service.biz.ArticleService;
+import com.tarzan.cms.module.admin.service.biz.CategoryService;
+import com.tarzan.cms.module.admin.service.biz.ThemeService;
 import com.tarzan.cms.common.constant.CoreConst;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.tarzan.cms.common.exception.ArticleNotFoundException;
@@ -33,9 +33,9 @@ import static com.tarzan.cms.common.constant.CoreConst.THEME_PREFIX;
 @AllArgsConstructor
 public class BlogWebController {
 
-    private final BizArticleService bizArticleService;
-    private final BizCategoryService categoryService;
-    private final BizThemeService bizThemeService;
+    private final ArticleService bizArticleService;
+    private final CategoryService categoryService;
+    private final ThemeService bizThemeService;
 
     /**
      * 首页
@@ -148,7 +148,7 @@ public class BlogWebController {
         if (CoreConst.SITE_STATIC.get()) {
             return "forward:/html/article/" + articleId + ".html";
         }
-        BizArticle article = bizArticleService.selectById(articleId);
+        Article article = bizArticleService.selectById(articleId);
         if (article == null || CoreConst.STATUS_INVALID.equals(article.getStatus())) {
             throw new ArticleNotFoundException();
         }
@@ -174,12 +174,12 @@ public class BlogWebController {
 
     private void loadMainPage(Model model, ArticleConditionVo vo) {
         vo.setStatus(CoreConst.STATUS_VALID);
-        IPage<BizArticle> page = new Page<>(vo.getPageNumber(), vo.getPageSize());
-        List<BizArticle> articleList = bizArticleService.findByCondition(page, vo);
+        IPage<Article> page = new Page<>(vo.getPageNumber(), vo.getPageSize());
+        List<Article> articleList = bizArticleService.findByCondition(page, vo);
         model.addAttribute("page", page);
         model.addAttribute("articleList", articleList);//文章列表
         if (vo.getCategoryId() != null) {
-            BizCategory category = categoryService.getById(vo.getCategoryId());
+            Category category = categoryService.getById(vo.getCategoryId());
             if (category != null) {
                 model.addAttribute("categoryName", category.getName());
             }

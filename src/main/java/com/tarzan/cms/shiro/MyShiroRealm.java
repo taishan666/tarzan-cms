@@ -3,9 +3,9 @@ package com.tarzan.cms.shiro;
 import com.baomidou.mybatisplus.core.toolkit.CollectionUtils;
 import com.tarzan.cms.common.constant.CoreConst;
 import com.tarzan.cms.utils.IpUtil;
-import com.tarzan.cms.module.admin.model.User;
-import com.tarzan.cms.module.admin.service.RoleService;
-import com.tarzan.cms.module.admin.service.UserService;
+import com.tarzan.cms.module.admin.model.sys.User;
+import com.tarzan.cms.module.admin.service.sys.RoleService;
+import com.tarzan.cms.module.admin.service.sys.UserService;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.*;
 import org.apache.shiro.authc.credential.CredentialsMatcher;
@@ -48,7 +48,7 @@ public class MyShiroRealm extends AuthorizingRealm {
     @Lazy @Resource
     private RoleService roleService;
     @Lazy @Resource
-    private com.tarzan.cms.module.admin.service.MenuService MenuService;
+    private com.tarzan.cms.module.admin.service.sys.MenuService MenuService;
     @Lazy @Resource
     private RedisSessionDAO redisSessionDAO;
 

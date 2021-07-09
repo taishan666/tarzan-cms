@@ -2,12 +2,12 @@ package com.tarzan.cms.module.blog.controller;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.tarzan.cms.utils.*;
-import com.tarzan.cms.module.admin.model.BizArticleLook;
-import com.tarzan.cms.module.admin.model.BizComment;
-import com.tarzan.cms.module.admin.model.BizLove;
-import com.tarzan.cms.module.admin.service.BizArticleLookService;
-import com.tarzan.cms.module.admin.service.BizCommentService;
-import com.tarzan.cms.module.admin.service.BizLoveService;
+import com.tarzan.cms.module.admin.model.biz.ArticleLook;
+import com.tarzan.cms.module.admin.model.biz.Comment;
+import com.tarzan.cms.module.admin.model.biz.Love;
+import com.tarzan.cms.module.admin.service.biz.ArticleLookService;
+import com.tarzan.cms.module.admin.service.biz.CommentService;
+import com.tarzan.cms.module.admin.service.biz.LoveService;
 import com.tarzan.cms.module.admin.vo.base.ResponseVo;
 import com.tarzan.cms.common.constant.CoreConst;
 import com.tarzan.cms.module.admin.vo.CommentConditionVo;
@@ -36,18 +36,18 @@ import java.util.Date;
 @AllArgsConstructor
 public class BlogApiController {
 
-    private final BizCommentService commentService;
-    private final BizArticleLookService articleLookService;
-    private final BizLoveService loveService;
+    private final CommentService commentService;
+    private final ArticleLookService articleLookService;
+    private final LoveService loveService;
 
 
     @PostMapping("comments")
-    public IPage<BizComment> getComments(CommentConditionVo vo, Integer pageNumber, Integer pageSize) {
+    public IPage<Comment> getComments(CommentConditionVo vo, Integer pageNumber, Integer pageSize) {
         return commentService.selectComments(vo, pageNumber, pageSize);
     }
 
     @PostMapping("comment/save")
-    public ResponseVo saveComment(HttpServletRequest request, BizComment comment) throws UnsupportedEncodingException {
+    public ResponseVo saveComment(HttpServletRequest request, Comment comment) throws UnsupportedEncodingException {
         if (org.springframework.util.StringUtils.isEmpty(comment.getNickname())) {
             return ResultUtil.error("请输入昵称");
         }
@@ -88,7 +88,7 @@ public class BlogApiController {
         String ip = IpUtil.getIpAddr(request);
         int checkCount = articleLookService.checkArticleLook(articleId, ip, DateUtil.addHours(date, -1));
         if (checkCount == 0) {
-            BizArticleLook articleLook = new BizArticleLook();
+            ArticleLook articleLook = new ArticleLook();
             articleLook.setArticleId(articleId);
             articleLook.setUserIp(ip);
             articleLook.setLookTime(date);
@@ -106,16 +106,16 @@ public class BlogApiController {
     public ResponseVo love(HttpServletRequest request, Integer bizId, Integer bizType) {
         Date date = new Date();
         String ip = IpUtil.getIpAddr(request);
-        BizLove bizLove = loveService.checkLove(bizId, ip);
-        if (bizLove == null) {
-            bizLove = new BizLove();
-            bizLove.setBizId(bizId);
-            bizLove.setBizType(bizType);
-            bizLove.setUserIp(ip);
-            bizLove.setStatus(CoreConst.STATUS_VALID);
-            bizLove.setCreateTime(date);
-            bizLove.setUpdateTime(date);
-            loveService.save(bizLove);
+        Love love = loveService.checkLove(bizId, ip);
+        if (love == null) {
+            love = new Love();
+            love.setBizId(bizId);
+            love.setBizType(bizType);
+            love.setUserIp(ip);
+            love.setStatus(CoreConst.STATUS_VALID);
+            love.setCreateTime(date);
+            love.setUpdateTime(date);
+            loveService.save(love);
             return ResultUtil.success("点赞成功");
         } else {
             return ResultUtil.error("您已赞过了哦~");

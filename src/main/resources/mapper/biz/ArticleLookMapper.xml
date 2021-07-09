@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.tarzan.cms.module.admin.mapper.biz.ArticleLookMapper">
+
+    <select id="lookCountByDay" resultType="com.tarzan.cms.module.admin.vo.CountVo">
+        select DATE_FORMAT(look_time, '%Y-%m-%d') as day,
+               count(1)                           as count
+        from biz_article_look
+        where date(look_time) >= DATE_SUB(CURDATE(), INTERVAL #{day} DAY)
+        group by DATE_FORMAT(look_time, '%Y-%m-%d')
+    </select>
+
+    <select id="userCountByDay" resultType="com.tarzan.cms.module.admin.vo.CountVo">
+        select day,count(1) as count
+        from
+            (
+            select DISTINCT
+            user_ip,
+            DATE_FORMAT(look_time, '%Y-%m-%d' ) as day
+            from
+            biz_article_look
+            where
+            date( look_time ) >= DATE_SUB( CURDATE(), INTERVAL 7 DAY )) a
+        group by  day
+    </select>
+
+</mapper>
+

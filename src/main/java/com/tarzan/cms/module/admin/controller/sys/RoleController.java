@@ -4,10 +4,10 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.tarzan.cms.common.constant.CoreConst;
 import com.tarzan.cms.shiro.MyShiroRealm;
 import com.tarzan.cms.utils.ResultUtil;
-import com.tarzan.cms.module.admin.model.Menu;
-import com.tarzan.cms.module.admin.model.Role;
-import com.tarzan.cms.module.admin.model.User;
-import com.tarzan.cms.module.admin.service.RoleService;
+import com.tarzan.cms.module.admin.model.sys.Menu;
+import com.tarzan.cms.module.admin.model.sys.Role;
+import com.tarzan.cms.module.admin.model.sys.User;
+import com.tarzan.cms.module.admin.service.sys.RoleService;
 import com.tarzan.cms.module.admin.vo.PermissionTreeListVo;
 import com.tarzan.cms.module.admin.vo.base.PageResultVo;
 import com.tarzan.cms.module.admin.vo.base.ResponseVo;
@@ -38,7 +38,7 @@ import java.util.List;
 public class RoleController {
 
     private final RoleService roleService;
-    private final com.tarzan.cms.module.admin.service.MenuService MenuService;
+    private final com.tarzan.cms.module.admin.service.sys.MenuService MenuService;
     private final MyShiroRealm myShiroRealm;
 
 

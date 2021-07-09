@@ -2,12 +2,12 @@ package com.tarzan.cms.module.admin.controller.sys;
 
 import com.tarzan.cms.common.constant.CoreConst;
 import com.tarzan.cms.utils.ResultUtil;
-import com.tarzan.cms.module.admin.model.BizCategory;
-import com.tarzan.cms.module.admin.model.Menu;
-import com.tarzan.cms.module.admin.model.User;
-import com.tarzan.cms.module.admin.service.BizCategoryService;
-import com.tarzan.cms.module.admin.service.SysConfigService;
-import com.tarzan.cms.module.admin.service.UserService;
+import com.tarzan.cms.module.admin.model.biz.Category;
+import com.tarzan.cms.module.admin.model.sys.Menu;
+import com.tarzan.cms.module.admin.model.sys.User;
+import com.tarzan.cms.module.admin.service.biz.CategoryService;
+import com.tarzan.cms.module.admin.service.sys.SysConfigService;
+import com.tarzan.cms.module.admin.service.sys.UserService;
 import com.tarzan.cms.module.admin.vo.base.ResponseVo;
 import com.wf.captcha.utils.CaptchaUtil;
 import lombok.AllArgsConstructor;
@@ -41,8 +41,8 @@ import java.util.Map;
 public class SystemController {
 
     private final UserService userService;
-    private final com.tarzan.cms.module.admin.service.MenuService MenuService;
-    private final BizCategoryService bizCategoryService;
+    private final com.tarzan.cms.module.admin.service.sys.MenuService MenuService;
+    private final CategoryService bizCategoryService;
     private final SysConfigService configService;
 
 
@@ -107,7 +107,7 @@ public class SystemController {
             modelAndView.setView(new RedirectView("/admin", true, false));
             return modelAndView;
         }
-        model.addAttribute("categoryList", bizCategoryService.selectCategories(new BizCategory().setStatus(CoreConst.STATUS_VALID)));
+        model.addAttribute("categoryList", bizCategoryService.selectCategories(new Category().setStatus(CoreConst.STATUS_VALID)));
         getSysConfig(model);
         modelAndView.setViewName("system/login");
         return modelAndView;
@@ -158,7 +158,7 @@ public class SystemController {
      */
     @GetMapping("/kickOut")
     public String kickOut(Model model) {
-        model.addAttribute("categoryList", bizCategoryService.selectCategories(new BizCategory().setStatus(CoreConst.STATUS_VALID)));
+        model.addAttribute("categoryList", bizCategoryService.selectCategories(new Category().setStatus(CoreConst.STATUS_VALID)));
         getSysConfig(model);
         return "system/kickOut";
     }
@@ -196,7 +196,7 @@ public class SystemController {
     private void getSysConfig(Model model) {
         Map<String, String> map = configService.selectAll();
         model.addAttribute("sysConfig", map);
-        model.addAttribute("categoryList", bizCategoryService.selectCategories(new BizCategory().setStatus(CoreConst.STATUS_VALID)));
+        model.addAttribute("categoryList", bizCategoryService.selectCategories(new Category().setStatus(CoreConst.STATUS_VALID)));
     }
 
 

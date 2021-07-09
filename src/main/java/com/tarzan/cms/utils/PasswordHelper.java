@@ -1,7 +1,7 @@
 package com.tarzan.cms.utils;
 
 
-import com.tarzan.cms.module.admin.model.User;
+import com.tarzan.cms.module.admin.model.sys.User;
 import lombok.experimental.UtilityClass;
 import org.apache.shiro.crypto.RandomNumberGenerator;
 import org.apache.shiro.crypto.SecureRandomNumberGenerator;

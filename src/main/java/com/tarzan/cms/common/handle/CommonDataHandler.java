@@ -1,6 +1,6 @@
 package com.tarzan.cms.common.handle;
 
-import com.tarzan.cms.component.CommonDataService;
+import com.tarzan.cms.module.admin.service.common.CommonDataService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;

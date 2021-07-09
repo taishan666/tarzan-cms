@@ -7,7 +7,6 @@ import com.google.common.collect.Maps;
 import com.tarzan.cms.common.properties.StaticHtmlProperties;
 import com.tarzan.cms.common.constant.CoreConst;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.tarzan.cms.component.CommonDataService;
 import com.tarzan.cms.module.admin.model.biz.Article;
 import com.tarzan.cms.module.admin.model.biz.ArticleTags;
 import com.tarzan.cms.module.admin.model.biz.Category;

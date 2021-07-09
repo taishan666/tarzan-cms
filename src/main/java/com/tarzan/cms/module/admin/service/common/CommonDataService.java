@@ -1,4 +1,4 @@
-package com.tarzan.cms.component;
+package com.tarzan.cms.module.admin.service.common;
 
 import com.google.common.collect.Maps;
 import com.tarzan.cms.common.constant.CoreConst;

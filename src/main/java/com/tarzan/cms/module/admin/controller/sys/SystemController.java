@@ -1,6 +1,7 @@
 package com.tarzan.cms.module.admin.controller.sys;
 
 import com.tarzan.cms.common.constant.CoreConst;
+import com.tarzan.cms.utils.PasswordHelper;
 import com.tarzan.cms.utils.ResultUtil;
 import com.tarzan.cms.module.admin.model.biz.Category;
 import com.tarzan.cms.module.admin.model.sys.Menu;
@@ -8,6 +9,7 @@ import com.tarzan.cms.module.admin.model.sys.User;
 import com.tarzan.cms.module.admin.service.biz.CategoryService;
 import com.tarzan.cms.module.admin.service.sys.SysConfigService;
 import com.tarzan.cms.module.admin.service.sys.UserService;
+import com.tarzan.cms.module.admin.service.sys.MenuService;
 import com.tarzan.cms.module.admin.vo.base.ResponseVo;
 import com.wf.captcha.utils.CaptchaUtil;
 import lombok.AllArgsConstructor;
@@ -25,6 +27,7 @@ import org.springframework.web.servlet.view.RedirectView;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -41,30 +44,29 @@ import java.util.Map;
 public class SystemController {
 
     private final UserService userService;
-    private final com.tarzan.cms.module.admin.service.sys.MenuService MenuService;
-    private final CategoryService bizCategoryService;
+    private final MenuService MenuService;
+    private final CategoryService categoryService;
     private final SysConfigService configService;
 
 
 
-    /* *//*注册*//*
+    //注册
     @GetMapping(value = "/register")
     public String register(Model model){
-        BizType bizType = new BizType();
-        bizType.setStatus(CoreConst.STATUS_VALID);
-        model.addAttribute("typeList",bizTypeService.selectTypes(bizType));
+        Category category = new Category();
+        category.setStatus(CoreConst.STATUS_VALID);
+        model.addAttribute("categoryList",categoryService.selectCategories(category));
         return "system/register";
     }
 
-    *//*提交注册*//*
+    //提交注册
     @PostMapping("/register")
     @ResponseBody
     public ResponseVo register(HttpServletRequest request, User registerUser, String confirmPassword, String verification){
         //判断验证码
-        String rightCode = (String) request.getSession().getAttribute(Constants.KAPTCHA_SESSION_KEY);
-        if (StringUtils.isNotBlank(verification) && StringUtils.isNotBlank(rightCode) && verification.equals(rightCode)) {
-            //验证码通过
-        } else {
+        if (!CaptchaUtil.ver(verification, request)) {
+            // 清除session中的验证码
+            CaptchaUtil.clear(request);
             return ResultUtil.error("验证码错误！");
         }
         String username = registerUser.getUsername();
@@ -79,7 +81,6 @@ public class SystemController {
                 return ResultUtil.error("两次密码不一致！");
             }
         }
-        registerUser.setUserId(UUIDUtil.getUniqueIdByUUId());
         registerUser.setStatus(CoreConst.STATUS_VALID);
         Date date = new Date();
         registerUser.setCreateTime(date);
@@ -87,13 +88,13 @@ public class SystemController {
         registerUser.setLastLoginTime(date);
         PasswordHelper.encryptPassword(registerUser);
         //注册
-        int registerResult = userService.register(registerUser);
-        if(registerResult > 0){
+        boolean flag = userService.register(registerUser);
+        if(flag){
             return ResultUtil.success("注册成功！");
         }else {
             return ResultUtil.error("注册失败，请稍后再试！");
         }
-    }*/
+    }
 
     /**
      * 访问登录
@@ -107,8 +108,7 @@ public class SystemController {
             modelAndView.setView(new RedirectView("/admin", true, false));
             return modelAndView;
         }
-        model.addAttribute("categoryList", bizCategoryService.selectCategories(new Category().setStatus(CoreConst.STATUS_VALID)));
-        getSysConfig(model);
+        model.addAttribute("categoryList", categoryService.selectCategories(new Category().setStatus(CoreConst.STATUS_VALID)));
         modelAndView.setViewName("system/login");
         return modelAndView;
     }
@@ -158,8 +158,7 @@ public class SystemController {
      */
     @GetMapping("/kickOut")
     public String kickOut(Model model) {
-        model.addAttribute("categoryList", bizCategoryService.selectCategories(new Category().setStatus(CoreConst.STATUS_VALID)));
-        getSysConfig(model);
+        model.addAttribute("categoryList", categoryService.selectCategories(new Category().setStatus(CoreConst.STATUS_VALID)));
         return "system/kickOut";
     }
 
@@ -196,7 +195,7 @@ public class SystemController {
     private void getSysConfig(Model model) {
         Map<String, String> map = configService.selectAll();
         model.addAttribute("sysConfig", map);
-        model.addAttribute("categoryList", bizCategoryService.selectCategories(new Category().setStatus(CoreConst.STATUS_VALID)));
+        model.addAttribute("categoryList", categoryService.selectCategories(new Category().setStatus(CoreConst.STATUS_VALID)));
     }
 
 

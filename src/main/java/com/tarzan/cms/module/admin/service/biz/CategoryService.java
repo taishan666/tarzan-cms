@@ -19,8 +19,8 @@ public class CategoryService extends ServiceImpl<CategoryMapper, Category> {
 
 
     @Cacheable(value = "category", key = "'tree'")
-    public List<Category> selectCategories(Category bizCategory) {
-        return list(Wrappers.<Category>lambdaQuery(bizCategory).orderByAsc(Category::getSort));
+    public List<Category> selectCategories(Category category) {
+        return list(Wrappers.<Category>lambdaQuery(category).orderByAsc(Category::getSort));
     }
 
     public Category selectById(Integer id) {

@@ -69,12 +69,20 @@ public class CommonDataService {
     public Map<String, Object> getAllCommonData() {
         Map<String, Object> result = Maps.newHashMapWithExpectedSize(DataTypeEnum.values().length);
         for (DataTypeEnum dataTypeEnum : DataTypeEnum.values()) {
-            result.put(dataTypeEnum.name(), get(dataTypeEnum.name()));
+            result.putAll(getCommonData(dataTypeEnum));
+         //   result.put(dataTypeEnum.name(), get(dataTypeEnum.name()));
         }
         return result;
     }
 
-    private enum DataTypeEnum {
+    public Map<String, Object> getCommonData(DataTypeEnum dataTypeEnum) {
+        Map<String, Object> result = Maps.newHashMapWithExpectedSize(1);
+        result.put(dataTypeEnum.name(), get(dataTypeEnum.name()));
+        return result;
+    }
+
+
+    public enum DataTypeEnum {
         // 分类
         CATEGORY_LIST,
         // 标签

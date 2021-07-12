@@ -110,4 +110,9 @@ public class ArticleService extends ServiceImpl<ArticleMapper, Article> {
         return list(Wrappers.<Article>lambdaQuery().eq(Article::getCategoryId, categoryId));
     }
 
+    @CacheEvict(value = "article", allEntries = true)
+    public boolean deleteBatch(List<Integer> ids){
+        return removeByIds(ids);
+    }
+
 }

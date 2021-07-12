@@ -8,6 +8,7 @@ import com.tarzan.cms.module.admin.vo.base.ResponseVo;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -23,13 +24,14 @@ import java.util.Map;
  * @date 2021年5月11日
  */
 @Controller
+@RequestMapping("siteInfo")
 @AllArgsConstructor
 public class SiteInfoController {
 
     private final SysConfigService configService;
     private final StaticHtmlService staticHtmlService;
 
-    @PostMapping("/siteInfo/edit")
+    @PostMapping("/edit")
     @ResponseBody
     public ResponseVo save(@RequestParam Map<String, String> map, HttpServletRequest request, HttpServletResponse response) {
         try {

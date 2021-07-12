@@ -94,23 +94,18 @@ public class CategoryController {
 
     @PostMapping("/delete")
     @ResponseBody
+    @CacheEvict(value = "category", allEntries = true)
     public ResponseVo delete(Integer id) {
         if (CollectionUtils.isNotEmpty(categoryService.selectByPid(id))) {
             return ResultUtil.error("该分类下存在子分类！");
         }
-        return deleteBatch(Arrays.asList(id));
-    }
-
-    @PostMapping("/batch/delete")
-    @ResponseBody
-    @CacheEvict(value = "category", allEntries = true)
-    public ResponseVo deleteBatch(@RequestParam("ids") List<Integer> ids) {
-        boolean flag = categoryService.removeByIds(ids);
+        boolean flag = categoryService.removeById(id);
         if (flag) {
             return ResultUtil.success("删除分类成功");
         } else {
             return ResultUtil.error("删除分类失败");
         }
     }
+
 
 }

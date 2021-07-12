@@ -22,8 +22,8 @@ import java.util.stream.Collectors;
 @AllArgsConstructor
 public class RoleService extends ServiceImpl<RoleMapper, Role> {
 
-    private final com.tarzan.cms.module.admin.mapper.sys.MenuMapper MenuMapper;
-    private final com.tarzan.cms.module.admin.mapper.sys.RoleMenuMapper RoleMenuMapper;
+    private final MenuMapper MenuMapper;
+    private final RoleMenuMapper RoleMenuMapper;
     private final UserMapper userMapper;
     private final UserRoleMapper userRoleMapper;
 

@@ -68,7 +68,7 @@ public class ArticleController {
     @PostMapping("/add")
     @ResponseBody
     @Transactional
-    @CacheEvict(value = "article", allEntries = true)
+   // @CacheEvict(value = "article", allEntries = true)
     public ResponseVo add(Article bizArticle, Integer[] tags) {
         try {
             User user = (User) SecurityUtils.getSubject().getPrincipal();
@@ -120,25 +120,25 @@ public class ArticleController {
     @PostMapping("/edit")
     @ResponseBody
     @CacheEvict(value = "article", allEntries = true)
-    public ResponseVo edit(Article article, Integer[] tag) {
+    public ResponseVo edit(Article article, Integer[] tags) {
         articleService.updateById(article);
-        articleTagsService.removeByArticleId(article.getId());
-        articleTagsService.insertList(tag, article.getId());
+        if(null!=tags && tags.length>0){
+            articleTagsService.removeByArticleId(article.getId());
+            articleTagsService.insertList(tags, article.getId());
+        }
         return ResultUtil.success("编辑文章成功");
     }
 
     @PostMapping("/delete")
     @ResponseBody
-    @CacheEvict(value = "article", allEntries = true)
     public ResponseVo delete(Integer id) {
         return deleteBatch(Arrays.asList(id));
     }
 
     @PostMapping("/batch/delete")
     @ResponseBody
-    @CacheEvict(value = "article", allEntries = true)
-    public ResponseVo deleteBatch(@RequestParam("ids") List<Integer> ids) {
-        boolean flag = articleService.removeByIds(ids);
+    public ResponseVo deleteBatch(@RequestBody List<Integer> ids) {
+        boolean flag = articleService.deleteBatch(ids);
         if (flag) {
             return ResultUtil.success("删除文章成功");
         } else {

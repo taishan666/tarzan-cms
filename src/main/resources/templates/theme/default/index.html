@@ -39,7 +39,7 @@
 		</div>
 		<div th:each="item,temp : ${articleList}" class="blogs">
 			<span th:if="${item.top==1}" class="fa fa-superscript-top superscript superscript-top"></span>
-			<span class="blogpic"><a  th:href="@{${'/blog/article/'+item.id}}"><img th:src="${item.coverImage==''?'img/weixin.png':item.coverImage}"></a><span class="blog-type"><a th:href="@{${'/blog/category/'+item.categoryId}}" th:text="${item.bizCategory.name}"></a></span></span>
+			<span class="blogpic"><a  th:href="@{${'/blog/article/'+item.id}}"><img th:src="${item.coverImage==''?'':item.coverImage}"></a><span class="blog-type"><a th:href="@{${'/blog/category/'+item.categoryId}}" th:text="${item.bizCategory.name}"></a></span></span>
 			<h3 class="blogtitle"><a th:href="@{${'/blog/article/'+item.id}}" th:text="${item.title}" ></a></h3>
 			<a  th:href="@{${'/blog/article/'+item.id}}"><p  th:text="${item.description}" class="blogtext"></p></a>
 			<div class="bloginfo">

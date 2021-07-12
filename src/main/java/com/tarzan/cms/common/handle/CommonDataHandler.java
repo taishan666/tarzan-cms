@@ -1,5 +1,6 @@
 package com.tarzan.cms.common.handle;
 
+import com.tarzan.cms.common.constant.CoreConst;
 import com.tarzan.cms.module.admin.service.common.CommonDataService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -22,7 +23,9 @@ public class CommonDataHandler implements HandlerInterceptor {
     @Override
     public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView mv) throws Exception {
         if (mv != null) {
-            mv.addAllObjects(commonDataService.getAllCommonData());
+            if(mv.getViewName().contains(CoreConst.THEME_PREFIX)){
+                mv.addAllObjects(commonDataService.getAllCommonData());
+            }
         }
     }
 }

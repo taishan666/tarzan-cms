@@ -70,7 +70,6 @@ public class CommonDataService {
         Map<String, Object> result = Maps.newHashMapWithExpectedSize(DataTypeEnum.values().length);
         for (DataTypeEnum dataTypeEnum : DataTypeEnum.values()) {
             result.putAll(getCommonData(dataTypeEnum));
-         //   result.put(dataTypeEnum.name(), get(dataTypeEnum.name()));
         }
         return result;
     }

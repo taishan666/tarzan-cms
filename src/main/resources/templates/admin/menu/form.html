@@ -36,7 +36,7 @@
     <div th:style="${menu.type != 0 ? '' : 'display:none'}" class="form-group row menuFlag">
         <label for="url" class="col-sm-2 col-form-label">资源url</label>
         <div class="col-sm-10">
-            <input type="text" th:value="${Menu?.url}" name="url" class="form-control" id="url"
+            <input type="text" th:value="${menu?.url}" name="url" class="form-control" id="url"
                    placeholder="请填写资源url" th:attr="required=${menu.type != 0 ? 'required' : null}">
             <div class="invalid-feedback">请填写资源url</div>
         </div>
@@ -44,7 +44,7 @@
     <div th:style="${menu.type != 0 ? '' : 'display:none'}" class="form-group row menuFlag btnFlag">
         <label for="perms" class="col-sm-2 col-form-label">资源标识</label>
         <div class="col-sm-10">
-            <input type="text" th:value="${Menu?.perms}" name="perms" class="form-control" id="perms"
+            <input type="text" th:value="${menu?.perms}" name="perms" class="form-control" id="perms"
                    placeholder="请填写资源标识" th:attr="required=${menu.type != 0 ? 'required' : null}">
             <div class="invalid-feedback">请填写资源标识</div>
         </div>

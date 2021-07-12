@@ -37,7 +37,6 @@ public class ArticleService extends ServiceImpl<ArticleMapper, Article> {
             for (Article bizArticle : listTag) {
                 tagMap.put(bizArticle.getId(), bizArticle);
             }
-
             for (Article bizArticle : list) {
                 Article tagArticle = tagMap.get(bizArticle.getId());
                 if (Objects.nonNull(tagArticle)) {

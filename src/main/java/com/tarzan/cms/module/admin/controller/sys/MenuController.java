@@ -72,7 +72,7 @@ public class MenuController {
                 return ResultUtil.error("添加权限失败");
             }
         } catch (Exception e) {
-            log.error(String.format("PermissionController.addPermission%s", e));
+            log.error(String.format("MenuController.addMenu%s", e));
             throw e;
         }
     }
@@ -94,7 +94,7 @@ public class MenuController {
                 return ResultUtil.error("删除权限失败");
             }
         } catch (Exception e) {
-            log.error(String.format("PermissionController.deletePermission%s", e));
+            log.error(String.format("MenuController.deleteMenu%s", e));
             throw e;
         }
     }

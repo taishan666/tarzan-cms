@@ -61,8 +61,7 @@
 		GROUP BY
 		l.biz_id
 		) love ON t.id = love.biz_id
-		WHERE
-		1 = 1
+       <where>
 		<if test="vo.userId != null">
 			AND t.user_id = #{vo.userId}
 		</if>
@@ -78,6 +77,7 @@
 		<if test="vo.status != null">
 			AND t.status = #{vo.status}
 		</if>
+	   </where>
 		ORDER BY
 		t.create_time DESC
 	</select>

@@ -25,26 +25,7 @@ public class ArticleService extends ServiceImpl<ArticleMapper, Article> {
 
 
     public List<Article> findByCondition(IPage<Article> page, ArticleConditionVo vo) {
-        List<Article> list = baseMapper.findByCondition(page, vo);
-        if (CollectionUtils.isNotEmpty(list)) {
-            List<Integer> ids = new ArrayList<>();
-            for (Article bizArticle : list) {
-                ids.add(bizArticle.getId());
-            }
-            List<Article> listTag = baseMapper.listTagsByArticleId(ids);
-            // listTag, 重新组装数据为{id: Article}
-            Map<Integer, Article> tagMap = new LinkedHashMap<>(listTag.size());
-            for (Article bizArticle : listTag) {
-                tagMap.put(bizArticle.getId(), bizArticle);
-            }
-            for (Article bizArticle : list) {
-                Article tagArticle = tagMap.get(bizArticle.getId());
-                if (Objects.nonNull(tagArticle)) {
-                    bizArticle.setTags(tagArticle.getTags());
-                }
-            }
-        }
-        return list;
+        return baseMapper.findByCondition(page, vo);
     }
 
     @Cacheable(value = "article", key = "'slider'")

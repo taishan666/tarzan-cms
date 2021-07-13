@@ -42,8 +42,10 @@ public class RoleService extends ServiceImpl<RoleMapper, Role> {
     }
 
     public boolean insert(Role role) {
+        Date date=new Date();
         role.setStatus(1);
-        role.setCreateTime(new Date());
+        role.setCreateTime(date);
+        role.setUpdateTime(date);
         return save(role);
     }
 

@@ -26,14 +26,6 @@ public interface ArticleMapper extends BaseMapper<Article> {
     List<Article> findByCondition(@Param("page") IPage<Article> page, @Param("vo") ArticleConditionVo vo);
 
     /**
-     * 统计指定文章的标签集合
-     *
-     * @param list
-     * @return
-     */
-    List<Article> listTagsByArticleId(List<Integer> list);
-
-    /**
      * 热门文章
      *
      * @param page
@@ -41,19 +33,7 @@ public interface ArticleMapper extends BaseMapper<Article> {
      */
     List<Article> hotList(@Param("page") IPage<Article> page);
 
-    /**
-     * 获取文章详情，文章标签、文章类型
-     *
-     * @param id
-     * @return
-     */
-    Article getById(Integer id);
 
 
-    /**
-     * 统计网站信息
-     *
-     * @return
-     */
-    SiteInfoVo getSiteInfo();
+
 }

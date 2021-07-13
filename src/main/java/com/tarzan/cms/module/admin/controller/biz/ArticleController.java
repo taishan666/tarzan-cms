@@ -68,7 +68,6 @@ public class ArticleController {
     @PostMapping("/add")
     @ResponseBody
     @Transactional
-   // @CacheEvict(value = "article", allEntries = true)
     public ResponseVo add(Article bizArticle, Integer[] tags) {
         try {
             User user = (User) SecurityUtils.getSubject().getPrincipal();

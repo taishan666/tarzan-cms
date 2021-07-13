@@ -103,6 +103,7 @@
 			a.keywords LIKE CONCAT('%',#{vo.keywords , jdbcType=VARCHAR},'%')
 			)
 		</if>
+		</where>
 		<choose>
 			<when test="vo.random != null">
 				ORDER BY RAND()
@@ -118,7 +119,6 @@
 				a.create_time DESC
 			</otherwise>
 		</choose>
-		</where>
 	</select>
 
 	<select id="hotList" resultMap="rm">

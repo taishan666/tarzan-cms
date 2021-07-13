@@ -30,9 +30,7 @@ import java.util.Map;
 public class ShiroService {
 
     private final MenuService MenuService;
-
     private final ShiroFilterFactoryBean shiroFilterFactoryBean;
-
     private final FileUploadProperties fileUploadProperties;
     private final StaticHtmlProperties staticHtmlProperties;
 
@@ -78,22 +76,18 @@ public class ShiroService {
      */
     public void updatePermission() {
         synchronized (shiroFilterFactoryBean) {
-
             AbstractShiroFilter shiroFilter;
             try {
                 shiroFilter = (AbstractShiroFilter) shiroFilterFactoryBean.getObject();
             } catch (Exception e) {
                 throw new RuntimeException("get ShiroFilter from shiroFilterFactoryBean error!");
             }
-
             PathMatchingFilterChainResolver filterChainResolver = (PathMatchingFilterChainResolver) shiroFilter
                     .getFilterChainResolver();
             DefaultFilterChainManager manager = (DefaultFilterChainManager) filterChainResolver
                     .getFilterChainManager();
-
             // 清空老的权限控制
             manager.getFilterChains().clear();
-
             shiroFilterFactoryBean.getFilterChainDefinitionMap().clear();
             shiroFilterFactoryBean.setFilterChainDefinitionMap(loadFilterChainDefinitions());
             // 重新构建生成

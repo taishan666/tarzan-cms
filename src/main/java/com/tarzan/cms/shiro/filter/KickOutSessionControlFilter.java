@@ -67,22 +67,17 @@ public class KickOutSessionControlFilter extends AccessControlFilter {
             //如果没有登录，直接进行之后的流程
             return true;
         }
-
-
         Session session = subject.getSession();
         User user = (User) subject.getPrincipal();
         String username = user.getUsername();
         Serializable sessionId = session.getId();
-
         //读取缓存   没有就存入
         Deque<Serializable> deque = cache.get(username);
-
         //如果此用户没有session队列，也就是还没有登录过，缓存中没有
         //就new一个空队列，不然deque对象为空，会报空指针
         if (deque == null) {
             deque = new LinkedList<Serializable>();
         }
-
         //如果队列里没有此sessionId，且用户没有被踢出；放入队列
         if (!deque.contains(sessionId) && session.getAttribute(kickOutSessionAttrName) == null) {
             //将sessionId存入队列
@@ -90,7 +85,6 @@ public class KickOutSessionControlFilter extends AccessControlFilter {
             //将用户的sessionId队列缓存
             cache.put(username, deque);
         }
-
         //如果队列里的sessionId数超出最大会话数，开始踢人
         while (deque.size() > maxSession) {
             Serializable kickoutSessionId = null;
@@ -102,7 +96,6 @@ public class KickOutSessionControlFilter extends AccessControlFilter {
             }
             //踢出后再更新下缓存队列
             cache.put(username, deque);
-
             //获取被踢出的sessionId的session对象
             Session kickoutSession = sessionManager.getSession(new DefaultSessionKey(kickoutSessionId));
             if (kickoutSession != null) {
@@ -110,13 +103,11 @@ public class KickOutSessionControlFilter extends AccessControlFilter {
                 kickoutSession.setAttribute(kickOutSessionAttrName, true);
             }
         }
-
         //如果被踢出了，直接退出，重定向到踢出后的地址
         if (session.getAttribute(kickOutSessionAttrName) != null && (Boolean) session.getAttribute(kickOutSessionAttrName)) {
             //退出登录
             subject.logout();
             saveRequest(request);
-
             Map<String, String> resultMap = new HashMap<String, String>();
             //判断是不是Ajax请求
             if ("XMLHttpRequest".equalsIgnoreCase(((HttpServletRequest) request).getHeader("X-Requested-With"))) {
@@ -133,9 +124,9 @@ public class KickOutSessionControlFilter extends AccessControlFilter {
         return true;
     }
 
-    private static void out(ServletResponse hresponse, Map<String, String> resultMap) throws IOException {
-        hresponse.setCharacterEncoding("UTF-8");
-        try (PrintWriter out = hresponse.getWriter();) {
+    private static void out(ServletResponse response, Map<String, String> resultMap)  {
+        response.setCharacterEncoding("UTF-8");
+        try (PrintWriter out = response.getWriter();) {
             out.println(JSON.toJSONString(resultMap));
             out.flush();
         } catch (Exception e) {

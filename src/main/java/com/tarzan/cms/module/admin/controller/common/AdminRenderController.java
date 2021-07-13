@@ -42,7 +42,7 @@ public class AdminRenderController {
     public String index(Model model) {
         User user = (User) SecurityUtils.getSubject().getPrincipal();
         model.addAttribute("menuTree", MenuService.selectMenuTreeByUserId(user.getId()));
-        model.addAttribute("user",user);
+        model.addAttribute("loginUser",user);
         return CoreConst.ADMIN_PREFIX + "index/index";
     }
 

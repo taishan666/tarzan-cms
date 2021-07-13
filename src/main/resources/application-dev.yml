@@ -9,7 +9,7 @@ spring:
     port: 6379
     password:
     timeout: 5000
-    database: 1
+    database: 2
     jedis:
       pool:
         max-idle: 8

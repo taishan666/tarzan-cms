@@ -64,8 +64,8 @@ public class MenuController {
     @PostMapping("/add")
     public ResponseVo addMenu(Menu menu) {
         try {
-            int a = menuService.insert(menu);
-            if (a > 0) {
+            boolean flag = menuService.insert(menu);
+            if (flag) {
                 shiroService.updatePermission();
                 return ResultUtil.success("添加权限成功");
             } else {

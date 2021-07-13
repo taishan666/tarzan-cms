@@ -72,12 +72,12 @@ public class MenuService extends ServiceImpl<MenuMapper, Menu> {
         return buildPermissionTree(baseMapper.selectMenuByUserId(userId));
     }
 
-    public int insert(Menu Menu) {
+    public boolean insert(Menu Menu) {
         Date date = new Date();
         Menu.setStatus(CoreConst.STATUS_VALID);
         Menu.setCreateTime(date);
         Menu.setUpdateTime(date);
-        return baseMapper.insert(Menu);
+        return save(Menu);
     }
 
     public int updateStatus(Integer id, Integer status) {

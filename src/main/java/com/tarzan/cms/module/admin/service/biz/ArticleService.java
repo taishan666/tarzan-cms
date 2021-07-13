@@ -93,7 +93,7 @@ public class ArticleService extends ServiceImpl<ArticleMapper, Article> {
 
     @Cacheable(value = "article", key = "#id")
     public Article selectById(Integer id) {
-        return baseMapper.getById(id);
+        return getById(id);
     }
 
     @CacheEvict(value = "article", allEntries = true)

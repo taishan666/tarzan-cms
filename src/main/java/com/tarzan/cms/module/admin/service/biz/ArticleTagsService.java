@@ -2,11 +2,14 @@ package com.tarzan.cms.module.admin.service.biz;
 
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.google.common.collect.Lists;
 import com.tarzan.cms.module.admin.mapper.biz.ArticleTagsMapper;
 import com.tarzan.cms.module.admin.model.biz.ArticleTags;
 import org.springframework.stereotype.Service;
 
+import java.util.Arrays;
 import java.util.Date;
+import java.util.List;
 
 /**
  * @author tarzan liu
@@ -23,13 +26,15 @@ public class ArticleTagsService extends ServiceImpl<ArticleTagsMapper, ArticleTa
 
     public void insertList(Integer[] tagIds, Integer articleId) {
         Date date = new Date();
-        for (Integer tagId : tagIds) {
+        List<ArticleTags> articleTagsList= Lists.newArrayList();
+        Arrays.asList(tagIds).forEach(tagId->{
             ArticleTags articleTags = new ArticleTags();
             articleTags.setTagId(tagId);
             articleTags.setArticleId(articleId);
             articleTags.setCreateTime(date);
             articleTags.setUpdateTime(date);
-            baseMapper.insert(articleTags);
-        }
+            articleTagsList.add(articleTags);
+        });
+        saveBatch(articleTagsList);
     }
 }

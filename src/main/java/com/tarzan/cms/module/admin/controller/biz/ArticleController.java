@@ -1,6 +1,9 @@
 package com.tarzan.cms.module.admin.controller.biz;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.core.toolkit.CollectionUtils;
+import com.baomidou.mybatisplus.core.toolkit.Wrappers;
+import com.tarzan.cms.module.admin.model.biz.ArticleTags;
 import com.tarzan.cms.module.admin.service.biz.ArticleService;
 import com.tarzan.cms.module.admin.service.biz.ArticleTagsService;
 import com.tarzan.cms.module.admin.service.biz.CategoryService;
@@ -26,6 +29,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * 后台文章管理
@@ -68,14 +72,14 @@ public class ArticleController {
     @PostMapping("/add")
     @ResponseBody
     @Transactional
-    public ResponseVo add(Article bizArticle, Integer[] tags) {
+    public ResponseVo add(Article bizArticle,@RequestParam("tagIds") List<Integer> tagIds) {
         try {
             User user = (User) SecurityUtils.getSubject().getPrincipal();
             bizArticle.setUserId(user.getId());
             bizArticle.setAuthor(user.getNickname());
             Article article = articleService.insertArticle(bizArticle);
-            if(null!=tags && tags.length>0){
-                articleTagsService.insertList(tags, article.getId());
+            if(null!=tagIds && tagIds.size()>0){
+                articleTagsService.insertList(tagIds, article.getId());
             }
             return ResultUtil.success("保存文章成功");
         } catch (Exception e) {
@@ -86,32 +90,17 @@ public class ArticleController {
     @GetMapping("/edit")
     public String edit(Model model, Integer id) {
         Article bizArticle = articleService.selectById(id);
-        model.addAttribute("article", bizArticle);
         List<Category> bizCategories = categoryService.selectCategories(new Category().setStatus(CoreConst.STATUS_VALID));
-        model.addAttribute("categories", bizCategories);
-        List<Tags> sysTags = tagsService.list();
-        /*方便前端处理回显*/
+        List<Tags> sTags =tagsService.list();
         List<Tags> aTags = new ArrayList<>();
-        List<Tags> sTags = new ArrayList<>();
-        boolean flag;
-        for (Tags sysTag : sysTags) {
-            flag = false;
-            for (Tags articleTag : bizArticle.getTags()) {
-                if (articleTag.getId().equals(sysTag.getId())) {
-                    Tags tempTags = new Tags();
-                    tempTags.setId(sysTag.getId());
-                    tempTags.setName(sysTag.getName());
-                    aTags.add(tempTags);
-                    sTags.add(tempTags);
-                    flag = true;
-                    break;
-                }
-            }
-            if (!flag) {
-                sTags.add(sysTag);
-            }
+        List<ArticleTags> articleTagsList=articleTagsService.list(Wrappers.<ArticleTags>lambdaQuery().eq(ArticleTags::getArticleId,id));
+        if(CollectionUtils.isNotEmpty(articleTagsList)){
+            List<Integer> tagsIds=articleTagsList.stream().map(ArticleTags::getTagId).collect(Collectors.toList());
+            aTags = tagsService.listByIds(tagsIds);
         }
         bizArticle.setTags(aTags);
+        model.addAttribute("article", bizArticle);
+        model.addAttribute("categories", bizCategories);
         model.addAttribute("tags", sTags);
         return CoreConst.ADMIN_PREFIX + "article/publish";
     }
@@ -119,11 +108,11 @@ public class ArticleController {
     @PostMapping("/edit")
     @ResponseBody
     @CacheEvict(value = "article", allEntries = true)
-    public ResponseVo edit(Article article, Integer[] tags) {
+    public ResponseVo edit(Article article,@RequestParam("tagIds") List<Integer> tagIds) {
         articleService.updateById(article);
-        if(null!=tags && tags.length>0){
+        if(null!=tagIds && tagIds.size()>0){
             articleTagsService.removeByArticleId(article.getId());
-            articleTagsService.insertList(tags, article.getId());
+            articleTagsService.insertList(tagIds, article.getId());
         }
         return ResultUtil.success("编辑文章成功");
     }

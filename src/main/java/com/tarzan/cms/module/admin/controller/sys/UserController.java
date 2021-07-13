@@ -147,7 +147,7 @@ public class UserController {
     @PostMapping("/assign/role/list")
     @ResponseBody
     public Map<String, Object> assignRoleList(Integer id) {
-        List<Role> roleList = roleService.list(Wrappers.<Role>lambdaQuery().eq(Role::getStatus, 1));
+        List<Role> roleList = roleService.list(Wrappers.<Role>lambdaQuery().eq(Role::getStatus, CoreConst.STATUS_VALID));
         Set<String> hasRoles = roleService.findRoleByUserId(id);
         Map<String, Object> jsonMap = new HashMap<>(2);
         jsonMap.put("rows", roleList);

@@ -21,7 +21,6 @@ import java.util.stream.Collectors;
 /**
  * @author tarzan liu
  * @version V1.0
- * @date 2021年5月11日
  */
 @Service
 public class ArticleLookService extends ServiceImpl<ArticleLookMapper, ArticleLook> {

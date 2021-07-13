@@ -24,10 +24,10 @@ public class ArticleTagsService extends ServiceImpl<ArticleTagsMapper, ArticleTa
         return remove(Wrappers.<ArticleTags>lambdaQuery().eq(ArticleTags::getArticleId, articleId));
     }
 
-    public void insertList(Integer[] tagIds, Integer articleId) {
+    public void insertList(List<Integer> tagIds, Integer articleId) {
         Date date = new Date();
         List<ArticleTags> articleTagsList= Lists.newArrayList();
-        Arrays.asList(tagIds).forEach(tagId->{
+        tagIds.forEach(tagId->{
             ArticleTags articleTags = new ArticleTags();
             articleTags.setTagId(tagId);
             articleTags.setArticleId(articleId);

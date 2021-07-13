@@ -53,7 +53,7 @@
                     <label class="control-label label-four">文章标签:</label>
                     <div>
                         <div class="icheck-primary icheck-inline" th:each="tag:${tags}">
-                            <input type="checkbox" th:id="'tag_' + ${tag.id}" name="tag" th:value="${tag.id}"
+                            <input type="checkbox" th:id="'tag_' + ${tag.id}" name="tagIds" th:value="${tag.id}"
                                    th:checked="${#lists.contains(article?.tags,tag) ? true: false}"/>
                             <label th:for="'tag_' + ${tag.id}" th:text="${tag.name}"></label>
                         </div>

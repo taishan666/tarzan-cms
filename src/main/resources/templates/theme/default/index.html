@@ -44,7 +44,7 @@
 			<a  th:href="@{${'/blog/article/'+item.id}}"><p  th:text="${item.description}" class="blogtext"></p></a>
 			<div class="bloginfo">
 				<ul>
-					<li><span class="fa fa-clock-o"></span><span th:text="${#dates.format(item.createTime,'yyyy-MM-dd')}"></span></li>
+					<li><span class="fa fa-clock-o"></span><span th:text="${#dates.format(item.createTime,'yyyy-MM-dd HH:mm:ss')}"></span></li>
 					<li><span class="fa fa-eye"></span><span th:text="${item.lookCount}? ${item.lookCount} : 0"></span></li>
 					<li><a class="comment-link-a" th:href="@{${'/blog/article/'+item.id+'#comment'}}"><span class="fa fa-comments-o"></span><span th:text="${item.commentCount}? ${item.commentCount} : 0"></span></a></li>
 				</ul>

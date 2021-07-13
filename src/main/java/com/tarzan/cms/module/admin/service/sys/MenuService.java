@@ -5,6 +5,8 @@ import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.tarzan.cms.common.constant.CoreConst;
 import com.tarzan.cms.module.admin.mapper.sys.MenuMapper;
+import com.tarzan.cms.module.admin.mapper.sys.RoleMenuMapper;
+import com.tarzan.cms.module.admin.mapper.sys.UserRoleMapper;
 import com.tarzan.cms.module.admin.model.sys.Menu;
 import lombok.AllArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
@@ -22,6 +24,9 @@ import java.util.stream.Collectors;
 @Service
 @AllArgsConstructor
 public class MenuService extends ServiceImpl<MenuMapper, Menu> {
+
+    private final RoleMenuMapper roleMenuMapper;
+    private final UserRoleMapper userRoleMapper;
 
     private static final Pattern SLASH_PATTERN = Pattern.compile("/");
 

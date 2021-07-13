@@ -21,13 +21,6 @@ public interface MenuMapper extends BaseMapper<Menu> {
      */
     Set<String> findPermsByUserId(Integer userId);
 
-    /**
-     * 根据角色id查询权限
-     *
-     * @param id 角色id
-     * @return the list
-     */
-    List<Menu> findByRoleId(Integer id);
 
     /**
      * 根据用户id查询菜单

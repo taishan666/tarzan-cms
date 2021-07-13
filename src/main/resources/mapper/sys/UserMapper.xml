@@ -28,47 +28,4 @@
         GROUP BY u.id
     </select>
 
-    <select id="findByRoleId" resultType="com.tarzan.cms.module.admin.model.sys.User">
-        SELECT
-            a.id,
-            a.username,
-            a.PASSWORD,
-            a.salt,
-            a.email,
-            a.phone,
-            a.sex,
-            a.age,
-            a.STATUS,
-            a.create_time,
-            a.update_time,
-            a.last_login_time
-        FROM
-            sys_user a
-                INNER JOIN sys_user_role b ON a.id = b.user_id
-        WHERE b.role_id = #{roleId,jdbcType=VARCHAR}
-    </select>
-
-    <select id="findByRoleIds" resultType="com.tarzan.cms.module.admin.model.sys.User">
-        SELECT
-        a.id,
-        a.username,
-        a.PASSWORD,
-        a.salt,
-        a.email,
-        a.phone,
-        a.sex,
-        a.age,
-        a.STATUS,
-        a.create_time,
-        a.update_time,
-        a.last_login_time
-        FROM
-        sys_user a
-        INNER JOIN sys_user_role b ON a.id = b.user_id
-        WHERE b.role_id IN
-        <foreach collection="list" item="item" index="index" open="(" separator="," close=")">
-            #{item}
-        </foreach>
-    </select>
-
 </mapper>

@@ -40,7 +40,9 @@ public class AdminRenderController {
      */
     @RequestMapping("/admin")
     public String index(Model model) {
-        model.addAttribute("menuTree", MenuService.selectMenuTreeByUserId(((User) SecurityUtils.getSubject().getPrincipal()).getId()));
+        User user = (User) SecurityUtils.getSubject().getPrincipal();
+        model.addAttribute("menuTree", MenuService.selectMenuTreeByUserId(user.getId()));
+        model.addAttribute("user",user);
         return CoreConst.ADMIN_PREFIX + "index/index";
     }
 

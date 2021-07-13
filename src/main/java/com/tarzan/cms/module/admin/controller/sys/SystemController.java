@@ -177,7 +177,7 @@ public class SystemController {
         }
         subject.logout();
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setView(new RedirectView("/admin", true, false));
+        modelAndView.setViewName("system/login");
         return modelAndView;
     }
 

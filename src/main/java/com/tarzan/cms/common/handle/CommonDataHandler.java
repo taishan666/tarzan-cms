@@ -1,8 +1,10 @@
 package com.tarzan.cms.common.handle;
 
 import com.tarzan.cms.common.constant.CoreConst;
+import com.tarzan.cms.module.admin.model.sys.User;
 import com.tarzan.cms.module.admin.service.common.CommonDataService;
 import lombok.AllArgsConstructor;
+import org.apache.shiro.SecurityUtils;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
@@ -31,5 +33,6 @@ public class CommonDataHandler implements HandlerInterceptor {
                 mv.addAllObjects(commonDataService.getCommonData(CommonDataService.DataTypeEnum.SITE_CONFIG));
             }
         }
+
     }
 }

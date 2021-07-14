@@ -1,10 +1,12 @@
 package com.tarzan.cms.module.admin.service.sys;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.core.toolkit.CollectionUtils;
 import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.google.common.collect.Lists;
 import com.tarzan.cms.common.constant.CoreConst;
 import com.tarzan.cms.module.admin.mapper.sys.*;
 import com.tarzan.cms.module.admin.model.sys.*;
@@ -30,7 +32,7 @@ public class RoleService extends ServiceImpl<RoleMapper, Role> {
 
     public Set<String> findRoleByUserId(Integer userId) {
         List<UserRole> list=userRoleMapper.selectList(Wrappers.<UserRole>lambdaQuery().eq(UserRole::getUserId, userId));
-        if(list==null){
+        if(CollectionUtils.isEmpty(list)){
             return null;
         }
         return  list.stream().map(e->String.valueOf(e.getRoleId())).collect(Collectors.toSet());
@@ -56,10 +58,13 @@ public class RoleService extends ServiceImpl<RoleMapper, Role> {
     public List<Menu> findPermissionsByRoleId(Integer roleId) {
         List<RoleMenu> roleMenus= roleMenuMapper.selectList(Wrappers.<RoleMenu>lambdaQuery().eq(RoleMenu::getRoleId, roleId));
         List<Integer> menuIds=roleMenus.stream().map(RoleMenu::getMenuId).collect(Collectors.toList());
-        List<Menu> menus= menuMapper.selectList(Wrappers.<Menu>lambdaQuery()
-                .in(Menu::getId,menuIds)
-                .eq(Menu::getStatus, CoreConst.STATUS_VALID)
-                .select(Menu::getId,Menu::getName,Menu::getParentId));
+        List<Menu> menus= Lists.newArrayList();
+        if(CollectionUtils.isNotEmpty(menuIds)) {
+             menus = menuMapper.selectList(Wrappers.<Menu>lambdaQuery()
+                    .in(Menu::getId, menuIds)
+                    .eq(Menu::getStatus, CoreConst.STATUS_VALID)
+                    .select(Menu::getId, Menu::getName, Menu::getParentId));
+        }
         return menus;
     }
 
@@ -78,9 +83,13 @@ public class RoleService extends ServiceImpl<RoleMapper, Role> {
     }
 
     public List<User> findByRoleIds(List<Integer> roleIds) {
-        List<UserRole> userRoles= userRoleMapper.selectList( Wrappers.<UserRole>lambdaQuery().in(UserRole::getRoleId,roleIds));
-        List<Integer> userIds=userRoles.stream().map(UserRole::getUserId).collect(Collectors.toList());
-        return userMapper.selectBatchIds(userIds);
+        List<UserRole> userRoles= userRoleMapper.selectList(Wrappers.<UserRole>lambdaQuery().in(UserRole::getRoleId,roleIds));
+        List<User> users=Lists.newArrayList();
+        if(CollectionUtils.isNotEmpty(userRoles)){
+            List<Integer> userIds=userRoles.stream().map(UserRole::getUserId).collect(Collectors.toList());
+            users=userMapper.selectBatchIds(userIds);
+        }
+      return users;
     }
 
 }

@@ -23,7 +23,7 @@
 		<div class="article-main">
 			<h3 th:text="${article.title}" class="article-title"></h3>
 			<span th:text="${article.original==1 ? '原创' : '转载'}" class="article-original"></span>
-			<div class="article-meta">发布于 <span th:text="${#dates.format(article.createTime,'yyyy-MM-dd')}"></span> &nbsp;|&nbsp; <span th:text="${article.bizCategory.name}"></span> &nbsp;|&nbsp; 浏览（<span th:text="${article.lookCount}? ${article.lookCount} : 0"></span>） &nbsp;|&nbsp; 评论（<span th:text="${article.commentCount}? ${article.commentCount} : 0"></span>）</div>
+			<div class="article-meta">发布于 <span th:text="${#dates.format(article.createTime,'yyyy-MM-dd')}"></span> &nbsp;|&nbsp; <span th:text="${category.name}"></span> &nbsp;|&nbsp; 浏览（<span th:text="${article.lookCount}? ${article.lookCount} : 0"></span>） &nbsp;|&nbsp; 评论（<span th:text="${article.commentCount}? ${article.commentCount} : 0"></span>）</div>
 			<hr class="hr0" />
 			<div th:utext="${article.content}" class="article-body markdown-body editor-preview-active-side">
 			</div>

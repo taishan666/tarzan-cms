@@ -35,6 +35,15 @@
         </div>
     </div>
     <div class="form-group row">
+        <label for="nickname" class="col-sm-2 col-form-label">昵称</label>
+        <div class="col-sm-10">
+            <input type="text" th:value="${user?.nickname}" name="nickname" class="form-control"
+                   id="nickname"
+                   placeholder="请填写昵称" required>
+            <div class="invalid-feedback">请填写昵称</div>
+        </div>
+    </div>
+    <div class="form-group row">
         <label for="email" class="col-sm-2 col-form-label">邮箱</label>
         <div class="col-sm-10">
             <input type="text" th:value="${user?.email}" name="email" class="form-control"

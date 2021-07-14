@@ -152,7 +152,9 @@ public class BlogWebController {
         if (article == null || CoreConst.STATUS_INVALID.equals(article.getStatus())) {
             throw new ArticleNotFoundException();
         }
+        Category category= categoryService.getById(article.getCategoryId());
         model.addAttribute("article", article);
+        model.addAttribute("category", category);
         model.addAttribute("categoryId", article.getCategoryId());
         return THEME_PREFIX + bizThemeService.selectCurrent().getName() + "/article";
     }

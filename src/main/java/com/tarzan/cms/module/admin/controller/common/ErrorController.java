@@ -23,30 +23,40 @@ import javax.servlet.http.HttpServletResponse;
 @AllArgsConstructor
 public class ErrorController {
 
-    private final SysConfigService sysConfigService;
-    private final CategoryService bizCategoryService;
 
     /**
      * shiro无权限时进入
      *
-     * @param request
      * @param response
-     * @param model
      * @return
      */
     @RequestMapping("/403")
-    public String noPermission(HttpServletRequest request, HttpServletResponse response, Model model) {
+    public String noPermission(HttpServletResponse response) {
         response.setStatus(HttpStatus.FORBIDDEN.value());
         return "error/403";
     }
 
+    /**
+     * 找不到页面
+     *
+     * @param response
+     * @return
+     */
     @RequestMapping("/404")
-    public String notFund(HttpServletRequest request, HttpServletResponse response, Model model) {
+    public String notFund(HttpServletResponse response) {
+        response.setStatus(HttpStatus.NOT_FOUND.value());
         return "error/404";
     }
 
+    /**
+     * 系统服务错误
+     *
+     * @param response
+     * @return
+     */
     @RequestMapping("/500")
-    public String sysError(HttpServletRequest request, HttpServletResponse response, Model model) {
+    public String sysError(HttpServletResponse response) {
+        response.setStatus(HttpStatus.INTERNAL_SERVER_ERROR.value());
         return "error/500";
     }
 

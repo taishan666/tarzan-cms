@@ -28,7 +28,7 @@ public class CommonDataHandler implements HandlerInterceptor {
             if(mv.getViewName().contains(CoreConst.THEME_PREFIX)){
                 mv.addAllObjects(commonDataService.getAllCommonData());
             }
-            if(mv.getViewName().contains(CoreConst.SYSTEM_PREFIX)){
+            if(mv.getViewName().contains(CoreConst.SYSTEM_PREFIX)||mv.getViewName().contains(CoreConst.ERROR_PREFIX)){
                 mv.addAllObjects(commonDataService.getCommonData(CommonDataService.DataTypeEnum.CATEGORY_LIST));
                 mv.addAllObjects(commonDataService.getCommonData(CommonDataService.DataTypeEnum.SITE_CONFIG));
             }

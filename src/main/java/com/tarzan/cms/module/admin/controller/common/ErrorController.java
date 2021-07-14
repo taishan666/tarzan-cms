@@ -1,14 +1,10 @@
 package com.tarzan.cms.module.admin.controller.common;
 
-import com.tarzan.cms.module.admin.service.biz.CategoryService;
-import com.tarzan.cms.module.admin.service.sys.SysConfigService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**

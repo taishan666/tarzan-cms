@@ -94,7 +94,7 @@
             }
             $.ajax({
                 type: "POST",
-                url: (ctx + "/login").replace('//', '/'),
+                url: (ctx + "/system/login").replace('//', '/'),
                 data: $(".login-form").serialize(),
                 dataType: "json",
                 success: function (data) {

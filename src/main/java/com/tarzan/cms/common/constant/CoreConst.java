@@ -28,6 +28,8 @@ public class CoreConst {
 
     public static final String SYSTEM_PREFIX = "system/";
 
+    public static final String ERROR_PREFIX = "error/";
+
     public static final String THEME_PREFIX = "theme/";
 
     /**

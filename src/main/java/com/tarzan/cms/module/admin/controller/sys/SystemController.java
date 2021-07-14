@@ -41,12 +41,12 @@ import java.util.Map;
 @Slf4j
 @Controller
 @AllArgsConstructor
+@RequestMapping("/system")
 public class SystemController {
 
     private final UserService userService;
     private final MenuService MenuService;
     private final CategoryService categoryService;
-    private final SysConfigService configService;
 
 
 
@@ -192,11 +192,7 @@ public class SystemController {
         return MenuService.selectMenuByUserId(((User) SecurityUtils.getSubject().getPrincipal()).getId());
     }
 
-    private void getSysConfig(Model model) {
-        Map<String, String> map = configService.selectAll();
-        model.addAttribute("sysConfig", map);
-        model.addAttribute("categoryList", categoryService.selectCategories(new Category().setStatus(CoreConst.STATUS_VALID)));
-    }
+
 
 
 }

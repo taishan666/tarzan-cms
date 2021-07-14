@@ -74,12 +74,12 @@ public class ShiroConfig {
      * 3、部分过滤器可指定参数，如perms，roles
      */
     @Bean
-    public ShiroFilterFactoryBean shirFilter(SecurityManager securityManager) {
+    public ShiroFilterFactoryBean shiroFilter(SecurityManager securityManager) {
         ShiroFilterFactoryBean shiroFilterFactoryBean = new ShiroFilterFactoryBean();
         // 设置 SecurityManager
         shiroFilterFactoryBean.setSecurityManager(securityManager);
-        // 登录url
-        shiroFilterFactoryBean.setLoginUrl("/login");
+        // 隐藏真实的登录url
+        shiroFilterFactoryBean.setLoginUrl("/error/404");
         // 登录成功后要跳转的链接
         shiroFilterFactoryBean.setSuccessUrl("/admin");
         //未授权界面;

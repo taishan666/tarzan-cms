@@ -48,6 +48,9 @@ public class ShiroConfig {
     @Value("${spring.redis.password}")
     private String password;
 
+    @Value("${spring.redis.database}")
+    private int database;
+
     @Bean
     public static LifecycleBeanPostProcessor getLifecycleBeanPostProcessor() {
         return new LifecycleBeanPostProcessor();
@@ -78,8 +81,8 @@ public class ShiroConfig {
         ShiroFilterFactoryBean shiroFilterFactoryBean = new ShiroFilterFactoryBean();
         // 设置 SecurityManager
         shiroFilterFactoryBean.setSecurityManager(securityManager);
-        // 隐藏真实的登录url
-        shiroFilterFactoryBean.setLoginUrl("/error/404");
+        // 登录url
+        shiroFilterFactoryBean.setLoginUrl("/system/login");
         // 登录成功后要跳转的链接
         shiroFilterFactoryBean.setSuccessUrl("/admin");
         //未授权界面;
@@ -157,6 +160,7 @@ public class ShiroConfig {
     public RedisManager redisManager() {
         RedisManager redisManager = new RedisManager();
         redisManager.setHost(host + ':' + port);
+        redisManager.setDatabase(database);
         redisManager.setTimeout(timeout);
         if (StringUtils.isNotBlank(password)) {
             redisManager.setPassword(password);

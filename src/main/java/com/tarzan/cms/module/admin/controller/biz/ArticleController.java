@@ -72,7 +72,7 @@ public class ArticleController {
     @PostMapping("/add")
     @ResponseBody
     @Transactional
-    public ResponseVo add(Article bizArticle,@RequestParam("tagIds") List<Integer> tagIds) {
+    public ResponseVo add(Article bizArticle,@RequestParam(value = "tagIds",required = false) List<Integer> tagIds) {
         try {
             User user = (User) SecurityUtils.getSubject().getPrincipal();
             bizArticle.setUserId(user.getId());
@@ -108,7 +108,7 @@ public class ArticleController {
     @PostMapping("/edit")
     @ResponseBody
     @CacheEvict(value = "article", allEntries = true)
-    public ResponseVo edit(Article article,@RequestParam("tagIds") List<Integer> tagIds) {
+    public ResponseVo edit(Article article,@RequestParam(value = "tagIds",required = false) List<Integer> tagIds) {
         articleService.updateById(article);
         if(null!=tagIds && tagIds.size()>0){
             articleTagsService.removeByArticleId(article.getId());

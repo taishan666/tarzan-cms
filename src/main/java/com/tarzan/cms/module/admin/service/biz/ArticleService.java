@@ -23,7 +23,7 @@ import java.util.*;
 @Service
 public class ArticleService extends ServiceImpl<ArticleMapper, Article> {
 
-
+    @Cacheable(value = "article", key = "'list'")
     public List<Article> findByCondition(IPage<Article> page, ArticleConditionVo vo) {
         return baseMapper.findByCondition(page, vo);
     }
@@ -49,22 +49,13 @@ public class ArticleService extends ServiceImpl<ArticleMapper, Article> {
     @Cacheable(value = "article", key = "'recent'")
     public List<Article> recentList(int pageSize) {
         ArticleConditionVo vo = new ArticleConditionVo();
-        vo.setPageSize(pageSize);
-        vo.setStatus(CoreConst.STATUS_VALID);
         vo.setRecentFlag(true);
+        vo.setStatus(CoreConst.STATUS_VALID);
+        vo.setPageSize(pageSize);
         IPage<Article> page = new Page<>(vo.getPageNumber(), vo.getPageSize());
         return this.findByCondition(page, vo);
     }
 
-    @Cacheable(value = "article", key = "'random'")
-    public List<Article> randomList(int pageSize) {
-        ArticleConditionVo vo = new ArticleConditionVo();
-        vo.setRandom(true);
-        vo.setStatus(CoreConst.STATUS_VALID);
-        vo.setPageSize(pageSize);
-        IPage<Article> page = new Page<>(vo.getPageNumber(), vo.getPageSize());
-        return this.findByCondition(page, vo);
-    }
 
     @Cacheable(value = "article", key = "'hot'")
     public List<Article> hotList(int pageSize) {

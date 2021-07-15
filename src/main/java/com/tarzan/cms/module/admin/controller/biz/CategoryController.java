@@ -56,7 +56,7 @@ public class CategoryController {
     public ResponseVo add(Category bizCategory) {
         if (!CoreConst.TOP_MENU_ID.equals(bizCategory.getPid())) {
             List<Article> bizArticles = articleService.selectByCategoryId(bizCategory.getPid());
-            if (!ListUtils.isEmpty(bizArticles)) {
+            if (!CollectionUtils.isEmpty(bizArticles)) {
                 return ResultUtil.error("添加失败，父级分类下存在文章");
             }
         }

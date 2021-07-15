@@ -104,21 +104,11 @@
 			)
 		</if>
 		</where>
-		<choose>
-			<when test="vo.random != null">
-				ORDER BY RAND()
-			</when>
-			<otherwise>
-				ORDER BY
-				<if test="vo.sliderFlag == true">
-					a.slider DESC,
-				</if>
-				<if test="vo.recentFlag != true">
+		ORDER BY
+		     <if test="vo.recentFlag != true">
 				a.top DESC,
-				</if>
+		     </if>
 				a.create_time DESC
-			</otherwise>
-		</choose>
 	</select>
 
 	<select id="hotList" resultMap="rm">

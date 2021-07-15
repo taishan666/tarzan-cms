@@ -12,6 +12,7 @@ import com.tarzan.cms.module.admin.model.biz.Comment;
 import com.tarzan.cms.module.admin.model.biz.Tags;
 import com.tarzan.cms.module.admin.vo.SiteInfoVo;
 import lombok.AllArgsConstructor;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 

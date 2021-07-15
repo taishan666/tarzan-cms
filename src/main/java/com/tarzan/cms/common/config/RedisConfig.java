@@ -29,8 +29,9 @@ import java.time.Duration;
  * @version V1.0
  * @date 2021年5月11日
  */
-@Configuration
+
 @EnableCaching
+@Configuration
 public class RedisConfig extends CachingConfigurerSupport {
 
     @Bean

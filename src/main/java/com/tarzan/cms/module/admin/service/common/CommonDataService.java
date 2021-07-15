@@ -41,16 +41,12 @@ public class CommonDataService {
                     return bizCategoryService.selectCategories(new Category().setStatus(CoreConst.STATUS_VALID));
                 case TAG_LIST:
                     return bizTagsService.selectTags(new Tags());
-                case SLIDER_LIST:
-                    return bizArticleService.sliderList();
                 case RECENT_LIST:
                     return bizArticleService.recentList(CoreConst.PAGE_SIZE);
                 case RECOMMENDED_LIST:
                     return bizArticleService.recommendedList(CoreConst.PAGE_SIZE);
                 case HOT_LIST:
                     return bizArticleService.hotList(CoreConst.PAGE_SIZE);
-                case RANDOM_LIST:
-                    return bizArticleService.randomList(CoreConst.PAGE_SIZE);
                 case LINK_LIST:
                     return bizLinkService.selectLinks(new Link().setStatus(CoreConst.STATUS_VALID));
                 case SITE_INFO:

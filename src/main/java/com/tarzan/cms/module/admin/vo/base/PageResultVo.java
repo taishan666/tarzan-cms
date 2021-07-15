@@ -2,7 +2,9 @@ package com.tarzan.cms.module.admin.vo.base;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -12,8 +14,9 @@ import java.util.List;
  */
 @Data
 @AllArgsConstructor
-public class PageResultVo {
-    private List rows;
+@NoArgsConstructor
+public class PageResultVo implements Serializable {
+    private List<?> rows;
     private Long total;
 
 }

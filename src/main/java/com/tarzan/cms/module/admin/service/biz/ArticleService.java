@@ -23,7 +23,6 @@ import java.util.*;
 @Service
 public class ArticleService extends ServiceImpl<ArticleMapper, Article> {
 
-    @Cacheable(value = "article", key = "'list'")
     public List<Article> findByCondition(IPage<Article> page, ArticleConditionVo vo) {
         return baseMapper.findByCondition(page, vo);
     }

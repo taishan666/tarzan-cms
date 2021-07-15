@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 import static com.tarzan.cms.common.constant.CoreConst.THEME_PREFIX;
@@ -41,16 +40,16 @@ public class BlogWebController {
      * 首页
      *
      * @param model
-     * @param vo
+     * @param pageNumber
      * @return
      */
     @GetMapping({"/", "/blog/index/{pageNumber}"})
     public String index(@PathVariable(value = "pageNumber", required = false) Integer pageNumber,
-                        ArticleConditionVo vo,
                         Model model) {
         if (CoreConst.SITE_STATIC.get()) {
             return "forward:/html/index/index.html";
         }
+        ArticleConditionVo vo = new ArticleConditionVo();
         if (pageNumber != null) {
             vo.setPageNumber(pageNumber);
         } else {
@@ -144,7 +143,7 @@ public class BlogWebController {
      * @return
      */
     @GetMapping("/blog/article/{articleId}")
-    public String article(HttpServletRequest request, Model model, @PathVariable("articleId") Integer articleId) {
+    public String article(Model model, @PathVariable("articleId") Integer articleId) {
         if (CoreConst.SITE_STATIC.get()) {
             return "forward:/html/article/" + articleId + ".html";
         }

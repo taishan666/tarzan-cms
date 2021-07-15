@@ -26,6 +26,7 @@ import java.util.Map;
  * @date 2021年5月11日
  */
 @Controller
+@RequestMapping("/")
 @AllArgsConstructor
 public class AdminRenderController {
 

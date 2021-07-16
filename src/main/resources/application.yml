@@ -15,9 +15,8 @@ spring:
       filters: stat,wall,slf4j
       stat-view-servlet:
         enabled: true
+        reset-enable: false
         url-pattern: /druid/*
-        login-username: admin
-        login-password: 123456
         allow:
         deny:
   thymeleaf:
@@ -41,5 +40,5 @@ mybatis-plus:
     db-config:
       id-type: auto
   mapper-locations: classpath:mapper/**/*.xml,mapper/*.xml
-  type-aliases-package: com.tarzan.model
+  type-aliases-package: com.tarzan.cms.model
 

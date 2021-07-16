@@ -3,7 +3,6 @@ package com.tarzan.cms;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.core.env.Environment;
 
@@ -19,13 +18,9 @@ import java.net.UnknownHostException;
 @SpringBootApplication
 public class CmsApplication {
 
-    public static String[] args;
-    public static ConfigurableApplicationContext context;
-
     public static void main(String[] args) throws UnknownHostException {
-        CmsApplication.args = args;
-        CmsApplication.context= SpringApplication.run(CmsApplication.class, args);
-        Environment env = CmsApplication.context.getEnvironment();
+        ConfigurableApplicationContext context= SpringApplication.run(CmsApplication.class, args);
+        Environment env = context.getEnvironment();
         String ip = InetAddress.getLocalHost().getHostAddress();
         String port = env.getProperty("server.port");
         String contextPath = env.getProperty("server.servlet.context-path");
@@ -38,4 +33,16 @@ public class CmsApplication {
                 "External: \thttp://" + ip + ':' + port + contextPath + '\n' +
                 "----------------------------------------------------------");
     }
+
+/*    @Bean
+    public ServletRegistrationBean<StatViewServlet> druidStatViewServlet() {
+        ServletRegistrationBean<StatViewServlet> registrationBean = new ServletRegistrationBean<>(new StatViewServlet(),  "/druid/*");
+        registrationBean.addInitParameter("allow", "");// IP白名单 (没有配置或者为空，则允许所有访问)
+        //registrationBean.addInitParameter("loginUsername", "root");
+       // registrationBean.addInitParameter("loginPassword", "123456");
+        registrationBean.addInitParameter("enable", "true");
+        registrationBean.addInitParameter("resetEnable", "false");
+        return registrationBean;
+    }*/
+
 }

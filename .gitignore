@@ -25,4 +25,5 @@ hs_err_pid*
 *.iml
 .idea
 classes/
+maven-archiver/
 maven-status/

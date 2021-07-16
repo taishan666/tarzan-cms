@@ -17,12 +17,15 @@ import java.net.UnknownHostException;
  */
 @Slf4j
 @SpringBootApplication
-public class SpringbootApplication {
+public class CmsApplication {
 
+    public static String[] args;
+    public static ConfigurableApplicationContext context;
 
     public static void main(String[] args) throws UnknownHostException {
-        ConfigurableApplicationContext application = SpringApplication.run(SpringbootApplication.class, args);
-        Environment env = application.getEnvironment();
+        CmsApplication.args = args;
+        CmsApplication.context= SpringApplication.run(CmsApplication.class, args);
+        Environment env = CmsApplication.context.getEnvironment();
         String ip = InetAddress.getLocalHost().getHostAddress();
         String port = env.getProperty("server.port");
         String contextPath = env.getProperty("server.servlet.context-path");

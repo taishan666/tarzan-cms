@@ -1,19 +1,23 @@
 package com.tarzan.cms.module.admin.controller.sys;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.tarzan.cms.common.constant.CoreConst;
-import com.tarzan.cms.utils.PasswordHelper;
-import com.tarzan.cms.utils.ResultUtil;
+import com.tarzan.cms.common.enums.UserEnum;
+import com.tarzan.cms.common.event.LoginLogEvent;
 import com.tarzan.cms.module.admin.model.biz.Category;
+import com.tarzan.cms.module.admin.model.log.LoginLog;
 import com.tarzan.cms.module.admin.model.sys.Menu;
 import com.tarzan.cms.module.admin.model.sys.User;
 import com.tarzan.cms.module.admin.service.biz.CategoryService;
-import com.tarzan.cms.module.admin.service.sys.SysConfigService;
-import com.tarzan.cms.module.admin.service.sys.UserService;
+import com.tarzan.cms.module.admin.service.log.LoginLogService;
 import com.tarzan.cms.module.admin.service.sys.MenuService;
+import com.tarzan.cms.module.admin.service.sys.UserService;
 import com.tarzan.cms.module.admin.vo.base.ResponseVo;
+import com.tarzan.cms.utils.*;
 import com.wf.captcha.utils.CaptchaUtil;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.collections.CollectionUtils;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.LockedAccountException;
@@ -29,7 +33,6 @@ import javax.servlet.http.HttpServletRequest;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
-import java.util.Map;
 
 /**
  * 后台首页、登录等接口
@@ -47,6 +50,7 @@ public class SystemController {
     private final UserService userService;
     private final MenuService MenuService;
     private final CategoryService categoryService;
+    private final LoginLogService loginLogService;
 
 
 
@@ -146,8 +150,36 @@ public class SystemController {
             return ResultUtil.error("用户名或者密码错误！");
         }
         //更新最后登录时间
-        userService.updateLastLoginTime((User) SecurityUtils.getSubject().getPrincipal());
+        User user=(User) SecurityUtils.getSubject().getPrincipal();
+        userService.updateLastLoginTime(user);
+        //异步保存登录日志
+        String userType= request.getHeader(CoreConst.USER_TYPE_HEADER_KEY)==null?UserEnum.WEB.getName():request.getHeader(CoreConst.USER_TYPE_HEADER_KEY);
+        saveLoginLog(userType,user);
         return ResultUtil.success("登录成功！");
+    }
+
+
+    /**
+     * 踢出
+     *
+     * @param userInfo
+     * @return
+     */
+    private void saveLoginLog(String userType,User userInfo) {
+        Date now = new Date();
+        LoginLog loginLog = new LoginLog();
+        loginLog.setCreateTime(now);
+        loginLog.setStartTime(now);
+        loginLog.setSourceIp(IpUtil.getIpAddr(WebUtil.getRequest()));
+        if (userType.equals(UserEnum.WEB.getName())) {
+            loginLog.setSource("PC登录");
+        } else if (userType.equals(UserEnum.APP.getName())) {
+            loginLog.setSource("APP登录");
+        }
+        loginLog.setName(userInfo.getNickname());
+        loginLog.setPhone(userInfo.getPhone());
+        loginLog.setLoginName(userInfo.getUsername());
+        SpringUtil.publishEvent(new LoginLogEvent(loginLog));
     }
 
     /**
@@ -174,6 +206,14 @@ public class SystemController {
             String username = ((User) SecurityUtils.getSubject().getPrincipal()).getUsername();
             Serializable sessionId = SecurityUtils.getSubject().getSession().getId();
             userService.kickOut(sessionId, username);
+            QueryWrapper<LoginLog> queryWrapper = new QueryWrapper<>();
+            queryWrapper.lambda().eq(LoginLog::getLoginName, username);
+            List<LoginLog> loginLogList = loginLogService.list(queryWrapper.lambda().orderByDesc(LoginLog::getCreateTime));
+            if (CollectionUtils.isNotEmpty(loginLogList)) {
+                LoginLog loginLog = loginLogList.get(0);
+                loginLog.setEndTime(new Date());
+                SpringUtil.publishEvent(new LoginLogEvent(loginLog));
+            }
         }
         subject.logout();
         ModelAndView modelAndView = new ModelAndView();

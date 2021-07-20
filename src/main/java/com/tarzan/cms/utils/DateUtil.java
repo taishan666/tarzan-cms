@@ -34,7 +34,7 @@ public class DateUtil {
     public static final String monthFormat = "yyyyMM";
     public static final String chineseDtFormat = "yyyy年MM月dd日";
     public static final String chineseYMFormat = "yyyy年MM月";
-    public static final String newFormat = "yyyy-MM-dd HH:mm:ss";
+    public static final String datetimeFormat = "yyyy-MM-dd HH:mm:ss";
     public static final String noSecondFormat = "yyyy-MM-dd HH:mm";
     public static final String MdFormat = "MM-dd";
     public static final long ONE_DAY_MILL_SECONDS = 86400000;
@@ -84,7 +84,7 @@ public class DateUtil {
     }
 
     public static Date parseDateNewFormat(String sDate) throws ParseException {
-        DateFormat dateFormat = new SimpleDateFormat(newFormat);
+        DateFormat dateFormat = new SimpleDateFormat(datetimeFormat);
         dateFormat.setLenient(false);
         return dateFormat.parse(sDate);
     }
@@ -208,7 +208,7 @@ public class DateUtil {
     }
 
     public static String getNewFormatDateString(Date date) {
-        DateFormat dateFormat = new SimpleDateFormat(newFormat);
+        DateFormat dateFormat = new SimpleDateFormat(datetimeFormat);
         return getDateString(date, dateFormat);
     }
 

@@ -10,7 +10,9 @@ import org.springframework.context.ApplicationContextAware;
 import org.springframework.context.ApplicationEvent;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.lang.Nullable;
+import org.springframework.stereotype.Component;
 
+@Component
 public class SpringUtil implements ApplicationContextAware {
     private static final Logger log = LoggerFactory.getLogger(SpringUtil.class);
     private static ConfigurableApplicationContext context;

@@ -23,6 +23,7 @@ public class CoreConst {
     public static final String TOP_MENU_NAME = "顶层菜单";
     public static final String SHIRO_REDIS_SESSION_PREFIX = "tarzan_cms:session:";
     public static final String SHIRO_REDIS_CACHE_NAME = "shiro_tarzan_cms";
+    public final static String USER_TYPE_HEADER_KEY = "User-Type";
 
     public static final String ADMIN_PREFIX = "admin/";
 

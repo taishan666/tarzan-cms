@@ -34,7 +34,7 @@ public class ExceptionHandleController {
     }
 
     @ExceptionHandler(ArticleNotFoundException.class)
-    public String handleArticle(Exception e, HttpServletRequest request) {
+    public String handleArticle(HttpServletRequest request) {
         request.setAttribute("javax.servlet.error.status_code", ResponseStatus.NOT_FOUND.getCode());
         return "forward:/error";
     }

@@ -584,4 +584,22 @@ CREATE TABLE `sys_user_role`  (
 -- ----------------------------
 INSERT INTO `sys_user_role` VALUES (1, 1, 1);
 
-SET FOREIGN_KEY_CHECKS = 1;
+
+-- ----------------------------
+-- Table structure for sys_login_log
+-- ----------------------------
+DROP TABLE IF EXISTS `sys_login_log`;
+CREATE TABLE `sys_login_log`  (
+  `id` int(0) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `name` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '姓名',
+  `phone` varchar(15) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '手机号',
+  `login_name` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '登录名',
+  `source` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '来源',
+  `source_ip` varchar(128) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '来源',
+  `start_time` datetime(0) NULL DEFAULT NULL COMMENT '登录时间',
+  `end_time` datetime(0) NULL DEFAULT NULL COMMENT '登出时间',
+  `create_time` datetime(0) NULL DEFAULT NULL COMMENT '创建时间',
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+
+

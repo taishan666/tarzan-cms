@@ -421,6 +421,7 @@ INSERT INTO `sys_menu` VALUES (85, '删除', '删除主题', '/theme/delete', 't
 INSERT INTO `sys_menu` VALUES (86, '批量删除', '批量删除主题', 'theme/batch/delete', 'theme:batchDelete', 81, 2, 0, '', 1, '2018-09-19 15:48:39', '2018-09-19 15:48:39');
 INSERT INTO `sys_menu` VALUES (87, '编辑', '编辑主题', '/theme/edit', 'theme:edit', 81, 2, 0, '', 1, '2018-09-19 15:54:34', '2018-09-19 15:54:34');
 INSERT INTO `sys_menu` VALUES (88, '批量推送', '批量推送百度', '/article/batch/push', 'article:batchPush', 65, 2, 0, '', 1, '2018-10-28 15:15:00', '2018-10-28 15:15:00');
+INSERT INTO `sys_menu` VALUES (89, '登录日志', '登录日志', '/login/logs', 'loginLogs', 22, 1, 2, 'fas fa-th-list', 1, '2021-07-20 16:01:23', '2021-07-20 16:01:23');
 
 -- ----------------------------
 -- Table structure for sys_role

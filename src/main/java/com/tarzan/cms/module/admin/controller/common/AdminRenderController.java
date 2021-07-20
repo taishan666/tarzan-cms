@@ -89,6 +89,14 @@ public class AdminRenderController {
     }
 
     /**
+     * 登录日志入口
+     */
+    @GetMapping("/login/logs")
+    public String loginLogs() {
+        return CoreConst.ADMIN_PREFIX + "log/list";
+    }
+
+    /**
      * 网站基本信息
      *
      * @param model

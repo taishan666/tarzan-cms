@@ -38,8 +38,8 @@ public class DbBackupTools {
     //private static final String dbBackupPath = "src/main/java/sql/";
     private  Connection getConnection;
     private  JdbcTemplate jdbcTemplate;
-    private final  static  String prefix="backupSql_";
-   static   SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+    private  final  static  String prefix="backupSql_";
+    static   SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
     /**
      * 链接数据库
@@ -165,6 +165,7 @@ public class DbBackupTools {
     public  String getBackupPrefix() {
         return prefix;
     }
+
     public  String getBackupPath() {
         String classPath = new DbBackupTools().getClass().getResource("/").getPath();
         if (classPath.indexOf(".jar") > 0) {
@@ -180,14 +181,5 @@ public class DbBackupTools {
         }
     }
 
-
-
-
-
-
-   /* public static void main(String[] args) {
-        backSql();
-        //rollback("backupSql_1626862416476.sql");
-    }*/
 
 }

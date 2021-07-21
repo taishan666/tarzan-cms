@@ -44,12 +44,12 @@ CREATE TABLE `biz_article`  (
   `create_time` datetime(0) NULL DEFAULT CURRENT_TIMESTAMP(0) COMMENT '添加时间',
   `update_time` datetime(0) NULL DEFAULT CURRENT_TIMESTAMP(0) COMMENT '更新时间',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 12 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = COMPACT;
+) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = COMPACT;
 
 -- ----------------------------
 -- Records of biz_article
 -- ----------------------------
-INSERT INTO `tarzan_cms`.`biz_article`(`id`, `title`, `user_id`, `author`, `cover_image`, `qrcode_path`, `is_markdown`, `content`, `content_md`, `top`, `category_id`, `status`, `recommended`, `slider`, `slider_img`, `original`, `description`, `keywords`, `comment`, `create_time`, `update_time`) VALUES (13, '基于用户的协同过滤算法JAVA实现的推荐系统', '1', NULL, 'http://localhost:80/u/20210628\\src=http___n.sinaimg.cn_sinacn_20171025_bec0-fymzzpw1715641.jpg&refer=http___n.sinaimg_1624849356390.sinaimg.cn_sinacn_20171025_bec0-fymzzpw1715641.jpg&refer=http___n.sinaimg.jpg', NULL, 1, '<h1>JAVA推荐系统</h1>\r\n\r\n<p>文章末附带项目源码地址</p>\r\n\r\n<h2>系统原理</h2>\r\n\r\n<p>该系统使用java编写的基于用户的协同过滤算法（UserCF） 利用统计学的相关系数经常皮尔森（pearson）相关系数计算相关系数来实现千人千面的推荐系统。</p>\r\n\r\n<p>协同过滤推荐算法是诞生最早，并且较为著名的推荐算法。主要的功能是预测和推荐。算法通过对用户历史行为数据的挖掘发现用户的偏好，基于不同的偏好对用户进行群组划分并推荐品味相似的商品。协同过滤推荐算法分为两类，分别是基于用户的协同过滤算法(user-based collaboratIve filtering)，和基于物品的协同过滤算法(item-based collaborative filtering)。简单的说就是：人以类聚，物以群分。</p>\r\n\r\n<h3>皮尔森(pearson)相关系数公式</h3>\r\n\r\n<p><img alt=\"\" data-widget=\"image\" src=\"https://img-blog.csdnimg.cn/20200802193647612.png\" style=\"height:106px; width:424px\" /></p>\r\n\r\n<p>公式定义为： 两个连续变量(X,Y)的pearson相关性系数(Px,y)等于它们之间的协方差cov(X,Y)除以它们各自标准差的乘积(&sigma;X,&sigma;Y)。系数的取值总是在-1.0到1.0之间，接近0的变量被成为无相关性，接近1或者-1被称为具有强相关性。 通常情况下通过以下取值范围判断变量的相关强度： 相关系数 0.8-1.0 极强相关 0.6-0.8 强相关 0.4-0.6 中等程度相关 0.2-0.4 弱相关 0.0-0.2 极弱相关或无相关</p>\r\n\r\n<h3>java代码实现</h3>\r\n\r\n<pre data-widget=\"codeSnippet\">\r\n<code class=\"hljs\"> /**\r\n     * 方法描述: 皮尔森（pearson）相关系数计算\r\n     *\r\n     * @param xs\r\n     * @param ys \r\n     * @Return {@link Double}\r\n     * @throws \r\n     * @author tarzan\r\n     * @date 2020年07月31日 17:03:20\r\n     */\r\n    public static Double getRelate(List&lt;Integer&gt; xs, List&lt;Integer&gt;  ys){\r\n        int n=xs.size();\r\n        double Ex= xs.stream().mapToDouble(x-&gt;x).sum();\r\n        double Ey=ys.stream().mapToDouble(y-&gt;y).sum();\r\n        double Ex2=xs.stream().mapToDouble(x-&gt;Math.pow(x,2)).sum();\r\n        double Ey2=ys.stream().mapToDouble(y-&gt;Math.pow(y,2)).sum();\r\n        double Exy= IntStream.range(0,n).mapToDouble(i-&gt;xs.get(i)*ys.get(i)).sum();\r\n        double numerator=Exy-Ex*Ey/n;\r\n        double denominator=Math.sqrt((Ex2-Math.pow(Ex,2)/n)*(Ey2-Math.pow(Ey,2)/n));\r\n        if (denominator==0) return 0.0;\r\n        return numerator/denominator;\r\n    }</code></pre>\r\n\r\n<p>&nbsp;</p>\r\n\r\n<h2>软件架构</h2>\r\n\r\n<p>Spring boot单项目</p>\r\n\r\n<h2>安装教程</h2>\r\n\r\n<ol>\r\n	<li>git下载源码</li>\r\n	<li>maven构建依赖</li>\r\n	<li>idea-java运行</li>\r\n</ol>\r\n\r\n<h2>使用说明</h2>\r\n\r\n<ol>\r\n	<li>找到 src / main / java / com / tarzan / recommend / RecommendSystemApplication.java 右键java 运行</li>\r\n</ol>\r\n\r\n<p>&nbsp;</p>\r\n\r\n<p>&nbsp;<img alt=\"输入图片说明\" data-widget=\"image\" src=\"https://img-blog.csdnimg.cn/img_convert/f286e55a27d71d0c5b8644a0d7d32ad1.png\" />&nbsp;</p>\r\n\r\n<p>&nbsp;</p>\r\n\r\n<p>2.传入不同的用户id，得到不同的推荐数据</p>\r\n\r\n<p>&nbsp;</p>\r\n\r\n<p>&nbsp;<img alt=\"输入图片说明\" data-widget=\"image\" src=\"https://img-blog.csdnimg.cn/img_convert/3d24a5e080cd5cbb4dd355b042c41792.png\" /></p>\r\n\r\n<p>&nbsp;</p>\r\n\r\n<p>3.项目中用到的文件数据集ml-100k 在 src / main / resources目录下</p>\r\n\r\n<p>&nbsp;</p>\r\n\r\n<p>gitee源码地址：<a href=\"https://gitee.com/taisan/recommend_system\">https://gitee.com/taisan/recommend_system</a></p>\r\n\r\n<h2>技术交流&amp;问题反馈</h2>\r\n\r\n<pre data-widget=\"codeSnippet\">\r\n<code class=\"language-html hljs\">  刚刚整理的代码还有很多不足之处，如有问题请联系我\r\n\r\n  联系QQ:1334512682 \r\n  微信号：vxhqqh</code></pre>\r\n', '<h1>JAVA推荐系统</h1>\r\n\r\n<p>文章末附带项目源码地址</p>\r\n\r\n<h2>系统原理</h2>\r\n\r\n<p>该系统使用java编写的基于用户的协同过滤算法（UserCF） 利用统计学的相关系数经常皮尔森（pearson）相关系数计算相关系数来实现千人千面的推荐系统。</p>\r\n\r\n<p>协同过滤推荐算法是诞生最早，并且较为著名的推荐算法。主要的功能是预测和推荐。算法通过对用户历史行为数据的挖掘发现用户的偏好，基于不同的偏好对用户进行群组划分并推荐品味相似的商品。协同过滤推荐算法分为两类，分别是基于用户的协同过滤算法(user-based collaboratIve filtering)，和基于物品的协同过滤算法(item-based collaborative filtering)。简单的说就是：人以类聚，物以群分。</p>\r\n\r\n<h3>皮尔森(pearson)相关系数公式</h3>\r\n\r\n<p><img alt=\"\" data-widget=\"image\" src=\"https://img-blog.csdnimg.cn/20200802193647612.png\" style=\"height:106px; width:424px\" /></p>\r\n\r\n<p>公式定义为： 两个连续变量(X,Y)的pearson相关性系数(Px,y)等于它们之间的协方差cov(X,Y)除以它们各自标准差的乘积(&sigma;X,&sigma;Y)。系数的取值总是在-1.0到1.0之间，接近0的变量被成为无相关性，接近1或者-1被称为具有强相关性。 通常情况下通过以下取值范围判断变量的相关强度： 相关系数 0.8-1.0 极强相关 0.6-0.8 强相关 0.4-0.6 中等程度相关 0.2-0.4 弱相关 0.0-0.2 极弱相关或无相关</p>\r\n\r\n<h3>java代码实现</h3>\r\n\r\n<pre data-widget=\"codeSnippet\">\r\n<code class=\"hljs\"> /**\r\n     * 方法描述: 皮尔森（pearson）相关系数计算\r\n     *\r\n     * @param xs\r\n     * @param ys \r\n     * @Return {@link Double}\r\n     * @throws \r\n     * @author tarzan\r\n     * @date 2020年07月31日 17:03:20\r\n     */\r\n    public static Double getRelate(List&lt;Integer&gt; xs, List&lt;Integer&gt;  ys){\r\n        int n=xs.size();\r\n        double Ex= xs.stream().mapToDouble(x-&gt;x).sum();\r\n        double Ey=ys.stream().mapToDouble(y-&gt;y).sum();\r\n        double Ex2=xs.stream().mapToDouble(x-&gt;Math.pow(x,2)).sum();\r\n        double Ey2=ys.stream().mapToDouble(y-&gt;Math.pow(y,2)).sum();\r\n        double Exy= IntStream.range(0,n).mapToDouble(i-&gt;xs.get(i)*ys.get(i)).sum();\r\n        double numerator=Exy-Ex*Ey/n;\r\n        double denominator=Math.sqrt((Ex2-Math.pow(Ex,2)/n)*(Ey2-Math.pow(Ey,2)/n));\r\n        if (denominator==0) return 0.0;\r\n        return numerator/denominator;\r\n    }</code></pre>\r\n\r\n<p>&nbsp;</p>\r\n\r\n<h2>软件架构</h2>\r\n\r\n<p>Spring boot单项目</p>\r\n\r\n<h2>安装教程</h2>\r\n\r\n<ol>\r\n	<li>git下载源码</li>\r\n	<li>maven构建依赖</li>\r\n	<li>idea-java运行</li>\r\n</ol>\r\n\r\n<h2>使用说明</h2>\r\n\r\n<ol>\r\n	<li>找到 src / main / java / com / tarzan / recommend / RecommendSystemApplication.java 右键java 运行</li>\r\n</ol>\r\n\r\n<p>&nbsp;</p>\r\n\r\n<p>&nbsp;<img alt=\"输入图片说明\" data-widget=\"image\" src=\"https://img-blog.csdnimg.cn/img_convert/f286e55a27d71d0c5b8644a0d7d32ad1.png\" />&nbsp;</p>\r\n\r\n<p>&nbsp;</p>\r\n\r\n<p>2.传入不同的用户id，得到不同的推荐数据</p>\r\n\r\n<p>&nbsp;</p>\r\n\r\n<p>&nbsp;<img alt=\"输入图片说明\" data-widget=\"image\" src=\"https://img-blog.csdnimg.cn/img_convert/3d24a5e080cd5cbb4dd355b042c41792.png\" /></p>\r\n\r\n<p>&nbsp;</p>\r\n\r\n<p>3.项目中用到的文件数据集ml-100k 在 src / main / resources目录下</p>\r\n\r\n<p>&nbsp;</p>\r\n\r\n<p>gitee源码地址：<a href=\"https://gitee.com/taisan/recommend_system\">https://gitee.com/taisan/recommend_system</a></p>\r\n\r\n<h2>技术交流&amp;问题反馈</h2>\r\n\r\n<pre data-widget=\"codeSnippet\">\r\n<code class=\"language-html hljs\">  刚刚整理的代码还有很多不足之处，如有问题请联系我\r\n\r\n  联系QQ:1334512682 \r\n  微信号：vxhqqh</code></pre>\r\n', 1, 2, 1, 1, 0, '', 1, '该系统使用java编写的基于用户的协同过滤算法（UserCF） 利用统计学的相关系数经常皮尔森（pearson）相关系数计算相关系数来实现千人千面的推荐系统。', '', 1, '2021-06-28 11:03:14', '2021-06-28 11:03:14');
+INSERT INTO `biz_article`(`id`, `title`, `user_id`, `author`, `cover_image`, `qrcode_path`, `is_markdown`, `content`, `content_md`, `top`, `category_id`, `status`, `recommended`, `slider`, `slider_img`, `original`, `description`, `keywords`, `comment`, `create_time`, `update_time`) VALUES (13, '基于用户的协同过滤算法JAVA实现的推荐系统', '1', NULL, 'http://localhost:80/u/20210628\\src=http___n.sinaimg.cn_sinacn_20171025_bec0-fymzzpw1715641.jpg&refer=http___n.sinaimg_1624849356390.sinaimg.cn_sinacn_20171025_bec0-fymzzpw1715641.jpg&refer=http___n.sinaimg.jpg', NULL, 1, '<h1>JAVA推荐系统</h1>\r\n\r\n<p>文章末附带项目源码地址</p>\r\n\r\n<h2>系统原理</h2>\r\n\r\n<p>该系统使用java编写的基于用户的协同过滤算法（UserCF） 利用统计学的相关系数经常皮尔森（pearson）相关系数计算相关系数来实现千人千面的推荐系统。</p>\r\n\r\n<p>协同过滤推荐算法是诞生最早，并且较为著名的推荐算法。主要的功能是预测和推荐。算法通过对用户历史行为数据的挖掘发现用户的偏好，基于不同的偏好对用户进行群组划分并推荐品味相似的商品。协同过滤推荐算法分为两类，分别是基于用户的协同过滤算法(user-based collaboratIve filtering)，和基于物品的协同过滤算法(item-based collaborative filtering)。简单的说就是：人以类聚，物以群分。</p>\r\n\r\n<h3>皮尔森(pearson)相关系数公式</h3>\r\n\r\n<p><img alt=\"\" data-widget=\"image\" src=\"https://img-blog.csdnimg.cn/20200802193647612.png\" style=\"height:106px; width:424px\" /></p>\r\n\r\n<p>公式定义为： 两个连续变量(X,Y)的pearson相关性系数(Px,y)等于它们之间的协方差cov(X,Y)除以它们各自标准差的乘积(&sigma;X,&sigma;Y)。系数的取值总是在-1.0到1.0之间，接近0的变量被成为无相关性，接近1或者-1被称为具有强相关性。 通常情况下通过以下取值范围判断变量的相关强度： 相关系数 0.8-1.0 极强相关 0.6-0.8 强相关 0.4-0.6 中等程度相关 0.2-0.4 弱相关 0.0-0.2 极弱相关或无相关</p>\r\n\r\n<h3>java代码实现</h3>\r\n\r\n<pre data-widget=\"codeSnippet\">\r\n<code class=\"hljs\"> /**\r\n     * 方法描述: 皮尔森（pearson）相关系数计算\r\n     *\r\n     * @param xs\r\n     * @param ys \r\n     * @Return {@link Double}\r\n     * @throws \r\n     * @author tarzan\r\n     * @date 2020年07月31日 17:03:20\r\n     */\r\n    public static Double getRelate(List&lt;Integer&gt; xs, List&lt;Integer&gt;  ys){\r\n        int n=xs.size();\r\n        double Ex= xs.stream().mapToDouble(x-&gt;x).sum();\r\n        double Ey=ys.stream().mapToDouble(y-&gt;y).sum();\r\n        double Ex2=xs.stream().mapToDouble(x-&gt;Math.pow(x,2)).sum();\r\n        double Ey2=ys.stream().mapToDouble(y-&gt;Math.pow(y,2)).sum();\r\n        double Exy= IntStream.range(0,n).mapToDouble(i-&gt;xs.get(i)*ys.get(i)).sum();\r\n        double numerator=Exy-Ex*Ey/n;\r\n        double denominator=Math.sqrt((Ex2-Math.pow(Ex,2)/n)*(Ey2-Math.pow(Ey,2)/n));\r\n        if (denominator==0) return 0.0;\r\n        return numerator/denominator;\r\n    }</code></pre>\r\n\r\n<p>&nbsp;</p>\r\n\r\n<h2>软件架构</h2>\r\n\r\n<p>Spring boot单项目</p>\r\n\r\n<h2>安装教程</h2>\r\n\r\n<ol>\r\n	<li>git下载源码</li>\r\n	<li>maven构建依赖</li>\r\n	<li>idea-java运行</li>\r\n</ol>\r\n\r\n<h2>使用说明</h2>\r\n\r\n<ol>\r\n	<li>找到 src / main / java / com / tarzan / recommend / RecommendSystemApplication.java 右键java 运行</li>\r\n</ol>\r\n\r\n<p>&nbsp;</p>\r\n\r\n<p>&nbsp;<img alt=\"输入图片说明\" data-widget=\"image\" src=\"https://img-blog.csdnimg.cn/img_convert/f286e55a27d71d0c5b8644a0d7d32ad1.png\" />&nbsp;</p>\r\n\r\n<p>&nbsp;</p>\r\n\r\n<p>2.传入不同的用户id，得到不同的推荐数据</p>\r\n\r\n<p>&nbsp;</p>\r\n\r\n<p>&nbsp;<img alt=\"输入图片说明\" data-widget=\"image\" src=\"https://img-blog.csdnimg.cn/img_convert/3d24a5e080cd5cbb4dd355b042c41792.png\" /></p>\r\n\r\n<p>&nbsp;</p>\r\n\r\n<p>3.项目中用到的文件数据集ml-100k 在 src / main / resources目录下</p>\r\n\r\n<p>&nbsp;</p>\r\n\r\n<p>gitee源码地址：<a href=\"https://gitee.com/taisan/recommend_system\">https://gitee.com/taisan/recommend_system</a></p>\r\n\r\n<h2>技术交流&amp;问题反馈</h2>\r\n\r\n<pre data-widget=\"codeSnippet\">\r\n<code class=\"language-html hljs\">  刚刚整理的代码还有很多不足之处，如有问题请联系我\r\n\r\n  联系QQ:1334512682 \r\n  微信号：vxhqqh</code></pre>\r\n', '<h1>JAVA推荐系统</h1>\r\n\r\n<p>文章末附带项目源码地址</p>\r\n\r\n<h2>系统原理</h2>\r\n\r\n<p>该系统使用java编写的基于用户的协同过滤算法（UserCF） 利用统计学的相关系数经常皮尔森（pearson）相关系数计算相关系数来实现千人千面的推荐系统。</p>\r\n\r\n<p>协同过滤推荐算法是诞生最早，并且较为著名的推荐算法。主要的功能是预测和推荐。算法通过对用户历史行为数据的挖掘发现用户的偏好，基于不同的偏好对用户进行群组划分并推荐品味相似的商品。协同过滤推荐算法分为两类，分别是基于用户的协同过滤算法(user-based collaboratIve filtering)，和基于物品的协同过滤算法(item-based collaborative filtering)。简单的说就是：人以类聚，物以群分。</p>\r\n\r\n<h3>皮尔森(pearson)相关系数公式</h3>\r\n\r\n<p><img alt=\"\" data-widget=\"image\" src=\"https://img-blog.csdnimg.cn/20200802193647612.png\" style=\"height:106px; width:424px\" /></p>\r\n\r\n<p>公式定义为： 两个连续变量(X,Y)的pearson相关性系数(Px,y)等于它们之间的协方差cov(X,Y)除以它们各自标准差的乘积(&sigma;X,&sigma;Y)。系数的取值总是在-1.0到1.0之间，接近0的变量被成为无相关性，接近1或者-1被称为具有强相关性。 通常情况下通过以下取值范围判断变量的相关强度： 相关系数 0.8-1.0 极强相关 0.6-0.8 强相关 0.4-0.6 中等程度相关 0.2-0.4 弱相关 0.0-0.2 极弱相关或无相关</p>\r\n\r\n<h3>java代码实现</h3>\r\n\r\n<pre data-widget=\"codeSnippet\">\r\n<code class=\"hljs\"> /**\r\n     * 方法描述: 皮尔森（pearson）相关系数计算\r\n     *\r\n     * @param xs\r\n     * @param ys \r\n     * @Return {@link Double}\r\n     * @throws \r\n     * @author tarzan\r\n     * @date 2020年07月31日 17:03:20\r\n     */\r\n    public static Double getRelate(List&lt;Integer&gt; xs, List&lt;Integer&gt;  ys){\r\n        int n=xs.size();\r\n        double Ex= xs.stream().mapToDouble(x-&gt;x).sum();\r\n        double Ey=ys.stream().mapToDouble(y-&gt;y).sum();\r\n        double Ex2=xs.stream().mapToDouble(x-&gt;Math.pow(x,2)).sum();\r\n        double Ey2=ys.stream().mapToDouble(y-&gt;Math.pow(y,2)).sum();\r\n        double Exy= IntStream.range(0,n).mapToDouble(i-&gt;xs.get(i)*ys.get(i)).sum();\r\n        double numerator=Exy-Ex*Ey/n;\r\n        double denominator=Math.sqrt((Ex2-Math.pow(Ex,2)/n)*(Ey2-Math.pow(Ey,2)/n));\r\n        if (denominator==0) return 0.0;\r\n        return numerator/denominator;\r\n    }</code></pre>\r\n\r\n<p>&nbsp;</p>\r\n\r\n<h2>软件架构</h2>\r\n\r\n<p>Spring boot单项目</p>\r\n\r\n<h2>安装教程</h2>\r\n\r\n<ol>\r\n	<li>git下载源码</li>\r\n	<li>maven构建依赖</li>\r\n	<li>idea-java运行</li>\r\n</ol>\r\n\r\n<h2>使用说明</h2>\r\n\r\n<ol>\r\n	<li>找到 src / main / java / com / tarzan / recommend / RecommendSystemApplication.java 右键java 运行</li>\r\n</ol>\r\n\r\n<p>&nbsp;</p>\r\n\r\n<p>&nbsp;<img alt=\"输入图片说明\" data-widget=\"image\" src=\"https://img-blog.csdnimg.cn/img_convert/f286e55a27d71d0c5b8644a0d7d32ad1.png\" />&nbsp;</p>\r\n\r\n<p>&nbsp;</p>\r\n\r\n<p>2.传入不同的用户id，得到不同的推荐数据</p>\r\n\r\n<p>&nbsp;</p>\r\n\r\n<p>&nbsp;<img alt=\"输入图片说明\" data-widget=\"image\" src=\"https://img-blog.csdnimg.cn/img_convert/3d24a5e080cd5cbb4dd355b042c41792.png\" /></p>\r\n\r\n<p>&nbsp;</p>\r\n\r\n<p>3.项目中用到的文件数据集ml-100k 在 src / main / resources目录下</p>\r\n\r\n<p>&nbsp;</p>\r\n\r\n<p>gitee源码地址：<a href=\"https://gitee.com/taisan/recommend_system\">https://gitee.com/taisan/recommend_system</a></p>\r\n\r\n<h2>技术交流&amp;问题反馈</h2>\r\n\r\n<pre data-widget=\"codeSnippet\">\r\n<code class=\"language-html hljs\">  刚刚整理的代码还有很多不足之处，如有问题请联系我\r\n\r\n  联系QQ:1334512682 \r\n  微信号：vxhqqh</code></pre>\r\n', 1, 2, 1, 1, 0, '', 1, '该系统使用java编写的基于用户的协同过滤算法（UserCF） 利用统计学的相关系数经常皮尔森（pearson）相关系数计算相关系数来实现千人千面的推荐系统。', '', 1, '2021-06-28 11:03:14', '2021-06-28 11:03:14');
 -- ----------------------------
 -- Table structure for biz_article_look
 -- ----------------------------
@@ -63,7 +63,7 @@ CREATE TABLE `biz_article_look`  (
   `create_time` datetime(0) NULL DEFAULT CURRENT_TIMESTAMP(0) COMMENT '添加时间',
   `update_time` datetime(0) NULL DEFAULT CURRENT_TIMESTAMP(0) COMMENT '更新时间',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 17 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = COMPACT;
+) ENGINE = InnoDB  CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = COMPACT;
 
 -- ----------------------------
 -- Records of biz_article_look
@@ -96,7 +96,7 @@ CREATE TABLE `biz_article_tags`  (
   `create_time` datetime(0) NULL DEFAULT CURRENT_TIMESTAMP(0) COMMENT '添加时间',
   `update_time` datetime(0) NULL DEFAULT CURRENT_TIMESTAMP(0) COMMENT '更新时间',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 27 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = COMPACT;
+) ENGINE = InnoDB  CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = COMPACT;
 
 -- ----------------------------
 -- Records of biz_article_tags
@@ -133,7 +133,7 @@ CREATE TABLE `biz_category`  (
   `create_time` datetime(0) NULL DEFAULT CURRENT_TIMESTAMP(0) COMMENT '添加时间',
   `update_time` datetime(0) NULL DEFAULT CURRENT_TIMESTAMP(0) COMMENT '更新时间',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 7 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = COMPACT;
+) ENGINE = InnoDB  CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = COMPACT;
 
 -- ----------------------------
 -- Records of biz_category
@@ -175,7 +175,7 @@ CREATE TABLE `biz_comment`  (
   `create_time` datetime(0) NULL DEFAULT CURRENT_TIMESTAMP(0) COMMENT '添加时间',
   `update_time` datetime(0) NULL DEFAULT CURRENT_TIMESTAMP(0) COMMENT '更新时间',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 5 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = COMPACT;
+) ENGINE = InnoDB  CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = COMPACT;
 
 -- ----------------------------
 -- Records of biz_comment
@@ -199,12 +199,12 @@ CREATE TABLE `biz_link`  (
   `create_time` datetime(0) NULL DEFAULT CURRENT_TIMESTAMP(0) COMMENT '添加时间',
   `update_time` datetime(0) NULL DEFAULT CURRENT_TIMESTAMP(0) COMMENT '更新时间',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = COMPACT;
+) ENGINE = InnoDB  CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = COMPACT;
 
 -- ----------------------------
 -- Records of biz_link
 -- ----------------------------
-INSERT INTO `tarzan_cms`.`biz_link`(`id`, `name`, `url`, `description`, `img`, `email`, `qq`, `status`, `origin`, `remark`, `create_time`, `update_time`) VALUES (1, 'CSDN', 'https://tarzan.blog.csdn.net', '洛阳泰山博客', 'https://profile.csdnimg.cn/2/A/B/3_weixin_40986713', '1334512682@qq.com', '1334512682', 1, 1, '', '2018-09-13 23:24:25', '2021-06-28 10:51:18');
+INSERT INTO `biz_link`(`id`, `name`, `url`, `description`, `img`, `email`, `qq`, `status`, `origin`, `remark`, `create_time`, `update_time`) VALUES (1, 'CSDN', 'https://tarzan.blog.csdn.net', '洛阳泰山博客', 'https://profile.csdnimg.cn/2/A/B/3_weixin_40986713', '1334512682@qq.com', '1334512682', 1, 1, '', '2018-09-13 23:24:25', '2021-06-28 10:51:18');
 -- ----------------------------
 -- Table structure for biz_love
 -- ----------------------------
@@ -219,7 +219,7 @@ CREATE TABLE `biz_love`  (
   `create_time` datetime(0) NULL DEFAULT CURRENT_TIMESTAMP(0) COMMENT '添加时间',
   `update_time` datetime(0) NULL DEFAULT CURRENT_TIMESTAMP(0) COMMENT '更新时间',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = COMPACT;
+) ENGINE = InnoDB  CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = COMPACT;
 
 -- ----------------------------
 -- Records of biz_love
@@ -238,7 +238,7 @@ CREATE TABLE `biz_site_info`  (
   `create_time` datetime(0) NULL DEFAULT NULL,
   `update_time` datetime(0) NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB  CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of biz_site_info
@@ -256,7 +256,7 @@ CREATE TABLE `biz_tags`  (
   `create_time` datetime(0) NULL DEFAULT CURRENT_TIMESTAMP(0) COMMENT '添加时间',
   `update_time` datetime(0) NULL DEFAULT CURRENT_TIMESTAMP(0) COMMENT '更新时间',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 11 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = COMPACT;
+) ENGINE = InnoDB  CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = COMPACT;
 
 -- ----------------------------
 -- Records of biz_tags
@@ -285,7 +285,7 @@ CREATE TABLE `biz_theme`  (
   `create_time` datetime(0) NULL DEFAULT NULL,
   `update_time` datetime(0) NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB  CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of biz_theme
@@ -304,7 +304,7 @@ CREATE TABLE `sys_config`  (
   `remark` varchar(500) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '备注',
   PRIMARY KEY (`id`) USING BTREE,
   UNIQUE INDEX `key`(`sys_key`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 12 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '系统配置信息表' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB  CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '系统配置信息表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of sys_config
@@ -336,7 +336,7 @@ CREATE TABLE `sys_menu`  (
   `create_time` datetime(0) NULL DEFAULT NULL,
   `update_time` datetime(0) NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 91 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB  CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of sys_menu
@@ -435,7 +435,7 @@ CREATE TABLE `sys_role`  (
   `create_time` datetime(0) NULL DEFAULT NULL COMMENT '创建时间',
   `update_time` datetime(0) NULL DEFAULT NULL COMMENT '更新时间',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 5 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB  CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of sys_role
@@ -454,91 +454,91 @@ CREATE TABLE `sys_role_menu`  (
   `role_id` int NOT NULL COMMENT '角色id',
   `menu_id` int NOT NULL COMMENT '权限id',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1917 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB  CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of sys_role_menu
 -- ----------------------------
-INSERT INTO `tarzan_cms`.`sys_role_menu`(`id`, `role_id`, `menu_id`) VALUES (1, 1, 1);
-INSERT INTO `tarzan_cms`.`sys_role_menu`(`id`, `role_id`, `menu_id`) VALUES (2, 1, 2);
-INSERT INTO `tarzan_cms`.`sys_role_menu`(`id`, `role_id`, `menu_id`) VALUES (3, 1, 3);
-INSERT INTO `tarzan_cms`.`sys_role_menu`(`id`, `role_id`, `menu_id`) VALUES (4, 1, 4);
-INSERT INTO `tarzan_cms`.`sys_role_menu`(`id`, `role_id`, `menu_id`) VALUES (5, 1, 5);
-INSERT INTO `tarzan_cms`.`sys_role_menu`(`id`, `role_id`, `menu_id`) VALUES (6, 1, 6);
-INSERT INTO `tarzan_cms`.`sys_role_menu`(`id`, `role_id`, `menu_id`) VALUES (7, 1, 7);
-INSERT INTO `tarzan_cms`.`sys_role_menu`(`id`, `role_id`, `menu_id`) VALUES (8, 1, 8);
-INSERT INTO `tarzan_cms`.`sys_role_menu`(`id`, `role_id`, `menu_id`) VALUES (9, 1, 9);
-INSERT INTO `tarzan_cms`.`sys_role_menu`(`id`, `role_id`, `menu_id`) VALUES (10, 1, 10);
-INSERT INTO `tarzan_cms`.`sys_role_menu`(`id`, `role_id`, `menu_id`) VALUES (11, 1, 11);
-INSERT INTO `tarzan_cms`.`sys_role_menu`(`id`, `role_id`, `menu_id`) VALUES (12, 1, 12);
-INSERT INTO `tarzan_cms`.`sys_role_menu`(`id`, `role_id`, `menu_id`) VALUES (13, 1, 13);
-INSERT INTO `tarzan_cms`.`sys_role_menu`(`id`, `role_id`, `menu_id`) VALUES (14, 1, 14);
-INSERT INTO `tarzan_cms`.`sys_role_menu`(`id`, `role_id`, `menu_id`) VALUES (15, 1, 15);
-INSERT INTO `tarzan_cms`.`sys_role_menu`(`id`, `role_id`, `menu_id`) VALUES (16, 1, 16);
-INSERT INTO `tarzan_cms`.`sys_role_menu`(`id`, `role_id`, `menu_id`) VALUES (17, 1, 17);
-INSERT INTO `tarzan_cms`.`sys_role_menu`(`id`, `role_id`, `menu_id`) VALUES (18, 1, 18);
-INSERT INTO `tarzan_cms`.`sys_role_menu`(`id`, `role_id`, `menu_id`) VALUES (19, 1, 19);
-INSERT INTO `tarzan_cms`.`sys_role_menu`(`id`, `role_id`, `menu_id`) VALUES (20, 1, 20);
-INSERT INTO `tarzan_cms`.`sys_role_menu`(`id`, `role_id`, `menu_id`) VALUES (21, 1, 21);
-INSERT INTO `tarzan_cms`.`sys_role_menu`(`id`, `role_id`, `menu_id`) VALUES (22, 1, 22);
-INSERT INTO `tarzan_cms`.`sys_role_menu`(`id`, `role_id`, `menu_id`) VALUES (23, 1, 23);
-INSERT INTO `tarzan_cms`.`sys_role_menu`(`id`, `role_id`, `menu_id`) VALUES (24, 1, 24);
-INSERT INTO `tarzan_cms`.`sys_role_menu`(`id`, `role_id`, `menu_id`) VALUES (25, 1, 25);
-INSERT INTO `tarzan_cms`.`sys_role_menu`(`id`, `role_id`, `menu_id`) VALUES (26, 1, 32);
-INSERT INTO `tarzan_cms`.`sys_role_menu`(`id`, `role_id`, `menu_id`) VALUES (27, 1, 33);
-INSERT INTO `tarzan_cms`.`sys_role_menu`(`id`, `role_id`, `menu_id`) VALUES (28, 1, 34);
-INSERT INTO `tarzan_cms`.`sys_role_menu`(`id`, `role_id`, `menu_id`) VALUES (29, 1, 35);
-INSERT INTO `tarzan_cms`.`sys_role_menu`(`id`, `role_id`, `menu_id`) VALUES (30, 1, 36);
-INSERT INTO `tarzan_cms`.`sys_role_menu`(`id`, `role_id`, `menu_id`) VALUES (31, 1, 37);
-INSERT INTO `tarzan_cms`.`sys_role_menu`(`id`, `role_id`, `menu_id`) VALUES (32, 1, 38);
-INSERT INTO `tarzan_cms`.`sys_role_menu`(`id`, `role_id`, `menu_id`) VALUES (33, 1, 39);
-INSERT INTO `tarzan_cms`.`sys_role_menu`(`id`, `role_id`, `menu_id`) VALUES (34, 1, 40);
-INSERT INTO `tarzan_cms`.`sys_role_menu`(`id`, `role_id`, `menu_id`) VALUES (35, 1, 42);
-INSERT INTO `tarzan_cms`.`sys_role_menu`(`id`, `role_id`, `menu_id`) VALUES (36, 1, 43);
-INSERT INTO `tarzan_cms`.`sys_role_menu`(`id`, `role_id`, `menu_id`) VALUES (37, 1, 44);
-INSERT INTO `tarzan_cms`.`sys_role_menu`(`id`, `role_id`, `menu_id`) VALUES (38, 1, 45);
-INSERT INTO `tarzan_cms`.`sys_role_menu`(`id`, `role_id`, `menu_id`) VALUES (39, 1, 46);
-INSERT INTO `tarzan_cms`.`sys_role_menu`(`id`, `role_id`, `menu_id`) VALUES (40, 1, 47);
-INSERT INTO `tarzan_cms`.`sys_role_menu`(`id`, `role_id`, `menu_id`) VALUES (41, 1, 48);
-INSERT INTO `tarzan_cms`.`sys_role_menu`(`id`, `role_id`, `menu_id`) VALUES (42, 1, 49);
-INSERT INTO `tarzan_cms`.`sys_role_menu`(`id`, `role_id`, `menu_id`) VALUES (43, 1, 50);
-INSERT INTO `tarzan_cms`.`sys_role_menu`(`id`, `role_id`, `menu_id`) VALUES (44, 1, 51);
-INSERT INTO `tarzan_cms`.`sys_role_menu`(`id`, `role_id`, `menu_id`) VALUES (45, 1, 52);
-INSERT INTO `tarzan_cms`.`sys_role_menu`(`id`, `role_id`, `menu_id`) VALUES (46, 1, 53);
-INSERT INTO `tarzan_cms`.`sys_role_menu`(`id`, `role_id`, `menu_id`) VALUES (47, 1, 54);
-INSERT INTO `tarzan_cms`.`sys_role_menu`(`id`, `role_id`, `menu_id`) VALUES (48, 1, 55);
-INSERT INTO `tarzan_cms`.`sys_role_menu`(`id`, `role_id`, `menu_id`) VALUES (49, 1, 56);
-INSERT INTO `tarzan_cms`.`sys_role_menu`(`id`, `role_id`, `menu_id`) VALUES (50, 1, 58);
-INSERT INTO `tarzan_cms`.`sys_role_menu`(`id`, `role_id`, `menu_id`) VALUES (51, 1, 59);
-INSERT INTO `tarzan_cms`.`sys_role_menu`(`id`, `role_id`, `menu_id`) VALUES (52, 1, 60);
-INSERT INTO `tarzan_cms`.`sys_role_menu`(`id`, `role_id`, `menu_id`) VALUES (53, 1, 61);
-INSERT INTO `tarzan_cms`.`sys_role_menu`(`id`, `role_id`, `menu_id`) VALUES (54, 1, 62);
-INSERT INTO `tarzan_cms`.`sys_role_menu`(`id`, `role_id`, `menu_id`) VALUES (55, 1, 63);
-INSERT INTO `tarzan_cms`.`sys_role_menu`(`id`, `role_id`, `menu_id`) VALUES (56, 1, 64);
-INSERT INTO `tarzan_cms`.`sys_role_menu`(`id`, `role_id`, `menu_id`) VALUES (57, 1, 65);
-INSERT INTO `tarzan_cms`.`sys_role_menu`(`id`, `role_id`, `menu_id`) VALUES (58, 1, 66);
-INSERT INTO `tarzan_cms`.`sys_role_menu`(`id`, `role_id`, `menu_id`) VALUES (59, 1, 67);
-INSERT INTO `tarzan_cms`.`sys_role_menu`(`id`, `role_id`, `menu_id`) VALUES (60, 1, 68);
-INSERT INTO `tarzan_cms`.`sys_role_menu`(`id`, `role_id`, `menu_id`) VALUES (61, 1, 69);
-INSERT INTO `tarzan_cms`.`sys_role_menu`(`id`, `role_id`, `menu_id`) VALUES (62, 1, 70);
-INSERT INTO `tarzan_cms`.`sys_role_menu`(`id`, `role_id`, `menu_id`) VALUES (63, 1, 71);
-INSERT INTO `tarzan_cms`.`sys_role_menu`(`id`, `role_id`, `menu_id`) VALUES (64, 1, 72);
-INSERT INTO `tarzan_cms`.`sys_role_menu`(`id`, `role_id`, `menu_id`) VALUES (65, 1, 73);
-INSERT INTO `tarzan_cms`.`sys_role_menu`(`id`, `role_id`, `menu_id`) VALUES (66, 1, 74);
-INSERT INTO `tarzan_cms`.`sys_role_menu`(`id`, `role_id`, `menu_id`) VALUES (67, 1, 75);
-INSERT INTO `tarzan_cms`.`sys_role_menu`(`id`, `role_id`, `menu_id`) VALUES (68, 1, 76);
-INSERT INTO `tarzan_cms`.`sys_role_menu`(`id`, `role_id`, `menu_id`) VALUES (69, 1, 77);
-INSERT INTO `tarzan_cms`.`sys_role_menu`(`id`, `role_id`, `menu_id`) VALUES (70, 1, 78);
-INSERT INTO `tarzan_cms`.`sys_role_menu`(`id`, `role_id`, `menu_id`) VALUES (71, 1, 79);
-INSERT INTO `tarzan_cms`.`sys_role_menu`(`id`, `role_id`, `menu_id`) VALUES (72, 1, 80);
-INSERT INTO `tarzan_cms`.`sys_role_menu`(`id`, `role_id`, `menu_id`) VALUES (73, 1, 81);
-INSERT INTO `tarzan_cms`.`sys_role_menu`(`id`, `role_id`, `menu_id`) VALUES (74, 1, 82);
-INSERT INTO `tarzan_cms`.`sys_role_menu`(`id`, `role_id`, `menu_id`) VALUES (75, 1, 83);
-INSERT INTO `tarzan_cms`.`sys_role_menu`(`id`, `role_id`, `menu_id`) VALUES (76, 1, 84);
-INSERT INTO `tarzan_cms`.`sys_role_menu`(`id`, `role_id`, `menu_id`) VALUES (77, 1, 85);
-INSERT INTO `tarzan_cms`.`sys_role_menu`(`id`, `role_id`, `menu_id`) VALUES (78, 1, 86);
-INSERT INTO `tarzan_cms`.`sys_role_menu`(`id`, `role_id`, `menu_id`) VALUES (79, 1, 87);
-INSERT INTO `tarzan_cms`.`sys_role_menu`(`id`, `role_id`, `menu_id`) VALUES (80, 1, 88);
+INSERT INTO `sys_role_menu`(`id`, `role_id`, `menu_id`) VALUES (1, 1, 1);
+INSERT INTO `sys_role_menu`(`id`, `role_id`, `menu_id`) VALUES (2, 1, 2);
+INSERT INTO `sys_role_menu`(`id`, `role_id`, `menu_id`) VALUES (3, 1, 3);
+INSERT INTO `sys_role_menu`(`id`, `role_id`, `menu_id`) VALUES (4, 1, 4);
+INSERT INTO `sys_role_menu`(`id`, `role_id`, `menu_id`) VALUES (5, 1, 5);
+INSERT INTO `sys_role_menu`(`id`, `role_id`, `menu_id`) VALUES (6, 1, 6);
+INSERT INTO `sys_role_menu`(`id`, `role_id`, `menu_id`) VALUES (7, 1, 7);
+INSERT INTO `sys_role_menu`(`id`, `role_id`, `menu_id`) VALUES (8, 1, 8);
+INSERT INTO `sys_role_menu`(`id`, `role_id`, `menu_id`) VALUES (9, 1, 9);
+INSERT INTO `sys_role_menu`(`id`, `role_id`, `menu_id`) VALUES (10, 1, 10);
+INSERT INTO `sys_role_menu`(`id`, `role_id`, `menu_id`) VALUES (11, 1, 11);
+INSERT INTO `sys_role_menu`(`id`, `role_id`, `menu_id`) VALUES (12, 1, 12);
+INSERT INTO `sys_role_menu`(`id`, `role_id`, `menu_id`) VALUES (13, 1, 13);
+INSERT INTO `sys_role_menu`(`id`, `role_id`, `menu_id`) VALUES (14, 1, 14);
+INSERT INTO `sys_role_menu`(`id`, `role_id`, `menu_id`) VALUES (15, 1, 15);
+INSERT INTO `sys_role_menu`(`id`, `role_id`, `menu_id`) VALUES (16, 1, 16);
+INSERT INTO `sys_role_menu`(`id`, `role_id`, `menu_id`) VALUES (17, 1, 17);
+INSERT INTO `sys_role_menu`(`id`, `role_id`, `menu_id`) VALUES (18, 1, 18);
+INSERT INTO `sys_role_menu`(`id`, `role_id`, `menu_id`) VALUES (19, 1, 19);
+INSERT INTO `sys_role_menu`(`id`, `role_id`, `menu_id`) VALUES (20, 1, 20);
+INSERT INTO `sys_role_menu`(`id`, `role_id`, `menu_id`) VALUES (21, 1, 21);
+INSERT INTO `sys_role_menu`(`id`, `role_id`, `menu_id`) VALUES (22, 1, 22);
+INSERT INTO `sys_role_menu`(`id`, `role_id`, `menu_id`) VALUES (23, 1, 23);
+INSERT INTO `sys_role_menu`(`id`, `role_id`, `menu_id`) VALUES (24, 1, 24);
+INSERT INTO `sys_role_menu`(`id`, `role_id`, `menu_id`) VALUES (25, 1, 25);
+INSERT INTO `sys_role_menu`(`id`, `role_id`, `menu_id`) VALUES (26, 1, 32);
+INSERT INTO `sys_role_menu`(`id`, `role_id`, `menu_id`) VALUES (27, 1, 33);
+INSERT INTO `sys_role_menu`(`id`, `role_id`, `menu_id`) VALUES (28, 1, 34);
+INSERT INTO `sys_role_menu`(`id`, `role_id`, `menu_id`) VALUES (29, 1, 35);
+INSERT INTO `sys_role_menu`(`id`, `role_id`, `menu_id`) VALUES (30, 1, 36);
+INSERT INTO `sys_role_menu`(`id`, `role_id`, `menu_id`) VALUES (31, 1, 37);
+INSERT INTO `sys_role_menu`(`id`, `role_id`, `menu_id`) VALUES (32, 1, 38);
+INSERT INTO `sys_role_menu`(`id`, `role_id`, `menu_id`) VALUES (33, 1, 39);
+INSERT INTO `sys_role_menu`(`id`, `role_id`, `menu_id`) VALUES (34, 1, 40);
+INSERT INTO `sys_role_menu`(`id`, `role_id`, `menu_id`) VALUES (35, 1, 42);
+INSERT INTO `sys_role_menu`(`id`, `role_id`, `menu_id`) VALUES (36, 1, 43);
+INSERT INTO `sys_role_menu`(`id`, `role_id`, `menu_id`) VALUES (37, 1, 44);
+INSERT INTO `sys_role_menu`(`id`, `role_id`, `menu_id`) VALUES (38, 1, 45);
+INSERT INTO `sys_role_menu`(`id`, `role_id`, `menu_id`) VALUES (39, 1, 46);
+INSERT INTO `sys_role_menu`(`id`, `role_id`, `menu_id`) VALUES (40, 1, 47);
+INSERT INTO `sys_role_menu`(`id`, `role_id`, `menu_id`) VALUES (41, 1, 48);
+INSERT INTO `sys_role_menu`(`id`, `role_id`, `menu_id`) VALUES (42, 1, 49);
+INSERT INTO `sys_role_menu`(`id`, `role_id`, `menu_id`) VALUES (43, 1, 50);
+INSERT INTO `sys_role_menu`(`id`, `role_id`, `menu_id`) VALUES (44, 1, 51);
+INSERT INTO `sys_role_menu`(`id`, `role_id`, `menu_id`) VALUES (45, 1, 52);
+INSERT INTO `sys_role_menu`(`id`, `role_id`, `menu_id`) VALUES (46, 1, 53);
+INSERT INTO `sys_role_menu`(`id`, `role_id`, `menu_id`) VALUES (47, 1, 54);
+INSERT INTO `sys_role_menu`(`id`, `role_id`, `menu_id`) VALUES (48, 1, 55);
+INSERT INTO `sys_role_menu`(`id`, `role_id`, `menu_id`) VALUES (49, 1, 56);
+INSERT INTO `sys_role_menu`(`id`, `role_id`, `menu_id`) VALUES (50, 1, 58);
+INSERT INTO `sys_role_menu`(`id`, `role_id`, `menu_id`) VALUES (51, 1, 59);
+INSERT INTO `sys_role_menu`(`id`, `role_id`, `menu_id`) VALUES (52, 1, 60);
+INSERT INTO `sys_role_menu`(`id`, `role_id`, `menu_id`) VALUES (53, 1, 61);
+INSERT INTO `sys_role_menu`(`id`, `role_id`, `menu_id`) VALUES (54, 1, 62);
+INSERT INTO `sys_role_menu`(`id`, `role_id`, `menu_id`) VALUES (55, 1, 63);
+INSERT INTO `sys_role_menu`(`id`, `role_id`, `menu_id`) VALUES (56, 1, 64);
+INSERT INTO `sys_role_menu`(`id`, `role_id`, `menu_id`) VALUES (57, 1, 65);
+INSERT INTO `sys_role_menu`(`id`, `role_id`, `menu_id`) VALUES (58, 1, 66);
+INSERT INTO `sys_role_menu`(`id`, `role_id`, `menu_id`) VALUES (59, 1, 67);
+INSERT INTO `sys_role_menu`(`id`, `role_id`, `menu_id`) VALUES (60, 1, 68);
+INSERT INTO `sys_role_menu`(`id`, `role_id`, `menu_id`) VALUES (61, 1, 69);
+INSERT INTO `sys_role_menu`(`id`, `role_id`, `menu_id`) VALUES (62, 1, 70);
+INSERT INTO `sys_role_menu`(`id`, `role_id`, `menu_id`) VALUES (63, 1, 71);
+INSERT INTO `sys_role_menu`(`id`, `role_id`, `menu_id`) VALUES (64, 1, 72);
+INSERT INTO `sys_role_menu`(`id`, `role_id`, `menu_id`) VALUES (65, 1, 73);
+INSERT INTO `sys_role_menu`(`id`, `role_id`, `menu_id`) VALUES (66, 1, 74);
+INSERT INTO `sys_role_menu`(`id`, `role_id`, `menu_id`) VALUES (67, 1, 75);
+INSERT INTO `sys_role_menu`(`id`, `role_id`, `menu_id`) VALUES (68, 1, 76);
+INSERT INTO `sys_role_menu`(`id`, `role_id`, `menu_id`) VALUES (69, 1, 77);
+INSERT INTO `sys_role_menu`(`id`, `role_id`, `menu_id`) VALUES (70, 1, 78);
+INSERT INTO `sys_role_menu`(`id`, `role_id`, `menu_id`) VALUES (71, 1, 79);
+INSERT INTO `sys_role_menu`(`id`, `role_id`, `menu_id`) VALUES (72, 1, 80);
+INSERT INTO `sys_role_menu`(`id`, `role_id`, `menu_id`) VALUES (73, 1, 81);
+INSERT INTO `sys_role_menu`(`id`, `role_id`, `menu_id`) VALUES (74, 1, 82);
+INSERT INTO `sys_role_menu`(`id`, `role_id`, `menu_id`) VALUES (75, 1, 83);
+INSERT INTO `sys_role_menu`(`id`, `role_id`, `menu_id`) VALUES (76, 1, 84);
+INSERT INTO `sys_role_menu`(`id`, `role_id`, `menu_id`) VALUES (77, 1, 85);
+INSERT INTO `sys_role_menu`(`id`, `role_id`, `menu_id`) VALUES (78, 1, 86);
+INSERT INTO `sys_role_menu`(`id`, `role_id`, `menu_id`) VALUES (79, 1, 87);
+INSERT INTO `sys_role_menu`(`id`, `role_id`, `menu_id`) VALUES (80, 1, 88);
 
 
 -- ----------------------------
@@ -578,7 +578,7 @@ CREATE TABLE `sys_user_role`  (
   `user_id` int NOT NULL COMMENT '用户id',
   `role_id` int NOT NULL COMMENT '角色id',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB  CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of sys_user_role

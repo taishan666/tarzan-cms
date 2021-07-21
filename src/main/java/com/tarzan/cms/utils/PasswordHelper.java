@@ -31,11 +31,11 @@ public class PasswordHelper {
         return new SimpleHash(ALGORITHM_NAME, user.getPassword(), ByteSource.Util.bytes(user.getCredentialsSalt()), HASH_ITERATIONS).toHex();
     }
 
-    public static void main(String[] args) {
+/*    public static void main(String[] args) {
         User user = new User();
         user.setUsername("admin");
         user.setPassword("123456");
         encryptPassword(user);
         System.out.println(user);
-    }
+    }*/
 }

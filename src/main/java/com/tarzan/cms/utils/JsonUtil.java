@@ -2,6 +2,7 @@ package com.tarzan.cms.utils;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.lang.Nullable;
@@ -13,8 +14,8 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Map.Entry;
 
+@Slf4j
 public class JsonUtil {
-    private static final Logger log = LoggerFactory.getLogger(JsonUtil.class);
 
     public JsonUtil() {
     }

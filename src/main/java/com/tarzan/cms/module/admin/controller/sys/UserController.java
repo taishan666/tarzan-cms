@@ -4,7 +4,7 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.tarzan.cms.common.constant.CoreConst;
 import com.tarzan.cms.shiro.MyShiroRealm;
-import com.tarzan.cms.utils.CopyUtil;
+import com.tarzan.cms.utils.BeanUtil;
 import com.tarzan.cms.utils.PasswordHelper;
 import com.tarzan.cms.utils.ResultUtil;
 import com.tarzan.cms.module.admin.model.sys.Role;
@@ -182,7 +182,7 @@ public class UserController {
             return ResultUtil.error("两次密码输入不一致");
         }
         User loginUser = userService.selectByUserId(((User) SecurityUtils.getSubject().getPrincipal()).getId());
-        User newUser = CopyUtil.getCopy(loginUser, User.class);
+        User newUser = BeanUtil.copy(loginUser, User.class);
         String sysOldPassword = loginUser.getPassword();
         newUser.setPassword(changePasswordVo.getOldPassword());
         String entryOldPassword = PasswordHelper.getPassword(newUser);

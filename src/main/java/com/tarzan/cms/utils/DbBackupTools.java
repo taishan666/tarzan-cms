@@ -2,6 +2,7 @@ package com.tarzan.cms.utils;
 
 import com.alibaba.druid.pool.DruidDataSource;
 import com.google.common.collect.Lists;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.jdbc.core.JdbcTemplate;
 
 import java.io.*;
@@ -21,7 +22,7 @@ import java.util.Map;
  * @author tarzan Liu
  * @date 2021/7/10 19:44
  */
-
+@Slf4j
 public class DbBackupTools {
     private static final String driver = "com.mysql.cj.jdbc.Driver";//驱动
     private static final String user = "root";  //数据库账号
@@ -113,7 +114,7 @@ public class DbBackupTools {
     }
 
     //数据还原
-    public static boolean rollback(String fileName) {
+    public synchronized static boolean rollback(String fileName) {
         jdbcTemplate= getJdbcTemplate();
         List<String> list=Lists.newArrayList();
         try {
@@ -133,7 +134,7 @@ public class DbBackupTools {
     }
 
     //数据备份
-    public static boolean backSql() {
+    public synchronized static boolean backSql() {
         try {
             File dir = new File(dbBackupPath);
             dir.mkdirs();
@@ -151,6 +152,23 @@ public class DbBackupTools {
         }
         return true;
     }
+
+    private synchronized static String getBackupPath() {
+        String classPath = new DbBackupTools().getClass().getResource("/").getPath();
+        if (classPath.indexOf(".jar") > 0) {
+            classPath = classPath.substring(0, classPath.lastIndexOf(".jar"));
+            classPath = classPath.substring(6, classPath.lastIndexOf("/"));
+            String sqlBackupPath = File.separator + classPath + "/dbBackup/";
+            log.info("========数据备份路径：" + sqlBackupPath + "========");
+            return sqlBackupPath;
+        } else {
+            String projectPath = classPath.replace("target/classes/", "");
+            String sqlBackupPath = projectPath + "/dbBackup/";
+            log.info("========数据备份路径：" + sqlBackupPath + "========");
+            return sqlBackupPath;
+        }
+    }
+
 
 
 

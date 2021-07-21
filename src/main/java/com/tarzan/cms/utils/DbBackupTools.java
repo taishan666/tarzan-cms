@@ -3,7 +3,9 @@ package com.tarzan.cms.utils;
 import com.alibaba.druid.pool.DruidDataSource;
 import com.google.common.collect.Lists;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.stereotype.Component;
 
 import java.io.*;
 import java.nio.charset.StandardCharsets;
@@ -23,23 +25,30 @@ import java.util.Map;
  * @date 2021/7/10 19:44
  */
 @Slf4j
+@Component
 public class DbBackupTools {
-    private static final String driver = "com.mysql.cj.jdbc.Driver";//驱动
-    private static final String user = "root";  //数据库账号
-    private static final String pwd = "123456"; //数据库密码
-    private static final String url = "jdbc:mysql://127.0.0.1:3306/tarzan_cms_test" + "?user=" + user + "&password=" + pwd+"&useUnicode=true&characterEncoding=UTF-8&zeroDateTimeBehavior=convertToNull"; //链接参数
-    private static final String dbBackupPath = "src/main/java/sql/";
-    private static Connection getConnection = null;
-    private static JdbcTemplate jdbcTemplate=null;
+    @Value("${spring.datasource.driverClassName}")
+    private String driver;//驱动
+    @Value("${spring.datasource.username}")
+    private String user;  //数据库账号
+    @Value("${spring.datasource.password}")
+    private String pwd; //数据库密码
+    @Value("${spring.datasource.url}")
+    private String url;//链接参数
+    //private static final String dbBackupPath = "src/main/java/sql/";
+    private  Connection getConnection;
+    private  JdbcTemplate jdbcTemplate;
+    private final  static  String prefix="backupSql_";
    static   SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
     /**
      * 链接数据库
      */
-    private static Connection getConnections() {
+    private  Connection getConnections() {
         try {
             Class.forName(driver);
-            getConnection = DriverManager.getConnection(url);
+            String dbUrl=url + "&user=" + user + "&password=" + pwd;
+            getConnection = DriverManager.getConnection(dbUrl);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -49,7 +58,7 @@ public class DbBackupTools {
     /**
      * 获取jdbc数据源
      */
-    private static JdbcTemplate getJdbcTemplate() {
+    private  JdbcTemplate getJdbcTemplate() {
         try {
             DruidDataSource ds = new DruidDataSource();
             ds.setUsername(user);
@@ -65,7 +74,7 @@ public class DbBackupTools {
 
 
     //获取所有表名称
-    private static List<String> tableNames() {
+    private  List<String> tableNames() {
         List<String> tableNames= Lists.newArrayList();
         getConnection = getConnections();
         try {
@@ -82,7 +91,7 @@ public class DbBackupTools {
     }
 
     //获取数据sql
-    private static String getDataSql() {
+    private  String getDataSql() {
         jdbcTemplate= getJdbcTemplate();
         StringBuilder sb=new StringBuilder();
         try {
@@ -114,11 +123,11 @@ public class DbBackupTools {
     }
 
     //数据还原
-    public synchronized static boolean rollback(String fileName) {
+    public synchronized  boolean rollback(String fileName) {
         jdbcTemplate= getJdbcTemplate();
         List<String> list=Lists.newArrayList();
         try {
-            FileInputStream out = new FileInputStream(dbBackupPath+fileName);
+            FileInputStream out = new FileInputStream(getBackupPath()+fileName);
             InputStreamReader reader = new InputStreamReader(out, StandardCharsets.UTF_8);
             BufferedReader in = new BufferedReader(reader);
             String line;
@@ -134,11 +143,11 @@ public class DbBackupTools {
     }
 
     //数据备份
-    public synchronized static boolean backSql() {
+    public synchronized boolean backSql() {
         try {
-            File dir = new File(dbBackupPath);
+            File dir = new File(getBackupPath());
             dir.mkdirs();
-            String path = dir.getPath() + "/"+ "backupSql_"+System.currentTimeMillis()+".sql" ;
+            String path = dir.getPath() + "/"+ prefix+System.currentTimeMillis()+".sql" ;
             File file = new File(path);
             if (!file.exists()){
                 file.createNewFile();
@@ -153,7 +162,10 @@ public class DbBackupTools {
         return true;
     }
 
-    private synchronized static String getBackupPath() {
+    public  String getBackupPrefix() {
+        return prefix;
+    }
+    public  String getBackupPath() {
         String classPath = new DbBackupTools().getClass().getResource("/").getPath();
         if (classPath.indexOf(".jar") > 0) {
             classPath = classPath.substring(0, classPath.lastIndexOf(".jar"));
@@ -162,8 +174,7 @@ public class DbBackupTools {
             log.info("========数据备份路径：" + sqlBackupPath + "========");
             return sqlBackupPath;
         } else {
-            String projectPath = classPath.replace("target/classes/", "");
-            String sqlBackupPath = projectPath + "/dbBackup/";
+            String sqlBackupPath = classPath + "/dbBackup/";
             log.info("========数据备份路径：" + sqlBackupPath + "========");
             return sqlBackupPath;
         }
@@ -174,9 +185,9 @@ public class DbBackupTools {
 
 
 
-    public static void main(String[] args) {
+   /* public static void main(String[] args) {
         backSql();
-        rollback("backupSql_1626862416476.sql");
-    }
+        //rollback("backupSql_1626862416476.sql");
+    }*/
 
 }

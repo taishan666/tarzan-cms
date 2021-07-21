@@ -1,18 +1,20 @@
 package com.tarzan.cms.module.admin.controller.common;
 
+import com.google.common.collect.Lists;
 import com.tarzan.cms.common.constant.CoreConst;
-import com.tarzan.cms.module.admin.service.biz.CategoryService;
+import com.tarzan.cms.module.admin.vo.DbBackupVO;
+import com.tarzan.cms.module.admin.vo.base.PageResultVo;
 import com.tarzan.cms.module.admin.vo.base.ResponseVo;
 import com.tarzan.cms.utils.DbBackupTools;
 import com.tarzan.cms.utils.ResultUtil;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+
+import java.io.File;
+import java.util.*;
 
 /**
  * 后台SQL监控
@@ -27,11 +29,7 @@ import org.springframework.web.servlet.ModelAndView;
 @AllArgsConstructor
 public class DatabaseController {
 
-    private static final String backPath="C:\\Users\\liuya\\Desktop\\change";
-
-    private final CategoryService categoryService;
-
-
+    private  final DbBackupTools dbTools;
 
     /* 数据监控 */
     @GetMapping(value = "/monitoring")
@@ -41,14 +39,56 @@ public class DatabaseController {
 
     /* 备份数据库 */
     @PostMapping("backupSQL")
+    @ResponseBody
     public ResponseVo backupSQL(){
-        DbBackupTools.backSql();
-        return ResultUtil.success();
+        if ( dbTools.backSql()) {
+            return ResultUtil.success("数据备份成功");
+        } else {
+            return ResultUtil.error("数据备份失败");
+        }
+    }
+
+    /* 备份文件列表 */
+    @PostMapping("backupList")
+    @ResponseBody
+    public PageResultVo backupList(Integer pageNumber, Integer pageSize){
+        File file=new File(dbTools.getBackupPath());
+        File[] files= file.listFiles();
+        if(files==null){
+            return ResultUtil.table(null,null);
+        }
+        List<DbBackupVO> list= Lists.newArrayList();
+        Arrays.asList(files).forEach(e->{
+            DbBackupVO vo=new DbBackupVO();
+            vo.setFileName(e.getName());
+            vo.setSize(e.length());
+            vo.setCreateTime(new Date(e.lastModified()));
+            list.add(vo);
+        });
+        Collections.reverse(list);
+        int endIndex = Math.min(pageNumber * pageSize, list.size());
+        return ResultUtil.table(list.subList((pageNumber - 1) * pageSize, endIndex), (long) list.size());
+    }
+
+    /*删除角色*/
+    @PostMapping("/delete")
+    @ResponseBody
+    public ResponseVo deleteRole(String fileName) {
+        File file=new File(dbTools.getBackupPath()+fileName);
+        if (file.delete()) {
+            return ResultUtil.success("删除备份成功");
+        } else {
+            return ResultUtil.error("删除备份失败");
+        }
     }
 
     @PostMapping("rollback")
-    public ResponseVo rollback(@RequestParam("filename") String fileName){
-         DbBackupTools.rollback(fileName);
-        return ResultUtil.success();
+    @ResponseBody
+    public ResponseVo rollback(String fileName){
+        if ( dbTools.rollback(fileName)) {
+            return ResultUtil.success("数据恢复成功");
+        } else {
+            return ResultUtil.error("数据恢复失败");
+        }
     }
 }

@@ -1,7 +1,6 @@
 package com.tarzan.cms.utils;
 
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
 
@@ -26,14 +25,6 @@ import java.util.Map;
 @Slf4j
 @Component
 public class DbBackupTools {
-    @Value("${spring.datasource.driverClassName}")
-    private String driver;//驱动
-    @Value("${spring.datasource.username}")
-    private String user;  //数据库账号
-    @Value("${spring.datasource.password}")
-    private String pwd; //数据库密码
-    @Value("${spring.datasource.url}")
-    private String url;//链接参数
     @Resource
     private  JdbcTemplate jdbcTemplate;
     private  final  static  String prefix="backupSql_";

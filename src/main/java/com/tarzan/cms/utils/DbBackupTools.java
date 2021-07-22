@@ -69,14 +69,14 @@ public class DbBackupTools {
             while ((line = in.readLine()) != null) {
                 list.add(line);
                 if(list.size()>=500){
-                    log.info("sql执行。。。。。。");
                     jdbcTemplate.batchUpdate(list.toArray(new String[list.size()]));
-                    log.info("sql完毕。。。。。。");
+                    log.info("分批500条sql完毕。。。。。。");
                     list.clear();
                 }
             }
             if(list.size()>0){
                 jdbcTemplate.batchUpdate(list.toArray(new String[list.size()]));
+                log.info("剩余sql完毕。。。。。。");
                 list.clear();
             }
         } catch (IOException e) {

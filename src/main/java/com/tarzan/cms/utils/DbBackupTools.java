@@ -7,9 +7,7 @@ import org.springframework.stereotype.Component;
 import javax.annotation.Resource;
 import java.io.*;
 import java.nio.charset.StandardCharsets;
-import java.sql.Connection;
-import java.sql.DatabaseMetaData;
-import java.sql.ResultSet;
+import java.sql.*;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -49,6 +47,7 @@ public class DbBackupTools {
 
     //获取数据sql
     private  String getDataSql() {
+        Long stat=System.currentTimeMillis();
         StringBuilder sb=new StringBuilder();
         try {
             tableNames().forEach(t->{
@@ -58,10 +57,13 @@ public class DbBackupTools {
                     sb.append("INSERT INTO "+t+ " VALUES (");
                     e.forEach((k,v)->{
                         if(v instanceof String){
-                            if(((String) v).contains("\r\n")){
-                              v= ((String) v).replaceAll("\r\n","\\\\r\\\\n");
+                            if (((String) v).contains("\n")) {
+                                v = ((String) v).replaceAll("\n", "\\\\n");
                             }
-                            sb.append("'"+v+"'"+",");
+                            if (((String) v).contains("\r")) {
+                                v = ((String) v).replaceAll("\r", "\\\\r");
+                            }
+                            sb.append("'" + v + "'" + ",");
                         }else if(v instanceof Date){
                             sb.append("'"+format.format(v)+"'"+",");
                         }else{
@@ -71,6 +73,7 @@ public class DbBackupTools {
                     sb.append("); \n");
                 });
             });
+            log.error("耗时 "+(System.currentTimeMillis()-stat)+" ms");
            return sb.toString().replace(",);",");");
         } catch (Exception e) {
             e.printStackTrace();

@@ -160,7 +160,7 @@ public class SystemController {
 
 
     /**
-     * 踢出
+     * 保存日志
      *
      * @param userInfo
      * @return

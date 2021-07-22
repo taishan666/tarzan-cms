@@ -41,7 +41,7 @@ public class DatabaseController {
     @PostMapping("backupSQL")
     @ResponseBody
     public ResponseVo backupSQL(){
-        if ( dbTools.backSql()) {
+        if (dbTools.backSql()) {
             return ResultUtil.success("数据备份成功");
         } else {
             return ResultUtil.error("数据备份失败");
@@ -70,7 +70,7 @@ public class DatabaseController {
         return ResultUtil.table(list.subList((pageNumber - 1) * pageSize, endIndex), (long) list.size());
     }
 
-    /*删除角色*/
+    /*删除备份*/
     @PostMapping("/delete")
     @ResponseBody
     public ResponseVo deleteRole(String fileName) {

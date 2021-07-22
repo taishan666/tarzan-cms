@@ -13,12 +13,9 @@ import org.springframework.stereotype.Component;
 /**
  * 登录日志事件监听
  *
- * @author caichengzhe
+ * @author tarzan
  * @version 1.0
- * @company 虎的一比有限责任公司
- * @copyright (c) 2020 China TX IIOT Co.LTD.All rights reserved.
  * @date 2021年04月19日 09:42:36
- * @since JDK1.8
  */
 @Slf4j
 @AllArgsConstructor

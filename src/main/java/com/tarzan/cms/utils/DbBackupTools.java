@@ -1,19 +1,18 @@
 package com.tarzan.cms.utils;
 
-import com.alibaba.druid.pool.DruidDataSource;
-import com.google.common.collect.Lists;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
 
+import javax.annotation.Resource;
 import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.sql.Connection;
 import java.sql.DatabaseMetaData;
-import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -35,51 +34,18 @@ public class DbBackupTools {
     private String pwd; //数据库密码
     @Value("${spring.datasource.url}")
     private String url;//链接参数
-    //private static final String dbBackupPath = "src/main/java/sql/";
-    private  Connection getConnection;
+    @Resource
     private  JdbcTemplate jdbcTemplate;
     private  final  static  String prefix="backupSql_";
     static   SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
-    /**
-     * 链接数据库
-     */
-    private  Connection getConnections() {
-        try {
-            Class.forName(driver);
-            String dbUrl=url + "&user=" + user + "&password=" + pwd;
-            getConnection = DriverManager.getConnection(dbUrl);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return getConnection;
-    }
-
-    /**
-     * 获取jdbc数据源
-     */
-    private  JdbcTemplate getJdbcTemplate() {
-        try {
-            DruidDataSource ds = new DruidDataSource();
-            ds.setUsername(user);
-            ds.setPassword(pwd);
-            ds.setUrl(url);
-            ds.setDriverClassName(driver);
-            jdbcTemplate=new JdbcTemplate(ds);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return jdbcTemplate;
-    }
-
-
     //获取所有表名称
     private  List<String> tableNames() {
-        List<String> tableNames= Lists.newArrayList();
-        getConnection = getConnections();
+        List<String> tableNames= new ArrayList<>();
         try {
-            DatabaseMetaData dbmd = getConnection.getMetaData();
-            ResultSet rs = dbmd.getTables(getConnection.getCatalog(), null, null, new String[] { "TABLE" });
+            Connection getConnection=jdbcTemplate.getDataSource().getConnection();
+            DatabaseMetaData metaData = getConnection.getMetaData();
+            ResultSet rs = metaData.getTables(getConnection.getCatalog(), null, null, new String[] { "TABLE" });
             while (rs.next()) {
                 String tableName=rs.getString("TABLE_NAME");
                 tableNames.add(tableName);
@@ -92,7 +58,6 @@ public class DbBackupTools {
 
     //获取数据sql
     private  String getDataSql() {
-        jdbcTemplate= getJdbcTemplate();
         StringBuilder sb=new StringBuilder();
         try {
             tableNames().forEach(t->{
@@ -124,8 +89,7 @@ public class DbBackupTools {
 
     //数据还原
     public synchronized  boolean rollback(String fileName) {
-        jdbcTemplate= getJdbcTemplate();
-        List<String> list=Lists.newArrayList();
+        List<String> list=new ArrayList<>();
         try {
             FileInputStream out = new FileInputStream(getBackupPath()+fileName);
             InputStreamReader reader = new InputStreamReader(out, StandardCharsets.UTF_8);
@@ -166,16 +130,17 @@ public class DbBackupTools {
         return prefix;
     }
 
+    //获得备份路径 ，jar包启动备份文件夹在同级目录
     public  String getBackupPath() {
-        String classPath = new DbBackupTools().getClass().getResource("/").getPath();
+        String classPath = DbBackupTools.class.getResource("/").getPath();
         if (classPath.indexOf(".jar") > 0) {
             classPath = classPath.substring(0, classPath.lastIndexOf(".jar"));
             classPath = classPath.substring(6, classPath.lastIndexOf("/"));
-            String sqlBackupPath = File.separator + classPath + "/dbBackup/";
+            String sqlBackupPath = File.separator + classPath + "dbBackup/";
             log.info("========数据备份路径：" + sqlBackupPath + "========");
             return sqlBackupPath;
         } else {
-            String sqlBackupPath = classPath + "/dbBackup/";
+            String sqlBackupPath = classPath + "dbBackup/";
             log.info("========数据备份路径：" + sqlBackupPath + "========");
             return sqlBackupPath;
         }

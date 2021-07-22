@@ -52,7 +52,7 @@ public class DatabaseController {
     @PostMapping("backupList")
     @ResponseBody
     public PageResultVo backupList(Integer pageNumber, Integer pageSize){
-        File file=new File(dbTools.getBackupPath());
+        File file=new File(dbTools.getSqlBackupPath());
         File[] files= file.listFiles();
         if(files==null){
             return ResultUtil.table(null,null);
@@ -74,7 +74,7 @@ public class DatabaseController {
     @PostMapping("/delete")
     @ResponseBody
     public ResponseVo deleteRole(String fileName) {
-        File file=new File(dbTools.getBackupPath()+fileName);
+        File file=new File(dbTools.getSqlBackupPath()+fileName);
         if (file.delete()) {
             return ResultUtil.success("删除备份成功");
         } else {

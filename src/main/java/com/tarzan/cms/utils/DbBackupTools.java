@@ -1,13 +1,17 @@
 package com.tarzan.cms.utils;
 
+import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
 
+import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
 import java.io.*;
 import java.nio.charset.StandardCharsets;
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.DatabaseMetaData;
+import java.sql.ResultSet;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -25,8 +29,16 @@ import java.util.Map;
 public class DbBackupTools {
     @Resource
     private  JdbcTemplate jdbcTemplate;
-    private  final  static  String prefix="backupSql_";
+    @Getter
+    private  String filePrefix="backupSql_";
+    @Getter
+    private  String sqlBackupPath;
     static   SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+
+    @PostConstruct
+    private void  init(){
+       sqlBackupPath=getBackupPath();
+    }
 
     //获取所有表名称
     private  List<String> tableNames() {
@@ -45,13 +57,50 @@ public class DbBackupTools {
         return tableNames;
     }
 
-    //获取数据sql
-    private  String getDataSql() {
+    //数据还原
+    public synchronized  boolean rollback(String fileName) {
         Long stat=System.currentTimeMillis();
-        StringBuilder sb=new StringBuilder();
+        List<String> list=new ArrayList<>();
         try {
+            FileInputStream out = new FileInputStream(sqlBackupPath+fileName);
+            InputStreamReader reader = new InputStreamReader(out, StandardCharsets.UTF_8);
+            BufferedReader in = new BufferedReader(reader);
+            String line;
+            while ((line = in.readLine()) != null) {
+                list.add(line);
+                if(list.size()>=500){
+                    log.info("sql执行。。。。。。");
+                    jdbcTemplate.batchUpdate(list.toArray(new String[list.size()]));
+                    log.info("sql完毕。。。。。。");
+                    list.clear();
+                }
+            }
+            if(list.size()>0){
+                jdbcTemplate.batchUpdate(list.toArray(new String[list.size()]));
+                list.clear();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+            return false;
+        }
+        log.info("恢复数据耗时 "+(System.currentTimeMillis()-stat)+" ms");
+        return true;
+    }
+
+    //数据备份
+    public synchronized boolean backSql() {
+        Long stat=System.currentTimeMillis();
+        try {
+            File dir = new File(sqlBackupPath);
+            dir.mkdirs();
+            String path = dir.getPath() + "/"+ filePrefix+System.currentTimeMillis()+".sql" ;
+            File file = new File(path);
+            if (!file.exists()){
+                file.createNewFile();
+            }
             tableNames().forEach(t->{
-                sb.append("TRUNCATE "+t+";\n");
+               StringBuilder sb=new StringBuilder();
+               sb.append("TRUNCATE "+t+";\n");
                 List<Map<String, Object>> list=jdbcTemplate.queryForList("select * from "+t);
                 list.forEach(e->{
                     sb.append("INSERT INTO "+t+ " VALUES (");
@@ -72,60 +121,25 @@ public class DbBackupTools {
                     });
                     sb.append("); \n");
                 });
+                String sql= sb.toString().replace(",);",");");
+                try{
+                FileOutputStream out = new FileOutputStream(file, true); //如果追加方式用true
+                out.write(sql.getBytes("utf-8"));//注意需要转换对应的字符集
+                out.close();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             });
-            log.error("耗时 "+(System.currentTimeMillis()-stat)+" ms");
-           return sb.toString().replace(",);",");");
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return sb.toString();
-    }
-
-    //数据还原
-    public synchronized  boolean rollback(String fileName) {
-        List<String> list=new ArrayList<>();
-        try {
-            FileInputStream out = new FileInputStream(getBackupPath()+fileName);
-            InputStreamReader reader = new InputStreamReader(out, StandardCharsets.UTF_8);
-            BufferedReader in = new BufferedReader(reader);
-            String line;
-            while ((line = in.readLine()) != null) {
-                list.add(line);
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-            return false;
-        }
-        jdbcTemplate.batchUpdate(list.toArray(new String[list.size()]));
-        return true;
-    }
-
-    //数据备份
-    public synchronized boolean backSql() {
-        try {
-            File dir = new File(getBackupPath());
-            dir.mkdirs();
-            String path = dir.getPath() + "/"+ prefix+System.currentTimeMillis()+".sql" ;
-            File file = new File(path);
-            if (!file.exists()){
-                file.createNewFile();
-            }
-            FileOutputStream out = new FileOutputStream(file, false); //如果追加方式用true
-            out.write(getDataSql().getBytes("utf-8"));//注意需要转换对应的字符集
-            out.close();
         } catch (Exception e) {
             e.printStackTrace();
             return false;
         }
+        log.info("备份文件耗时 "+(System.currentTimeMillis()-stat)+" ms");
         return true;
-    }
-
-    public  String getBackupPrefix() {
-        return prefix;
     }
 
     //获得备份路径 ，jar包启动备份文件夹在同级目录
-    public  String getBackupPath() {
+    private  String getBackupPath() {
         String classPath = DbBackupTools.class.getResource("/").getPath();
         if (classPath.indexOf(".jar") > 0) {
             classPath = classPath.substring(0, classPath.lastIndexOf(".jar"));

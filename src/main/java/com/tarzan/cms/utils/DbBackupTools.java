@@ -17,12 +17,14 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 /**
  * 数据库数据备份
  *
  * @author tarzan Liu
- * @date 2021/7/10 19:44
+ * @date 2021/7/20 19:44
  */
 @Slf4j
 @Component
@@ -34,10 +36,14 @@ public class DbBackupTools {
     @Getter
     private  String sqlBackupPath;
     static   SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+    //当前系统最佳线程数
+    private int curSystemThreads=1;
 
     @PostConstruct
     private void  init(){
-       sqlBackupPath=getBackupPath();
+        // 获取Java虚拟机的可用的处理器数，最佳线程个数，处理器数*2。根据实际情况调整
+        curSystemThreads = Runtime.getRuntime().availableProcessors() * 2;
+        sqlBackupPath=getBackupPath();
     }
 
     //获取所有表名称
@@ -61,6 +67,11 @@ public class DbBackupTools {
     public synchronized  boolean rollback(String fileName) {
         Long stat=System.currentTimeMillis();
         List<String> list=new ArrayList<>();
+        tableNames().forEach(t->{
+            list.add("TRUNCATE "+t+";");
+        });
+        jdbcTemplate.batchUpdate(list.toArray(new String[list.size()]));
+        list.clear();
         try {
             FileInputStream out = new FileInputStream(sqlBackupPath+fileName);
             InputStreamReader reader = new InputStreamReader(out, StandardCharsets.UTF_8);
@@ -68,23 +79,35 @@ public class DbBackupTools {
             String line;
             while ((line = in.readLine()) != null) {
                 list.add(line);
-                if(list.size()>=500){
-                    jdbcTemplate.batchUpdate(list.toArray(new String[list.size()]));
-                    log.info("分批500条sql完毕。。。。。。");
-                    list.clear();
-                }
-            }
-            if(list.size()>0){
-                jdbcTemplate.batchUpdate(list.toArray(new String[list.size()]));
-                log.info("剩余sql完毕。。。。。。");
-                list.clear();
             }
         } catch (IOException e) {
             e.printStackTrace();
             return false;
         }
+        executeAsync(list);
         log.info("恢复数据耗时 "+(System.currentTimeMillis()-stat)+" ms");
         return true;
+    }
+
+    //异步多线程处理
+    private void executeAsync(List<String> sqlList) {
+        int pages=0;
+        int pageNum=1000;
+        ExecutorService es = Executors.newFixedThreadPool(curSystemThreads);
+        while(true){
+            pages++;
+            int endIndex = Math.min(pages * pageNum, sqlList.size());
+            int finalPages = pages;
+            Thread thread= new Thread(() ->{
+                List<String> list=sqlList.subList((finalPages - 1) * pageNum, endIndex);
+                jdbcTemplate.batchUpdate(list.toArray(new String[list.size()]));
+                log.info("恢复数据"+list.size()+"条sql完毕。。。。。。");
+            });
+            es.execute(thread);
+            if(endIndex>=sqlList.size()){
+                break;
+            }
+        }
     }
 
     //数据备份
@@ -100,7 +123,6 @@ public class DbBackupTools {
             }
             tableNames().forEach(t->{
                StringBuilder sb=new StringBuilder();
-               sb.append("TRUNCATE "+t+";\n");
                 List<Map<String, Object>> list=jdbcTemplate.queryForList("select * from "+t);
                 list.forEach(e->{
                     sb.append("INSERT INTO "+t+ " VALUES (");

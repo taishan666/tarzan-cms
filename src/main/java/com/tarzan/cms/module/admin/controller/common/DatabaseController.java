@@ -82,6 +82,7 @@ public class DatabaseController {
         }
     }
 
+    /*还原备份*/
     @PostMapping("rollback")
     @ResponseBody
     public ResponseVo rollback(String fileName){

@@ -43,6 +43,7 @@ public class DbBackupTools {
     private void  init(){
         // 获取Java虚拟机的可用的处理器数，最佳线程个数，处理器数*2。根据实际情况调整
         curSystemThreads = Runtime.getRuntime().availableProcessors() * 2;
+        //初始化备份路劲
         sqlBackupPath=getBackupPath();
     }
 
@@ -67,6 +68,7 @@ public class DbBackupTools {
     public synchronized  boolean rollback(String fileName) {
         Long stat=System.currentTimeMillis();
         List<String> list=new ArrayList<>();
+        //清空所有表数据
         tableNames().forEach(t->{
             list.add("TRUNCATE "+t+";");
         });

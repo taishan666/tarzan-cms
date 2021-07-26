@@ -3,19 +3,16 @@ package com.tarzan.cms.module.admin.controller.sys;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.tarzan.cms.common.constant.CoreConst;
-import com.tarzan.cms.shiro.MyShiroRealm;
-import com.tarzan.cms.utils.BeanUtil;
-import com.tarzan.cms.utils.PasswordHelper;
-import com.tarzan.cms.utils.ResultUtil;
 import com.tarzan.cms.module.admin.model.sys.Role;
 import com.tarzan.cms.module.admin.model.sys.User;
 import com.tarzan.cms.module.admin.service.sys.RoleService;
 import com.tarzan.cms.module.admin.service.sys.UserService;
-import com.tarzan.cms.module.admin.vo.ChangePasswordVo;
 import com.tarzan.cms.module.admin.vo.base.PageResultVo;
 import com.tarzan.cms.module.admin.vo.base.ResponseVo;
+import com.tarzan.cms.shiro.MyShiroRealm;
+import com.tarzan.cms.utils.PasswordHelper;
+import com.tarzan.cms.utils.ResultUtil;
 import lombok.AllArgsConstructor;
-import org.apache.shiro.SecurityUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -37,7 +34,7 @@ public class UserController {
     private final MyShiroRealm myShiroRealm;
     private final UserService userService;
     private final RoleService roleService;
-    private final MyShiroRealm shiroRealm;
+
 
 
     /**
@@ -97,15 +94,6 @@ public class UserController {
         return CoreConst.ADMIN_PREFIX + "user/form";
     }
 
-    /**
-     * 编辑个人信息
-     */
-    @GetMapping("/info")
-    public String userDetail(Model model) {
-        User user = (User) SecurityUtils.getSubject().getPrincipal();
-        model.addAttribute("user", user);
-        return CoreConst.ADMIN_PREFIX + "user/info";
-    }
 
     /**
      * 编辑用户
@@ -184,31 +172,6 @@ public class UserController {
         }
     }
 
-    /*修改密码*/
-    @RequestMapping(value = "/changePassword", method = RequestMethod.POST)
-    @ResponseBody
-    public ResponseVo changePassword(ChangePasswordVo changePasswordVo) {
-        if (!changePasswordVo.getNewPassword().equals(changePasswordVo.getConfirmNewPassword())) {
-            return ResultUtil.error("两次密码输入不一致");
-        }
-        User loginUser = userService.selectByUserId(((User) SecurityUtils.getSubject().getPrincipal()).getId());
-        User newUser = BeanUtil.copy(loginUser, User.class);
-        String sysOldPassword = loginUser.getPassword();
-        newUser.setPassword(changePasswordVo.getOldPassword());
-        String entryOldPassword = PasswordHelper.getPassword(newUser);
-        if (sysOldPassword.equals(entryOldPassword)) {
-            newUser.setPassword(changePasswordVo.getNewPassword());
-            PasswordHelper.encryptPassword(newUser);
-            userService.updateById(newUser);
-            //*清除登录缓存*//
-            List<Integer> userIds = new ArrayList<>();
-            userIds.add(loginUser.getId());
-            shiroRealm.removeCachedAuthenticationInfo(userIds);
-            /*SecurityUtils.getSubject().logout();*/
-        } else {
-            return ResultUtil.error("您输入的旧密码有误");
-        }
-        return ResultUtil.success("修改密码成功");
-    }
+
 
 }

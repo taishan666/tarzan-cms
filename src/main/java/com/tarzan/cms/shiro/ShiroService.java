@@ -58,7 +58,8 @@ public class ShiroService {
         filterChainDefinitionMap.put("/theme/**", "anon");
         filterChainDefinitionMap.put("/favicon.ico", "anon");
         filterChainDefinitionMap.put("/verificationCode", "anon");
-        filterChainDefinitionMap.put("/user/info", "anon");
+        filterChainDefinitionMap.put("/system/userInfo", "anon");
+        filterChainDefinitionMap.put("/system/password", "anon");
         filterChainDefinitionMap.put(fileUploadProperties.getAccessPathPattern(), "anon");
         filterChainDefinitionMap.put(staticHtmlProperties.getAccessPathPattern(), "anon");
         List<Menu> menuList = MenuService.selectAll(CoreConst.STATUS_VALID);

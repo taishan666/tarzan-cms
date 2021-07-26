@@ -98,6 +98,16 @@ public class UserController {
     }
 
     /**
+     * 编辑个人信息
+     */
+    @GetMapping("/info")
+    public String userDetail(Model model) {
+        User user = (User) SecurityUtils.getSubject().getPrincipal();
+        model.addAttribute("user", user);
+        return CoreConst.ADMIN_PREFIX + "user/info";
+    }
+
+    /**
      * 编辑用户
      */
     @PostMapping("/edit")

@@ -104,7 +104,7 @@
         <li class="nav-item dropdown">
             <a id="dropdownSubMenu1" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link dropdown-toggle" th:text="${loginUser?.nickname}"></a>
             <ul aria-labelledby="dropdownSubMenu1" class="dropdown-menu border-0 shadow">
-                <li><a th:href="${'/admin'}" class="dropdown-item">个人资料</a></li>
+                <li><a th:href="${'admin#user/info'}" class="dropdown-item">个人资料</a></li>
                 <li><a th:href="${'/admin'}" class="dropdown-item">账号设置</a></li>
                 <li><a th:href="${'/system/logout'}" class="dropdown-item">退出登录</a></li>
             </ul>

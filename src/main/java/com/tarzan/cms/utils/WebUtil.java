@@ -1,6 +1,7 @@
 package com.tarzan.cms.utils;
 
 import com.baomidou.mybatisplus.core.toolkit.StringUtils;
+import org.apache.commons.codec.Charsets;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.lang.Nullable;
@@ -194,6 +195,40 @@ public class WebUtil extends WebUtils {
         }
 
         return sb.toString();
+    }
+
+    public static String getRequestContent(HttpServletRequest request) {
+        try {
+            String queryString = request.getQueryString();
+            if (StringUtils.isNotBlank(queryString)) {
+                return (new String(queryString.getBytes(Charsets.ISO_8859_1), Charsets.UTF_8)).replaceAll("&amp;", "&").replaceAll("%22", "\"");
+            } else {
+                String charEncoding = request.getCharacterEncoding();
+                if (charEncoding == null) {
+                    charEncoding = "UTF-8";
+                }
+
+                byte[] buffer = getRequestBody(request.getInputStream()).getBytes();
+                String str = (new String(buffer, charEncoding)).trim();
+                if (org.apache.commons.lang3.StringUtils.isBlank(str)) {
+                    StringBuilder sb = new StringBuilder();
+                    Enumeration parameterNames = request.getParameterNames();
+
+                    while(parameterNames.hasMoreElements()) {
+                        String key = (String)parameterNames.nextElement();
+                        String value = request.getParameter(key);
+                        StringUtil.appendBuilder(sb, new CharSequence[]{key, "=", value, "&"});
+                    }
+
+                    str = StringUtil.removeSuffix(sb.toString(), "&");
+                }
+
+                return str.replaceAll("&amp;", "&");
+            }
+        } catch (Exception var9) {
+            var9.printStackTrace();
+            return "";
+        }
     }
 
 

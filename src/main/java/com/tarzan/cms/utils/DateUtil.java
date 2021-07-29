@@ -39,6 +39,10 @@ public class DateUtil {
     public static final String MdFormat = "MM-dd";
     public static final long ONE_DAY_MILL_SECONDS = 86400000;
 
+    public static Date now() {
+        return new Date();
+    }
+
     public static DateFormat getNewDateFormat(String pattern) {
         DateFormat df = new SimpleDateFormat(pattern);
         df.setLenient(false);

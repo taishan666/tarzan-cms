@@ -36,7 +36,6 @@ public class ErrorLogPublisher {
                 logError.setMethod(request.getMethod());
                 logError.setParams(WebUtil.getRequestContent(request));
                 logError.setCreateTime(DateUtil.now());
-             //   logError.setCreateBy(AuthUtil.getUserAccount(request));
             }
         }
         SpringUtil.publishEvent(new ErrorLogEvent(logError));

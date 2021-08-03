@@ -1,6 +1,5 @@
 package com.tarzan.cms.utils;
 
-import lombok.experimental.UtilityClass;
 import org.jsoup.Jsoup;
 import org.jsoup.safety.Whitelist;
 
@@ -12,9 +11,8 @@ import java.util.regex.Pattern;
  *
  * @author tarzan liu
  * @version V1.0
- * @date 2021年5月11日
+ * @date 2021年7月11日
  */
-@UtilityClass
 public class XssKillerUtil {
     private static final String[] WHITE_LIST = {"p", "strong", "pre", "code", "span", "blockquote", "em", "a"};
     private static String reg = null;

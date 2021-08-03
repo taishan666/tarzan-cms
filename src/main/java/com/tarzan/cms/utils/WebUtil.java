@@ -1,7 +1,7 @@
 package com.tarzan.cms.utils;
 
-import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import org.apache.commons.codec.Charsets;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.lang.Nullable;

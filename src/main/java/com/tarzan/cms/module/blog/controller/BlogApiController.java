@@ -48,7 +48,7 @@ public class BlogApiController {
 
     @PostMapping("comment/save")
     public ResponseVo saveComment(HttpServletRequest request, Comment comment) throws UnsupportedEncodingException {
-        if (org.springframework.util.StringUtils.isEmpty(comment.getNickname())) {
+        if (StringUtils.isEmpty(comment.getNickname())) {
             return ResultUtil.error("请输入昵称");
         }
         String content = comment.getContent();

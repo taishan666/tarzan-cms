@@ -56,6 +56,7 @@ public class SystemController {
     private final LoginLogService loginLogService;
     private final MyShiroRealm shiroRealm;
 
+/*
 
 
     //注册
@@ -103,6 +104,7 @@ public class SystemController {
             return ResultUtil.error("注册失败，请稍后再试！");
         }
     }
+*/
 
     /**
      * 访问登录

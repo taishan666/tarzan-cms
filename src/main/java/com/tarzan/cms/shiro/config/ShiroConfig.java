@@ -1,4 +1,4 @@
-package com.tarzan.cms.common.config;
+package com.tarzan.cms.shiro.config;
 
 import at.pollux.thymeleaf.shiro.dialect.ShiroDialect;
 import com.baomidou.mybatisplus.core.toolkit.StringUtils;

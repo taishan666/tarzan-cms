@@ -108,7 +108,7 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
                 //登录页面 不设限访问
                 .loginPage("/login.html")
                 //拦截的请求
-                .loginProcessingUrl("/login")
+                .loginProcessingUrl("system/login")
                 // 登录成功
                 .successHandler(authenticationSuccessHandler)
                 // 登录失败

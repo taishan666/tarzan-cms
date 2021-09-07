@@ -34,15 +34,5 @@ public class CmsApplication {
                 "----------------------------------------------------------");
     }
 
-/*    @Bean
-    public ServletRegistrationBean<StatViewServlet> druidStatViewServlet() {
-        ServletRegistrationBean<StatViewServlet> registrationBean = new ServletRegistrationBean<>(new StatViewServlet(),  "/druid/*");
-        registrationBean.addInitParameter("allow", "");// IP白名单 (没有配置或者为空，则允许所有访问)
-        //registrationBean.addInitParameter("loginUsername", "root");
-       // registrationBean.addInitParameter("loginPassword", "123456");
-        registrationBean.addInitParameter("enable", "true");
-        registrationBean.addInitParameter("resetEnable", "false");
-        return registrationBean;
-    }*/
 
 }

@@ -24,3 +24,11 @@ file:
   upload-folder: /data/wwwroot/www.tarzan.com/upload/
   #文件预览、下载的绝对路径
   access-prefix-url: https://www.tarzan.com/u
+
+cms:
+  work-dir: ${user.home}/.tarzan-cms/
+  embedded:
+    mysql:
+      enabled: true
+    redis:
+      enabled: true

@@ -60,6 +60,12 @@
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-lang3</artifactId>
         </dependency>
+        <!-- 配置处理器 -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-configuration-processor</artifactId>
+            <optional>true</optional>
+        </dependency>
         <!-- mysql连接驱动 -->
         <dependency>
             <groupId>mysql</groupId>
@@ -139,7 +145,23 @@
             <version>30.0-jre</version>
             <scope>compile</scope>
         </dependency>
+        <!-- 内嵌mysql server -->
+        <dependency>
+            <groupId>com.wix</groupId>
+            <artifactId>wix-embedded-mysql</artifactId>
+            <version>4.6.1</version>
+            <scope>compile</scope>
+        </dependency>
+        <!-- 内嵌redis server-->
+        <dependency>
+            <groupId>com.github.caryyu</groupId>
+            <artifactId>spring-embedded-redis-server</artifactId>
+            <version>1.1</version>
+            <type>pom</type>
+        </dependency>
+
     </dependencies>
+
 
     <build>
         <finalName>tarzan-cms</finalName>

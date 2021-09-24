@@ -1,6 +1,7 @@
 package com.tarzan.cms.common.config;
 
 import com.tarzan.cms.common.handle.CommonDataHandler;
+import com.tarzan.cms.common.properties.CmsProperties;
 import com.tarzan.cms.common.properties.FileUploadProperties;
 import com.tarzan.cms.common.properties.StaticHtmlProperties;
 import lombok.AllArgsConstructor;
@@ -29,6 +30,7 @@ public class WebMvcConfig implements WebMvcConfigurer {
 
     private final FileUploadProperties fileUploadProperties;
     private final StaticHtmlProperties staticHtmlProperties;
+    private final CmsProperties cmsProperties;
     private final CommonDataHandler commonDataInterceptor;
 
     private static final String FILE_PROTOCOL = "file:///";
@@ -41,7 +43,6 @@ public class WebMvcConfig implements WebMvcConfigurer {
      */
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        String workDir = "C:\\Users\\liuya\\tarzan\\templates\\theme";
         // 文件上传
         String uploadFolder = fileUploadProperties.getUploadFolder();
         uploadFolder = StringUtils.appendIfMissing(uploadFolder, File.separator);
@@ -53,6 +54,7 @@ public class WebMvcConfig implements WebMvcConfigurer {
         registry.addResourceHandler(staticHtmlProperties.getAccessPathPattern())
                 .addResourceLocations("file:" + staticFolder);
         //主题资源
+        String workDir = cmsProperties.getWorkDir();
         workDir = StringUtils.appendIfMissing(workDir, File.separator);
         registry.addResourceHandler("/theme/**")
                 .addResourceLocations("file:" + workDir);
@@ -65,7 +67,7 @@ public class WebMvcConfig implements WebMvcConfigurer {
 
 
     @Bean
-    public ClassLoaderTemplateResolver emailTemplateResolver() {
+    public ClassLoaderTemplateResolver localTemplateResolver() {
         ClassLoaderTemplateResolver resolver = new ClassLoaderTemplateResolver();
         resolver.setPrefix("templates/");
         resolver.setSuffix(".html");

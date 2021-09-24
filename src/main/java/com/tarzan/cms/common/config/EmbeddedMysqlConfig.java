@@ -16,7 +16,7 @@ import static com.wix.mysql.config.MysqldConfig.aMysqldConfig;
 import static com.wix.mysql.distribution.Version.v5_6_23;
 
 @Configuration
-@ConditionalOnProperty(name = "embedded.mysql.enabled",havingValue = "true")
+@ConditionalOnProperty(prefix = "cms",name = "embedded.mysql.enabled",havingValue = "true")
 public class EmbeddedMysqlConfig {
 
     private EmbeddedMysql mysql;

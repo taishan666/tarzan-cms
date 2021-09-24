@@ -9,8 +9,8 @@ import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import java.io.IOException;
 
-@ConditionalOnProperty(name = "embedded.redis.enable", havingValue = "true")
 @Configuration
+@ConditionalOnProperty(prefix = "cms",name = "embedded.redis.enabled", havingValue = "true")
 public class EmbeddedRedisConfig {
 
     private RedisServer redisServer;

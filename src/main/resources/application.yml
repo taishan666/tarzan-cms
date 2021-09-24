@@ -23,7 +23,7 @@ spring:
     cache: false
     mode: HTML
     content-type: text/html
-    prefix: file:${user.home}/tarzan/templates/
+    prefix: file:${user.home}/.tarzan-cms/
     template-resolver-order: 1
   jackson:
     date-format: yyyy-MM-dd HH:mm:ss

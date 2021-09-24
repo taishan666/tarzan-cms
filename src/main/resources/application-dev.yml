@@ -10,7 +10,7 @@ spring:
     port: 6379
     password: 123456
     timeout: 5000
-    database: 2
+    database: 0
     jedis:
       pool:
         max-idle: 8
@@ -35,8 +35,10 @@ static:
   #静态html路径
   folder: /tarzanCms/html/path
 
-embedded:
-  mysql:
-   enabled: true
-  redis:
-   enabled: true
+cms:
+  work-dir: ${user.home}/.tarzan-cms/theme/
+  embedded:
+   mysql:
+    enabled: true
+   redis:
+    enabled: true

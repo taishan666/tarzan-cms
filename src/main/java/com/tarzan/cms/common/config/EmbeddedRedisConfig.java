@@ -1,14 +1,16 @@
 package com.tarzan.cms.common.config;
 
 
-import org.springframework.stereotype.Component;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
+import org.springframework.context.annotation.Configuration;
 import redis.embedded.RedisServer;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import java.io.IOException;
 
-@Component
+@ConditionalOnProperty(name = "embedded.redis.enable", havingValue = "true")
+@Configuration
 public class EmbeddedRedisConfig {
 
     private RedisServer redisServer;

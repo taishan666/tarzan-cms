@@ -3,7 +3,8 @@ package com.tarzan.cms.common.config;
 import com.wix.mysql.EmbeddedMysql;
 import com.wix.mysql.ScriptResolver;
 import com.wix.mysql.config.MysqldConfig;
-import org.springframework.stereotype.Component;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
+import org.springframework.context.annotation.Configuration;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
@@ -14,7 +15,8 @@ import static com.wix.mysql.config.Charset.UTF8;
 import static com.wix.mysql.config.MysqldConfig.aMysqldConfig;
 import static com.wix.mysql.distribution.Version.v5_6_23;
 
-@Component
+@Configuration
+@ConditionalOnProperty(name = "embedded.mysql.enabled",havingValue = "true")
 public class EmbeddedMysqlConfig {
 
     private EmbeddedMysql mysql;

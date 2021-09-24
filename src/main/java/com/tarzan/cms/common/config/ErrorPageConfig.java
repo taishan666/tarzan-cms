@@ -3,8 +3,8 @@ package com.tarzan.cms.common.config;
 import org.springframework.boot.web.server.ErrorPage;
 import org.springframework.boot.web.server.ErrorPageRegistrar;
 import org.springframework.boot.web.server.ErrorPageRegistry;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpStatus;
-import org.springframework.stereotype.Component;
 
 /**
  * 配置系统后台出错时跳转到的错误页面
@@ -13,7 +13,7 @@ import org.springframework.stereotype.Component;
  * @version V1.0
  * @date 2021年5月11日
  */
-@Component
+@Configuration
 public class ErrorPageConfig implements ErrorPageRegistrar {
 
     @Override

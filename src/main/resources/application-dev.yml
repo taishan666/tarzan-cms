@@ -34,3 +34,9 @@ static:
   access-path-pattern: /html/**
   #静态html路径
   folder: /tarzanCms/html/path
+
+embedded:
+  mysql:
+   enabled: true
+  redis:
+   enabled: true

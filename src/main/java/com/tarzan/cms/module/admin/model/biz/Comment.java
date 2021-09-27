@@ -38,7 +38,7 @@ public class Comment extends BaseVo {
     private Integer support;
     private Integer oppose;
     @TableField(exist = false)
-    private Integer loveCount;
+    private Long loveCount;
     @TableField(exist = false)
     Comment parent;
     @TableField(exist = false)

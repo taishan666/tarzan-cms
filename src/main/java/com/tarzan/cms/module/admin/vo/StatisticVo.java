@@ -19,7 +19,7 @@ public class StatisticVo {
     private Long commentCount;
     private Long lookCount;
     private Long userCount;
-    private Map<String, Integer> lookCountByDay;
-    private Map<String, Integer> userCountByDay;
+    private Map<String, Long> lookCountByDay;
+    private Map<String, Long> userCountByDay;
 
 }

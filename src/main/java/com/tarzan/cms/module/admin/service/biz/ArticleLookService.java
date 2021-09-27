@@ -1,19 +1,16 @@
 package com.tarzan.cms.module.admin.service.biz;
 
-import com.baomidou.mybatisplus.core.toolkit.CollectionUtils;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.google.common.collect.Maps;
-import com.tarzan.cms.common.constant.CoreConst;
-import com.tarzan.cms.utils.DateUtil;
 import com.tarzan.cms.module.admin.mapper.biz.ArticleLookMapper;
 import com.tarzan.cms.module.admin.model.biz.ArticleLook;
-import com.tarzan.cms.module.admin.vo.CountVo;
-import org.apache.commons.lang3.RandomUtils;
+import com.tarzan.cms.utils.DateUtil;
 import org.springframework.stereotype.Service;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -25,35 +22,38 @@ import java.util.stream.Collectors;
 @Service
 public class ArticleLookService extends ServiceImpl<ArticleLookMapper, ArticleLook> {
 
-    private static Map<String, Integer> buildRecentDayMap(int day) {
-        Date now = new Date();
-        LinkedHashMap<String, Integer> map = Maps.newLinkedHashMap();
-        for (int i = day - 1; i >= 0; i--) {
-            int count = CoreConst.ENABLE_DEMO_DATA ? RandomUtils.nextInt(20, 100) : 0;
-            map.put(DateUtil.format(DateUtil.addDays(now, -i), DateUtil.webFormat), count);
-        }
-        return map;
-    }
+    SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd");
 
     public int checkArticleLook(Integer articleId, String userIp, Date lookTime) {
         return count(Wrappers.lambdaQuery(new ArticleLook().setArticleId(articleId).setUserIp(userIp).setLookTime(lookTime)));
     }
 
-    public Map<String, Integer> lookCountByDay(int day) {
-        List<CountVo> list = baseMapper.lookCountByDay(day-1);
-        Map<String, Integer> lookCountByDayMap = buildRecentDayMap(day);
-        if (CollectionUtils.isNotEmpty(list)) {
-            lookCountByDayMap.putAll(list.stream().collect(Collectors.toMap(CountVo::getDay, CountVo::getCount)));
-        }
-        return lookCountByDayMap;
+    public  Map<String,Long> looksByDay(int day){
+        Map<String,Long> looksByDayMap= Maps.newLinkedHashMap();
+        looksGroupMap(day).forEach((k,v)->looksByDayMap.put(k,Long.valueOf(v.size())));
+       return looksByDayMap;
     }
 
-    public Map<String, Integer> userCountByDay(int day) {
-        List<CountVo> list = baseMapper.userCountByDay(day-1);
-        Map<String, Integer> userCountByDayMap = buildRecentDayMap(day);
-        if (CollectionUtils.isNotEmpty(list)) {
-            userCountByDayMap.putAll(list.stream().collect(Collectors.toMap(CountVo::getDay, CountVo::getCount)));
-        }
-        return userCountByDayMap;
+    public  Map<String,Long> usersByDay(int day){
+        Map<String,List<ArticleLook>> lookMap=looksGroupMap(day);
+        Map<String,Long> usersByDayMap=Maps.newLinkedHashMap();
+        lookMap.forEach((k,v)->{
+            List<String> users= v.stream().map(ArticleLook::getUserId).collect(Collectors.toList());
+            users=users.stream().distinct().collect(Collectors.toList());
+            usersByDayMap.put(k,Long.valueOf(users.size()));
+        });
+        return usersByDayMap;
     }
+
+
+    private Map<String,List<ArticleLook>>  looksGroupMap(int day){
+        Date curDate=new Date();
+        Date beforeWeekDate= DateUtil.addDays(curDate,-day);
+        LambdaQueryWrapper<ArticleLook> wrapper=new LambdaQueryWrapper();
+        wrapper.ge(ArticleLook::getLookTime,sdf.format(beforeWeekDate));
+        wrapper.le(ArticleLook::getLookTime,sdf.format(curDate));
+        List<ArticleLook> list=list(wrapper);
+        return list.stream().collect(Collectors.groupingBy(e->sdf.format(e.getLookTime())));
+    }
+
 }

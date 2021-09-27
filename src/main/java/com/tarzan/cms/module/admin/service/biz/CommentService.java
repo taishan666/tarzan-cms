@@ -32,17 +32,18 @@ public class CommentService extends ServiceImpl<CommentMapper, Comment> {
 
     public IPage<Comment> selectComments(CommentConditionVo vo, Integer pageNumber, Integer pageSize) {
         IPage<Comment> page = new Page<>(pageNumber, pageSize);
-      //  page.setRecords(baseMapper.selectComments(page, vo));
-        return selectComments(vo,page);
+        page.setRecords(baseMapper.selectComments(page, vo));
+        return page;
     }
 
     public boolean deleteBatch(Integer[] ids) {
         return remove(Wrappers.<Comment>lambdaQuery().in(Comment::getId,ids).or().in(Comment::getPid,ids));
     }
 
-    private IPage<Comment> selectComments(CommentConditionVo vo,IPage<Comment> page){
+    public IPage<Comment> selectComments1(CommentConditionVo vo, Integer pageNumber, Integer pageSize){
+        IPage<Comment> page = new Page<>(pageNumber, pageSize);
         Comment comment= BeanUtil.copy(vo,Comment.class);
-        page=page(page,null);
+        page=page(page,Wrappers.query(comment));
         List<Comment> comments=page.getRecords();
         if(CollectionUtils.isNotEmpty(comments)){
             List<Integer> ids=comments.stream().map(Comment::getId).collect(Collectors.toList());

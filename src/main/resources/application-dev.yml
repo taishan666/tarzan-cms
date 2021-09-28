@@ -7,7 +7,7 @@ spring:
     #password: 123456
     platform: h2
     driverClassName: org.h2.Driver
-    url:  jdbc:h2:file:${user.home}/.tarzan-cms/db/cms;AUTO_SERVER=TRUE
+    url:  jdbc:h2:file:${user.home}/.tarzan-cms/db/cms
     username: root
     password: 123456
   h2:

@@ -20,28 +20,33 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Configuration
-public class EmbeddedH2Config {
+public class InstallDataConfig {
 
     @Resource
     private JdbcTemplate jdbcTemplate;
 
-    @Value("${spring.datasource.driverClassName}")
-    private String driverClassName;
+    @Value("${spring.datasource.url}")
+    private String url;
 
-    private final static String h2Driver="org.h2.Driver";
+    private final static String h2Driver="jdbc:h2:";
+
+    private final static String mysqlDriver="jdbc:mysql:";
 
     @PostConstruct
     private void  init(){
-        if (h2Driver.equals(driverClassName)) {
-            installSQL();
+        if (url.contains(h2Driver)) {
+            installSQL("schema-h2.sql");
+        }
+        if (url.contains(mysqlDriver)) {
+            installSQL("schema-mysql.sql");
         }
     }
 
-    private void  installSQL(){
+    private void  installSQL(String fileName){
         if(tableNames().size()==0){
-            String classPath = this.getClass().getResource("/").getPath();
+            String classPath = this.getClass().getResource("/db/").getPath();
             try {
-                FileInputStream out = new FileInputStream(classPath + "db/schema-h2.sql");
+                FileInputStream out = new FileInputStream(classPath + fileName);
                 InputStreamReader reader = new InputStreamReader(out, StandardCharsets.UTF_8);
                 BufferedReader in = new BufferedReader(reader);
                 String txt = FileCopyUtils.copyToString(in);
@@ -49,7 +54,6 @@ public class EmbeddedH2Config {
             } catch (IOException e) {
                 e.printStackTrace();
             }
-
         }
     }
 

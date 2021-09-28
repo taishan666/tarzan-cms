@@ -19,6 +19,11 @@ spring:
         url-pattern: /druid/*
         allow:
         deny:
+      filter:
+        wall:
+          config:
+            multi-statement-allow: true
+          enabled: true
   thymeleaf:
     cache: false
     mode: HTML

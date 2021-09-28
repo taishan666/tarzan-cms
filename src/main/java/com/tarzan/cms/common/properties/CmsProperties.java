@@ -9,4 +9,6 @@ import org.springframework.stereotype.Component;
 @ConfigurationProperties(prefix = "cms")
 public class CmsProperties {
     private String workDir;
+    private Integer embeddedRedisPort=6379;
+    private String embeddedRedisPassword="123456";
 }

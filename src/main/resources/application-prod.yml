@@ -26,9 +26,7 @@ file:
   access-prefix-url: https://www.tarzan.com/u
 
 cms:
-  work-dir: ${user.home}/.tarzan-cms/
-  embedded:
-    mysql:
-      enabled: true
-    redis:
-      enabled: true
+  work-dir: ${user.home}/.tarzan-cms/theme/
+  embedded-redis-enabled: true
+  embedded-redis-port: 6379
+  embedded-redis-password: 123456

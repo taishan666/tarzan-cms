@@ -1,18 +1,30 @@
 spring:
   datasource:
     type: com.alibaba.druid.pool.DruidDataSource
-   # driverClassName: com.mysql.cj.jdbc.Driver
+    #driverClassName: com.mysql.cj.jdbc.Driver
     #url: jdbc:mysql://localhost:3306/tarzan_cms?useUnicode=true&characterEncoding=UTF-8&useSSL=false&serverTimezone=GMT%2B8&allowPublicKeyRetrieval=true
     #username: tarzan
     #password: 123456
-    driver-class-name: org.sqlite.JDBC
-    url: jdbc:sqlite:db/tarzan-cms.db
-    username:
+    platform: h2
+    driverClassName: org.h2.Driver
+    url:  jdbc:h2:file:${user.home}/.tarzan-cms/db/cms;AUTO_SERVER=TRUE
+    username: root
     password: 123456
+  h2:
+    console:
+      enabled: true
+      settings:
+        web-allow-others: true
+      path: /h2-console
+  jpa:
+   show-sql: true
+   hibernate:
+     ddl-auto: update
+   generate-ddl: false
   redis:
     host: localhost
     port: 6379
-    password: 123456
+    password: 666666
     timeout: 5000
     database: 0
     jedis:
@@ -41,8 +53,6 @@ static:
 
 cms:
   work-dir: ${user.home}/.tarzan-cms/theme/
-  embedded:
-   mysql:
-    enabled: false
-   redis:
-    enabled: true
+  embedded-redis-enabled: true
+  embedded-redis-port: 6379
+  embedded-redis-password: 666666

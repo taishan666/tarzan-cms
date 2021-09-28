@@ -23,7 +23,7 @@
 		<div class="swiper-container mb-20" th:if="${not #lists.isEmpty(sliderList)}">
 			<div class="swiper-wrapper">
 				<div th:each="item:${sliderList}" class="swiper-slide">
-					<a th:href="@{${'/blog/article/'+item.id}}">
+					<a th:href="@{${'/article/'+item.id}}">
 						<img th:src="${item.sliderImg}" style="max-height: 450px">
 						<p class="slider-title" th:text="${item.title}"></p>
 					</a>
@@ -39,16 +39,16 @@
 		</div>
 		<div th:each="item,temp : ${articleList}" class="blogs">
 			<span th:if="${item.top==1}" class="fa fa-superscript-top superscript superscript-top"></span>
-			<span class="blogpic"><a  th:href="@{${'/blog/article/'+item.id}}"><img th:src="${item.coverImage==''?'':item.coverImage}"></a><span class="blog-type"><a th:href="@{${'/blog/category/'+item.categoryId}}" th:text="${item.bizCategory.name}"></a></span></span>
-			<h3 class="blogtitle"><a th:href="@{${'/blog/article/'+item.id}}" th:text="${item.title}" ></a></h3>
-			<a  th:href="@{${'/blog/article/'+item.id}}"><p  th:text="${item.description}" class="blogtext"></p></a>
+			<span class="blogpic"><a  th:href="@{${'/article/'+item.id}}"><img th:src="${item.coverImage==''?'':item.coverImage}"></a><span class="blog-type"><a th:href="@{${'/category/'+item.categoryId}}" th:text="${item.bizCategory.name}"></a></span></span>
+			<h3 class="blogtitle"><a th:href="@{${'/article/'+item.id}}" th:text="${item.title}" ></a></h3>
+			<a  th:href="@{${'/article/'+item.id}}"><p  th:text="${item.description}" class="blogtext"></p></a>
 			<div class="bloginfo">
 				<ul>
 					<li><span class="fa fa-clock-o"></span><span th:text="${#dates.format(item.createTime,'yyyy-MM-dd HH:mm:ss')}"></span></li>
-					<li><a class="comment-link-a" th:href="@{${'/blog/article/'+item.id}}"><span class="fa fa-eye"></span><span th:text="${item.lookCount}? ${item.lookCount} : 0"></span></a></li>
-					<li><a class="comment-link-a" th:href="@{${'/blog/article/'+item.id+'#comment'}}"><span class="fa fa-comments-o"></span><span th:text="${item.commentCount}? ${item.commentCount} : 0"></span></a></li>
+					<li><a class="comment-link-a" th:href="@{${'/article/'+item.id}}"><span class="fa fa-eye"></span><span th:text="${item.lookCount}? ${item.lookCount} : 0"></span></a></li>
+					<li><a class="comment-link-a" th:href="@{${'/article/'+item.id+'#comment'}}"><span class="fa fa-comments-o"></span><span th:text="${item.commentCount}? ${item.commentCount} : 0"></span></a></li>
 				</ul>
-			<!--	<a class="read-more" th:href="@{${'/blog/article/'+item.id}}">阅读全文</a>-->
+			<!--	<a class="read-more" th:href="@{${'/article/'+item.id}}">阅读全文</a>-->
 			</div>
 		</div>
 		<div th:if="${page!=null && page.pages gt 1}" id="pagebar">

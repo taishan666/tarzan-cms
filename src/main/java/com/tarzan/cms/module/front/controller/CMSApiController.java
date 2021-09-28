@@ -1,16 +1,16 @@
-package com.tarzan.cms.module.blog.controller;
+package com.tarzan.cms.module.front.controller;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.tarzan.cms.utils.*;
+import com.tarzan.cms.common.constant.CoreConst;
 import com.tarzan.cms.module.admin.model.biz.ArticleLook;
 import com.tarzan.cms.module.admin.model.biz.Comment;
 import com.tarzan.cms.module.admin.model.biz.Love;
 import com.tarzan.cms.module.admin.service.biz.ArticleLookService;
 import com.tarzan.cms.module.admin.service.biz.CommentService;
 import com.tarzan.cms.module.admin.service.biz.LoveService;
-import com.tarzan.cms.module.admin.vo.base.ResponseVo;
-import com.tarzan.cms.common.constant.CoreConst;
 import com.tarzan.cms.module.admin.vo.CommentConditionVo;
+import com.tarzan.cms.module.admin.vo.base.ResponseVo;
+import com.tarzan.cms.utils.*;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
@@ -32,9 +32,9 @@ import java.util.Date;
  */
 @Slf4j
 @RestController
-@RequestMapping("blog/api")
+@RequestMapping("cms/api")
 @AllArgsConstructor
-public class BlogApiController {
+public class CMSApiController {
 
     private final CommentService commentService;
     private final ArticleLookService articleLookService;

@@ -12,10 +12,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @Slf4j
 @SpringBootApplication
 public class CmsApplication {
-
     public static void main(String[] args){
         SpringApplication.run(CmsApplication.class, args);
     }
-
-
 }

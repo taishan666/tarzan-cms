@@ -83,10 +83,10 @@
 <script th:src="@{/theme/default/source/js/tz-blog.js}"></script>
 <script>
 	var sid=[[${article.id}]];
-	Core.postAjax("/blog/api/article/look",{"articleId":sid})
+	Core.postAjax("/cms/api/article/look",{"articleId":sid})
 	$(function () {
 		$(".thumbs-button").click(function () {
-			Core.postAjax("/blog/api/love",{"bizId":sid,"bizType":1},function (data) {
+			Core.postAjax("/cms/api/love",{"bizId":sid,"bizType":1},function (data) {
 				if(data.status==200){
 					$("#loveCount").text(parseInt($("#loveCount").text())+1);
 				}

@@ -16,7 +16,7 @@
             <h3 class="panel-title">标签云</h3>
         </div>
         <div class="panel-body" id="tagcloud" style="overflow: hidden">
-            <a class="btn btn-default btn-xs" th:each="item:${TAG_LIST}" th:href="@{${'/blog/tag/'+item.id}}" th:text="${item.name}"></a>
+            <a class="btn btn-default btn-xs" th:each="item:${TAG_LIST}" th:href="@{${'/tag/'+item.id}}" th:text="${item.name}"></a>
         </div>
     </div>
     <div class="tz-sidebar-tabs">
@@ -30,7 +30,7 @@
                 <ol class="article-list">
                     <li th:each="item,temp:${RECENT_LIST}"  class="slide">
                         <span th:class="${'li-icon li-icon-'+(temp.index+1)}" th:text="${temp.index+1}"></span>
-                        <a th:text="${item.title}" th:href="${'/blog/article/'+item.id}"></a>
+                        <a th:text="${item.title}" th:href="${'/article/'+item.id}"></a>
                     </li>
                 </ol>
             </div>
@@ -38,7 +38,7 @@
                 <ol class="article-list">
                     <li th:each="item,temp:${RECOMMENDED_LIST}"  class="slide">
                         <span th:class="${'li-icon li-icon-'+(temp.index+1)}" th:text="${temp.index+1}"></span>
-                        <a th:text="${item.title}" th:href="${'/blog/article/'+item.id}"></a>
+                        <a th:text="${item.title}" th:href="${'/article/'+item.id}"></a>
                     </li>
                 </ol>
             </div>
@@ -46,7 +46,7 @@
                 <ol class="article-list">
                     <li th:each="item,temp:${HOT_LIST}"  class="slide">
                         <span th:class="${'li-icon li-icon-'+(temp.index+1)}" th:text="${temp.index+1}"></span>
-                        <a th:text="${item.title}" th:href="${'/blog/article/'+item.id}"></a>
+                        <a th:text="${item.title}" th:href="${'/article/'+item.id}"></a>
                     </li>
                 </ol>
             </div>

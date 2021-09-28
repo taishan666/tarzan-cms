@@ -24,22 +24,22 @@
                     </a>
                 </li>
                 <li th:each="category:${CATEGORY_LIST}" th:class="${category.id==categoryId ? 'active':(#lists.isEmpty(category.children)?'':'dropdown')}">
-                    <a th:if="${category.pid==null||category.pid==0}" th:href="@{${not #lists.isEmpty(category.children)? '#': ('/blog/category/' + category.id)}}" th:class="${#lists.isEmpty(category.children)?'':'dropdown-toggle'}" th:data-toggle="${#lists.isEmpty(category.children)?'':'dropdown'}">
+                    <a th:if="${category.pid==null||category.pid==0}" th:href="@{${not #lists.isEmpty(category.children)? '#': ('/category/' + category.id)}}" th:class="${#lists.isEmpty(category.children)?'':'dropdown-toggle'}" th:data-toggle="${#lists.isEmpty(category.children)?'':'dropdown'}">
                         <span th:text="${category.name}"></span>
                         <b th:if="${not #lists.isEmpty(category.children)}" class="caret"></b>
                     </a>
                     <ul th:if="${not #lists.isEmpty(category.children)}" class="dropdown-menu">
-                        <li th:each="node:${category.children}"><a th:href="@{${'/blog/category/' + node.id}}" th:text="${node.name}"></a></li>
+                        <li th:each="node:${category.children}"><a th:href="@{${'/category/' + node.id}}" th:text="${node.name}"></a></li>
                     </ul>
 
                 </li>
                 <li class="">
-                    <a th:href="@{/blog/comment}" th:class="${categoryId=='comment' ? 'active' : ''} ">
+                    <a th:href="@{/comment}" th:class="${categoryId=='comment' ? 'active' : ''} ">
                         留言板
                     </a>
                 </li>
               <li>
-                  <form action="/blog/list" class="navbar-form">
+                  <form action="/list" class="navbar-form">
                       <div class="form-group">
                           <div class="input-group">
                               <input type="search" name="keywords" th:value="@{${keywords}}" placeholder="搜索文章..." class="form-control">

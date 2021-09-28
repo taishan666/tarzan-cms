@@ -48,5 +48,5 @@ mybatis-plus:
     db-config:
       id-type: auto
   mapper-locations: classpath:mapper/**/*.xml,mapper/*.xml
-  type-aliases-package: com.tarzan.cms.model
+  type-aliases-package: com.tarzan.cms.module.**.model
 

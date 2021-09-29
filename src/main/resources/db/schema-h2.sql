@@ -816,6 +816,10 @@ INSERT INTO `sys_menu`
 VALUES (89, '登录日志', '登录日志', '/login/logs', 'loginLogs'
        , 22, 1, 2, 'fas fa-th-list', 1
        , '2021-07-20 16:01:23', '2021-07-20 16:01:23');
+INSERT INTO `sys_menu`
+VALUES (90, '数据备份', '数据备份', '/db/backup', 'dbBackup'
+       , 22, 1, 3, 'fas fa-clone', 1
+       , '2021-07-20 16:01:23', '2021-07-20 16:01:23');
 DROP TABLE IF EXISTS `sys_role`;
 CREATE TABLE IF NOT EXISTS `sys_role` (
                                           `id` int NOT NULL AUTO_INCREMENT COMMENT '主键',
@@ -1003,6 +1007,10 @@ INSERT INTO `sys_role_menu` (`id`, `role_id`, `menu_id`)
 VALUES (79, 1, 87);
 INSERT INTO `sys_role_menu` (`id`, `role_id`, `menu_id`)
 VALUES (80, 1, 88);
+INSERT INTO `sys_role_menu` (`id`, `role_id`, `menu_id`)
+VALUES (81, 1, 89);
+INSERT INTO `sys_role_menu` (`id`, `role_id`, `menu_id`)
+VALUES (82, 1, 90);
 DROP TABLE IF EXISTS `sys_user`;
 CREATE TABLE IF NOT EXISTS `sys_user` (
                                           `id` int NOT NULL AUTO_INCREMENT COMMENT '用户id',

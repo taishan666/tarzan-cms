@@ -52,7 +52,7 @@ public class ArticleLookService extends ServiceImpl<ArticleLookMapper, ArticleLo
         Map<String,List<ArticleLook>> lookMap=looksGroupMap(day);
         Map<String,Long> usersByDayMap=buildRecentDayMap(day);
         lookMap.forEach((k,v)->{
-            List<String> users= v.stream().map(ArticleLook::getUserId).collect(Collectors.toList());
+            List<String> users= v.stream().map(ArticleLook::getUserIp).collect(Collectors.toList());
             users=users.stream().distinct().collect(Collectors.toList());
             usersByDayMap.put(k,Long.valueOf(users.size()));
         });

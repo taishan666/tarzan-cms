@@ -233,7 +233,7 @@
             var checkedRows = Core.selectMutiData("#table");
             if (checkedRows) {
                 Core.confirm("确定推送选中的" + checkedRows.length + "条记录？", function () {
-                    var baseUrl = window.location.protocol + "//" + window.location.host + "/article/";
+                    var baseUrl = window.location.protocol + "//" + window.location.host + "/blog/article/";
                     var urls = [];
                     $.each(checkedRows, function (i, item) {
                         urls.push(baseUrl + item.id);

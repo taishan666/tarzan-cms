@@ -1,14 +1,14 @@
-package com.tarzan.cms.module.front.controller;
+package com.tarzan.cms.module.blog.controller;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.tarzan.cms.common.constant.CoreConst;
-import com.tarzan.cms.common.exception.ArticleNotFoundException;
 import com.tarzan.cms.module.admin.model.biz.Article;
 import com.tarzan.cms.module.admin.model.biz.Category;
 import com.tarzan.cms.module.admin.service.biz.ArticleService;
 import com.tarzan.cms.module.admin.service.biz.CategoryService;
 import com.tarzan.cms.module.admin.service.biz.ThemeService;
+import com.tarzan.cms.common.constant.CoreConst;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.tarzan.cms.common.exception.ArticleNotFoundException;
 import com.tarzan.cms.module.admin.vo.ArticleConditionVo;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -30,7 +30,7 @@ import static com.tarzan.cms.common.constant.CoreConst.THEME_PREFIX;
  */
 @Controller
 @AllArgsConstructor
-public class CMSWebController {
+public class BlogWebController {
 
     private final ArticleService bizArticleService;
     private final CategoryService categoryService;
@@ -43,7 +43,7 @@ public class CMSWebController {
      * @param pageNumber
      * @return
      */
-    @GetMapping({"/", "/index/{pageNumber}"})
+    @GetMapping({"/", "/blog/index/{pageNumber}"})
     public String index(@PathVariable(value = "pageNumber", required = false) Integer pageNumber,
                         Model model) {
         if (CoreConst.SITE_STATIC.get()) {
@@ -55,7 +55,7 @@ public class CMSWebController {
         } else {
             model.addAttribute("sliderList", bizArticleService.sliderList());//轮播文章
         }
-        model.addAttribute("pageUrl", "index");
+        model.addAttribute("pageUrl", "blog/index");
         model.addAttribute("categoryId", "index");
         loadMainPage(model, vo);
         return THEME_PREFIX + bizThemeService.selectCurrent().getName() + "/index";
@@ -69,7 +69,7 @@ public class CMSWebController {
      * @param model
      * @return
      */
-    @GetMapping({"/category/{categoryId}", "/category/{categoryId}/{pageNumber}"})
+    @GetMapping({"/blog/category/{categoryId}", "/blog/category/{categoryId}/{pageNumber}"})
     public String category(@PathVariable("categoryId") Integer categoryId,
                            @PathVariable(value = "pageNumber", required = false) Integer pageNumber,
                            Model model) {
@@ -81,7 +81,7 @@ public class CMSWebController {
         if (pageNumber != null) {
             vo.setPageNumber(pageNumber);
         }
-        model.addAttribute("pageUrl", "category/" + categoryId);
+        model.addAttribute("pageUrl", "blog/category/" + categoryId);
         model.addAttribute("categoryId", categoryId);
         loadMainPage(model, vo);
         return THEME_PREFIX + bizThemeService.selectCurrent().getName() + "/index";
@@ -94,7 +94,7 @@ public class CMSWebController {
      * @param keywords
      * @return
      */
-    @GetMapping({"/list","/list/{pageNumber}"})
+    @GetMapping({"/blog/list","/blog/list/{pageNumber}"})
     public String list(@RequestParam("keywords") String keywords,
                            @PathVariable(value = "pageNumber", required = false) Integer pageNumber,
                            Model model) {
@@ -103,7 +103,7 @@ public class CMSWebController {
         if (pageNumber != null) {
             vo.setPageNumber(pageNumber);
         }
-        model.addAttribute("pageUrl", "list/" + keywords);
+        model.addAttribute("pageUrl", "blog/list/" + keywords);
         model.addAttribute("keywords", keywords);
         loadMainPage(model, vo);
         return THEME_PREFIX + bizThemeService.selectCurrent().getName() + "/index";
@@ -118,7 +118,7 @@ public class CMSWebController {
      * @param model
      * @return
      */
-    @GetMapping({"/tag/{tagId}", "/tag/{tagId}/{pageNumber}"})
+    @GetMapping({"/blog/tag/{tagId}", "/blog/tag/{tagId}/{pageNumber}"})
     public String tag(@PathVariable("tagId") Integer tagId,
                       @PathVariable(value = "pageNumber", required = false) Integer pageNumber,
                       Model model) {
@@ -130,7 +130,7 @@ public class CMSWebController {
         if (pageNumber != null) {
             vo.setPageNumber(pageNumber);
         }
-        model.addAttribute("pageUrl", "tag/" + tagId);
+        model.addAttribute("pageUrl", "blog/tag/" + tagId);
         loadMainPage(model, vo);
         return THEME_PREFIX + bizThemeService.selectCurrent().getName() + "/index";
     }
@@ -142,7 +142,7 @@ public class CMSWebController {
      * @param articleId
      * @return
      */
-    @GetMapping("/article/{articleId}")
+    @GetMapping("/blog/article/{articleId}")
     public String article(Model model, @PathVariable("articleId") Integer articleId) {
         if (CoreConst.SITE_STATIC.get()) {
             return "forward:/html/article/" + articleId + ".html";
@@ -162,7 +162,7 @@ public class CMSWebController {
      * @param model
      * @return
      */
-    @GetMapping("/comment")
+    @GetMapping("/blog/comment")
     public String comment(Model model) {
         if (CoreConst.SITE_STATIC.get()) {
             return "forward:/html/comment/comment.html";

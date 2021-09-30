@@ -37,7 +37,7 @@ $(function () {
     });
 
     function init(pageNumber) {
-        Core.postAjax("/cms/api/comments",{"sid":sid,"pageNumber": (pageNumber==null? 1 : pageNumber), "pageSize": 10, "status":1},function (data) {
+        Core.postAjax("/blog/api/comments",{"sid":sid,"pageNumber": (pageNumber==null? 1 : pageNumber), "pageSize": 10, "status":1},function (data) {
             var commentOne="";
             if(data.total==0){
                 commentOne+='<div class="no-comment">暂无评论，快来占领宝座</div>';
@@ -167,7 +167,7 @@ $(function () {
                             return;
                         }
                         $("#reply-comment-textarea").val(replySimplemde.markdown(replySimplemde.value()));
-                        Core.postAjax("/cms/api/comment/save",$("#reply-comment-form").serialize(),function (data) {
+                        Core.postAjax("/blog/api/comment/save",$("#reply-comment-form").serialize(),function (data) {
                             if(Core.getCookie("tz-cms-username")==""){
                                 Core.setCookie("tz-cms-username",$("#reply-nickname").val(),30);
                                 Core.setCookie("tz-cms-qq",$("#reply-qq").val(),30);
@@ -192,7 +192,7 @@ $(function () {
                 
                 $(".comment-support").click(function () {
                     $thisLove = $(this);
-                    Core.postAjax("/cms/api/love",{"bizId":$(this).attr("biz-id"),"bizType":2},function (data) {
+                    Core.postAjax("/blog/api/love",{"bizId":$(this).attr("biz-id"),"bizType":2},function (data) {
                         if(data.status==200){
                             $thisLove.text(parseInt($thisLove.text())+1);
                         }
@@ -214,7 +214,7 @@ $(function () {
             return;
         }
         $("#comment-textarea").val(simplemde.markdown(simplemde.value()));
-        Core.postAjax("/cms/api/comment/save",$("#comment-form").serialize(),function (data) {
+        Core.postAjax("/blog/api/comment/save",$("#comment-form").serialize(),function (data) {
             layer.msg(data.msg, {
                 offset: '30%',
                 time: 800

@@ -1,5 +1,6 @@
 package com.tarzan.cms.common.listener;
 
+import com.tarzan.cms.utils.ArticleCollect;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.context.event.ApplicationStartedEvent;
 import org.springframework.context.ApplicationListener;
@@ -9,6 +10,7 @@ import org.springframework.core.annotation.Order;
 import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Component;
 
+import javax.annotation.Resource;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 
@@ -21,6 +23,9 @@ import java.net.UnknownHostException;
 @Component
 @Order(Ordered.HIGHEST_PRECEDENCE)
 public class StartedListener implements ApplicationListener<ApplicationStartedEvent> {
+
+    @Resource
+    private ArticleCollect articleCollect;
 
 
     @Override
@@ -43,6 +48,8 @@ public class StartedListener implements ApplicationListener<ApplicationStartedEv
                 "Local: \t\thttp://localhost:" + port + contextPath + "\n\t" +
                 "External: \thttp://" + ip + ':' + port + contextPath + '\n' +
                 "----------------------------------------------------------");
+
+      //  articleCollect.collect();
     }
 
 

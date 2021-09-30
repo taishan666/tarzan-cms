@@ -58,7 +58,7 @@ public class StaticHtmlService {
         vo.setStatus(CoreConst.STATUS_VALID);
         int total = bizArticleService.count(Wrappers.<Article>lambdaQuery().eq(Article::getStatus, CoreConst.STATUS_VALID));
         if (total == 0) {
-            Map<String, Object> paramMap = ImmutableMap.of("pageUrl", "index", "categoryId", "index", "sliderList", sliderList, "page", new Page<>(1, 10), "articleList", Collections.emptyList());
+            Map<String, Object> paramMap = ImmutableMap.of("pageUrl", "blog/index", "categoryId", "index", "sliderList", sliderList, "page", new Page<>(1, 10), "articleList", Collections.emptyList());
             createHtml(request, response, force, paramMap, "index", "index");
             return;
         }
@@ -66,7 +66,7 @@ public class StaticHtmlService {
         for (long pageNum = 1; pageNum <= pagination.getPages(); pageNum++) {
             IPage<Article> page = new Page<>(vo.getPageNumber(), vo.getPageSize());
             List<Article> articleList = bizArticleService.findByCondition(page, vo);
-            Map<String, Object> paramMap = ImmutableMap.of("pageUrl", "index", "categoryId", "index", "sliderList", sliderList, "page", page, "articleList", articleList);
+            Map<String, Object> paramMap = ImmutableMap.of("pageUrl", "blog/index", "categoryId", "index", "sliderList", sliderList, "page", page, "articleList", articleList);
             if (pageNum == 1) {
                 createHtml(request, response, force, paramMap, "index", "index");
             }
@@ -98,7 +98,7 @@ public class StaticHtmlService {
 
             int total = bizArticleService.count(Wrappers.<Article>lambdaQuery().eq(Article::getCategoryId, category.getId()).eq(Article::getStatus, CoreConst.STATUS_VALID));
             if (total == 0) {
-                Map<String, Object> paramMap = ImmutableMap.of("pageUrl", "category/" + category.getId(), "categoryId", category.getId(), "categoryName", category.getName(), "articleList", Collections.emptyList());
+                Map<String, Object> paramMap = ImmutableMap.of("pageUrl", "blog/category/" + category.getId(), "categoryId", category.getId(), "categoryName", category.getName(), "articleList", Collections.emptyList());
                 createHtml(request, response, force, paramMap, "index", "category" + File.separator + category.getId());
                 continue;
             }
@@ -107,7 +107,7 @@ public class StaticHtmlService {
 
                 IPage<Article> page = new Page<>(pageNum, vo.getPageSize());
                 List<Article> articleList = bizArticleService.findByCondition(page, vo);
-                Map<String, Object> paramMap = ImmutableMap.of("pageUrl", "category/" + category.getId(), "categoryId", category.getId(), "categoryName", category.getName(), "page", page, "articleList", articleList);
+                Map<String, Object> paramMap = ImmutableMap.of("pageUrl", "blog/category/" + category.getId(), "categoryId", category.getId(), "categoryName", category.getName(), "page", page, "articleList", articleList);
                 if (pageNum == 1) {
                     createHtml(request, response, force, paramMap, "index", "category" + File.separator + category.getId());
                 }
@@ -125,7 +125,7 @@ public class StaticHtmlService {
 
             int total = bizArticleTagsService.count(Wrappers.<ArticleTags>lambdaQuery().eq(ArticleTags::getTagId, tag.getId()));
             if (total == 0) {
-                Map<String, Object> paramMap = ImmutableMap.of("pageUrl", "tag/" + tag.getId(), "articleList", Collections.emptyList());
+                Map<String, Object> paramMap = ImmutableMap.of("pageUrl", "blog/tag/" + tag.getId(), "articleList", Collections.emptyList());
                 createHtml(request, response, force, paramMap, "index", "tag" + File.separator + tag.getId());
                 continue;
             }
@@ -134,7 +134,7 @@ public class StaticHtmlService {
 
                 IPage<Article> page = new Page<>(pageNum, vo.getPageSize());
                 List<Article> articleList = bizArticleService.findByCondition(page, vo);
-                Map<String, Object> paramMap = ImmutableMap.of("pageUrl", "tag/" + tag.getId(), "page", page, "articleList", articleList);
+                Map<String, Object> paramMap = ImmutableMap.of("pageUrl", "blog/tag/" + tag.getId(), "page", page, "articleList", articleList);
                 if (pageNum == 1) {
                     createHtml(request, response, force, paramMap, "index", "tag" + File.separator + tag.getId());
                 }

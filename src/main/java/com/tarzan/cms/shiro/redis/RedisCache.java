@@ -67,7 +67,7 @@ public class RedisCache<K, V> implements Cache<K, V> {
      */
     @Override
     public V get(K key) throws CacheException {
-        logger.debug("get key [" + key + "]");
+       // logger.debug("get key [" + key + "]");
 
         if (key == null) {
             return null;

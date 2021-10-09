@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.PropertyAccessor;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.jsontype.impl.LaissezFaireSubTypeValidator;
+import com.tarzan.cms.common.constant.CoreConst;
 import org.springframework.cache.CacheManager;
 import org.springframework.cache.annotation.CachingConfigurerSupport;
 import org.springframework.cache.annotation.EnableCaching;
@@ -39,7 +40,7 @@ public class RedisConfig extends CachingConfigurerSupport {
         RedisCacheConfiguration cacheConfiguration = RedisCacheConfiguration
                 .defaultCacheConfig()
                 .entryTtl(Duration.ofDays(30))
-                .computePrefixWith(CacheKeyPrefix.prefixed("tarzan:cms:"))
+                .computePrefixWith(CacheKeyPrefix.prefixed(CoreConst.TARZAN_REDIS_CMS_PREFIX))
                 .serializeValuesWith(RedisSerializationContext.SerializationPair.fromSerializer(jackson2JsonRedisSerializer()));
         return RedisCacheManager
                 .builder(RedisCacheWriter.nonLockingRedisCacheWriter(factory))

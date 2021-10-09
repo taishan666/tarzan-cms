@@ -29,6 +29,12 @@ public class TagsService extends ServiceImpl<TagsMapper, Tags> {
                 .like(StringUtils.isNotBlank(tags.getDescription()), Tags::getDescription, tags.getDescription()));
     }
 
+
+    @Cacheable(value = "tag", key = "'count'")
+    public int count() {
+        return  count(null);
+    }
+
     public IPage<Tags> pageTags(Tags tags, Integer pageNumber, Integer pageSize) {
         IPage<Tags> page = new Page<>(pageNumber, pageSize);
         return page(page,Wrappers.<Tags>lambdaQuery()

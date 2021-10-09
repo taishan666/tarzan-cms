@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Set;
 
 /**
- * Abstract class of RedisManager.
+ *  class of RedisManager.
  */
 public abstract class WorkAloneRedisManager implements IRedisManager {
 

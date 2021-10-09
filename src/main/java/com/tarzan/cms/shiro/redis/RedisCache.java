@@ -4,7 +4,6 @@ import com.tarzan.cms.shiro.exception.CacheManagerPrincipalIdNotAssignedExceptio
 import com.tarzan.cms.shiro.exception.PrincipalIdNullException;
 import com.tarzan.cms.shiro.exception.PrincipalInstanceException;
 import com.tarzan.cms.shiro.exception.SerializationException;
-import com.tarzan.cms.shiro.serializer.ObjectSerializer;
 import com.tarzan.cms.shiro.serializer.RedisSerializer;
 import com.tarzan.cms.shiro.serializer.StringSerializer;
 import org.apache.shiro.cache.Cache;
@@ -22,11 +21,11 @@ public class RedisCache<K, V> implements Cache<K, V> {
 
     private static Logger logger = LoggerFactory.getLogger(RedisCache.class);
 
-    private RedisSerializer keySerializer = new StringSerializer();
-    private RedisSerializer valueSerializer = new ObjectSerializer();
+    private RedisSerializer keySerializer;
+    private RedisSerializer valueSerializer;
     private IRedisManager redisManager;
     private String keyPrefix = RedisCacheManager.DEFAULT_CACHE_KEY_PREFIX;
-    private int expire = RedisCacheManager.DEFAULT_EXPIRE;
+    private int expire;
     private String principalIdFieldName = RedisCacheManager.DEFAULT_PRINCIPAL_ID_FIELD_NAME;
 
     /**

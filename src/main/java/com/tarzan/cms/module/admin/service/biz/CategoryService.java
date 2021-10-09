@@ -2,6 +2,7 @@ package com.tarzan.cms.module.admin.service.biz;
 
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.tarzan.cms.common.constant.CoreConst;
 import com.tarzan.cms.module.admin.mapper.biz.CategoryMapper;
 import com.tarzan.cms.module.admin.model.biz.Category;
 import org.springframework.cache.annotation.Cacheable;
@@ -21,6 +22,11 @@ public class CategoryService extends ServiceImpl<CategoryMapper, Category> {
     @Cacheable(value = "category", key = "'tree'")
     public List<Category> selectCategories(Category category) {
         return list(Wrappers.<Category>lambdaQuery(category).orderByAsc(Category::getSort));
+    }
+
+    @Cacheable(value = "category", key = "'count'")
+    public int count() {
+        return count(Wrappers.<Category>lambdaQuery().eq(Category::getStatus, CoreConst.STATUS_VALID));
     }
 
     public Category selectById(Integer id) {

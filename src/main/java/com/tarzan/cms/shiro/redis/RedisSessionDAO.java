@@ -147,7 +147,7 @@ public class RedisSessionDAO extends AbstractSessionDAO {
         }
 
         Session session = null;
-        logger.debug("read session from redis");
+        //logger.debug("read session from redis");
         try {
             session = (Session) valueSerializer.deserialize(redisManager.get(keySerializer.serialize(getRedisSessionKey(sessionId))));
             if (this.sessionInMemoryEnabled) {
@@ -207,7 +207,7 @@ public class RedisSessionDAO extends AbstractSessionDAO {
             return null;
         }
 
-        logger.debug("read session from memory");
+        //logger.debug("read session from memory");
         return sessionInMemory.getSession();
     }
 

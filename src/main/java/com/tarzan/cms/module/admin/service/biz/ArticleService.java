@@ -67,6 +67,11 @@ public class ArticleService extends ServiceImpl<ArticleMapper, Article> {
         return getById(id);
     }
 
+    @Cacheable(value = "article", key = "'count'")
+    public int count() {
+        return count(Wrappers.<Article>lambdaQuery().eq(Article::getStatus, CoreConst.STATUS_VALID));
+    }
+
     @CacheEvict(value = "article", allEntries = true)
     public Article insertArticle(Article bizArticle) {
         Date date = new Date();

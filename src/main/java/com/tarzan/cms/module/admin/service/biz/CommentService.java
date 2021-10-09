@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.core.toolkit.CollectionUtils;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.tarzan.cms.common.constant.CoreConst;
 import com.tarzan.cms.module.admin.mapper.biz.CommentMapper;
 import com.tarzan.cms.module.admin.model.biz.Article;
 import com.tarzan.cms.module.admin.model.biz.Comment;
@@ -38,6 +39,10 @@ public class CommentService extends ServiceImpl<CommentMapper, Comment> {
 
     public boolean deleteBatch(Integer[] ids) {
         return remove(Wrappers.<Comment>lambdaQuery().in(Comment::getId,ids).or().in(Comment::getPid,ids));
+    }
+
+    public int count() {
+        return count(Wrappers.<Comment>lambdaQuery().eq(Comment::getStatus, CoreConst.STATUS_VALID));
     }
 
     public IPage<Comment> selectComments1(CommentConditionVo vo, Integer pageNumber, Integer pageSize){

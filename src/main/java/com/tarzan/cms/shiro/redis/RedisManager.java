@@ -2,7 +2,6 @@ package com.tarzan.cms.shiro.redis;
 
 import lombok.Getter;
 import lombok.Setter;
-import org.crazycake.shiro.WorkAloneRedisManager;
 import redis.clients.jedis.*;
 
 import java.util.HashSet;

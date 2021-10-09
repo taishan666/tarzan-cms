@@ -2,10 +2,12 @@ package com.tarzan.cms.shiro.config;
 
 import at.pollux.thymeleaf.shiro.dialect.ShiroDialect;
 import com.baomidou.mybatisplus.core.toolkit.StringUtils;
-import com.tarzan.cms.shiro.filter.KickOutSessionControlFilter;
-import com.tarzan.cms.shiro.redis.RedisManager;
-import com.tarzan.cms.shiro.MyShiroRealm;
 import com.tarzan.cms.common.constant.CoreConst;
+import com.tarzan.cms.shiro.MyShiroRealm;
+import com.tarzan.cms.shiro.filter.KickOutSessionControlFilter;
+import com.tarzan.cms.shiro.redis.RedisCacheManager;
+import com.tarzan.cms.shiro.redis.RedisManager;
+import com.tarzan.cms.shiro.redis.RedisSessionDAO;
 import org.apache.shiro.codec.Base64;
 import org.apache.shiro.mgt.SecurityManager;
 import org.apache.shiro.spring.LifecycleBeanPostProcessor;
@@ -15,8 +17,6 @@ import org.apache.shiro.web.mgt.CookieRememberMeManager;
 import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
 import org.apache.shiro.web.servlet.SimpleCookie;
 import org.apache.shiro.web.session.mgt.DefaultWebSessionManager;
-import org.crazycake.shiro.RedisCacheManager;
-import org.crazycake.shiro.RedisSessionDAO;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -224,8 +224,8 @@ public class ShiroConfig {
         kickoutSessionControlFilter.setSessionManager(sessionManager());
         //是否踢出后来登录的，默认是false；即后者登录的用户踢出前者登录的用户；踢出顺序。
         kickoutSessionControlFilter.setKickOutAfter(false);
-        //同一个用户最大的会话数，默认5；比如5的意思是同一个用户允许最多同时五个人登录；
-        kickoutSessionControlFilter.setMaxSession(5);
+        //同一个用户最大的会话数，默认3；比如5的意思是同一个用户允许最多同时三个人登录；
+        kickoutSessionControlFilter.setMaxSession(3);
         //被踢出后重定向到的地址；
         kickoutSessionControlFilter.setKickOutUrl("/kickOut");
         return kickoutSessionControlFilter;

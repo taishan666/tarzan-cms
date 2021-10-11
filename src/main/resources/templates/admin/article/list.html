@@ -216,7 +216,7 @@
                     $.each(checkedRows, function (i, item) {
                         ids.push(item.id);
                     })
-                    var jsonStr = JSON.stringify(ids)
+                    var jsonStr = JSON.stringify(ids);
                     Core.postAjax("/article/batch/delete", jsonStr, function (data) {
                         if (data.status === 200) {
                             refreshTable();

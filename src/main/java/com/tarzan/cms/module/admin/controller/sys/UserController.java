@@ -115,13 +115,7 @@ public class UserController {
     @PostMapping("/delete")
     @ResponseBody
     public ResponseVo deleteUser(Integer id) {
-        List<Integer> userIdsList = Arrays.asList(id);
-        boolean flag = userService.updateStatusBatch(userIdsList, CoreConst.STATUS_INVALID);
-        if (flag) {
-            return ResultUtil.success("删除用户成功");
-        } else {
-            return ResultUtil.error("删除用户失败");
-        }
+        return batchDeleteUser(Arrays.asList(id));
     }
 
     /**
@@ -129,9 +123,8 @@ public class UserController {
      */
     @PostMapping("/batch/delete")
     @ResponseBody
-    public ResponseVo batchDeleteUser(@RequestParam("ids[]") Integer[] ids) {
-        List<Integer> userIdsList = Arrays.asList(ids);
-        boolean a = userService.updateStatusBatch(userIdsList, CoreConst.STATUS_INVALID);
+    public ResponseVo batchDeleteUser(@RequestBody List<Integer> ids) {
+        boolean a = userService.updateStatusBatch(ids, CoreConst.STATUS_INVALID);
         if (a) {
             return ResultUtil.success("删除用户成功");
         } else {

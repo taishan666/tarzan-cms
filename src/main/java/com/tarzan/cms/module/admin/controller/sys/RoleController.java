@@ -2,16 +2,16 @@ package com.tarzan.cms.module.admin.controller.sys;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.tarzan.cms.common.constant.CoreConst;
-import com.tarzan.cms.shiro.MyShiroRealm;
-import com.tarzan.cms.utils.ResultUtil;
 import com.tarzan.cms.module.admin.model.sys.Menu;
 import com.tarzan.cms.module.admin.model.sys.Role;
 import com.tarzan.cms.module.admin.model.sys.User;
-import com.tarzan.cms.module.admin.service.sys.RoleService;
 import com.tarzan.cms.module.admin.service.sys.MenuService;
+import com.tarzan.cms.module.admin.service.sys.RoleService;
 import com.tarzan.cms.module.admin.vo.PermissionTreeListVo;
 import com.tarzan.cms.module.admin.vo.base.PageResultVo;
 import com.tarzan.cms.module.admin.vo.base.ResponseVo;
+import com.tarzan.cms.shiro.MyShiroRealm;
+import com.tarzan.cms.utils.ResultUtil;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections.CollectionUtils;
@@ -22,7 +22,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 
 /**
@@ -82,22 +81,13 @@ public class RoleController {
     @PostMapping("/delete")
     @ResponseBody
     public ResponseVo deleteRole(Integer id) {
-        if (roleService.findByRoleId(id).size() > 0) {
-            return ResultUtil.error("删除失败,该角色下存在用户");
-        }
-        List<Integer> roleIdsList = Collections.singletonList(id);
-        boolean flag = roleService.updateStatusBatch(roleIdsList, CoreConst.STATUS_INVALID);
-        if (flag) {
-            return ResultUtil.success("删除角色成功");
-        } else {
-            return ResultUtil.error("删除角色失败");
-        }
+        return batchDeleteRole(Arrays.asList(id));
     }
 
     /*批量删除角色*/
     @PostMapping("/batch/delete")
     @ResponseBody
-    public ResponseVo batchDeleteRole(@RequestParam("ids[]") List<Integer> ids) {
+    public ResponseVo batchDeleteRole(@RequestBody List<Integer> ids) {
         if (CollectionUtils.isNotEmpty(roleService.findByRoleIds(ids))) {
             return ResultUtil.error("删除失败,选择的角色下存在用户");
         }

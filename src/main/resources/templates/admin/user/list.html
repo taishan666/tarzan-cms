@@ -238,12 +238,15 @@
                     $.each(checkedRows, function (i, item) {
                         ids.push(item.id);
                     })
-                    Core.postAjax("/user/batch/delete", {"ids": ids}, function (data) {
+                    var jsonStr = JSON.stringify(ids);
+                    Core.postAjax("/user/batch/delete", jsonStr, function (data) {
                         if (data.status === 200) {
                             refreshTable();
                         }
                         layer.msg(data.msg);
-                    })
+                    }, function (err) {
+                        layer.msg(err)
+                    }, "POST", "application/json; charset=UTF-8")
                 })
             }
         })

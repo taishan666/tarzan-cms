@@ -87,7 +87,7 @@ public class LinkController {
 
     @PostMapping("/batch/delete")
     @ResponseBody
-    public ResponseVo deleteBatch(@RequestParam("ids") List<Integer> ids) {
+    public ResponseVo deleteBatch(@RequestBody List<Integer> ids) {
         boolean flag = linkService.deleteBatch(ids);
         if (flag) {
             return ResultUtil.success("删除友链成功");

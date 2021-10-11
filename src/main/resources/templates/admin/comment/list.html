@@ -135,7 +135,8 @@
                     if (value == -1) {
                         return '<span style="color: red">留言板</span>'
                     } else {
-                        return '<span class="color-2c93fd">' + (row.article.title.length <= 15 ? row.article.title : (row.article.title.substring(0, 15) + '...')) + '</span>';
+                        return '<span style="color: red">文章</span>'
+                     //   return '<span class="color-2c93fd">' + (row.article.title.length <= 15 ? row.article.title : (row.article.title.substring(0, 15) + '...')) + '</span>';
                     }
                 }
             }, {
@@ -238,12 +239,15 @@
                     $.each(checkedRows, function (i, item) {
                         ids.push(item.id);
                     })
-                    Core.postAjax("/comment/batch/delete", {"ids": ids}, function (data) {
+                    var jsonStr = JSON.stringify(ids);
+                    Core.postAjax("/comment/batch/delete",jsonStr, function (data) {
                         if (data.status === 200) {
                             refreshTable();
                         }
                         layer.msg(data.msg);
-                    })
+                    },function (err) {
+                        layer.msg(err)
+                    }, "POST", "application/json; charset=UTF-8")
                 })
             }
         })

@@ -20,7 +20,7 @@ import java.util.Map;
  * 后台网站信息配置
  *
  * @author tarzan liu
- * @version V1.0
+ * @since JDK1.8
  * @date 2021年5月11日
  */
 @Controller

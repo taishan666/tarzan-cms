@@ -10,7 +10,7 @@ import java.util.regex.Pattern;
  * Xss防御工具类
  *
  * @author tarzan liu
- * @version V1.0
+ * @since JDK1.8
  * @date 2021年7月11日
  */
 public class XssKillerUtil {

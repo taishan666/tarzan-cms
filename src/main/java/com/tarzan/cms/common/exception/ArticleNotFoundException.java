@@ -5,7 +5,7 @@ package com.tarzan.cms.common.exception;
  * 自定义文章未找到异常
  *
  * @author tarzan liu
- * @version V1.0
+ * @since JDK1.8
  * @date 2021年5月11日
  */
 public class ArticleNotFoundException extends RuntimeException {

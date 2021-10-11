@@ -7,7 +7,7 @@ import lombok.Data;
  * 云存储配置信息
  *
  * @author tarzan liu
- * @version V1.0
+ * @since JDK1.8
  * @date 2021年5月11日
  */
 @Data

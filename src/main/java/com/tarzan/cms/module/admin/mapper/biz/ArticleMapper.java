@@ -11,7 +11,7 @@ import java.util.List;
 
 /**
  * @author tarzan liu
- * @version V1.0
+ * @since JDK1.8
  * @date 2021年5月11日
  */
 public interface ArticleMapper extends BaseMapper<Article> {

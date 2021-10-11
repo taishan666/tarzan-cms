@@ -10,7 +10,7 @@ import org.springframework.http.HttpStatus;
  * 配置系统后台出错时跳转到的错误页面
  *
  * @author tarzan liu
- * @version V1.0
+ * @since JDK1.8
  * @date 2021年5月11日
  */
 @Configuration

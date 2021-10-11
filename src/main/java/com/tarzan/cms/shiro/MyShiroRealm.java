@@ -38,7 +38,7 @@ import java.util.Set;
  * 自定义shiro realm，进行鉴权和认证
  *
  * @author tarzan liu
- * @version V1.0
+ * @since JDK1.8
  * @date 2021年5月11日
  */
 @Component

@@ -16,7 +16,7 @@ import java.util.Locale;
  * 日期工具类
  *
  * @author tarzan liu
- * @version V1.0
+ * @since JDK1.8
  * @date 2021年5月11日
  */
 @Slf4j

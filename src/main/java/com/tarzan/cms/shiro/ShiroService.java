@@ -22,7 +22,7 @@ import java.util.Map;
  * 初始化、动态更新shiro用户权限
  *
  * @author tarzan liu
- * @version V1.0
+ * @since JDK1.8
  * @date 2021年5月11日
  */
 @Service

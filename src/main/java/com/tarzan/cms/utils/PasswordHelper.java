@@ -12,7 +12,7 @@ import org.apache.shiro.util.ByteSource;
  * 密码加密工具类
  *
  * @author tarzan liu
- * @version V1.0
+ * @since JDK1.8
  * @date 2021年5月11日
  */
 @UtilityClass

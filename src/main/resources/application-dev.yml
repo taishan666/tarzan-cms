@@ -52,7 +52,7 @@ static:
   folder: /tarzanCms/html/path
 
 cms:
-  work-dir: ${user.home}/.tarzan-cms/theme/
+  theme-dir: ${user.home}/.tarzan-cms/theme/
   embedded-redis-enabled: true
   embedded-redis-port: 6379
   embedded-redis-password: 666666

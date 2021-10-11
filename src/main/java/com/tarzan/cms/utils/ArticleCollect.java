@@ -26,7 +26,7 @@ public class ArticleCollect {
 
 
     //网站地址
-    private static String webUrl="https://blog.csdn.net/weixin_39709134";
+    private static String webUrl="https://blog.csdn.net/weixin_40986713";
 
 
     public  void  collect(){

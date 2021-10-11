@@ -1,6 +1,8 @@
-package com.tarzan.cms.common.exception;
+package com.tarzan.cms.common.handle;
 
 import com.tarzan.cms.common.enums.ResponseStatus;
+import com.tarzan.cms.common.exception.AppException;
+import com.tarzan.cms.common.exception.ArticleNotFoundException;
 import com.tarzan.cms.utils.ErrorLogPublisher;
 import com.tarzan.cms.utils.UrlUtil;
 import com.tarzan.cms.utils.WebUtil;
@@ -23,7 +25,7 @@ import java.util.Map;
  */
 @Slf4j
 @ControllerAdvice
-public class ExceptionHandleController {
+public class AppExceptionHandler {
 
     @ExceptionHandler(AppException.class)
     public String handleAppException(Exception e, HttpServletRequest request) {

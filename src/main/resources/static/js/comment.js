@@ -189,7 +189,6 @@ $(function () {
                     $(this).hide();
                     $(this).prev().show();
                 })
-                
                 $(".comment-support").click(function () {
                     $thisLove = $(this);
                     Core.postAjax("/blog/api/love",{"bizId":$(this).attr("biz-id"),"bizType":2},function (data) {

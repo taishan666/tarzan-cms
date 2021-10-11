@@ -56,11 +56,8 @@ public class BlogApiController {
             return ResultUtil.error("内容不合法");
         }
         content = XssKillerUtil.clean(content.trim()).replaceAll("(<p><br></p>)|(<p></p>)", "");
-        Date date = new Date();
         comment.setContent(content);
         comment.setIp(IpUtil.getIpAddr(request));
-        comment.setCreateTime(date);
-        comment.setUpdateTime(date);
         if (StringUtils.isNotBlank(comment.getQq())) {
             comment.setAvatar("http://q1.qlogo.cn/g?b=qq&nk=" + comment.getQq() + "&s=100");
         } else if (StringUtils.isNotBlank(comment.getEmail())) {
@@ -72,7 +69,7 @@ public class BlogApiController {
             }
             comment.setAvatar("http://www.gravatar.com/avatar/" + entry + "?d=mp");
         }
-        boolean a = commentService.save(comment);
+        boolean a = commentService.insertComment(comment);
         if (a) {
             return ResultUtil.success("评论提交成功,系统正在审核");
         } else {

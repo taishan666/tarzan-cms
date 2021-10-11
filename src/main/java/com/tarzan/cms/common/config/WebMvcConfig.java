@@ -7,13 +7,10 @@ import com.tarzan.cms.common.properties.StaticHtmlProperties;
 import lombok.AllArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
-import org.thymeleaf.templatemode.TemplateMode;
-import org.thymeleaf.templateresolver.ClassLoaderTemplateResolver;
 
 import java.io.File;
 
@@ -52,10 +49,10 @@ public class WebMvcConfig implements WebMvcConfigurer {
         registry.addResourceHandler(staticHtmlProperties.getAccessPathPattern())
                 .addResourceLocations("file:" + staticFolder);
         //主题资源
-        String workDir = cmsProperties.getWorkDir();
-        workDir = StringUtils.appendIfMissing(workDir, File.separator);
+        String themeDir = cmsProperties.getThemeDir();
+        themeDir = StringUtils.appendIfMissing(themeDir, File.separator);
         registry.addResourceHandler("/theme/**")
-                .addResourceLocations("file:" + workDir);
+                .addResourceLocations("file:" + themeDir);
     }
 
     @Override
@@ -63,7 +60,7 @@ public class WebMvcConfig implements WebMvcConfigurer {
         registry.addInterceptor(commonDataInterceptor).addPathPatterns("/**");
     }
 
-
+/*
     @Bean
     public ClassLoaderTemplateResolver localTemplateResolver() {
         ClassLoaderTemplateResolver resolver = new ClassLoaderTemplateResolver();
@@ -74,7 +71,7 @@ public class WebMvcConfig implements WebMvcConfigurer {
         resolver.setOrder(0);
         resolver.setCheckExistence(true);
         return resolver;
-    }
+    }*/
 
 
 

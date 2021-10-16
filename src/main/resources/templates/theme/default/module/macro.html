@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="keywords" th:content="${SITE_CONFIG.SITE_KWD}">
+    <meta name="description" th:content="${SITE_CONFIG.SITE_DESC}">
+    <title th:if="${categoryName == null}" th:text="${SITE_CONFIG.SITE_NAME}"></title>
+    <title th:if="${categoryName != null}" th:text="${categoryName} + ' - ' +${SITE_CONFIG.SITE_NAME}"></title>
+    <link rel="stylesheet" th:href="@{/libs/bootstrap/bootstrap.min.css}"/>
+    <link rel="stylesheet" th:href="@{/theme/default/source/css/jquery.pagination.css}" />
+    <link rel="stylesheet" th:href="@{/libs/swiper/css/swiper.min.css}"/>
+    <link rel="stylesheet" th:href="@{/libs/font-icon/icon.css}"/>
+    <link rel="stylesheet" th:href="@{/theme/default/source/css/web-common.css}" />
+    <link rel="stylesheet" th:href="@{/theme/default/source/css/web-blog.css}" />
+</head>
+<script th:inline="javascript">var ctx = [[@{/}]];</script>
+<script th:src="@{/js/jquery.min.js}"></script>
+<script th:src="@{/theme/default/source/js/jquery.pagination.min.js}"></script>
+<script th:src="@{/libs/bootstrap/bootstrap.min.js}"></script>
+<script th:src="@{/libs/swiper/js/swiper.min.js}"></script>
+<script th:src="@{/theme/default/source/js/tagcloud.js}"></script>
+<script th:src="@{/js/hc-sticky.js}" ></script>
+<script th:src="@{/theme/default/source/js/tz-blog.js}"></script>
+<script>
+    $(function () {
+        var pageUrl = '[[${pageUrl}]]';
+        var $pagination = $("#pagination");
+        if ($pagination) {
+            $pagination.pagination({
+                currentPage: [[${page.current}]],
+                totalPage: [[${page.pages}]],
+                callback: function (pageNo) {
+                    window.location.href = (ctx + pageUrl + '/' +  pageNo).replace('//', '/');
+                }
+            });
+        }
+    })
+</script>
+
+</html>

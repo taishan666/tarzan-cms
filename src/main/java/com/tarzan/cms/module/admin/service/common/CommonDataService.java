@@ -31,6 +31,7 @@ public class CommonDataService {
     private final TagsService bizTagsService;
     private final LinkService bizLinkService;
     private final SiteInfoService siteInfoService;
+    private final ThemeService themeService;
     private final SysConfigService sysConfigService;
 
     public Object get(String moduleName) {
@@ -51,6 +52,8 @@ public class CommonDataService {
                     return bizLinkService.selectLinks(new Link().setStatus(CoreConst.STATUS_VALID));
                 case SITE_INFO:
                     return siteInfoService.getSiteInfo();
+                case WEB_THEME:
+                    return themeService.selectCurrent().getName();
                 case SITE_CONFIG:
                     return sysConfigService.selectAll();
                 default:
@@ -96,6 +99,8 @@ public class CommonDataService {
         LINK_LIST,
         //网站信息统计
         SITE_INFO,
+        //网站信息统计
+        WEB_THEME,
         //网站基本信息配置
         SITE_CONFIG
     }

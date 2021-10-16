@@ -39,11 +39,11 @@
                     </a>
                 </li>
               <li>
-                  <form action="/blog/list" class="navbar-form">
+                  <form action="/blog/list" id="searchForm" class="navbar-form">
                       <div class="form-group">
                           <div class="input-group">
                               <input type="search" name="keywords" th:value="@{${keywords}}" placeholder="搜索文章..." class="form-control">
-                              <span class="input-group-addon"><span class="glyphicon glyphicon-search"></span></span>
+                              <span class="input-group-addon"><a href="#" onclick="document.getElementById('searchForm').submit();"><span class="glyphicon glyphicon-search"></span></a></span>
                           </div>
                       </div>
                   </form>

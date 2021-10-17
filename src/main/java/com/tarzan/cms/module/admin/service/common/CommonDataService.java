@@ -53,7 +53,7 @@ public class CommonDataService {
                 case SITE_INFO:
                     return siteInfoService.getSiteInfo();
                 case WEB_THEME:
-                    return themeService.selectCurrent().getName();
+                    return themeService.getTheme();
                 case SITE_CONFIG:
                     return sysConfigService.selectAll();
                 default:

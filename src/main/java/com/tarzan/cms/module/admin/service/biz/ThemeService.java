@@ -35,6 +35,11 @@ public class ThemeService extends ServiceImpl<ThemeMapper, Theme> {
         return getOne(Wrappers.<Theme>lambdaQuery().eq(Theme::getStatus, CoreConst.STATUS_VALID));
     }
 
+    @Cacheable(value = "theme", key = "'themeName'")
+    public String getTheme() {
+        return CoreConst.THEME_PREFIX+selectCurrent().getName();
+    }
+
     @CacheEvict(value = "theme", allEntries = true)
     public boolean deleteBatch(List<Integer> ids) {
         return removeByIds(ids);

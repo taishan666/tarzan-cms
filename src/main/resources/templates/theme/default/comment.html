@@ -11,12 +11,12 @@
 	<link rel="stylesheet" th:href="@{/libs/markdown/simplemde.min.css}">
 	<link rel="stylesheet" th:href="@{/libs/markdown/github-markdown.min.css}">
 	<link rel="stylesheet" th:href="@{/libs/markdown/highlight.min.css}">
-	<link rel="stylesheet" th:href="@{/theme/default/source/css/web-common.css}" />
-	<link rel="stylesheet" th:href="@{/theme/default/source/css/web-blog.css}" />
+	<link rel="stylesheet" th:href="@{|/${WEB_THEME}/source/css/web-common.css|}" />
+	<link rel="stylesheet" th:href="@{|/${WEB_THEME}/source/css/web-blog.css|}" />
 </head>
 <body>
 <header id="header">
-	<div th:replace="theme/default/module/navbar :: navbar"></div>
+	<div th:replace="@{|${WEB_THEME}/module/navbar.html|}"></div>
 </header>
 <div class="tz-container tz-content">
 	<div class="tz-main comment">
@@ -67,9 +67,9 @@
 			</div>
 		</div>
 	</div>
-	<div th:replace="theme/default/module/sidebar :: sidebar"></div>
+	<div th:replace="@{|${WEB_THEME}/module/sidebar.html|}"></div>
 </div>
-<div th:replace="theme/default/module/footer :: copyrightDark"></div>
+<div th:replace="@{|${WEB_THEME}/module/footer.html|}"></div>
 <div class="return_top"><a class=" fa fa-arrow-up"></a></div>
 
 <script th:inline="javascript">var ctx = [[@{/}]];</script>
@@ -78,10 +78,10 @@
 <script th:src="@{/libs/markdown/highlight.min.js}"></script>
 <script th:src="@{/libs/markdown/simplemde.min.js}"></script>
 <script th:src="@{/libs/layer/layer.js}"></script>
-<script th:src="@{/theme/default/source/js/tagcloud.js}"></script>
+<script th:src="@{|/${WEB_THEME}/source/js/tagcloud.js|}"></script>
 <script th:src="@{/js/hc-sticky.js}"></script>
 <script th:src="@{/js/core.js}"></script>
-<script th:src="@{/theme/default/source/js/tz-blog.js}"></script>
+<script th:src="@{|/${WEB_THEME}//source/js/tz-blog.js|}"></script>
 <script>
 	var sid=-1;
 </script>

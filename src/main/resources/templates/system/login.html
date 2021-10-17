@@ -11,13 +11,13 @@
     <link rel="stylesheet" th:href="@{/libs/font-awesome/font-awesome.min.css}"/>
     <link rel="stylesheet" th:href="@{/libs/iCheck/square/blue.css}"/>
     <link rel="stylesheet" th:href="@{/libs/validate/validate.css}"/>
-    <link rel="stylesheet" th:href="@{/theme/default/source/css/web-common.css}"/>
+    <link rel="stylesheet" th:href="@{|/${WEB_THEME}/source/css/web-common.css|}"/>
     <link rel="stylesheet" th:href="@{/css/login.css}"/>
     <script th:src="@{/libs/jquery/jquery.min.js}"></script>
 </head>
 <body>
 <header id="header">
-    <div th:replace="theme/default/module/navbar :: navbar"></div>
+    <div th:replace="@{|${WEB_THEME}/module/navbar.html|}"></div>
 </header>
 <div class="main-content login-content">
     <div class="login-bg"></div>
@@ -61,7 +61,7 @@
     </div>
 
 </div>
-<div th:replace="theme/default/module/footer :: copyrightCommon"></div>
+<div th:replace="@{|${WEB_THEME}/module/footer.html|}"></div>
 
 <script th:src="@{/libs/bootstrap/bootstrap.min.js}"></script>
 <script th:src="@{/libs/layer/layer.js}"></script>

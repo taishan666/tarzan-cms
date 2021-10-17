@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head th:include="theme/default/module/macro.html"></head>
+<head th:include="@{|/${WEB_THEME}/module/macro.html|}"></head>
 <body>
 <header id="header">
-	<div th:replace="theme/default/module/navbar :: navbar"></div>
+	<div th:replace="@{|/${WEB_THEME}/module/navbar.html|}"></div>
 </header>
 <div class="tz-container tz-content">
 	<div class="tz-main">
@@ -43,9 +43,9 @@
 		</div>
 
 	</div>
-	<div th:replace="theme/default/module/sidebar :: sidebar"></div>
+	<div th:replace="@{|/${WEB_THEME}/module/sidebar.html|}"></div>
 </div>
-<div th:replace="theme/default/module/footer :: copyrightDark"></div>
+<div th:replace="@{|/${WEB_THEME}/module/footer.html|}"></div>
 <div class="return_top"><a class=" fa fa-arrow-up"></a></div>
 </body>
 

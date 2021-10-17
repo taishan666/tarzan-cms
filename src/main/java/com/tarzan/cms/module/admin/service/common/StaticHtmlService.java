@@ -176,7 +176,7 @@ public class StaticHtmlService {
             }
             writer = new PrintWriter(file);
             // 执行页面静态化方法
-            templateEngine.process(THEME_PREFIX + bizThemeService.selectCurrent().getName() + File.separator + templateUrl, context, writer);
+            templateEngine.process(bizThemeService.getTheme() + File.separator + templateUrl, context, writer);
         } catch (Exception e) {
             log.error("页面静态化出错：{}", e.getMessage(), e);
         } finally {

@@ -58,7 +58,7 @@ public class BlogWebController {
         model.addAttribute("pageUrl", "blog/index");
         model.addAttribute("categoryId", "index");
         loadMainPage(model, vo);
-        return THEME_PREFIX + bizThemeService.selectCurrent().getName() + "/index";
+        return bizThemeService.getTheme() + "/index";
     }
 
     /**
@@ -84,7 +84,7 @@ public class BlogWebController {
         model.addAttribute("pageUrl", "blog/category/" + categoryId);
         model.addAttribute("categoryId", categoryId);
         loadMainPage(model, vo);
-        return THEME_PREFIX + bizThemeService.selectCurrent().getName() + "/index";
+        return bizThemeService.getTheme() + "/index";
     }
 
 
@@ -106,7 +106,7 @@ public class BlogWebController {
         model.addAttribute("pageUrl", "blog/list/" + keywords);
         model.addAttribute("keywords", keywords);
         loadMainPage(model, vo);
-        return THEME_PREFIX + bizThemeService.selectCurrent().getName() + "/index";
+        return bizThemeService.getTheme() + "/index";
     }
 
 
@@ -132,7 +132,7 @@ public class BlogWebController {
         }
         model.addAttribute("pageUrl", "blog/tag/" + tagId);
         loadMainPage(model, vo);
-        return THEME_PREFIX + bizThemeService.selectCurrent().getName() + "/index";
+        return bizThemeService.getTheme() + "/index";
     }
 
     /**
@@ -153,22 +153,22 @@ public class BlogWebController {
         }
         model.addAttribute("article", article);
         model.addAttribute("categoryId", article.getCategoryId());
-        return THEME_PREFIX + bizThemeService.selectCurrent().getName() + "/article";
+        return bizThemeService.getTheme() + "/article";
     }
 
     /**
-     * 评论
+     * 留言板
      *
      * @param model
      * @return
      */
-    @GetMapping("/blog/comment")
-    public String comment(Model model) {
+    @GetMapping("/blog/feedback")
+    public String feedback(Model model) {
         if (CoreConst.SITE_STATIC.get()) {
-            return "forward:/html/comment/comment.html";
+            return "forward:/html/feedback/feedback.html";
         }
         model.addAttribute("categoryId", "comment");
-        return THEME_PREFIX + bizThemeService.selectCurrent().getName() + "/comment";
+        return bizThemeService.getTheme() + "/feedback";
     }
 
     private void loadMainPage(Model model, ArticleConditionVo vo) {

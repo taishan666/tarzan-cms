@@ -213,6 +213,7 @@ $(function () {
             return;
         }
         $("#comment-textarea").val(simplemde.markdown(simplemde.value()));
+        $("#comment-sid").val(sid);
         Core.postAjax("/blog/api/comment/save",$("#comment-form").serialize(),function (data) {
             layer.msg(data.msg, {
                 offset: '30%',

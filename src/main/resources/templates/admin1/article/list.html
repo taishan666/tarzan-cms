@@ -1,18 +1,18 @@
-<div class="content-header">
-    <div class="container-fluid">
-        <div class="row mb-2">
-            <div class="col-sm-6">
-                <h1 class="m-0 text-dark">文章列表</h1>
-            </div><!-- /.col -->
-            <div class="col-sm-6">
-                <ol class="breadcrumb float-sm-right">
-                    <li class="breadcrumb-item"><a th:href="@{admin}">首页</a></li>
-                    <li class="breadcrumb-item active">文章管理</li>
-                    <li class="breadcrumb-item active">文章列表</li>
-                </ol>
-            </div><!-- /.col -->
-        </div><!-- /.row -->
-    </div><!-- /.container-fluid -->
+<div class="row">
+    <div class="colxl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+        <div class="page-title-wrapper">
+            <div class="page-title-box">
+                <h4 class="page-title bold">文章列表</h4>
+            </div>
+            <div class="breadcrumb-list">
+                <ul>
+                    <li class="breadcrumb-link"><a th:href="@{admin}"><i class="fas fa-home mr-2"></i>首页</a></li>
+                    <li class="breadcrumb-link active">文章管理</li>
+                    <li class="breadcrumb-link active">文章列表</li>
+                </ul>
+            </div>
+        </div>
+    </div>
 </div>
 <!-- Main content -->
 <section class="content">
@@ -53,7 +53,7 @@
             </shiro:hasPermission>
             <shiro:hasPermission name="article:batchDelete">
                 <button id="btn_batch_delete" type="button" class="btn btn-danger">
-                    <span class="fa fa-trash" aria-hidden="true"></span>批量删除
+                    <span class="fas fa-trash-alt" aria-hidden="true"></span>批量删除
                 </button>
             </shiro:hasPermission>
         </div>
@@ -148,8 +148,8 @@
             align: "center",
             width: 150,
             formatter: function (value, row, index) {
-                var edit = editFlag === 'true' ? '<button class="btn btn-info btn-sm" onclick="editArticle(' + row.id + ')">编辑</button>' : '';
-                var del = deleteFlag === 'true' ? '<button class="btn btn-danger btn-sm ml-1" onclick="deleteArticle(' + row.id + ')">删除</button>' : '';
+                var edit = editFlag === 'true' ? '<button class="effect-btn btn btn-info mt-2 mr-2 icon-lg" onclick="editArticle(' + row.id + ')"><i class="fas fa-edit"></i></button>' : '';
+                var del = deleteFlag === 'true' ? '<button class="effect-btn btn btn-danger mt-2 mr-2 icon-lg" onclick="deleteArticle(' + row.id + ')"><i class="fas fa-trash-alt"></i></button>' : '';
                 return edit + del;
             }
         }];

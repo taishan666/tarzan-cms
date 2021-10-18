@@ -6,22 +6,6 @@
 </aside>
 
 <th:block th:fragment="menu(menuTree)">
-    <!-- 添加类名nav-icon然后引入font-awesome等图标库即可添加图标链接 -->
-<!--
-    <li th:each="menu : ${menuTree}" class="nav-item has-treeview sidebar-menu ">
-        <a th:href="${menu.url}" class="nav-link">
-            <i th:classappend="${menu.icon}" class="nav-icon"></i>
-            <p>
-                <th:block th:text="${menu.name}"/>
-                <i th:classappend="${menu.parentId == 0} and !${#lists.isEmpty(menu.children)} ? 'fas fa-angle-left' : ''"
-                   class="right"></i>
-            </p>
-        </a>
-        <ul th:unless="${#lists.isEmpty(menu.children)}" th:include="this::menu(${menu.children})"
-            class="nav nav-treeview"></ul>
-    </li>
--->
-
     <li th:each="menu : ${menuTree}" >
         <a th:href="${menu.url}" class="nav-link">
             <span th:classappend="${menu.icon}" th:if="${menu.parentId == 0}"  class="icon-menu feather-icon"></span>
@@ -31,6 +15,5 @@
         <ul  th:unless="${#lists.isEmpty(menu.children)}" th:include="this::menu(${menu.children})" class="sub-menu">
         </ul>
     </li>
-
-
 </th:block>
+

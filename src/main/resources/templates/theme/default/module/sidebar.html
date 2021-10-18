@@ -16,7 +16,7 @@
             <h3 class="panel-title">标签云</h3>
         </div>
         <div class="panel-body" id="tagcloud" style="overflow: hidden">
-            <a class="btn btn-default btn-xs" th:each="item:${TAG_LIST}" th:href="@{${'/blog/tag/'+item.id}}" th:text="${item.name}"></a>
+            <a class="btn btn-light btn-xs" th:each="item:${TAG_LIST}" th:href="@{${'/blog/tag/'+item.id}}" th:text="${item.name}"></a>
         </div>
     </div>
     <div class="tz-sidebar-tabs">

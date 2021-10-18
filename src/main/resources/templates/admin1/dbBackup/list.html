@@ -1,0 +1,166 @@
+<div class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1 class="m-0 text-dark">数据备份</h1>
+            </div><!-- /.col -->
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a th:href="@{admin}">首页</a></li>
+                    <li class="breadcrumb-item active">运维管理</li>
+                    <li class="breadcrumb-item active">数据备份</li>
+                </ol>
+            </div><!-- /.col -->
+        </div><!-- /.row -->
+    </div><!-- /.container-fluid -->
+</div>
+<!-- Main content -->
+<section class="content">
+
+        <div id="toolbar" class="btn-group">
+            <shiro:hasPermission name="dbBackup:add">
+                <button id="btn_add" type="button" class="btn btn-primary">
+                    <span class="fa fa-plus" aria-hidden="true"></span>备份
+                </button>
+            </shiro:hasPermission>
+        </div>
+        <table class="table-sm" id="table"></table>
+    </div>
+</section>
+
+<script>
+
+    $(function () {
+        var rollbackFlag = Core.parseBool("[[${@perms.hasPerm('dbBackup:rollback')}]]");
+        var deleteFlag = Core.parseBool("[[${@perms.hasPerm('dbBackup:delete')}]]");
+        window.operateEvents = {
+            // 点击编辑
+            'click .btn_rollback': function (e, value, row, index) {
+                rollback(row.fileName)
+            },
+            // 点击删除
+            'click .btn_del': function (e, value, row, index) {
+                deleteRow(row.fileName)
+            }
+        }
+        var columns = [
+            {checkbox: true},
+            {
+                field: 'fileName',
+                title: '文件名称',
+                align: "center"
+            },
+            {
+                field: 'size',
+                title: '文件大小',
+                align: "center"
+            },
+            {
+                field: 'createTime',
+                title: '创建时间',
+                align: "center"
+            },{
+                field: 'operation',
+                title: '操作',
+                align: "center",
+                width: 200,
+                events: operateEvents,
+                formatter: operationFormatter
+            }];
+
+
+        var options = {
+            id: "#table",
+            url: '/database/backupList',
+            columns: columns,
+            toolbar: '#toolbar',
+            showRefresh: true,
+            queryParams: queryParams
+        }
+        Core.initTable(options);
+
+        function refreshTable() {
+            Core.refreshTable("#table")
+        }
+
+        function operationFormatter(value, row, index) {
+            var rollback = rollbackFlag ? '<button class="btn btn-info btn-sm btn_rollback">恢复</button>' : '';
+            var del = deleteFlag ? '<button class="btn btn-danger btn-sm ml-1 btn_del">删除</button>' : '';
+            return rollback + del;
+        }
+        // 查询参数
+        function queryParams(params) {
+            return {
+                pageNumber: params.pageNumber,
+                pageSize: params.pageSize,
+                fileName: $("#fileName").val()
+            };
+        }
+
+        // 查询
+        $('#searchForm').submit(function (event) {
+            event.preventDefault();
+            event.stopPropagation();
+            refreshTable();
+        })
+
+        // 备份
+        $("#btn_add").on('click', function () {
+                Core.confirm("确定备份数据记录？", function () {
+                    Core.postAjax("/database/backupSQL", {}, function (data) {
+                        if (data.status === 200) {
+                            refreshTable();
+                        }
+                        layer.msg(data.msg);
+                    })
+                })
+        })
+
+        // 删除
+        function deleteRow(fileName) {
+            Core.confirm("确定删除？", function () {
+                Core.postAjax("/database/delete", {"fileName": fileName}, function (data) {
+                    if (data.status === 200) {
+                        refreshTable();
+                    }
+                    layer.msg(data.msg);
+                })
+            })
+        }
+
+        // 恢复
+        function rollback(fileName) {
+            Core.confirm("确定恢复？", function () {
+                Core.postAjax("/database/rollback", {"fileName": fileName}, function (data) {
+                    if (data.status === 200) {
+                        refreshTable();
+                    }
+                    layer.msg(data.msg);
+                })
+            })
+        }
+
+        // 批量删除
+        $("#btn_batch_delete").on('click', function () {
+            var checkedRows = Core.selectMutiData("#table");
+            if (checkedRows) {
+                Core.confirm("确定删除选中的" + checkedRows.length + "条记录？", function () {
+                    var ids = [];
+                    $.each(checkedRows, function (i, item) {
+                        ids.push(item.id);
+                    })
+                    Core.postAjax("/user/batch/delete", {"ids": ids}, function (data) {
+                        if (data.status === 200) {
+                            refreshTable();
+                        }
+                        layer.msg(data.msg);
+                    })
+                })
+            }
+        })
+
+
+    });
+
+
+</script>

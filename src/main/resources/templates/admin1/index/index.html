@@ -1,0 +1,137 @@
+<!DOCTYPE html><!--[if IE 8]><html lang="en" class="ie8 no-js"><![endif]--><!--[if IE 9]><html lang="en" class="ie9 no-js"><![endif]--><!--[if!IE]><!-->
+<html lang="zxx">
+<!--<![endif]--><!-- Begin Head -->
+<head>
+<title>SplashDash</title>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<meta name="description" content="">
+<meta name="keywords" content="">
+<meta name="author" content="">
+<meta name="MobileOptimized" content="320">
+<!--Start Style -->
+<link rel="stylesheet" type="text/css" href="/assets/css/fonts.css">
+<link rel="stylesheet" href="https://www.jq22.com/jquery/bootstrap-4.2.1.css">
+<link rel="stylesheet" type="text/css" href="/assets/css/font-awesome.min.css">
+<link rel="stylesheet" type="text/css" href="/assets/css/icofont.min.css">
+<link rel="stylesheet" type="text/css" href="/assets/css/style.css">
+<link rel="stylesheet" id="theme-change" type="text/css" href="#">
+<!-- Favicon Link -->
+<link rel="shortcut icon" type="image/png" href="/assets/images/favicon.png">
+</head>
+<body>
+<div class="loader">
+  <div class="spinner"><img src="/assets/images/loader.gif" alt=""/></div>
+</div>
+<!-- Main Body -->
+<div class="page-wrapper">
+  <!-- Header Start -->
+  <div th:replace="admin1/fragments/navbar :: navbar"></div>
+  <!-- Sidebar Start -->
+  <aside th:replace="admin1/fragments/sidebar :: sidebar(${menuTree})"></aside>
+  <!-- Container Start -->
+    <div class="main-content" id="content"><!-- Page Title Start -->
+
+    </div>
+
+
+</div>
+
+<!-- Color Setting -->
+<div id="style-switcher">
+  <div>
+    <ul class="colors">
+      <li>
+        <p class='colorchange' id='color'></p>
+      </li>
+      <li>
+        <p class='colorchange' id='color2'></p>
+      </li>
+      <li>
+        <p class='colorchange' id='color3'></p>
+      </li>
+      <li>
+        <p class='colorchange' id='color4'></p>
+      </li>
+      <li>
+        <p class='colorchange' id='color5'></p>
+      </li>
+      <li>
+        <p class='colorchange' id='style'></p>
+      </li>
+    </ul>
+  </div>
+  <div class="bottom"><a href="" class="settings"><i class="fa fa-cog" aria-hidden="true"></i></a></div>
+</div>
+<!-- Color Setting -->
+<!-- Script Start -->
+<script src="/assets/js/jquery.min.js"></script>
+<script src="/assets/js/popper.min.js"></script>
+<script src="/assets/js/bootstrap.min.js"></script>
+<script src="/assets/js/swiper.min.js"></script>
+<script src="https://lf26-cdn-tos.bytecdntp.com/cdn/expire-1-M/apexcharts/3.6.12/apexcharts.min.js"></script>
+<script src="/assets/js/apexchart/control-chart-apexcharts.js"></script>
+<!-- Page Specific -->
+<script src="/assets/js/nice-select.min.js"></script>
+<!-- Custom Script -->
+<script src="/assets/js/custom.js"></script>
+
+
+<!-- jQuery -->
+<script th:src="@{admin/plugins/jquery/jquery.min.js}"></script>
+<!-- moment -->
+<script th:src="@{admin/plugins/moment/moment.min.js}"></script>
+<!-- daterangepicker -->
+<script th:src="@{admin/plugins/daterangepicker/daterangepicker.js}"></script>
+<!-- jQuery UI 1.11.4 -->
+<script th:src="@{admin/plugins/jquery-ui/jquery-ui.min.js}"></script>
+<!-- Bootstrap 4 -->
+<script th:src="@{admin/plugins/bootstrap/js/bootstrap.bundle.min.js}"></script>
+<!-- AdminLTE App -->
+<script th:src="@{admin/plugins/adminlte/js/adminlte.min.js}"></script>
+<!-- Bootstrap Table -->
+<script th:src="@{admin/plugins/bootstrap-table/js/bootstrap-table.min.js}"></script>
+<script th:src="@{admin/plugins/bootstrap-table/js/bootstrap-table-zh-CN.min.js}"></script>
+<!-- uploader -->
+<script th:src="@{admin/plugins/uploader/js/webuploader.js}"></script>
+<script th:src="@{admin/plugins/uploader/js/jax.uploader.js}"></script>
+<script th:src="@{admin/plugins/uploader/js/uploadCall.js}"></script>
+<!-- layer -->
+<script th:src="@{admin/plugins/layer/layer.js}"></script>
+<!-- ztree -->
+<script th:src="@{admin/plugins/ztree/js/jquery.ztree.all.min.js}"></script>
+<!-- iconpicker -->
+<script th:src="@{admin/plugins/fontawesome-iconpicker/js/fontawesome-iconpicker.min.js}"></script>
+<!-- bootstrap-switch -->
+<script th:src="@{admin/plugins/bootstrap-switch/js/bootstrap-switch.min.js}"></script>
+
+<script th:src="@{admin/js/core.js}"></script>
+
+<!-- 声明项目上下文路径 -->
+<script type="text/javascript" th:inline="javascript">
+  /*<![CDATA[*/
+  ctx = /*[[@{/}]]*/ '';
+  /*]]>*/
+</script>
+<script type="text/javascript" th:inline="javascript">
+  const activeName = 'active';
+  const defaultPageHash = '#workdest';
+  $(function () {
+    handleHashChange()
+  });
+
+  function handleHashChange() {
+    var hash = location.hash;
+    console.log(hash)
+    hash = hash ? hash : defaultPageHash
+    $('.sidebar-menu a').removeClass(activeName);
+    var $href = $('.sidebar-menu > a[href="' + hash + '"]');
+    if ($href.length > 0) {
+      $href.addClass(activeName).parent().parent().siblings().addClass(activeName).parent().addClass('menu-open');
+    }
+    Core.load("#content", hash.replace('#', ''));
+  }
+</script>
+
+</body>
+</html>

@@ -29,17 +29,18 @@
 </section>
 
 <script>
-
     $(function () {
         var rollbackFlag = Core.parseBool("[[${@perms.hasPerm('dbBackup:rollback')}]]");
         var deleteFlag = Core.parseBool("[[${@perms.hasPerm('dbBackup:delete')}]]");
         window.operateEvents = {
             // 点击编辑
             'click .btn_rollback': function (e, value, row, index) {
+                console.log(123)
                 rollback(row.fileName)
             },
             // 点击删除
             'click .btn_del': function (e, value, row, index) {
+                console.log(456)
                 deleteRow(row.fileName)
             }
         }
@@ -84,8 +85,8 @@
         }
 
         function operationFormatter(value, row, index) {
-            var rollback = rollbackFlag ? '<button class="btn btn-info btn-sm btn_rollback">恢复</button>' : '';
-            var del = deleteFlag ? '<button class="btn btn-danger btn-sm ml-1 btn_del">删除</button>' : '';
+            var rollback = rollbackFlag ? '<button class="effect-btn btn btn-info mt-2 mr-2 icon-lg btn_rollback"><i class="fas fa-play"></i></button>' : '';
+            var del = deleteFlag ? '<button class="effect-btn btn btn-danger mt-2 mr-2 icon-lg btn_del"><i class="fas fa-trash-alt"></i></button>' : '';
             return rollback + del;
         }
         // 查询参数
@@ -106,7 +107,9 @@
 
         // 备份
         $("#btn_add").on('click', function () {
+            console.log(666)
                 Core.confirm("确定备份数据记录？", function () {
+                    console.log(665)
                     Core.postAjax("/database/backupSQL", {}, function (data) {
                         if (data.status === 200) {
                             refreshTable();
@@ -158,9 +161,5 @@
                 })
             }
         })
-
-
     });
-
-
 </script>

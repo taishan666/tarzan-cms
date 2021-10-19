@@ -1,13 +1,13 @@
-<!DOCTYPE html><!--[if IE 8]><html lang="en" class="ie8 no-js"><![endif]--><!--[if IE 9]><html lang="en" class="ie9 no-js"><![endif]--><!--[if!IE]><!-->
+<!DOCTYPE html><!--[if IE 8]>
+<html lang="en" class="ie8 no-js"><![endif]--><!--[if IE 9]>
+<html lang="en" class="ie9 no-js"><![endif]--><!--[if!IE]><!-->
 <html lang="zxx">
 <!--<![endif]--><!-- Begin Head -->
 <head>
-<title>SplashDash</title>
+<title>TARZAN-CMS后台管理系统</title>
 <meta charset="utf-8">
 <meta content="width=device-width, initial-scale=1.0" name="viewport">
-<meta name="description" content="">
-<meta name="keywords" content="">
-<meta name="author" content="">
+<meta name="author" content="tarzan">
 <meta name="MobileOptimized" content="320">
 <!--Start Style -->
 <link rel="stylesheet" type="text/css" href="/assets/css/fonts.css">
@@ -17,7 +17,7 @@
 <link rel="stylesheet" type="text/css" href="/assets/css/style.css">
 <link rel="stylesheet" id="theme-change" type="text/css" href="#">
 <!-- Favicon Link -->
-<link rel="shortcut icon" type="image/png" href="/assets/images/favicon.png">
+<link rel="shortcut icon" type="image/png" href="/assets/images/favicon.ico">
 </head>
 <body  onhashchange="handleHashChange()">
 <div class="loader">
@@ -30,9 +30,14 @@
   <!-- Sidebar Start -->
   <aside th:replace="admin1/fragments/sidebar :: sidebar(${menuTree})"></aside>
   <!-- Container Start -->
-  <div class="main-content" id="content"><!-- Page Title Start --></div>
+  <div class="main-content">
+    <div class="row" id="content"></div>
+    <!-- footer -->
+    <div th:replace="admin1/fragments/footer :: footer"></div>
+  </div>
 
 
+  <!-- footer -->
 
 
 </div>
@@ -76,6 +81,8 @@
 <!-- Custom Script -->
 <script src="/assets/js/custom.js"></script>
 
+<!-- layer -->
+<script th:src="@{admin/plugins/layer/layer.js}"></script>
 <script th:src="@{admin/plugins/bootstrap-table/js/bootstrap-table.min.js}"></script>
 <script th:src="@{admin/js/core.js}"></script>
 
@@ -90,13 +97,11 @@
   const activeName = 'active';
   const defaultPageHash = '#workdest';
   $(function () {
-    console.log(666)
     handleHashChange()
   });
 
   function handleHashChange() {
     var hash = location.hash;
-    console.log(hash)
     hash = hash ? hash : defaultPageHash
     $('.sidebar-menu a').removeClass(activeName);
     var $href = $('.sidebar-menu > a[href="' + hash + '"]');

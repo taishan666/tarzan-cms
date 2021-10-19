@@ -138,8 +138,8 @@
                 align: "center",
                 width: '150px',
                 formatter: function (row) {
-                    var edit = editFlag && row.status === 1 ? '<button class="btn btn-info btn-sm btn_edit" onclick="editRow(' + row.id + ')">编辑</button>' : '';
-                    var del = deleteFlag ? '<button class="btn btn-danger btn-sm ml-1 btn_del" onclick="deleteRow(' + row.id + ')">删除</button>' : '';
+                    var edit = editFlag && row.status === 1 ? '<button class="effect-btn btn btn-info mt-2 mr-2 icon-lg" onclick="editRow(' + row.id + ')"><i class="fas fa-edit"></i></button>' : '';
+                    var del = deleteFlag ? '<button class="effect-btn btn btn-danger mt-2 mr-2 icon-lg" onclick="deleteRow(' + row.id + ')"><i class="fas fa-trash-alt"></i></button>' : '';
                     return edit + del;
                 }
             }

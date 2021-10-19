@@ -163,9 +163,9 @@
             }];
 
         function operationFormatter(value, row, index) {
-            var edit = editFlag ? '<button class="btn btn-info btn-sm btn_edit">编辑</button>' : '';
+            var edit = editFlag ? '<button class="effect-btn btn btn-info mt-2 mr-2 icon-lg"><i class="fas fa-edit"></i></button>' : '';
             var assign = assignRoleFlag ? '<button class="btn btn-info btn-sm ml-1 btn_assign">分配角色</button>' : '';
-            var del = deleteFlag ? '<button class="btn btn-danger btn-sm ml-1 btn_del">删除</button>' : '';
+            var del = deleteFlag ? '<button class="effect-btn btn btn-danger mt-2 mr-2 icon-lg"><i class="fas fa-trash-alt"></i></button>' : '';
             return edit + assign + del;
         }
 

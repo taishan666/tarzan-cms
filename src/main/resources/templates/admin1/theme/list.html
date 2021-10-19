@@ -110,8 +110,8 @@
 
         function operationFormatter(value, row, index) {
             var use = useFlag == "true" && row.status == 0 ? '<button class="btn btn-danger btn-sm ml-1 btn_use_theme">启用</button>' : '';
-            var edit = editFlag == "true" ? '<button class="effect-btn btn btn-info mt-2 mr-2 icon-lg">编辑</button>' : '';
-            var del = deleteFlag == "true" ? '<button class="btn btn-danger btn-sm ml-1 btn_del">删除</button>' : '';
+            var edit = editFlag == "true" ? '<button class="effect-btn btn btn-info mt-2 mr-2 icon-lg btn_edit"><i class="fas fa-edit"></i></button>' : '';
+            var del = deleteFlag == "true" ? '<button class="effect-btn btn btn-danger mt-2 mr-2 icon-lg btn_del"><i class="fas fa-trash-alt"></i></button>' : '';
             return use + edit + del;
         }
 

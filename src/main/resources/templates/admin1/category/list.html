@@ -136,10 +136,14 @@
 
     /*加载一级分类*/
     function showCategory(flag) {
+        console.log(1)
         Core.postAjax("/category/list", {isFistLevel: true}, function (data) {
+            console.log(2)
             if ($("#p-table").children().length > 0) {
+                console.log(3)
                 $('#p-table').bootstrapTable('load', data);
             } else {
+                console.log(4)
                 $('#p-table').bootstrapTable({
                     columns: [{radio: true},
                         {

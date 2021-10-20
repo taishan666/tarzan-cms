@@ -6,8 +6,8 @@
 </aside>
 
 <th:block th:fragment="menu(menuTree)">
-    <li th:each="menu : ${menuTree}" >
-        <a th:href="${menu.url}" class="nav-link">
+    <li th:each="menu : ${menuTree}"   class="sidebar-menu">
+        <a th:href="${menu.url}" >
             <span th:classappend="${menu.icon}" th:if="${menu.parentId == 0}"  class="icon-menu feather-icon"></span>
             <span th:if="${menu.parentId != 0}" class="icon-dash"></span>
             <span class="menu-text" th:text="${menu.name}"> </span>

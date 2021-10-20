@@ -12,14 +12,19 @@
 <!--Start Style -->
 <link rel="stylesheet" type="text/css" href="/assets/css/fonts.css">
 <link rel="stylesheet" type="text/css" href="/assets/css/bootstrap.min.css">
+<link rel="stylesheet" th:href="@{admin/plugins/bootstrap-table/css/bootstrap-table.min.css}"/>
+<link rel="stylesheet" th:href="@{admin/plugins/uploader/css/webuploader.css}"/>
+<link rel="stylesheet" th:href="@{admin/plugins/ztree/css/ztree-bootstrap.css}"/>
 <link rel="stylesheet" type="text/css" href="/assets/css/font-awesome.min.css">
 <link rel="stylesheet" type="text/css" href="/assets/css/icofont.min.css">
 <link rel="stylesheet" type="text/css" href="/assets/css/style.css">
+  <link rel="stylesheet" type="text/css" href="/assets/css/theme.css">
 <link rel="stylesheet" id="theme-change" type="text/css" href="#">
 <!-- Favicon Link -->
 <link rel="shortcut icon" type="image/png" href="/assets/images/favicon.ico">
 </head>
 <body  onhashchange="handleHashChange()">
+<!-- 加载动画 -->
 <div class="loader">
   <div class="spinner"><img src="/assets/images/loader.gif" alt=""/></div>
 </div>
@@ -30,15 +35,11 @@
   <!-- Sidebar Start -->
   <aside th:replace="admin1/fragments/sidebar :: sidebar(${menuTree})"></aside>
   <!-- Container Start -->
-  <div class="main-content" id="content">
- <!--   <div class="row" id="content"></div>
-    &lt;!&ndash; footer &ndash;&gt;
-    <div th:replace="admin1/fragments/footer :: footer"></div>-->
+  <div class="main-content">
+    <div class="col-sm-12" id="content"></div>
+    <!-- footer -->
+    <div th:replace="admin1/fragments/footer :: footer"></div>
   </div>
-
-
-  <!-- footer -->
-
 
 </div>
 
@@ -116,6 +117,9 @@
     hash = hash ? hash : defaultPageHash
     $('.sidebar-menu a').removeClass(activeName);
     var $href = $('.sidebar-menu > a[href="' + hash + '"]');
+    console.log(1)
+    console.log($href)
+    console.log($href.length)
     if ($href.length > 0) {
       $href.addClass(activeName).parent().parent().siblings().addClass(activeName).parent().addClass('menu-open');
     }

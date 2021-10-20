@@ -35,13 +35,13 @@
                 </a>
                     <div class="user-info-box">
                         <div class="drop-down-header">
-                            <h4>John Brown</h4>
-                            <p>UI | UX Designer</p>
+                            <h4 th:text="${loginUser?.nickname}"></h4>
+                         <!--   <p th:text="${loginUser?.roleName}"></p>-->
                         </div>
                         <ul>
-                            <li><a href="../profile.html"><i class="far fa-edit"></i>Edit Profile </a></li>
-                            <li><a href="../setting.html"><i class="fas fa-cog"></i>Settings </a></li>
-                            <li><a href="../login.html"><i class="fas fa-sign-out-alt"></i>logout </a></li>
+                            <li><a th:href="@{admin#system/userInfo}"><i class="far fa-edit"></i>个人资料</a></li>
+                            <li><a th:href="@{admin#system/password}"><i class="fas fa-cog"></i>修改密码</a></li>
+                            <li><a th:href="@{/system/logout}"><i class="fas fa-sign-out-alt"></i>退出登录 </a></li>
                         </ul>
                     </div>
                 </div>

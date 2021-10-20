@@ -11,7 +11,7 @@
 <meta name="MobileOptimized" content="320">
 <!--Start Style -->
 <link rel="stylesheet" type="text/css" href="/assets/css/fonts.css">
-<link rel="stylesheet" href="/libs/bootstrap/bootstrap.min.css">
+<link rel="stylesheet" type="text/css" href="/assets/css/bootstrap.min.css">
 <link rel="stylesheet" type="text/css" href="/assets/css/font-awesome.min.css">
 <link rel="stylesheet" type="text/css" href="/assets/css/icofont.min.css">
 <link rel="stylesheet" type="text/css" href="/assets/css/style.css">
@@ -30,10 +30,10 @@
   <!-- Sidebar Start -->
   <aside th:replace="admin1/fragments/sidebar :: sidebar(${menuTree})"></aside>
   <!-- Container Start -->
-  <div class="main-content">
-    <div class="row" id="content"></div>
-    <!-- footer -->
-    <div th:replace="admin1/fragments/footer :: footer"></div>
+  <div class="main-content" id="content">
+ <!--   <div class="row" id="content"></div>
+    &lt;!&ndash; footer &ndash;&gt;
+    <div th:replace="admin1/fragments/footer :: footer"></div>-->
   </div>
 
 
@@ -69,10 +69,12 @@
   <div class="bottom"><a href="" class="settings"><i class="fa fa-cog" aria-hidden="true"></i></a></div>
 </div>
 <!-- Color Setting -->
+
 <!-- Script Start -->
 <script src="/assets/js/jquery.min.js"></script>
-<script src="/assets/js/popper.min.js"></script>
 <script src="/assets/js/bootstrap.min.js"></script>
+<script src="/assets/js/popper.min.js"></script>
+
 <script src="/assets/js/swiper.min.js"></script>
 <script src="/assets/js/apexcharts.min.js"></script>
 <!--<script src="/assets/js/apexchart/control-chart-apexcharts.js"></script>-->
@@ -81,9 +83,18 @@
 <!-- Custom Script -->
 <script src="/assets/js/custom.js"></script>
 
+
+
+
+
+<!-- Bootstrap Table -->
+<script th:src="@{admin/plugins/bootstrap-table/js/bootstrap-table.min.js}"></script>
+<script th:src="@{admin/plugins/bootstrap-table/js/bootstrap-table-zh-CN.min.js}"></script>
 <!-- layer -->
 <script th:src="@{admin/plugins/layer/layer.js}"></script>
-<script th:src="@{admin/plugins/bootstrap-table/js/bootstrap-table.min.js}"></script>
+<!-- ztree -->
+<script th:src="@{admin/plugins/ztree/js/jquery.ztree.all.min.js}"></script>
+
 <script th:src="@{admin/js/core.js}"></script>
 
 

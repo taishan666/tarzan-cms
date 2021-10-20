@@ -16,8 +16,7 @@
 </div>
 <!-- Main content -->
 <section class="content">
-    <div class="card card-info">
-        <shiro:hasPermission name="user:list">
+    <div class="card card-info card-header">
             <form id="searchForm" class="needs-validation form-inline" novalidate="">
                 <div class="form-group">
                     <label for="username">用户名:</label>
@@ -36,9 +35,8 @@
                     <button class="btn btn-light ml-2" type="reset">重置</button>
                 </div>
             </form>
-        </shiro:hasPermission>
     </div>
-    <div class="card card-body">
+    <div class="card table-card card-body">
         <div id="toolbar" class="btn-group">
             <shiro:hasPermission name="user:add">
                 <button id="btn_add" type="button" class="btn btn-primary">
@@ -163,9 +161,9 @@
             }];
 
         function operationFormatter(value, row, index) {
-            var edit = editFlag ? '<button class="effect-btn btn btn-info mt-2 mr-2 icon-lg"><i class="fas fa-edit"></i></button>' : '';
-            var assign = assignRoleFlag ? '<button class="btn btn-info btn-sm ml-1 btn_assign">分配角色</button>' : '';
-            var del = deleteFlag ? '<button class="effect-btn btn btn-danger mt-2 mr-2 icon-lg"><i class="fas fa-trash-alt"></i></button>' : '';
+            var edit = editFlag ? '<button class="effect-btn btn btn-info mt-2 mr-2 icon-lg btn_add"><i class="fas fa-edit"></i></button>' : '';
+            var assign = assignRoleFlag ? '<button class="effect-btn btn btn-warning mt-2 mr-2 icon-lg btn_assign"><i class="fas fa-user-cog"></i></button>' : '';
+            var del = deleteFlag ? '<button class="effect-btn btn btn-danger mt-2 mr-2 icon-lg btn_del"><i class="fas fa-trash-alt"></i></button>' : '';
             return edit + assign + del;
         }
 

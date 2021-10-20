@@ -16,8 +16,7 @@
 </div>
 <!-- Main content -->
 <section class="content">
-    <div class="card card-info">
-        <shiro:hasPermission name="onlineUser:list">
+    <div class="card card-info card-header">
             <form id="searchForm" class="needs-validation form-inline" novalidate="">
                 <div class="form-group">
                     <label for="loginName">登录名:</label>
@@ -36,9 +35,10 @@
                     <button class="btn btn-light ml-2" type="reset">重置</button>
                 </div>
             </form>
-        </shiro:hasPermission>
     </div>
+    <div class="card table-card card-body">
         <table class="table-sm" id="table"></table>
+    </div>
     </div>
 </section>
 

@@ -16,8 +16,8 @@
 </div>
 <!-- Main content -->
 <section class="content">
-
-        <div id="toolbar" class="btn-group">
+    <div class="card table-card card-body">
+    <div id="toolbar" class="btn-group">
             <shiro:hasPermission name="dbBackup:add">
                 <button id="btn_add" type="button" class="btn btn-primary">
                     <span class="fa fa-plus" aria-hidden="true"></span>备份
@@ -107,9 +107,7 @@
 
         // 备份
         $("#btn_add").on('click', function () {
-            console.log(666)
                 Core.confirm("确定备份数据记录？", function () {
-                    console.log(665)
                     Core.postAjax("/database/backupSQL", {}, function (data) {
                         if (data.status === 200) {
                             refreshTable();

@@ -16,36 +16,36 @@
 </div>
 <!-- Main content -->
 <section class="content">
-    <div class="card card-info">
-        <form id="searchForm" class="needs-validation form-inline" novalidate="">
-            <div class="form-group">
-                <label for="name">名称:</label>
-                <input type="text" class="form-control m-2" id="name">
-            </div>
-            <div class="form-group">
-                <label for="name">描述:</label>
-                <input type="text" class="form-control m-2" id="description">
-            </div>
-            <div class="form-group">
-                <button class="btn btn-primary ml-3" type="submit">查询</button>
-                <button class="btn btn-light ml-2" type="reset">重置</button>
-            </div>
-        </form>
+   <div class="card card-info card-header">
+          <form id="searchForm" class="needs-validation form-inline" novalidate="">
+              <div class="form-group">
+                  <label for="name">名称:</label>
+                  <input type="text" class="form-control m-2" id="name">
+              </div>
+              <div class="form-group">
+                  <label for="name">描述:</label>
+                  <input type="text" class="form-control m-2" id="description">
+              </div>
+              <div class="form-group">
+                  <button class="btn btn-primary ml-3" type="submit">查询</button>
+                  <button class="btn btn-light ml-2" type="reset">重置</button>
+              </div>
+          </form>
     </div>
-    <div class="card card-body">
-        <div id="toolbar" class="btn-group">
-            <shiro:hasPermission name="tag:add">
-                <button id="btn_add" type="button" class="btn btn-primary">
-                    <span class="fa fa-plus" aria-hidden="true"></span>新增
-                </button>
-            </shiro:hasPermission>
-            <shiro:hasPermission name="tag:batchDelete">
-                <button id="btn_batch_delete" type="button" class="btn btn-danger">
-                    <span class="fa fa-trash" aria-hidden="true"></span>批量删除
-                </button>
-            </shiro:hasPermission>
-        </div>
-        <table class="table-sm" id="table"></table>
+    <div class="card table-card card-body">
+            <div id="toolbar" class="btn-group">
+                <shiro:hasPermission name="tag:add">
+                    <button id="btn_add" type="button" class="btn btn-primary">
+                        <span class="fa fa-plus" aria-hidden="true"></span>新增
+                    </button>
+                </shiro:hasPermission>
+                <shiro:hasPermission name="tag:batchDelete">
+                    <button id="btn_batch_delete" type="button" class="btn btn-danger">
+                        <span class="fa fa-trash" aria-hidden="true"></span>批量删除
+                    </button>
+                </shiro:hasPermission>
+            </div>
+         <table class="table-sm" id="table"></table>
     </div>
 </section>
 
@@ -74,12 +74,9 @@
 </section>
 
 <script>
-
     var editFlag = "[[${@perms.hasPerm('tag:edit')}]]";
     var deleteFlag = "[[${@perms.hasPerm('tag:delete')}]]";
-
     $(function () {
-
         window.operateEvents = {
             // 点击编辑
             'click .btn_edit': function (e, value, row, index) {

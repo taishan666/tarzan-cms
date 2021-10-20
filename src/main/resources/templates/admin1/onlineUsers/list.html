@@ -16,8 +16,7 @@
 </div>
 <!-- Main content -->
 <section class="content">
-    <div class="card card-info">
-        <shiro:hasPermission name="onlineUser:list">
+    <div class="card card-info card-header">
             <form id="searchForm" class="needs-validation form-inline" novalidate="">
                 <div class="form-group">
                     <label for="username">用户名:</label>
@@ -36,9 +35,8 @@
                     <button class="btn btn-light ml-2" type="reset">重置</button>
                 </div>
             </form>
-        </shiro:hasPermission>
     </div>
-    <div class="card card-body">
+    <div class="card table-card card-body">
         <div id="toolbar" class="btn-group">
             <shiro:hasPermission name="onlineUser:batchKickout">
                 <button id="btn_batch_kickout" type="button" class="btn btn-danger">

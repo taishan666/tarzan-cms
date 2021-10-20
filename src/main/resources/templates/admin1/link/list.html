@@ -16,7 +16,7 @@
 </div>
 <!-- Main content -->
 <section class="content">
-    <div class="card card-info">
+    <div class="card card-info card-header">
         <form id="searchForm" class="needs-validation form-inline" novalidate="">
             <div class="form-group">
                 <label for="name">站点名称:</label>
@@ -40,7 +40,7 @@
             </div>
         </form>
     </div>
-    <div class="card card-body">
+    <div class="card table-card card-body">
         <div id="toolbar" class="btn-group">
             <shiro:hasPermission name="tag:add">
                 <button id="btn_add" type="button" class="btn btn-primary">
@@ -57,38 +57,32 @@
     </div>
 </section>
 
-
 <!-- 表单模态框 -->
-<section id="formModalWrapper">
-    <div class="modal fade" id="formModal" tabindex="-1" role="dialog">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="formTitle"></h5>
-                    <button type="button" class="close" data-dismiss="modal">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <div id="formContent"></div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
-                    <button type="button" class="btn btn-primary" id="saveOrUpdateBtn" onclick="saveOrUpdate">保存
-                    </button>
-                </div>
+<div class="modal fade" id="formModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="formTitle"></h5>
+                <button type="button" class="close" data-dismiss="modal">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div id="formContent"></div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
+                <button type="button" class="btn btn-primary" id="saveOrUpdateBtn" onclick="saveOrUpdate">保存
+                </button>
             </div>
         </div>
     </div>
-</section>
+</div>
 
 <script>
-
     $(function () {
-
         var editFlag = "[[${@perms.hasPerm('link:edit')}]]";
         var deleteFlag = "[[${@perms.hasPerm('link:delete')}]]";
-
         window.operateEvents = {
             // 点击编辑
             'click .btn_edit': function (e, value, row, index) {
@@ -193,15 +187,21 @@
 
         // 新增
         $('#btn_add').on('click', function () {
+            console.log(123)
             Core.load("#formContent", "/link/add", function () {
+                console.log(456)
                 $('#formTitle').text('新增')
+                console.log(789)
                 $("#formModal").modal('show');
+                console.log(10)
             });
         })
 
         // 编辑
         function editRow(id) {
+            console.log("xiugai")
             Core.load("#formContent", "/link/edit?id=" + id, function () {
+                console.log("xiugai212")
                 $('#formTitle').text('编辑')
                 $("#formModal").modal('show');
             });

@@ -16,7 +16,7 @@
 </div>
 <!-- Main content -->
 <section class="content">
-    <div class="card card-info">
+    <div class="card card-info card-header">
         <form id="searchForm" class="needs-validation form-inline" novalidate="">
             <div class="form-group">
                 <label for="keywords">关键字:</label>
@@ -44,7 +44,7 @@
             </div>
         </form>
     </div>
-    <div class="card card-body">
+    <div class="card table-card card-body">
         <div id="toolbar" class="btn-group">
             <shiro:hasPermission name="article:add">
                 <button id="btn_add" type="button" class="btn btn-primary">

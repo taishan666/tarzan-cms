@@ -2,7 +2,6 @@ package com.tarzan.cms.module.admin.service.sys;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.toolkit.CollectionUtils;
-import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
@@ -11,6 +10,7 @@ import com.tarzan.cms.common.constant.CoreConst;
 import com.tarzan.cms.module.admin.mapper.sys.*;
 import com.tarzan.cms.module.admin.model.sys.*;
 import lombok.AllArgsConstructor;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
@@ -37,6 +37,35 @@ public class RoleService extends ServiceImpl<RoleMapper, Role> {
         }
         return  list.stream().map(e->String.valueOf(e.getRoleId())).collect(Collectors.toSet());
     }
+
+    public  Map<Integer,String> findRoleNameByUserIds(List<Integer> userIds) {
+        List<UserRole> list=userRoleMapper.selectList(Wrappers.<UserRole>lambdaQuery().in(UserRole::getUserId, userIds));
+        if(CollectionUtils.isEmpty(list)){
+            return null;
+        }
+        Set<Integer> roleIds= list.stream().map(e->e.getRoleId()).collect(Collectors.toSet());
+        Map<Integer,List<UserRole>> map= list.stream().collect(Collectors.groupingBy(UserRole::getUserId));
+        if(CollectionUtils.isEmpty(roleIds)){
+            return null;
+        }
+        List<Role> roles=list(Wrappers.<Role>lambdaQuery().in(Role::getId,roleIds));
+        Map<Integer,String> roleMap=roles.stream().collect(Collectors.toMap(Role::getId,Role::getName));
+        Map<Integer,String> result=new HashMap<>();
+        map.forEach((k,v)->{
+             Set<String> roleNames=new HashSet<>();
+             v.forEach(e->{
+                 if (roleMap.get(e.getRoleId())!=null){
+                     roleNames.add(roleMap.get(e.getRoleId()));
+                 }
+             });
+            result.put(k, StringUtils.join(roleNames,","));
+        });
+        return  result;
+    }
+
+
+
+
 
     public IPage<Role> selectRoles(Role role, Integer pageNumber, Integer pageSize) {
         IPage<Role> page = new Page<>(pageNumber, pageSize);

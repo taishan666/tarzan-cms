@@ -35,7 +35,8 @@ public class LinkService extends ServiceImpl<LinkMapper, Link> {
         return page(page,Wrappers.<Link>lambdaQuery()
                 .like(StringUtils.isNotBlank(link.getName()), Link::getName, link.getName())
                 .like(StringUtils.isNotBlank(link.getUrl()), Link::getUrl, link.getUrl())
-                .eq(Objects.nonNull(link.getStatus()), Link::getStatus, link.getStatus()));
+                .eq(Objects.nonNull(link.getStatus()), Link::getStatus, link.getStatus())
+                .orderByDesc(Link::getCreateTime));
     }
 
     @CacheEvict(value = "link", allEntries = true)

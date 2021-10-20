@@ -26,6 +26,7 @@
             AND u.phone like concat('%', #{user.phone}, '%')
         </if>
         GROUP BY u.id
+        order  by u.create_time desc;
     </select>
 
 </mapper>

@@ -18,7 +18,7 @@
         </div>
     </div>
     <div class="form-group row">
-        <label for="name" class="col-sm-3 col-form-label">资源名称</label>
+        <label for="name" class="col-sm-3 col-form-label">资源名称:</label>
         <div class="col-sm-9">
             <input type="text" th:value="${menu?.name}" name="name" class="form-control" id="name"
                    placeholder="请填写资源名称" required>
@@ -26,7 +26,7 @@
         <div class="invalid-feedback">请填写资源名称</div>
     </div>
     <div class="form-group row">
-        <label for="detailParentMenu" class="col-sm-3 col-form-label">上级资源</label>
+        <label for="detailParentMenu" class="col-sm-3 col-form-label">上级资源:</label>
         <div class="col-sm-9">
             <input type="text" class="form-control cursor-pointer" id="detailParentMenu"
                    th:value="${parentName}" onclick="showMenu(2)" readonly="readonly">
@@ -34,7 +34,7 @@
         </div>
     </div>
     <div th:style="${menu.type != 0 ? '' : 'display:none'}" class="form-group row menuFlag">
-        <label for="url" class="col-sm-3 col-form-label">资源url</label>
+        <label for="url" class="col-sm-3 col-form-label">资源url:</label>
         <div class="col-sm-9">
             <input type="text" th:value="${menu?.url}" name="url" class="form-control" id="url"
                    placeholder="请填写资源url" th:attr="required=${menu.type != 0 ? 'required' : null}">
@@ -42,7 +42,7 @@
         </div>
     </div>
     <div th:style="${menu.type != 0 ? '' : 'display:none'}" class="form-group row menuFlag btnFlag">
-        <label for="perms" class="col-sm-3 col-form-label">资源标识</label>
+        <label for="perms" class="col-sm-3 col-form-label">资源标识:</label>
         <div class="col-sm-9">
             <input type="text" th:value="${menu?.perms}" name="perms" class="form-control" id="perms"
                    placeholder="请填写资源标识" th:attr="required=${menu.type != 0 ? 'required' : null}">
@@ -50,7 +50,7 @@
         </div>
     </div>
     <div class="form-group row menuFlag catalogFlag">
-        <label for="orderNum" class="col-sm-3 col-form-label">排序</label>
+        <label for="orderNum" class="col-sm-3 col-form-label">排序:</label>
         <div class="col-sm-9">
             <input type="number" th:value="${menu?.orderNum}" name="orderNum" class="form-control" id="orderNum"
                    placeholder="请填写排序" required>
@@ -58,7 +58,7 @@
         </div>
     </div>
     <div th:style="${menu.type != 2 ? '' : 'display:none'}" class="form-group row menuFlag catalogFlag">
-        <label for="icon" class="col-sm-3 col-form-label">图标</label>
+        <label for="icon" class="col-sm-3 col-form-label">图标:</label>
         <div class="col-sm-9">
             <input type="text" th:value="${menu?.icon}" name="icon" class="form-control" id="icon"
                    placeholder="请填写图标" th:attr="required=${menu.type != 2 ? 'required' : null}">
@@ -66,7 +66,7 @@
         </div>
     </div>
     <div class="form-group row">
-        <label for="description" class="col-sm-3 col-form-label">描述</label>
+        <label for="description" class="col-sm-3 col-form-label">描述:</label>
         <div class="col-sm-9">
             <input type="text" th:value="${menu?.description}" name="description" class="form-control" id="description"
                    placeholder="请填写描述" required>

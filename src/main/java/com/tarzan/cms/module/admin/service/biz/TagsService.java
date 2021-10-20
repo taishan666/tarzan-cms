@@ -39,7 +39,8 @@ public class TagsService extends ServiceImpl<TagsMapper, Tags> {
         IPage<Tags> page = new Page<>(pageNumber, pageSize);
         return page(page,Wrappers.<Tags>lambdaQuery()
                 .like(StringUtils.isNotBlank(tags.getName()), Tags::getName, tags.getName())
-                .like(StringUtils.isNotBlank(tags.getDescription()), Tags::getDescription, tags.getDescription()));
+                .like(StringUtils.isNotBlank(tags.getDescription()), Tags::getDescription, tags.getDescription())
+                .orderByDesc(Tags::getCreateTime));
     }
 
     @CacheEvict(value = "tag", allEntries = true)

@@ -2,6 +2,7 @@ package com.tarzan.cms.module.admin.controller.biz;
 
 import com.baomidou.mybatisplus.core.toolkit.CollectionUtils;
 import com.tarzan.cms.common.constant.CoreConst;
+import com.tarzan.cms.module.admin.model.biz.Tags;
 import com.tarzan.cms.utils.ResultUtil;
 import com.tarzan.cms.module.admin.model.biz.Article;
 import com.tarzan.cms.module.admin.model.biz.Category;
@@ -46,19 +47,20 @@ public class CategoryController {
     }
 
     @GetMapping("/add")
-    public String add() {
+    public String add(Model model) {
+        model.addAttribute("categories", getCategories());
         return CoreConst.ADMIN_PREFIX + "category/form";
     }
+
+
+
 
     @PostMapping("/add")
     @ResponseBody
     @CacheEvict(value = "category", allEntries = true)
     public ResponseVo add(Category bizCategory) {
-        if (!CoreConst.TOP_MENU_ID.equals(bizCategory.getPid())) {
-            List<Article> bizArticles = articleService.selectByCategoryId(bizCategory.getPid());
-            if (!CollectionUtils.isEmpty(bizArticles)) {
+        if (existArticles(bizCategory.getPid())) {
                 return ResultUtil.error("添加失败，父级分类下存在文章");
-            }
         }
         Date date = new Date();
         bizCategory.setCreateTime(date);
@@ -76,13 +78,18 @@ public class CategoryController {
     public String edit(Model model, Integer id) {
         Category bizCategory = categoryService.selectById(id);
         model.addAttribute("category", bizCategory);
+        model.addAttribute("categories", getCategories());
         return CoreConst.ADMIN_PREFIX + "category/form";
     }
+
 
     @PostMapping("/edit")
     @ResponseBody
     @CacheEvict(value = "category", allEntries = true)
     public ResponseVo edit(Category bizCategory) {
+        if (existArticles(bizCategory.getPid())) {
+            return ResultUtil.error("编辑失败，父级分类下存在文章");
+        }
         bizCategory.setUpdateTime(new Date());
         boolean flag = categoryService.updateById(bizCategory);
         if (flag) {
@@ -107,5 +114,18 @@ public class CategoryController {
         }
     }
 
+    private List<Category> getCategories(){
+        return categoryService.selectCategories(new Category().setStatus(CoreConst.STATUS_VALID));
+    }
+
+    private boolean existArticles(Integer id){
+        if (!CoreConst.TOP_MENU_ID.equals(id)) {
+            List<Article> bizArticles = articleService.selectByCategoryId(id);
+            if (CollectionUtils.isNotEmpty(bizArticles)) {
+                return true;
+            }
+        }
+        return false;
+    }
 
 }

@@ -1,11 +1,13 @@
 package com.tarzan.cms.module.admin.service.sys;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.core.toolkit.CollectionUtils;
 import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.tarzan.cms.common.constant.CoreConst;
+import com.tarzan.cms.module.admin.mapper.sys.RoleMapper;
 import com.tarzan.cms.module.admin.mapper.sys.UserMapper;
 import com.tarzan.cms.module.admin.mapper.sys.UserRoleMapper;
 import com.tarzan.cms.module.admin.model.sys.User;
@@ -26,6 +28,7 @@ import org.springframework.util.Assert;
 
 import java.io.Serializable;
 import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * @author tarzan liu
@@ -41,6 +44,7 @@ public class UserService extends ServiceImpl<UserMapper, User> {
     private final SessionManager sessionManager;
     private final RedisCacheManager redisCacheManager;
     private final UserRoleMapper userRoleMapper;
+    private final RoleService roleService;
 
     private static UserOnlineVo getSessionBo(Session session) {
         //获取session登录信息。
@@ -94,7 +98,20 @@ public class UserService extends ServiceImpl<UserMapper, User> {
 
     public IPage<User> selectUsers(User user, Integer pageNumber, Integer pageSize) {
         IPage<User> page = new Page<>(pageNumber, pageSize);
-        return baseMapper.selectUsers(page, user);
+        page=page(page,Wrappers.<User>lambdaQuery()
+                .like(StringUtils.isNotBlank(user.getUsername()),User::getUsername,user.getUsername())
+                .like(StringUtils.isNotBlank(user.getEmail()),User::getEmail,user.getEmail())
+                .like(StringUtils.isNotBlank(user.getPhone()),User::getPhone,user.getPhone())
+                .eq(User::getStatus,CoreConst.STATUS_VALID)
+                .orderByDesc(User::getCreateTime));
+        if(CollectionUtils.isNotEmpty(page.getRecords())){
+            List<Integer> userIds=page.getRecords().stream().map(User::getId).collect(Collectors.toList());
+            Map<Integer,String> map=roleService.findRoleNameByUserIds(userIds);
+            page.getRecords().forEach(e->{
+                e.setRoleName(map.get(e.getId()));
+            });
+         }
+        return page;
     }
 
     public User selectByUserId(Integer userId) {

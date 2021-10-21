@@ -35,12 +35,10 @@
         window.operateEvents = {
             // 点击编辑
             'click .btn_rollback': function (e, value, row, index) {
-                console.log(123)
                 rollback(row.fileName)
             },
             // 点击删除
             'click .btn_del': function (e, value, row, index) {
-                console.log(456)
                 deleteRow(row.fileName)
             }
         }

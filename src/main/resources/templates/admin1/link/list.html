@@ -187,21 +187,15 @@
 
         // 新增
         $('#btn_add').on('click', function () {
-            console.log(123)
             Core.load("#formContent", "/link/add", function () {
-                console.log(456)
                 $('#formTitle').text('新增')
-                console.log(789)
                 $("#formModal").modal('show');
-                console.log(10)
             });
         })
 
         // 编辑
         function editRow(id) {
-            console.log("xiugai")
             Core.load("#formContent", "/link/edit?id=" + id, function () {
-                console.log("xiugai212")
                 $('#formTitle').text('编辑')
                 $("#formModal").modal('show');
             });

@@ -1,5 +1,3 @@
-<link rel="stylesheet" th:href="@{admin/plugins/treegrid/jquery.treegrid.css}">
-
 <div class="row">
     <div class="colxl-12 col-lg-12 col-md-12 col-sm-12 col-12">
         <div class="page-title-wrapper">
@@ -28,7 +26,6 @@
         </div>
         <table id="menuTable" class="mt-2" data-mobile-responsive="true" data-click-to-select="true"></table>
     </div>
-
 </section>
 
 <!-- 表单模态框 -->
@@ -56,19 +53,12 @@
 <div id="permissionLayer" style="display: none;padding: 20px;">
     <ul id="permissionTree" class="ztree"></ul>
 </div>
-
-<script th:src="@{admin/plugins/treegrid/jquery.treegrid.min.js}"></script>
-<script th:src="@{admin/plugins/treegrid/jquery.treegrid.extension.js}"></script>
-<script th:src="@{admin/plugins/treegrid/tree.table.js}"></script>
 <script>
-
     var editFlag = Core.parseBool("[[${@perms.hasPerm('menu:edit')}]]");
     var deleteFlag = Core.parseBool("[[${@perms.hasPerm('menu:delete')}]]");
-
     var menuType = "1";/*默认选中菜单类型*/
     var menuCheckedType = 0;/*选中的上级的菜单类型*/
     var detailMenuCheckedType;/*详情中选中的上级的菜单类型*/
-
     var treeTableConf = {
         id: "menuTable",
         table: null,
@@ -275,6 +265,4 @@
             });
         });
     }
-
-
 </script>

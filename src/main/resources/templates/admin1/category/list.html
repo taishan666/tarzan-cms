@@ -1,4 +1,4 @@
-<link rel="stylesheet" th:href="@{admin/plugins/treegrid/jquery.treegrid.css}">
+
 <div class="row">
     <div class="colxl-12 col-lg-12 col-md-12 col-sm-12 col-12">
         <div class="page-title-wrapper">
@@ -55,9 +55,7 @@
     </div>
 </div>
 
-<script th:src="@{admin/plugins/treegrid/jquery.treegrid.min.js}"></script>
-<script th:src="@{admin/plugins/treegrid/jquery.treegrid.extension.js}"></script>
-<script th:src="@{admin/plugins/treegrid/tree.table.js}"></script>
+
 <script>
     var editFlag = "[[${@perms.hasPerm('category:edit')}]]";
     var deleteFlag = "[[${@perms.hasPerm('category:delete')}]]";

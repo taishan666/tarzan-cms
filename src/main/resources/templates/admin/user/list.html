@@ -1,23 +1,24 @@
-<div class="row">
-    <div class="colxl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-        <div class="page-title-wrapper">
-            <div class="page-title-box">
-                <h4 class="page-title bold">用户管理</h4>
-            </div>
-            <div class="breadcrumb-list">
-                <ul>
-                    <li class="breadcrumb-link"><a th:href="@{admin}"><i class="fas fa-home mr-2"></i>首页</a></li>
-                    <li class="breadcrumb-link active">权限管理</li>
-                    <li class="breadcrumb-link active">用户管理</li>
-                </ul>
-            </div>
-        </div>
-    </div>
+<div class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1 class="m-0 text-dark">用户管理</h1>
+            </div><!-- /.col -->
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a th:href="@{admin}">首页</a></li>
+                    <li class="breadcrumb-item active">权限管理</li>
+                    <li class="breadcrumb-item active">用户管理</li>
+                </ol>
+            </div><!-- /.col -->
+        </div><!-- /.row -->
+    </div><!-- /.container-fluid -->
 </div>
 <!-- Main content -->
 <section class="content">
-    <div class="card card-info card-header">
-            <form id="searchForm" class="needs-validation form-inline">
+    <div class="card card-info">
+        <shiro:hasPermission name="user:list">
+            <form id="searchForm" class="needs-validation form-inline" novalidate="">
                 <div class="form-group">
                     <label for="username">用户名:</label>
                     <input type="text" class="form-control m-2" id="username">
@@ -32,11 +33,12 @@
                 </div>
                 <div class="form-group">
                     <button class="btn btn-primary ml-3" type="submit">查询</button>
-                    <button class="btn btn-light ml-2" type="reset">重置</button>
+                    <button class="btn btn-default ml-2" type="reset">重置</button>
                 </div>
             </form>
+        </shiro:hasPermission>
     </div>
-    <div class="card table-card card-body">
+    <div class="card card-body">
         <div id="toolbar" class="btn-group">
             <shiro:hasPermission name="user:add">
                 <button id="btn_add" type="button" class="btn btn-primary">
@@ -161,9 +163,9 @@
             }];
 
         function operationFormatter(value, row, index) {
-            var edit = editFlag ? '<button class="effect-btn btn btn-info mt-2 mr-2 icon-lg btn_edit"><i class="fas fa-edit"></i></button>' : '';
-            var assign = assignRoleFlag ? '<button class="effect-btn btn btn-warning mt-2 mr-2 icon-lg btn_assign"><i class="fas fa-user-cog"></i></button>' : '';
-            var del = deleteFlag ? '<button class="effect-btn btn btn-danger mt-2 mr-2 icon-lg btn_del"><i class="fas fa-trash-alt"></i></button>' : '';
+            var edit = editFlag ? '<button class="btn btn-info btn-sm btn_edit">编辑</button>' : '';
+            var assign = assignRoleFlag ? '<button class="btn btn-info btn-sm ml-1 btn_assign">分配角色</button>' : '';
+            var del = deleteFlag ? '<button class="btn btn-danger btn-sm ml-1 btn_del">删除</button>' : '';
             return edit + assign + del;
         }
 

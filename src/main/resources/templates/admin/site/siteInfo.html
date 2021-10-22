@@ -1,26 +1,27 @@
-<div class="row">
-    <div class="colxl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-        <div class="page-title-wrapper">
-            <div class="page-title-box">
-                <h4 class="page-title bold">基础信息</h4>
-            </div>
-            <div class="breadcrumb-list">
-                <ul>
-                    <li class="breadcrumb-link"><a th:href="@{admin}"><i class="fas fa-home mr-2"></i>首页</a></li>
-                    <li class="breadcrumb-link active">网站管理</li>
-                    <li class="breadcrumb-link active">基础信息</li>
-                </ul>
-            </div>
-        </div>
-    </div>
+<div class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1 class="m-0 text-dark">网站管理</h1>
+            </div><!-- /.col -->
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a th:href="@{admin}">首页</a></li>
+                    <li class="breadcrumb-item active">网站管理</li>
+                    <li class="breadcrumb-item active">基础信息</li>
+                </ol>
+            </div><!-- /.col -->
+        </div><!-- /.row -->
+    </div><!-- /.container-fluid -->
 </div>
 <!-- Main content -->
 <section class="content">
     <div class="card card-body">
+        <div class="ml-3">
         <form id="siteInfoForm">
             <div class="form-group row">
-                <label for="SITE_NAME" class="col-sm-2 col-form-label">网站名称:</label>
-                <div class="col-sm-10">
+                <label for="SITE_NAME" class="col-sm-1 col-form-label">网站名称:</label>
+                <div class="col-sm-11">
                     <input type="text" th:value="${siteInfo?.SITE_NAME}" name="SITE_NAME" class="form-control"
                            id="SITE_NAME"
                            placeholder="填写网站名称" required>
@@ -28,24 +29,24 @@
                 </div>
             </div>
             <div class="form-group row">
-                <label for="SITE_KWD" class="col-sm-2 col-form-label">网站关键字:</label>
-                <div class="col-sm-10">
+                <label for="SITE_KWD" class="col-sm-1 col-form-label">网站关键字:</label>
+                <div class="col-sm-11">
                     <textarea th:text="${siteInfo?.SITE_KWD}" rows="2" type="text" class="form-control" id="SITE_KWD"
                               name="SITE_KWD"></textarea>
                     <div class="invalid-feedback">请填写网站关键字</div>
                 </div>
             </div>
             <div class="form-group row">
-                <label for="SITE_DESC" class="col-sm-2 col-form-label">网站描述:</label>
-                <div class="col-sm-10">
+                <label for="SITE_DESC" class="col-sm-1 col-form-label">网站描述:</label>
+                <div class="col-sm-11">
                     <textarea th:text="${siteInfo?.SITE_DESC}" rows="2" type="text" class="form-control" id="SITE_DESC"
                               name="SITE_DESC"></textarea>
                     <div class="invalid-feedback">请填写网站描述</div>
                 </div>
             </div>
             <div class="form-group row">
-                <label for="SITE_PERSON_PIC" class="col-sm-2 col-form-label">站长头像:</label>
-                <div class="col-sm-10">
+                <label for="SITE_PERSON_PIC" class="col-sm-1 col-form-label">站长头像:</label>
+                <div class="col-sm-11">
                     <input type="text" th:value="${siteInfo?.SITE_PERSON_PIC}" name="SITE_PERSON_PIC"
                            class="form-control" id="SITE_PERSON_PIC"
                            placeholder="填写站长头像地址" required>
@@ -53,8 +54,8 @@
                 </div>
             </div>
             <div class="form-group row">
-                <label for="SITE_PERSON_NAME" class="col-sm-2 col-form-label">站长名称:</label>
-                <div class="col-sm-10">
+                <label for="SITE_PERSON_NAME" class="col-sm-1 col-form-label">站长名称:</label>
+                <div class="col-sm-11">
                     <input type="text" th:value="${siteInfo?.SITE_PERSON_NAME}" name="SITE_PERSON_NAME"
                            class="form-control" id="SITE_PERSON_NAME"
                            placeholder="填写站长名称" required>
@@ -62,8 +63,8 @@
                 </div>
             </div>
             <div class="form-group row">
-                <label for="SITE_PERSON_DESC" class="col-sm-2 col-form-label">站长描述:</label>
-                <div class="col-sm-10">
+                <label for="SITE_PERSON_DESC" class="col-sm-1 col-form-label">站长描述:</label>
+                <div class="col-sm-11">
                     <textarea th:text="${siteInfo?.SITE_PERSON_DESC}" rows="2" type="text" class="form-control"
                               id="SITE_PERSON_DESC" name="SITE_PERSON_DESC"></textarea>
                     <div class="invalid-feedback">请填写站长描述</div>
@@ -79,44 +80,41 @@
                 </div>
             </div>-->
             <div class="form-group row">
-                <label for="SITE_STATIC" class="col-sm-2 col-form-label">网站静态化:</label>
-                <div class="col-sm-10">
-                    <input id="SITE_STATIC" name="SITE_STATIC" type="checkbox" th:checked="${#bools.isTrue(siteInfo?.get('SITE_STATIC'))}">
+                <label for="SITE_STATIC" class="col-sm-1 col-form-label">网站静态化:</label>
+                <div class="col-sm-11">
+                    <input type="checkbox" id="SITE_STATIC" name="SITE_STATIC"
+                           th:checked="${#bools.isTrue(siteInfo?.get('SITE_STATIC'))}">
+                    <input type="hidden" name="SITE_STATIC" value="off"/>
                 </div>
             </div>
-        </form>
         <shiro:hasPermission name="siteInfo:edit">
-            <div class="col-sm-7 offset-sm-5">
-                <button type="submit" id="btn_save" class="btn btn-info">保存配置</button>
+<!--            <div class="btn-group mt-4">
+                <button type="submit" id="btn_save" class="btn btn-success">保存</button>
+            </div>-->
+            <div class="form-group mt-4">
+                <div class="row">
+                    <button type="submit" id="btn_save" class="btn btn-success btn-lg col-md-4 offset-1">保存</button>
+                </div>
             </div>
         </shiro:hasPermission>
+        </form>
+      </div>
     </div>
 </section>
 
 <script>
-
     $(function () {
 
-        $("#SITE_STATIC").bootstrapSwitch({
-            onText : "启用",      // 设置ON文本
-            offText : "禁用",    // 设置OFF文本
-            onSwitchChange : function(event, state) {
-                if(state==true){
-                    this.value="on";
-                }else{
-                    this.value="off";
-                }
-            }
-        });
+        $("#SITE_STATIC").bootstrapSwitch({onText: '开启', offText: '关闭'})
 
         $('#btn_save').on('click', function () {
             var $f = $('#siteInfoForm');
-            console.log( $('#SITE_STATIC').val())
             var valid = $f[0].checkValidity();
-           if (valid) {
+            var url = '/siteInfo/edit'
+            if (valid) {
                 $f.addClass("was-validated")
                 Core.mask("#btn_save");
-                Core.postAjax('/siteInfo/edit', $f.serialize(), function (data) {
+                Core.postAjax(url, $f.serialize(), function (data) {
                     Core.unmask("#btn_save");
                     layer.msg(data.msg);
                     $f.removeClass("was-validated")

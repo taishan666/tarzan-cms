@@ -81,9 +81,7 @@
             <div class="form-group row">
                 <label for="SITE_STATIC" class="col-sm-2 col-form-label">网站静态化:</label>
                 <div class="col-sm-10">
-                    <input type="checkbox" id="SITE_STATIC" name="SITE_STATIC"
-                           th:checked="${#bools.isTrue(siteInfo?.get('SITE_STATIC'))}">
-                    <input type="hidden" name="SITE_STATIC" value="off"/>
+                    <input id="SITE_STATIC" name="SITE_STATIC" type="checkbox" th:checked="${#bools.isTrue(siteInfo?.get('SITE_STATIC'))}">
                 </div>
             </div>
         </form>
@@ -96,18 +94,29 @@
 </section>
 
 <script>
+
     $(function () {
 
-        $("#SITE_STATIC").bootstrapSwitch({onText: '开启', offText: '关闭'})
+        $("#SITE_STATIC").bootstrapSwitch({
+            onText : "启用",      // 设置ON文本
+            offText : "禁用",    // 设置OFF文本
+            onSwitchChange : function(event, state) {
+                if(state==true){
+                    this.value="on";
+                }else{
+                    this.value="off";
+                }
+            }
+        });
 
         $('#btn_save').on('click', function () {
             var $f = $('#siteInfoForm');
+            console.log( $('#SITE_STATIC').val())
             var valid = $f[0].checkValidity();
-            var url = '/siteInfo/edit'
-            if (valid) {
+           if (valid) {
                 $f.addClass("was-validated")
                 Core.mask("#btn_save");
-                Core.postAjax(url, $f.serialize(), function (data) {
+                Core.postAjax('/siteInfo/edit', $f.serialize(), function (data) {
                     Core.unmask("#btn_save");
                     layer.msg(data.msg);
                     $f.removeClass("was-validated")

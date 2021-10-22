@@ -29,20 +29,18 @@
                                placeholder="请输入文章标题">
                     </div>
                     <div class="form-group">
-                        <textarea  id="articleEditor" th:text="${article?.content}">12315616</textarea>
-                      <!--  <textarea id="articleField" th:text="${article?.content}"></textarea>-->
+                        <textarea  id="articleEditor" th:text="${article?.content}"></textarea>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
+        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6">
             <div class="card">
                 <div class="card-body">
-                    <form>
-                        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-                            <div class="form-group row">
-                                <label class="col-md-3 col-form-label">文章分类:</label>
-                                <div class="col-md-9">
+                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                        <div class="form-group row">
+                            <label class="col-md-3 col-form-label">文章分类:</label>
+                            <div class="col-md-9">
                                 <select id="category-select" class="form-control" name="categoryId" required>
                                     <block th:each="category: ${categories}">
                                         <option th:if="${#lists.isEmpty(category.children)}" th:value="${category.id}" th:label="${category.name}" th:selected="${article?.categoryId == category.id}"></option>
@@ -51,105 +49,92 @@
                                         </optgroup>
                                     </block>
                                 </select>
-                                </div>
                             </div>
-                            <div class="form-group row">
-                                 <label class="col-md-3 col-form-label">文章标签:</label>
-                                    <div class="col-sm-3" th:each="tag:${tags}">
-                                        <input type="checkbox" th:id="'tag_' + ${tag.id}" name="tagIds" th:value="${tag.id}"
-                                               th:checked="${#lists.contains(article?.tags,tag) ? true: false}"/>
-                                        <label th:for="'tag_' + ${tag.id}" th:text="${tag.name}"></label>
-                                    </div>
-                            </div>
-                            <div class="form-group row">
-                                <label class="col-md-3 col-form-label">文章封面:</label>
-                                <div class="upload-content">
-                                    <div class="content-img">
-                                        <ul class="content-img-list"></ul>
-                                        <div class="file">
-                                            <i class="fa fa-plus"></i>
-                                            <input type="file" name="file" accept="image/*" id="upload" multiple>
-                                        </div>
-                                    </div>
-                         <!--           <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
-                                        <div class="modal-dialog modal-lg" role="document">
-                                            <div class="modal-content">
-                                            </div>
-                                        </div>
-                                    </div>-->
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <label class="col-md-3 col-form-label">文章类型:</label>
-                                <select id="original-select" class="col-md-9 form-control" name="original" required>
-                                    <option value="1" label="原创" th:selected="${article?.original == 1}"></option>
-                                    <option value="0" label="转载" th:selected="${article?.original == 0}"></option>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-md-3 col-form-label">文章标签:</label>
+                            <div class="col-md-9">
+                                <select id="tag-select" class="form-control" name="tagIds" data-live-search="true" multiple>
+                                    <block th:each="tag: ${tags}">
+                                        <option  th:value="${tag.id}" th:text="${tag.name}" th:selected="${#lists.contains(article?.tags,tag)}"></option>
+                                    </block>
                                 </select>
                             </div>
                         </div>
-                    </form>
+                        <div class="form-group row">
+                            <label class="col-md-3 col-form-label">文章封面:</label>
+                            <div class="upload-content">
+                                <div class="content-img">
+                                    <ul class="content-img-list"></ul>
+                                    <div class="file">
+                                        <i class="fa fa-plus"></i>
+                                        <input type="file" name="file" accept="image/*" id="upload" multiple>
+                                    </div>
+                                </div>
+                                <!--           <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+                                               <div class="modal-dialog modal-lg" role="document">
+                                                   <div class="modal-content">
+                                                   </div>
+                                               </div>
+                                           </div>-->
+                            </div>
+                        </div>
+
+                    </div>
                 </div>
             </div>
         </div>
-        <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
+        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6">
             <div class="card">
                 <div class="card-body">
-                    <form>
-                        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-                            <div class="form-group row">
-                                <label class="col-md-3 col-form-label">是否轮播:</label>
-                                <div class="col-md-9">
-                                        <input id="radio-1" name="radio" type="radio" checked>
-                                        <label for="radio-1" class="radio-label">是</label>
-                                        <input id="radio-1" name="radio" type="radio" checked>
-                                        <label for="radio-1" class="radio-label">否</label>
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <label class="col-md-3 col-form-label">是否置顶:</label>
-                                <div class="col-md-9">
-                                        <input id="radio-1" name="radio" type="radio" checked>
-                                        <label for="radio-1" class="radio-label">是</label>
-                                        <input id="radio-1" name="radio" type="radio" checked>
-                                        <label for="radio-1" class="radio-label">否</label>
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <label class="col-md-3 col-form-label">是否推荐:</label>
-                                <div class="col-md-9">
-                                        <input id="radio-1" name="radio" type="radio" checked>
-                                        <label for="radio-1" class="radio-label">是</label>
-                                        <input id="radio-1" name="radio" type="radio" checked>
-                                        <label for="radio-1" class="radio-label">否</label>
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <label class="col-md-3 col-form-label">开启评论:</label>
-                                <div class="col-md-9">
-                                        <input id="radio-1" name="radio" type="radio" checked>
-                                        <label for="radio-1" class="radio-label">是</label>
-                                        <input id="radio-1" name="radio" type="radio" checked>
-                                        <label for="radio-1" class="radio-label">否</label>
-                                </div>
-                            </div>
-                            <div class="form-group row mb-0">
-                                <div class="col-sm-10 offset-sm-2">
-                                    <button type="button" th:if="${article?.id == null}" class="btn btn-primary"
-                                            onclick="addOrUpdateArticle(1, true)">发布文章
-                                    </button>
-                                    <button type="button" th:if="${article?.id == null}" class="btn btn-secondary"
-                                            onclick="addOrUpdateArticle(0, true)">保存草稿
-                                    </button>
-                                    <button type="button" th:unless="${article?.id == null}" class="btn btn-primary"
-                                            onclick="addOrUpdateArticle(1, false)">发布更新
-                                    </button>
-                                    <button type="button" th:unless="${article?.id == null}" class="btn btn-secondary"
-                                            onclick="addOrUpdateArticle(0, false)">更新草稿
-                                    </button>
-                                </div>
+                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                        <div class="form-group row">
+                            <label class="col-md-3 col-form-label">文章类型:</label>
+                            <div class="col-md-9">
+                                <input id="original" name="original" type="checkbox" th:checked="${article?.original == 1}" th:value="${article?.original}">
                             </div>
                         </div>
-                    </form>
+                        <div class="form-group row">
+                            <label class="col-md-3 col-form-label">是否轮播:</label>
+                            <div class="col-md-9">
+                                <input id="slider" name="slider" type="checkbox" th:checked="${article?.slider == 1}" th:value="${article?.slider}">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-md-3 col-form-label">是否置顶:</label>
+                            <div class="col-md-9">
+                                <input id="top" name="top" type="checkbox" th:checked="${article?.top == 1}" th:value="${article?.top}">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-md-3 col-form-label">是否推荐:</label>
+                            <div class="col-md-9">
+                                <input id="recommended" name="recommended" type="checkbox" th:checked="${article?.recommended == 1}" th:value="${article?.recommended}">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-md-3 col-form-label">开启评论:</label>
+                            <div class="col-md-9">
+                                <input id="comment" name="comment" type="checkbox" th:checked="${article?.comment == 1}" th:value="${article?.comment}">
+                            </div>
+                        </div>
+                        <div class="form-group row mb-0">
+                            <div class="col-sm-10 offset-sm-2">
+                                <button type="button" th:if="${article?.id == null}" class="btn btn-primary"
+                                        onclick="addOrUpdateArticle(1, true)">发布文章
+                                </button>
+                                <button type="button" th:if="${article?.id == null}" class="btn btn-secondary"
+                                        onclick="addOrUpdateArticle(0, true)">保存草稿
+                                </button>
+                                <button type="button" th:unless="${article?.id == null}" class="btn btn-primary"
+                                        onclick="addOrUpdateArticle(1, false)">发布更新
+                                </button>
+                                <button type="button" th:unless="${article?.id == null}" class="btn btn-secondary"
+                                        onclick="addOrUpdateArticle(0, false)">更新草稿
+                                </button>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -252,22 +237,65 @@
     })
 </script>
 
-
 <script>
-/*
-    $(function () {
-        initSliderUploadContent();
-    })
-    function initSliderUploadContent() {
-        var showSlider = $("input[name=slider]:checked").val();
-        if (parseInt(showSlider)) {
-            $("#sliderImgContent").show();
-        } else {
-            $("#sliderImgContent").hide();
-            $("#upload-slider-content").hide();
+   $('#tag-select').selectpicker({maxOptions:3});
+   $("#original").bootstrapSwitch({
+       onText : "原创",      // 设置ON文本
+       offText : "转载",    // 设置OFF文本
+       onColor:"success",
+       offColor:"info",
+       onSwitchChange : function(event, state) {
+           if(state==true){
+               this.value=1;
+           }else{
+               this.value=0;
+           }
+       }
+   });
+   $("#slider").bootstrapSwitch({
+        onText : "启用",      // 设置ON文本
+        offText : "禁用",    // 设置OFF文本
+        onSwitchChange : function(event, state) {
+            if(state==true){
+                this.value=1;
+            }else{
+                this.value=0;
+            }
         }
-    }
-*/
+    });
+    $("#top").bootstrapSwitch({
+        onText : "启用",      // 设置ON文本
+        offText : "禁用",    // 设置OFF文本
+        onSwitchChange : function(event, state) {
+            if(state==true){
+                this.value=1;
+            }else{
+                this.value=0;
+            }
+        }
+    });
+    $("#recommended").bootstrapSwitch({
+        onText : "启用",      // 设置ON文本
+        offText : "禁用",    // 设置OFF文本
+        onSwitchChange : function(event, state) {
+            if(state==true){
+                this.value=1;
+            }else{
+                this.value=0;
+            }
+        }
+    });
+    $("#comment").bootstrapSwitch({
+        onText : "启用",      // 设置ON文本
+        offText : "禁用",    // 设置OFF文本
+        onSwitchChange : function(event, state) {
+            if(state==true){
+                this.value=1;
+            }else{
+                this.value=0;
+            }
+        }
+    });
 
     function addOrUpdateArticle(status, addFlag) {
         if (validArticle()) {

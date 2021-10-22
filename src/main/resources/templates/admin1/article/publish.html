@@ -16,7 +16,11 @@
 </div>
 <!-- From Start -->
 <div class="from-wrapper">
-    <div class="row">
+    <form id="articleForm" class="row">
+        <input th:value="${article?.id}" type="hidden" name="id">
+        <input id="status" type="hidden" name="status">
+        <input id="articleContent" type="hidden" name="content" th:value="${article?.content}">
+        <input id="articleContentMd" type="hidden" name="contentMd">
         <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
             <div class="card">
                 <div class="card-body">
@@ -25,7 +29,7 @@
                                placeholder="请输入文章标题">
                     </div>
                     <div class="form-group">
-                        <textarea name="content" id="articleEditor" th:text="${article?.content}">12315616</textarea>
+                        <textarea  id="articleEditor" th:text="${article?.content}">12315616</textarea>
                       <!--  <textarea id="articleField" th:text="${article?.content}"></textarea>-->
                     </div>
                 </div>
@@ -130,8 +134,18 @@
                             </div>
                             <div class="form-group row mb-0">
                                 <div class="col-sm-10 offset-sm-2">
-                                    <button class="btn btn-primary" type="button">reset</button>
-                                    <button class="btn btn-light" type="submit"></button>
+                                    <button type="button" th:if="${article?.id == null}" class="btn btn-primary"
+                                            onclick="addOrUpdateArticle(1, true)">发布文章
+                                    </button>
+                                    <button type="button" th:if="${article?.id == null}" class="btn btn-secondary"
+                                            onclick="addOrUpdateArticle(0, true)">保存草稿
+                                    </button>
+                                    <button type="button" th:unless="${article?.id == null}" class="btn btn-primary"
+                                            onclick="addOrUpdateArticle(1, false)">发布更新
+                                    </button>
+                                    <button type="button" th:unless="${article?.id == null}" class="btn btn-secondary"
+                                            onclick="addOrUpdateArticle(0, false)">更新草稿
+                                    </button>
                                 </div>
                             </div>
                         </div>
@@ -139,26 +153,60 @@
                 </div>
             </div>
         </div>
-    </div>
+    </form>
 </div>
 
 <script>
+    var content;
     //自定义编辑器菜单
     ice.editor("articleEditor",function(e){
+        content = filterXSS(this.getHTML);
         this.uploadUrl = "src/upload.php";
         this.pasteText = false;
         this.screenshot = true;
         this.screenshotUpload = true;
-        //this.menu=['fontSize','foreColor','bold','italic','underline','strikeThrough','line','justifyLeft','justifyCenter','justifyRight','line','table','insertImage','video'];
+        //第二步，自定义菜单，默认加载全部
+        this.menu = [
+            'backColor', //字体背景颜色
+            'fontSize', //字体大小
+            'foreColor', //字体颜色
+            'bold', //粗体
+            'italic', //斜体
+            'underline', //下划线
+            'strikeThrough', //删除线
+            'justifyLeft', //左对齐
+            'justifyCenter', //居中对齐
+            'justifyRight', //右对齐
+            'indent', //增加缩进
+            'outdent', //减少缩进
+            'insertOrderedList', //有序列表
+            'insertUnorderedList', //无序列表
+            'superscript', //上标
+            'subscript', //下标
+            'createLink', //创建连接
+            'unlink', //取消连接
+            'hr', //水平线
+            'face', //表格
+            'table', //表格
+            'files', //附件
+            'music', //音乐
+            'video', //视频
+            'insertImage', //图片
+            'removeFormat', //格式化样式
+            'paste', //富文本粘贴
+            'code', //源码
+            'line' //菜单分割线
+        ];
+        //关闭窗口最大化
+        this.maxWindow = false;
         //下拉菜单类型
         this.plugin({
-            menu:'代码语言',
+            menu:'代码段',
             name:'codeLanguages',
             dropdown:`
 				<div class="iceEditor-codeLanguages" style="padding:10px 20px;">
-					<div>iceCode代码高亮</div>
 					<select>
-						<option disabled selected>代码语言</option>
+						<option disabled selected><没有设置></option>
 						<option value ="html">HTML/XTML</option>
 						<option value ="css">CSS</option>
 						<option value ="js">JS</option>
@@ -199,64 +247,14 @@
                 }
             }
         });
-
-        //function方式
-        this.plugin({
-            menu:'function方式',
-            name:'click',
-            click:function(e,z){
-                z.setText('hello world');
-            }
-        });
-        //function方式
-        this.plugin({
-            menu:'<svg class="icon" style="width: 1em; height: 1em;vertical-align: middle;fill: currentColor;overflow: hidden;" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg"><path d="M689.25060779 62.95703666C877.07192889 62.95703666 997.45185223 213.56847445 997.45185223 416.26889443c0 157.29853667-142.33448334 330.53203001-422.76788224 525.18608669a110.10048 110.10048 0 0 1-125.36793998 0C168.88263111 746.80092445 26.54814777 573.56743111 26.54814777 416.26889443 26.54814777 213.56847445 146.92807111 62.95703666 334.74939221 62.95703666c67.82976 0 113.83845888 23.70218667 177.25060779 77.47811555C575.42428445 86.67136 621.42084779 62.95703666 689.25060779 62.95703666z m0 71.84687445c-47.14951111 0-79.94178333 17.28208555-133.07448889 62.62328889-2.46366777 2.09957888-16.384 14.07810333-20.41325113 17.50053888a36.77297778 36.77297778 0 0 1-47.52573554 0c-4.02924999-3.43457223-17.94958222-15.40096-20.41325113-17.50053888-53.13270557-45.34120334-85.92497778-62.62328889-133.07448889-62.62328889C191.35905223 134.80391111 99.36592555 249.4676389 99.36592555 414.9460389 99.36592555 541.12711111 228.53252779 697.7338789 491.10129778 879.30500779a36.80938667 36.80938667 0 0 0 41.79740444 0C795.46747221 697.74601443 924.63407445 541.12711111 924.63407445 414.9460389c0-165.4784-91.99312555-280.14212779-235.38346666-280.14212779z" p-id="670"></path></svg>',
-            name:'heard',
-            click:function(e,z){
-                z.setText('hello world');
-            }
-        });
-        //execCommand命令
-        this.plugin({
-            menu:'删除命令',
-            name:'del',
-            data:'delete'
-        });
-        //下拉菜单类型
-        this.plugin({
-            menu:'下拉菜单',
-            name:'dropdown',
-            dropdown:'<div class="iceEditor-exec" data="copy" style="padding:10px 20px;">复制选中的文字</div>',
-        });
-        //弹出层类型
-        this.plugin({
-            menu:'弹窗演示',
-            name:'popup',
-            style:'.demo-p{margin-bottom:10px}.demo-button{padding:0 10px}',
-            popup:{
-                width:230,
-                height:120,
-                title:'我是一个demo',
-                content:'<p class="demo-p">在光标处插入hello world!</p> <button class="demo-button" type="button">确定</button>',
-            },
-            success:function(e,z){
-                //获取content中的按钮
-                var btn = e.getElementsByTagName('button')[0];
-                //设置点击事件
-                btn.onclick=function(){
-                    z.setText('hello world');
-                    //关闭本弹窗
-                    e.close()
-                }
-            }
-        });
         this.create();
-      //  this.setValue('Hi,My name is iceui。');
+        //this.setValue(html);
     })
 </script>
 
 
 <script>
+/*
     $(function () {
         initSliderUploadContent();
     })
@@ -269,6 +267,7 @@
             $("#upload-slider-content").hide();
         }
     }
+*/
 
     function addOrUpdateArticle(status, addFlag) {
         if (validArticle()) {
@@ -277,7 +276,6 @@
                 if (addFlag) {
                     Core.postAjax("/article/add", $("#articleForm").serialize(), function (data) {
                         if (data.status === 200) {
-                            CKEDITOR.instances.articleField.setData('');
                             Core.load("#content", "article/add");
                         }
                         layer.msg(data.msg)
@@ -291,8 +289,7 @@
         }
     }
 
-/*    function validArticle() {
-        var content = CKEDITOR.instances.articleField.getData();
+   function validArticle() {
         if (content) {
             $("#articleContentMd").val(content);
             $("#articleContent").val(content);
@@ -306,7 +303,7 @@
             layer.msg("请输入文章内容！")
             return false;
         }
-    }*/
+    }
 
 </script>
 

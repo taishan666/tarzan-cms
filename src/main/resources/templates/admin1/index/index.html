@@ -26,7 +26,7 @@
 <link rel="stylesheet" type="text/css" th:href="@{/admin1/css/theme.css}">
 <!--<link rel="stylesheet" id="theme-change" type="text/css" href="#">-->
 <!-- Favicon Link -->
-<link rel="shortcut icon" type="image/png" href="/images/favicon.ico">
+<link rel="shortcut icon" type="image/png" href="favicon.ico">
 </head>
 <body  onhashchange="handleHashChange()">
 <!-- 加载动画 -->
@@ -116,7 +116,7 @@
     $('.sidebar-menu a').removeClass(activeName);
     var $href = $('.sidebar-menu > a[href="' + hash + '"]');
     if ($href.length > 0) {
-      $href.addClass(activeName).parent().parent().siblings().addClass(activeName).parent().addClass('menu-open');
+      $href.parent().addClass(activeName).parent().siblings().addClass(activeName).parent().addClass('menu-open');
     }
     Core.load("#content", hash.replace('#', ''));
   }

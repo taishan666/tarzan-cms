@@ -57,7 +57,7 @@
             <div class="invalid-feedback">请填写排序</div>
         </div>
     </div>
-    <div th:style="${menu.type != 2 ? '' : 'display:none'}" class="form-group row menuFlag catalogFlag">
+    <div th:style="${menu.type != 0 ? '' : 'display:none'}" class="form-group row  catalogFlag">
         <label for="icon" class="col-sm-3 col-form-label">图标:</label>
         <div class="col-sm-9">
             <input type="text" th:value="${menu?.icon}" name="icon" class="form-control" id="icon"
@@ -95,6 +95,7 @@
             $('#perms').removeAttr('required')
         }
         if (menuType === "1") {
+            $(".catalogFlag").hide();
             $(".menuFlag").show();
         }
         if (menuType === "2") {

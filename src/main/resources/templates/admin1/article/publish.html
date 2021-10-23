@@ -209,8 +209,8 @@
     //自定义编辑器菜单
     ice.editor("articleEditor",function(e){
         content = filterXSS(this.getHTML);
-        this.uploadUrl = "src/upload.php";
-        this.pasteText = false;
+        this.uploadUrl = '[[@{/attachment/editor/upload}]]';
+        this.pasteText = true;
         this.screenshot = true;
         this.screenshotUpload = true;
         //第二步，自定义菜单，默认加载全部

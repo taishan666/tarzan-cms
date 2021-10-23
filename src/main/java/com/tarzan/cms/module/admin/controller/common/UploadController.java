@@ -1,5 +1,7 @@
 package com.tarzan.cms.module.admin.controller.common;
 
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
 import com.tarzan.cms.common.constant.CoreConst;
 import com.tarzan.cms.utils.ResultUtil;
 import com.tarzan.cms.module.admin.service.common.OssService;
@@ -13,6 +15,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -38,17 +41,26 @@ public class UploadController {
         return ossService.upload(file);
     }
 
+
     @ResponseBody
-    @PostMapping("/uploadForCkEditor")
-    public Object upload2QiniuForMd(@RequestParam("upload") MultipartFile file) {
-        Map<String, Object> resultMap = new HashMap<>(2);
-        UploadResponse responseVo = upload(file);
-        if (CoreConst.SUCCESS_CODE.equals(responseVo.getStatus())) {
-            resultMap.put("uploaded", 1);
-            resultMap.put("url", responseVo.getUrl());
-            return resultMap;
-        }
-        return resultMap;
+    @PostMapping("/editor/upload")
+    public JSONArray editorUpload(@RequestParam(value = "file[]", required = false) MultipartFile[] files) {
+        JSONArray  array=new JSONArray();
+        Arrays.asList(files).forEach(file->{
+            UploadResponse responseVo = upload(file);
+            JSONObject object=new JSONObject();
+            if (CoreConst.SUCCESS_CODE.equals(responseVo.getStatus())) {
+                object.put("error", 0);
+                object.put("url", responseVo.getUrl());
+                object.put("name",responseVo.getFileName());
+            }else{
+                object.put("error", "上传失败！");
+                object.put("url", responseVo.getUrl());
+                object.put("name",responseVo.getFileName());
+            }
+            array.add(object);
+        });
+        return array;
     }
 
     @GetMapping("/config")

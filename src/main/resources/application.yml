@@ -3,6 +3,10 @@ server:
   tomcat:
     uri-encoding: utf-8
   max-http-header-size: 1MB
+  compression:
+    enabled: true
+    minResponseSize: 512
+    mime-types: application/json,application/xml,text/html,text/xml,text/plain
 spring:
   profiles:
     active: dev

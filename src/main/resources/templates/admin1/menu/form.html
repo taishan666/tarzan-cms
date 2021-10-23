@@ -115,4 +115,17 @@
         $("#icon").val("");
         $("#description").val("");
     }
+
+
+    $('#permissionTree').on('click', function () {
+        var node = ztree.getSelectedNodes();
+        if (node.length == 0) {
+            return;
+        }
+        detailMenuCheckedType = node[0].type;
+        //选择上级菜单
+        $("#detailParentId").val(node[0].id);
+        $("#detailParentMenu").val(node[0].name);
+        $("#menuModal").modal("hide");
+    })
 </script>

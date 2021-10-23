@@ -50,9 +50,24 @@
     </div>
 </div>
 
-<div id="permissionLayer" style="display: none;padding: 20px;">
-    <ul id="permissionTree" class="ztree"></ul>
-</div>
+<!-- 权限分配模态框 -->
+<section id="menuModalWrapper">
+    <div class="modal fade" id="menuModal" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="menuTitle">选择菜单</h5>
+                    <button type="button" class="close" data-dismiss="modal">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <ul id="permissionTree" class="ztree"></ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
 <script>
     var editFlag = Core.parseBool("[[${@perms.hasPerm('menu:edit')}]]");
     var deleteFlag = Core.parseBool("[[${@perms.hasPerm('menu:delete')}]]");
@@ -207,9 +222,8 @@
         })
     }
 
-
+    var ztree;
     function showMenu(flag) {
-        var ztree;
         //树-初始化设置
         var treeSetting = {
             data: {
@@ -220,7 +234,7 @@
                 }
             }
         };
-        Core.postAjax('/menu/list', {flag: "2"}, function (data) {
+        Core.postAjax('/menu/list', {flag: flag}, function (data) {
             var topMenu = {
                 name: "顶层菜单",
                 id: 0,
@@ -228,41 +242,16 @@
                 type: 0
             }
             data.unshift(topMenu);
+            //过滤数据
+            data = eval(data).filter(function (e) { return e.type != 2; })
             $.each(data, function (i, item) {
-                item.open = true;
+                    item.open = true;
+                    item.url = "";
             })
             ztree = $.fn.zTree.init($("#permissionTree"), treeSetting, data);
-            layer.open({
-                type: 1,
-                offset: '50px',
-                skin: 'layui-layer-molv',
-                title: "选择菜单",
-                area: ['300px', '450px'],
-                /* shade: 0,
-                 shadeClose: false,*/
-                content: jQuery("#permissionLayer"),
-                btn: ['确定', '取消'],
-                btn1: function (index) {
-                    var node = ztree.getSelectedNodes();
-                    if (node.length == 0) {
-                        layer.msg("请选择一个菜单！", function () {
-                        });
-                        return;
-                    }
-                    if (flag == 1) {
-                        menuCheckedType = node[0].type;
-                        //选择上级菜单
-                        $("#parentId").val(node[0].id);
-                        $("#parentMenu").val(node[0].name);
-                    } else if (flag == 2) {
-                        detailMenuCheckedType = node[0].type;
-                        //选择上级菜单
-                        $("#detailParentId").val(node[0].id);
-                        $("#detailParentMenu").val(node[0].name);
-                    }
-                    layer.close(index);
-                }
-            });
+            $("#menuModal").modal("show");
+
         });
-    }
+    };
+
 </script>

@@ -248,7 +248,6 @@
             $f.addClass("was-validated")
         })
 
-        var selectRoleIds;
         var roleIdChecked;
 
         //树-初始化设置
@@ -277,10 +276,6 @@
             })
         }
 
-        function handleRoleData(res) {
-            selectRoleIds = res.hasRoles;
-            return res.rows;
-        }
 
         $('#assignPermissionSaveOrUpdateBtn').on('click', function () {
             Core.mask("#assignPermissionSaveOrUpdateBtn")

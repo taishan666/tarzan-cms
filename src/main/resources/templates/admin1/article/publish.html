@@ -1,3 +1,4 @@
+<link rel="stylesheet" href="https://at.alicdn.com/t/font_1805932_ysrcp4y0uy9.css">
 <div class="row">
     <div class="colxl-12 col-lg-12 col-md-12 col-sm-12 col-12">
         <div class="page-title-wrapper">
@@ -41,11 +42,11 @@
                         <div class="form-group row">
                             <label class="col-md-3 col-form-label">文章分类:</label>
                             <div class="col-md-9">
-                                <select id="category-select" class="form-control" name="categoryId" required>
+                                <select id="category-select" class="form-control" name="categoryId" data-style="btn-info squer-btn" >
                                     <block th:each="category: ${categories}">
-                                        <option th:if="${#lists.isEmpty(category.children)}" th:value="${category.id}" th:label="${category.name}" th:selected="${article?.categoryId == category.id}"></option>
+                                        <option th:if="${#lists.isEmpty(category.children)}" th:value="${category.id}" th:text="${category.name}" th:selected="${article?.categoryId == category.id}"></option>
                                         <optgroup th:unless="${#lists.isEmpty(category.children)}" th:label="${category.name}">
-                                            <option th:each="child: ${category.children}" th:value="${child.id}" th:label="${child.name}" th:selected="${article?.categoryId == child.id}"></option>
+                                            <option th:each="child: ${category.children}" th:value="${child.id}" th:text="${child.name}" th:selected="${article?.categoryId == child.id}"></option>
                                         </optgroup>
                                     </block>
                                 </select>
@@ -54,7 +55,7 @@
                         <div class="form-group row">
                             <label class="col-md-3 col-form-label">文章标签:</label>
                             <div class="col-md-9">
-                                <select id="tag-select" class="form-control" name="tagIds" data-live-search="true" multiple>
+                                <select id="tag-select" class="form-control" name="tagIds" data-live-search="true" data-style="btn-info squer-btn" multiple>
                                     <block th:each="tag: ${tags}">
                                         <option  th:value="${tag.id}" th:text="${tag.name}" th:selected="${#lists.contains(article?.tags,tag)}"></option>
                                     </block>
@@ -63,23 +64,30 @@
                         </div>
                         <div class="form-group row">
                             <label class="col-md-3 col-form-label">文章封面:</label>
-                            <div class="upload-content">
+                           <div class="upload-content">
                                 <div class="content-img">
-                                    <ul class="content-img-list"></ul>
-                                    <div class="file">
+                                    <ul id="fileList" class="content-img-list">
+                                        <block th:if="${article?.coverImage!=null}">
+                                        <li class="content-img-list-item"><img th:src="${article?.coverImage}">
+                                        <div class="hide"><a class="delete-btn"><i class="gcl gcllajitong"></i></a><a   class="big-btn" type="button" data-toggle="modal" data-target=".bs-example-modal-lg"><i class="gcl gclfangda"></i></a></div>
+                                        </li>
+                                        </block>
+                                    </ul>
+                                    <div class="file"  id="filePicker">
                                         <i class="fa fa-plus"></i>
-                                        <input type="file" name="file" accept="image/*" id="upload" multiple>
+                                        <input id="sliderImg" type="hidden" class="form-control" name="sliderImg"
+                                               th:value="${article.sliderImg}">
+                                        <input type="text" name="coverImage" accept="image/*" id="coverImage"  th:value="${article?.coverImage}">
                                     </div>
                                 </div>
-                                <!--           <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
-                                               <div class="modal-dialog modal-lg" role="document">
-                                                   <div class="modal-content">
-                                                   </div>
-                                               </div>
-                                           </div>-->
+                                <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+                                    <div class="modal-dialog modal-lg" role="document">
+                                        <div class="modal-content">
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-
                     </div>
                 </div>
             </div>
@@ -140,7 +148,62 @@
         </div>
     </form>
 </div>
-
+<script>
+    $(function() {
+        var coverImage = $('#coverImage').val();
+        if(coverImage!=null && coverImage!=''){
+            $('.content-img .file').hide();
+        }
+    });
+    // 初始化Web Uploader
+    var uploader = WebUploader.create({
+        // 选完文件后，是否自动上传。
+        auto: true,
+        // swf文件路径
+        swf: '/admin1/img/Uploader.swf',
+        // 文件接收服务端。
+        server: '[[@{/attachment/upload}]]',
+        // 选择文件的按钮。可选。
+        // 内部根据当前运行是创建，可能是input元素，也可能是flash.
+        pick: '#filePicker',
+        // 只允许选择图片文件。
+        accept: {
+            title: 'Images',
+            extensions: 'gif,jpg,jpeg,bmp,png',
+            mimeTypes: 'image/*'
+        }
+    });
+    // 文件上传成功，给item添加成功class, 用样式标记上传成功。
+    var  $list=$('#fileList');
+    uploader.on( 'uploadSuccess', function( file,data ) {
+        var $li = $(
+            '<li class="content-img-list-item"><img src="' + data.url + '" >' +
+            '<div class="hide"><a class="delete-btn"><i class="gcl gcllajitong"></i></a>' +
+            '<a   class="big-btn" type="button" data-toggle="modal" data-target=".bs-example-modal-lg"><i class="gcl gclfangda"></i></a></div></li>'
+            );
+        $list.append( $li );
+        $("#coverImage").val(data.url);
+        $("#sliderImg").val(data.url);
+        $('.content-img .file').hide();
+    });
+    // 文件上传失败，显示上传出错。
+    uploader.on( 'uploadError', function( file ) {
+       console.log('上传失败');
+    });
+    // 鼠标经过显示删除按钮
+    $('.content-img-list').on('mouseover', '.content-img-list-item', function() {
+        $(this).children('div').removeClass('hide');
+    });
+    // 鼠标离开隐藏删除按钮
+    $('.content-img-list').on('mouseleave', '.content-img-list-item', function() {
+        $(this).children('div').addClass('hide');
+    });
+    // 单个图片删除
+    $(".content-img-list").on("click", '.content-img-list-item a .gcllajitong', function() {
+        $(this).parent().parent().parent().remove();
+        $('.content-img .file').show();
+    });
+</script>
 <script>
     var content;
     //自定义编辑器菜单
@@ -238,7 +301,9 @@
 </script>
 
 <script>
-   $('#tag-select').selectpicker({maxOptions:3});
+    $('#category-select').selectpicker({});
+    $('#tag-select').selectpicker({maxOptions:3});
+
    $("#original").bootstrapSwitch({
        onText : "原创",      // 设置ON文本
        offText : "转载",    // 设置OFF文本

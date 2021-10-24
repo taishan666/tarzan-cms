@@ -119,7 +119,7 @@ public class SystemController {
             return modelAndView;
         }
         model.addAttribute("categoryList", categoryService.selectCategories(new Category().setStatus(CoreConst.STATUS_VALID)));
-        modelAndView.setViewName("system/login");
+        modelAndView.setViewName("admin1/login/login");
         return modelAndView;
     }
 
@@ -138,11 +138,11 @@ public class SystemController {
     public ResponseVo login(HttpServletRequest request, String username, String password, String verification,
                             @RequestParam(value = "rememberMe", defaultValue = "0") Integer rememberMe) {
         //判断验证码
-        if (!CaptchaUtil.ver(verification, request)) {
+     /*   if (!CaptchaUtil.ver(verification, request)) {
             // 清除session中的验证码
             CaptchaUtil.clear(request);
             return ResultUtil.error("验证码错误！");
-        }
+        }*/
         UsernamePasswordToken token = new UsernamePasswordToken(username, password);
         try {
             token.setRememberMe(1 == rememberMe);
@@ -196,8 +196,8 @@ public class SystemController {
      */
     @GetMapping("/kickOut")
     public String kickOut(Model model) {
-        model.addAttribute("categoryList", categoryService.selectCategories(new Category().setStatus(CoreConst.STATUS_VALID)));
-        return "system/kickOut";
+       // model.addAttribute("categoryList", categoryService.selectCategories(new Category().setStatus(CoreConst.STATUS_VALID)));
+        return "admin1/login/kickOut";
     }
 
     /**
@@ -223,7 +223,7 @@ public class SystemController {
         }
         subject.logout();
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("system/login");
+        modelAndView.setViewName("admin1/login/login");
         return modelAndView;
     }
 

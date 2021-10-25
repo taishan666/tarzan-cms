@@ -14,75 +14,95 @@
     </div>
   </div>
 </div>
-<!-- Table Start -->
-<!--<div class="row ad-btm-space">
-<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
-  <div class="main-product-grid">
-    <ul>
-      <li>
-        <div class="product-grid">
-          <div class="product-item">
-            <img th:src="@{/admin1/images/error.png}" alt="product-img"/>
-            <div class="product-overlay">
-              <h4>启用</h4>
-            </div>
-            <div class="product-ovr-links">
-              <ul>
-                <li><a href="product-single.html" class="fa fa-toggle-on">启用
-                  </a></li>
-                <li><a href="javascript:;" class="fa fa-edit">编辑
-                  </a></li>
-                <li><a href="javascript:;" class="fa fa-trash-alt">删除
-                  </a></li>
-              </ul>
-            </div>
-          </div>
-          <div class="product-text-rs">
-            <h3>默认主题</h3>
-          </div>
-        </div>
-      </li>
-    </ul>
-  </div>
-&lt;!&ndash;  <div class="card-footer pt-0">
-    <nav class="d-inline-block">
-      <ul class="pagination mb-0 ">
-        <li class="page-item disabled "><a class="page-link" href="javascript:void(0);" tabindex="-1"><i class="fas fa-chevron-left"></i></a></li>
-        <li class="page-item active "><a class="page-link " href="javascript:void(0); ">1</a></li>
-        <li class="page-item "><a class="page-link " href="javascript:void(0); ">2</a></li>
-        <li class="page-item "><a class="page-link " href="javascript:void(0); ">3</a></li>
-        <li class="page-item "><a class="page-link " href="javascript:void(0); "><i class="fas fa-chevron-right "></i></a></li>
-      </ul>
-    </nav>
-  </div>&ndash;&gt;
-</div>
-</div>-->
-
 <div class="row">
-  <div class="col-xl-3 col-lg-3 col-md-4 col-sm-6 col-12">
-    <div class="card-header">
+  <div class="colxl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+    <div class="page-title-wrapper">
+      <div class="page-title-box ad-title-box-use">
+        <h4 class="page-title"></h4>
+      </div>
+      <div class="ad-breadcrumb">
+            <div class="add-group"><a id="btn_add" class="btn btn-primary mt-2 mr-2 sm-btn"><i class="fa fa-plus"></i>添加主题</a></div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-xl-4 col-lg-4 col-md-4 col-sm-6 col-12">
+    <div class="card-header" style="overflow: hidden;position: relative;">
       <h4 class="card-title">默认主题</h4>
+      <div class="product-overlay">
+        <h4>启用</h4>
+      </div>
     </div>
     <div class="card">
-      <img th:src="@{/admin1/images/error.png}" alt="product-img"/>
+      <div>
+      <img th:src="@{/admin1/images/error.png}" alt="theme-img" height="150px;"/>
     </div>
-    <div class="card-footer" align="center">
       <div class="btn-group btn-group-pill mt-2" role="group" aria-label="操作">
-        <button class="btn btn-primary " type="button"  title="启用"><i class="fa fa-lock"></i></button>
-        <button class="btn btn-primary " type="button"  title="编辑"><i class="fa fa-edit"></i></button>
-        <button class="btn btn-primary " type="button"  title="删除"><i class="fa fa-trash-alt"></i></button>
+        <button class="btn btn-primary flat-btn" type="button"  title="启用"><i class="fa fa-lock-open"></i></button>
+        <button class="btn btn-primary flat-btn" type="button"  title="编辑"><i class="fa fa-edit"></i></button>
+        <button class="btn btn-primary flat-btn" type="button"  title="删除"><i class="fa fa-trash-alt"></i></button>
       </div>
-<!--      <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-        <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4">
-       <button ><i class="fa fa-toggle-on"></i>启用</button>
-        </div>
-        <div  class="col-xl-4 col-lg-4 col-md-4 col-sm-4">
-       <button><i class="fa fa-edit"></i>编辑</button>
-        </div>
-        <div  class="col-xl-4 col-lg-4 col-md-4 col-sm-4">
-       <button ><i class="fa fa-trash-alt"></i>删除</button>
-        </div>
-      </div>-->
+      </div>
+  </div>
+  <div class="col-xl-4 col-lg-4 col-md-4 col-sm-6 col-12">
+    <div class="card-header">
+      <h4 class="card-title">默认主题1</h4>
+    </div>
+    <div class="card">
+      <img th:src="@{/admin1/images/auth-img.png}" alt="theme-img" height="150px;"/>
+      <div class="btn-group btn-group-pill mt-2" role="group" aria-label="操作">
+        <button class="btn btn-primary flat-btn" type="button"  title="启用"><i class="fa fa-lock"></i></button>
+        <button class="btn btn-primary flat-btn" type="button"  title="编辑"><i class="fa fa-edit"></i></button>
+        <button class="btn btn-primary flat-btn" type="button"  title="删除"><i class="fa fa-trash-alt"></i></button>
+      </div>
+    </div>
+  </div>
+  <div class="col-xl-4 col-lg-4 col-md-4 col-sm-6 col-12">
+    <div class="card-header">
+      <h4 class="card-title">默认主题1</h4>
+    </div>
+    <div class="card">
+      <img th:src="@{/admin1/images/user1.png}" alt="theme-img" height="150px;"/>
+      <div class="btn-group btn-group-pill mt-2" role="group" aria-label="操作">
+        <button class="btn btn-primary flat-btn" type="button"  title="启用"><i class="fa fa-lock"></i></button>
+        <button class="btn btn-primary flat-btn" type="button"  title="编辑"><i class="fa fa-edit"></i></button>
+        <button class="btn btn-primary flat-btn" type="button"  title="删除"><i class="fa fa-trash-alt"></i></button>
+      </div>
     </div>
   </div>
 </div>
+<!-- 表单模态框 -->
+<section id="formModalWrapper">
+  <div class="modal fade" id="formModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="formTitle"></h5>
+          <button type="button" class="close" data-dismiss="modal">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div id="formContent">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<script>
+
+  $(function () {
+    // 新增
+    $('#btn_add').on('click', function () {
+      Core.load("#formContent", "/theme/add", function () {
+        $('#formTitle').text('新增主题')
+        $("#formModal").modal('show');
+      });
+    })
+
+  });
+
+
+</script>

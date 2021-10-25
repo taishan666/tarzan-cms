@@ -46,12 +46,8 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <div id="formContent"></div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
-                    <button type="button" class="btn btn-primary" id="saveOrUpdateBtn" onclick="saveOrUpdate">保存
-                    </button>
+                    <div id="formContent">
+                    </div>
                 </div>
             </div>
         </div>
@@ -140,7 +136,7 @@
         // 新增
         $('#btn_add').on('click', function () {
             Core.load("#formContent", "/theme/add", function () {
-                $('#formTitle').text('新增')
+                $('#formTitle').text('新增主题')
                 $("#formModal").modal('show');
             });
         })

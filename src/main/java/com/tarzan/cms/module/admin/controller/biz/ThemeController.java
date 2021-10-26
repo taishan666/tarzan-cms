@@ -11,6 +11,7 @@ import com.tarzan.cms.utils.ResultUtil;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.Assert;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -68,6 +69,11 @@ public class ThemeController {
     @PostMapping("/delete")
     @ResponseBody
     public ResponseVo delete(Integer id) {
+        Theme theme=bizThemeService.getById(id);
+        Assert.isNull(theme,"主题不存在！");
+        if(theme.getStatus()==CoreConst.STATUS_VALID){
+            return ResultUtil.error("启用主题不能删除");
+        }
         boolean flag = bizThemeService.delete(id);
         if (flag) {
             return ResultUtil.success("删除主题成功");
@@ -76,15 +82,5 @@ public class ThemeController {
         }
     }
 
-/*    @PostMapping("/batch/delete")
-    @ResponseBody
-    public ResponseVo deleteBatch(@RequestBody List<Integer> ids) {
-        boolean flag = bizThemeService.deleteBatch(ids);
-        if (flag) {
-            return ResultUtil.success("删除主题成功");
-        } else {
-            return ResultUtil.error("删除主题失败");
-        }
-    }*/
 
 }

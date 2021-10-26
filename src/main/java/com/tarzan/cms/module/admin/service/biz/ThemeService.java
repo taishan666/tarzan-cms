@@ -23,6 +23,7 @@ import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 /**
  * @author tarzan liu
@@ -65,6 +66,15 @@ public class ThemeService extends ServiceImpl<ThemeMapper, Theme> {
         return ResultUtil.success();
     }
 
+    public List<Theme> list() {
+        File themesRoot=new File(cmsProperties.getThemeDir());
+        List<String> themeFiles=Arrays.asList(themesRoot.list());
+        List<Theme> themes=list();
+        themes= themes.stream().filter(e->!themeFiles.contains(e.getName())).collect(Collectors.toList());
+        List<Integer> themeIds=themes.stream().map(Theme::getId).collect(Collectors.toList());
+        removeByIds(themeIds);
+        return list();
+    }
 
     @CacheEvict(value = "theme", allEntries = true)
     @Transactional(rollbackFor = Exception.class)

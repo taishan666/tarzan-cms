@@ -47,46 +47,73 @@
     </div>
 </form>
 <script>
+    var  uploader = WebUploader.create({
+        // 选完文件后，是否自动上传。
+        auto: true,
+        pick: {
+            id: '#filePicker',
+            label: '点击选择主题包'
+        },
+      //  dnd: '#uploader .queueList',
+       // paste: '#uploader',
+        swf: '/admin1/img/Uploader.swf',
+      //  chunked: false,
+     //   chunkSize: 512 * 1024,
+        server: '[[@{/theme/upload}]]',
+        // runtimeOrder: 'flash',
+         accept: {
+             title: 'zip',
+             extensions: 'zip',
+             mimeTypes: ' application/zip'
+         },
+        // 禁掉全局的拖拽功能。这样不会出现图片拖进页面的时候，把图片打开。
+        disableGlobalDnd: true,
+        fileNumLimit: 1,
+        fileSizeLimit: 200 * 1024 * 1024,    // 200 M
+        fileSingleSizeLimit: 50 * 1024 * 1024    // 50 M
+    });
+    // 文件上传成功，给item添加成功class, 用样式标记上传成功。
+    uploader.on( 'uploadSuccess', function( file,data ) {
+        console.log(1)
+        layer.msg('上传成功');
+        location.reload();
+      //  $("#formModal").modal('hide');
+    });
+    // 文件上传失败，显示上传出错。
+    uploader.on( 'uploadError', function( file ) {
+        console.log(2)
+        layer.msg('上传失败');
+    });
+</script>
+<!--<script>
     (function ($) {
         // 当domReady的时候开始初始化
         $(function () {
             console.log(1)
             var $wrap = $('#uploader'),
-
                 // 图片容器
                 $queue = $('<ul class="filelist"></ul>')
                     .appendTo($wrap.find('.queueList')),
-
                 // 状态栏，包括进度和控制按钮
                 $statusBar = $wrap.find('.statusBar'),
-
                 // 文件总体选择信息。
                 $info = $statusBar.find('.info'),
-
                 // 上传按钮
                 $upload = $wrap.find('.uploadBtn'),
-
                 // 没选择文件之前的内容。
                 $placeHolder = $wrap.find('.placeholder'),
-
                 $progress = $statusBar.find('.progress').hide(),
-
                 // 添加的文件数量
                 fileCount = 0,
-
                 // 添加的文件总大小
                 fileSize = 0,
-
                 // 优化retina, 在retina下这个值是2
                 ratio = window.devicePixelRatio || 1,
-
                 // 缩略图大小
                 thumbnailWidth = 110 * ratio,
                 thumbnailHeight = 110 * ratio,
-
                 // 可能有pedding, ready, uploading, confirm, done.
                 state = 'pedding',
-
                 // 所有文件的进度信息，key为file id
                 percentages = {},
                 // 判断浏览器是否支持图片的base64
@@ -201,7 +228,7 @@
                 swf: '../../dist/Uploader.swf',
                 chunked: false,
                 chunkSize: 512 * 1024,
-                server: '[[@{/attachment/upload}]]',
+                server: '[[@{/theme/upload}]]',
                 // runtimeOrder: 'flash',
 
                 // accept: {
@@ -294,19 +321,6 @@
                         if (isSupportBase64) {
                             img = $('<img src="' + src + '">');
                             $wrap.empty().append(img);
-                        } else {
-                            $.ajax('../../server/preview.php', {
-                                method: 'POST',
-                                data: src,
-                                dataType: 'json'
-                            }).done(function (response) {
-                                if (response.result) {
-                                    img = $('<img src="' + response.result + '">');
-                                    $wrap.empty().append(img);
-                                } else {
-                                    $wrap.text("预览出错");
-                                }
-                            });
                         }
                     }, thumbnailWidth, thumbnailHeight);
 
@@ -531,7 +545,7 @@
             };
 
             uploader.onFileDequeued = function (file) {
-                fileCount--;
+                fileCount&#45;&#45;;
                 fileSize -= file.size;
 
                 if (!fileCount) {
@@ -593,21 +607,5 @@
 
     })(jQuery);
 
-</script>
-<!--
-<script>
-    $(function () {
-        $('#upload-cover-content').toggle()
-        /*上传图片*/
-        $("#upload-theme-btn").click(function () {
-            $('#upload-cover-content').toggle()
-            $(".coverUploader").upload({
-                server: '[[@{/attachment/upload}]]',
-                swf: '/admin/img/Uploader.swf'
-            }, function (url, picker) {
-                $("#coverImage").val(url);
-                echoGtUploadResMethd(url, picker);
-            });
-        });
-    })
 </script>-->
+

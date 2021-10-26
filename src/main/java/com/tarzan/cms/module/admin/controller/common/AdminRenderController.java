@@ -165,7 +165,7 @@ public class AdminRenderController {
      */
     @GetMapping("themes")
     public String themes() {
-        return CoreConst.ADMIN_PREFIX + "theme/list";
+        return "redirect:/theme/list";
     }
 
 }

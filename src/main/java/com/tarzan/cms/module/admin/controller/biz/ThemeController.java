@@ -1,20 +1,18 @@
 package com.tarzan.cms.module.admin.controller.biz;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.tarzan.cms.common.constant.CoreConst;
-import com.tarzan.cms.utils.ResultUtil;
 import com.tarzan.cms.module.admin.model.biz.Theme;
 import com.tarzan.cms.module.admin.service.biz.ThemeService;
 import com.tarzan.cms.module.admin.vo.base.PageResultVo;
 import com.tarzan.cms.module.admin.vo.base.ResponseVo;
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.tarzan.cms.utils.ResultUtil;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.Date;
-import java.util.List;
+import org.springframework.web.multipart.MultipartFile;
 
 /**
  * 后台主题配置
@@ -23,6 +21,7 @@ import java.util.List;
  * @since JDK1.8
  * @date 2021年5月11日
  */
+
 @Controller
 @RequestMapping("theme")
 @AllArgsConstructor
@@ -31,7 +30,7 @@ public class ThemeController {
     private final ThemeService bizThemeService;
 
 
-    @PostMapping("list")
+    @PostMapping("page")
     @ResponseBody
     public PageResultVo loadTheme(Integer pageNumber, Integer pageSize) {
         IPage<Theme> page = new Page<>(pageNumber, pageSize);
@@ -39,43 +38,20 @@ public class ThemeController {
         return ResultUtil.table(page.getRecords(), page.getTotal());
     }
 
+    @GetMapping("/list")
+    public String list(Model model) {
+        model.addAttribute("themes", bizThemeService.list());
+        return CoreConst.ADMIN_PREFIX + "theme/list";
+    }
+
     @GetMapping("/add")
     public String add() {
         return CoreConst.ADMIN_PREFIX + "theme/form";
     }
-
-    @PostMapping("/add")
     @ResponseBody
-    public ResponseVo add(Theme theme) {
-        Date date = new Date();
-        theme.setCreateTime(date);
-        theme.setUpdateTime(date);
-        theme.setStatus(CoreConst.STATUS_INVALID);
-        boolean flag = bizThemeService.save(theme);
-        if (flag) {
-            return ResultUtil.success("新增主题成功");
-        } else {
-            return ResultUtil.error("新增主题失败");
-        }
-    }
-
-    @GetMapping("/edit")
-    public String edit(Model model, Integer id) {
-        Theme theme = bizThemeService.getById(id);
-        model.addAttribute("theme", theme);
-        return CoreConst.ADMIN_PREFIX + "theme/form";
-    }
-
-    @PostMapping("/edit")
-    @ResponseBody
-    public ResponseVo edit(Theme theme) {
-        theme.setUpdateTime(new Date());
-        boolean flag = bizThemeService.updateById(theme);
-        if (flag) {
-            return ResultUtil.success("编辑主题成功");
-        } else {
-            return ResultUtil.error("编辑主题失败");
-        }
+    @PostMapping("/upload")
+    public ResponseVo upload(@RequestParam(value = "file", required = false) MultipartFile file) {
+        return bizThemeService.upload(file);
     }
 
     @PostMapping("/use")
@@ -92,7 +68,7 @@ public class ThemeController {
     @PostMapping("/delete")
     @ResponseBody
     public ResponseVo delete(Integer id) {
-        boolean flag = bizThemeService.removeById(id);
+        boolean flag = bizThemeService.delete(id);
         if (flag) {
             return ResultUtil.success("删除主题成功");
         } else {
@@ -100,7 +76,7 @@ public class ThemeController {
         }
     }
 
-    @PostMapping("/batch/delete")
+/*    @PostMapping("/batch/delete")
     @ResponseBody
     public ResponseVo deleteBatch(@RequestBody List<Integer> ids) {
         boolean flag = bizThemeService.deleteBatch(ids);
@@ -109,6 +85,6 @@ public class ThemeController {
         } else {
             return ResultUtil.error("删除主题失败");
         }
-    }
+    }*/
 
 }

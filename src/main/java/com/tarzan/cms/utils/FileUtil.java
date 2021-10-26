@@ -69,7 +69,7 @@ public class FileUtil {
         log.info("Deleted [{}] successfully", deletingPath);
     }
 
-    public static void delete(File file) {
+    private static void delete(File file) {
         if(file.isDirectory()){
             Arrays.asList(file.listFiles()).forEach(e->{
                 delete(e);
@@ -117,7 +117,7 @@ public class FileUtil {
         createIfAbsent(targetPath);
 
         // Folder must be empty
-        ensureEmpty(targetPath);
+       ensureEmpty(targetPath);
 
         ZipEntry zipEntry = zis.getNextEntry();
 

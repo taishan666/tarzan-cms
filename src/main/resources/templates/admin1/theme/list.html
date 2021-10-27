@@ -73,7 +73,35 @@
         $("#formModal").modal('show');
       });
     })
+
+    //只是在点击后初始化的时候生成
+    $("#formModal").on("shown.bs.modal", function () {
+      var uploader = WebUploader.create({
+        auto: true,
+        pick: {
+          id: '#filePicker',
+          label: '点击选择主题包'
+        },
+        swf: '/admin1/img/Uploader.swf',
+        server: '[[@{/theme/upload}]]',
+        accept: {
+          title: 'zip',
+          extensions: 'zip',
+          mimeTypes: ' application/zip'
+        },
+        disableGlobalDnd: true
+      });
+      uploader.on('uploadSuccess', function (file, data) {
+        layer.msg('上传成功');
+        location.reload();
+        //  $("#formModal").modal('hide');
+      });
+      uploader.on('uploadError', function (file) {
+        layer.msg('上传失败');
+      });
+    })
   });
+
 
   // 启动主题
   function useTheme(id) {

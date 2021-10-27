@@ -33,18 +33,6 @@ public class ThemeController {
 
     private final ThemeService bizThemeService;
 
-
-/*
-    @PostMapping("page")
-    @ResponseBody
-    public PageResultVo loadTheme(Integer pageNumber, Integer pageSize) {
-        IPage<Theme> page = new Page<>(pageNumber, pageSize);
-        page = bizThemeService.page(page);
-        return ResultUtil.table(page.getRecords(), page.getTotal());
-    }
-
-*/
-
     @GetMapping("/list")
     public String list(Model model) {
         model.addAttribute("themes", bizThemeService.list());
@@ -55,6 +43,7 @@ public class ThemeController {
     public String add() {
         return CoreConst.ADMIN_PREFIX + "theme/form";
     }
+
     @ResponseBody
     @PostMapping("/upload")
     public ResponseVo upload(@RequestParam(value = "file", required = false) MultipartFile file) {

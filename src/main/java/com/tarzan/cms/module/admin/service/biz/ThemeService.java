@@ -71,12 +71,11 @@ public class ThemeService extends ServiceImpl<ThemeMapper, Theme> {
     public static String getZipThemeName(byte[] bytes) throws IOException {
         ZipInputStream zis = new ZipInputStream(new ByteArrayInputStream(bytes));
         ZipEntry zipEntry = zis.getNextEntry();
-
         while (zipEntry != null) {
             if(zipEntry.getName().contains("theme.yaml")){
                 Yaml yaml = new Yaml();
                 Map<String,Object>  map=yaml.load(zis);
-                 return (String) map.get("name");
+                return (String) map.get("name");
             }
             zipEntry = zis.getNextEntry();
         }

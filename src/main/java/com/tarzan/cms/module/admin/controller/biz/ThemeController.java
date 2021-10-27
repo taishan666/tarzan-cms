@@ -34,6 +34,7 @@ public class ThemeController {
     private final ThemeService bizThemeService;
 
 
+/*
     @PostMapping("page")
     @ResponseBody
     public PageResultVo loadTheme(Integer pageNumber, Integer pageSize) {
@@ -42,9 +43,7 @@ public class ThemeController {
         return ResultUtil.table(page.getRecords(), page.getTotal());
     }
 
-    public static void main(String[] args) throws IOException {
-        FileUtil.rename(Paths.get("C:\\Users\\liuya\\.tarzan-cms\\theme\\0e9908955bcb4e40621d273df3d293d0"),"test");
-    }
+*/
 
     @GetMapping("/list")
     public String list(Model model) {

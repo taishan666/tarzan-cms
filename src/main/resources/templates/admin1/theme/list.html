@@ -37,7 +37,8 @@
     <div class="card">
       <img alt="theme-img" height="100px;" th:src="${theme.img}"/>
       <div class="btn-group" role="group" aria-label="操作">
-        <button class="btn btn-primary sm-btn flat-btn" type="button" th:onclick="useTheme([[${theme.id}]])"  title="启用" ><i class="fa fa-lock-open"></i></button>
+        <button th:if="${theme.status==0}" class="btn btn-primary sm-btn flat-btn" type="button" th:onclick="useTheme([[${theme.id}]])"  title="启用" ><i class="fa fa-lock"></i></button>
+        <button th:if="${theme.status==1}" class="btn btn-primary sm-btn flat-btn" type="button" th:onclick="useTheme([[${theme.id}]])"  title="已启用" ><i class="fa fa-lock-open"></i></button>
         <button class="btn btn-primary sm-btn flat-btn" type="button"  title="编辑"><i class="fa fa-edit"></i></button>
         <button class="btn btn-primary sm-btn flat-btn" type="button"  th:onclick="deleteRow([[${theme.id}]])" title="删除"><i class="fa fa-trash-alt"></i></button>
       </div>

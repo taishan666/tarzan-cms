@@ -32,7 +32,7 @@ public class LogLoginController {
     //用户登录日志列表
     @PostMapping("/list")
     @ResponseBody
-    public PageResultVo onlineUsers(LoginLog param, Integer pageNumber, Integer pageSize) {
+    public PageResultVo list(LoginLog param, Integer pageNumber, Integer pageSize) {
         IPage<LoginLog> page = new Page<>(pageNumber, pageSize);
         LambdaQueryWrapper<LoginLog>  wrapper=new LambdaQueryWrapper();
         wrapper.like(StringUtils.isNotBlank(param.getLoginName()),LoginLog::getLoginName,param.getLoginName());

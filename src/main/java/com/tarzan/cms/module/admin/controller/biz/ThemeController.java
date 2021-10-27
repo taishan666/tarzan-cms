@@ -7,13 +7,16 @@ import com.tarzan.cms.module.admin.model.biz.Theme;
 import com.tarzan.cms.module.admin.service.biz.ThemeService;
 import com.tarzan.cms.module.admin.vo.base.PageResultVo;
 import com.tarzan.cms.module.admin.vo.base.ResponseVo;
+import com.tarzan.cms.utils.FileUtil;
 import com.tarzan.cms.utils.ResultUtil;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.util.Assert;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+
+import java.io.IOException;
+import java.nio.file.Paths;
 
 /**
  * 后台主题配置
@@ -37,6 +40,10 @@ public class ThemeController {
         IPage<Theme> page = new Page<>(pageNumber, pageSize);
         page = bizThemeService.page(page);
         return ResultUtil.table(page.getRecords(), page.getTotal());
+    }
+
+    public static void main(String[] args) throws IOException {
+        FileUtil.rename(Paths.get("C:\\Users\\liuya\\.tarzan-cms\\theme\\0e9908955bcb4e40621d273df3d293d0"),"test");
     }
 
     @GetMapping("/list")
@@ -70,7 +77,9 @@ public class ThemeController {
     @ResponseBody
     public ResponseVo delete(Integer id) {
         Theme theme=bizThemeService.getById(id);
-        Assert.isNull(theme,"主题不存在！");
+        if(theme==null){
+            return ResultUtil.error("启用主题不存在");
+        }
         if(theme.getStatus()==CoreConst.STATUS_VALID){
             return ResultUtil.error("启用主题不能删除");
         }

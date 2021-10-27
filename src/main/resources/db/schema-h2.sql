@@ -1060,12 +1060,13 @@ CREATE TABLE IF NOT EXISTS `sys_log_error` (
     `request_uri` varchar(50) NULL DEFAULT NULL COMMENT '请求URI',
     `method` varchar(20) NULL DEFAULT NULL COMMENT '来源',
     `method_class` varchar(128) NULL DEFAULT NULL COMMENT '方法类',
-    `method_name` datetime(0) NULL DEFAULT NULL COMMENT '方法名',
-    `params` datetime(0) NULL DEFAULT NULL COMMENT '操作提交的数据',
+    `method_name` varchar(255)  NULL DEFAULT NULL COMMENT '方法名',
+    `params` text NULL DEFAULT NULL COMMENT '操作提交的数据',
     `stack_trace` text NULL COMMENT '堆栈跟踪',
     `exception_name` varchar(255) NULL DEFAULT NULL COMMENT '异常名称',
     `message` text NULL COMMENT '信息',
     `file_name` varchar(255) NULL DEFAULT NULL COMMENT '文件名',
     `line_number` int(0) NULL DEFAULT NULL COMMENT '错误行数',
+    `create_name` varchar(50) NULL DEFAULT NULL COMMENT '创建人',
     `create_time` datetime(0) NULL DEFAULT NULL COMMENT '创建时间'
     );

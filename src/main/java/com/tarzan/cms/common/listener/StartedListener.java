@@ -103,7 +103,7 @@ public class StartedListener implements ApplicationListener<ApplicationStartedEv
                 FileUtil.copyFolder(source, themePath);
                 log.debug("Copied theme folder from [{}] to [{}]", source, themePath);
             } else {
-              //  FileUtil.deleteFolder(themePath);
+                FileUtil.deleteFolder(themePath);
                 FileUtil.copyFolder(source, themePath);
                 log.debug("Skipped copying theme folder due to existence of theme folder");
             }

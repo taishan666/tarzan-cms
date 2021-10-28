@@ -72,13 +72,17 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
-                <button type="button" class="btn btn-primary" id="saveOrUpdateBtn" onclick="saveOrUpdate">保存
+                <button type="button" class="btn btn-primary" id="saveOrUpdateBtn">保存
                 </button>
             </div>
         </div>
     </div>
 </div>
+<script>
+    $(function () {
 
+    });
+</script>
 <script>
     $(function () {
         var editFlag = "[[${@perms.hasPerm('link:edit')}]]";
@@ -131,13 +135,14 @@
                 field: 'status',
                 title: '状态',
                 align : "center",
-                formatter : function(value) {
+                formatter: typeSwitch
+          /*      formatter : function(value) {
                     if(value==0){
                         return '禁用'
                     }else if(value==1){
                         return '启用'
                     }
-                }
+                }*/
             }, {
                 field: 'operation',
                 title: '操作',
@@ -146,7 +151,35 @@
                 events: operateEvents,
                 formatter: operationFormatter
             }];
-
+        var onLoadSuccess=function () {	//在成功加载远程数据时触发
+            $("[name='switch']").bootstrapSwitch({
+                onText : "启用",      // 设置ON文本
+                offText : "禁用",    // 设置OFF文本
+                onColor : "success",// 设置ON文本颜色(info/success/warning/danger/primary)
+                offColor : "warning",  // 设置OFF文本颜色 (info/success/warning/danger/primary)
+                size : "small",    // 设置控件大小,从小到大  (mini/small/normal/large)
+                // 当开关状态改变时触发
+                onSwitchChange : function(event, state) {
+                    var status=state?1:0;
+                    var params={id:this.value,status:status};
+                    var str = jQuery.param(params);
+                    Core.postAjax('/link/edit', str, function (data) {
+                        if (data.status === 200) {
+                            refreshTable();
+                        }
+                        layer.msg(data.msg);
+                    })
+                }
+            });
+        };
+        //表格中开关控件
+        function typeSwitch(value, row, index){
+            if (value) {
+                return "<input value=" + row.id + " name='switch' type='checkbox' checked />";
+            } else {
+                return "<input value=" + row.id + " name='switch' type='checkbox' />";
+            }
+        }
         function operationFormatter(value, row, index) {
             var edit = editFlag == "true" ? '<button class="effect-btn btn btn-info mt-2 mr-2 icon-lg btn_edit"><i class="fas fa-edit"></i></button>' : '';
             var del = deleteFlag == "true" ? '<button class="effect-btn btn btn-danger mt-2 mr-2 icon-lg btn_del"><i class="fas fa-trash-alt"></i></button>' : '';
@@ -159,6 +192,7 @@
             columns: columns,
             toolbar: '#toolbar',
             showRefresh: true,
+            onLoadSuccess:onLoadSuccess,
             queryParams: queryParams
         }
         Core.initTable(options);
@@ -191,6 +225,10 @@
                 $('#formTitle').text('新增')
                 $("#formModal").modal('show');
             });
+        })
+        //只是在点击后初始化的时候生成
+        $("#formModal").on("shown.bs.modal", function () {
+
         })
 
         // 编辑
@@ -238,6 +276,7 @@
         // 保存或更新
         $('#saveOrUpdateBtn').on('click', function () {
             var $f = $('#linkForm');
+            console.log( $f.serialize());
             var valid = $f[0].checkValidity();
             var url = $f.find("input[name='id']").val() ? "/link/edit" : "/link/add"
             if (valid) {
@@ -263,7 +302,7 @@
             type: 1,
             title: false,
             closeBtn: 0,
-            area: '85%',
+            area: '45%',
             skin: 'layui-layer-nobg', //没有背景色
             shadeClose: true,
             content: '<img style="width: 100%" alt="link" src="' + src + '">'

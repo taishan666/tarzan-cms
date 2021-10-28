@@ -64,6 +64,20 @@
 <script>
     var editFlag = "[[${@perms.hasPerm('article:edit')}]]";
     var deleteFlag = "[[${@perms.hasPerm('article:delete')}]]";
+    window.operateEvents = {
+        // 点击编辑
+        'click .btn_edit': function (e, value, row, index) {
+            editRow(row.id)
+        },
+        // 预览图片
+        'click .btn_preview': function (e, value, row, index) {
+            previewImg(value)
+        },
+        // 点击删除
+        'click .btn_del': function (e, value, row, index) {
+            deleteRow(row.id)
+        }
+    }
     var columns = [
         {checkbox: true},
         {
@@ -98,8 +112,9 @@
             title: '缩略图',
             align: "center",
             class: "link-pre",
+            events: operateEvents,
             formatter: function (value, row, index) {
-                return '<img src="' + value + '" style="width: 100px" onclick="previewImg(\'' + value + '\')"/>'
+                return '<img src="' + value + '" style="width: 100px"  class="btn_preview"/>'
             }
         }, {
             field: 'slider',
@@ -147,9 +162,10 @@
             title: '操作',
             align: "center",
             width: 150,
+            events: operateEvents,
             formatter: function (value, row, index) {
-                var edit = editFlag === 'true' ? '<button class="effect-btn btn btn-info mt-2 mr-2 icon-lg" onclick="editArticle(' + row.id + ')"><i class="fas fa-edit"></i></button>' : '';
-                var del = deleteFlag === 'true' ? '<button class="effect-btn btn btn-danger mt-2 mr-2 icon-lg" onclick="deleteArticle(' + row.id + ')"><i class="fas fa-trash-alt"></i></button>' : '';
+                var edit = editFlag === 'true' ? '<button class="effect-btn btn btn-info mt-2 mr-2 icon-lg btn_edit"><i class="fas fa-edit"></i></button>' : '';
+                var del = deleteFlag === 'true' ? '<button class="effect-btn btn btn-danger mt-2 mr-2 icon-lg btn_del"><i class="fas fa-trash-alt"></i></button>' : '';
                 return edit + del;
             }
         }];
@@ -179,12 +195,12 @@
     }
 
     /*编辑*/
-    function editArticle(id) {
+    function editRow(id) {
         window.location.href = "#article/edit?id=" + id
     }
 
     /*删除*/
-    function deleteArticle(id) {
+    function deleteRow(id) {
         Core.confirm("确定删除该分类？", function () {
             Core.postAjax("/article/delete", {"id": id}, function (data) {
                 if (data.status === 200) {

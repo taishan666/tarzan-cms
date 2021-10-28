@@ -33,7 +33,7 @@
         var rollbackFlag = Core.parseBool("[[${@perms.hasPerm('dbBackup:rollback')}]]");
         var deleteFlag = Core.parseBool("[[${@perms.hasPerm('dbBackup:delete')}]]");
         window.operateEvents = {
-            // 点击编辑
+            // 点击恢复
             'click .btn_rollback': function (e, value, row, index) {
                 rollback(row.fileName)
             },

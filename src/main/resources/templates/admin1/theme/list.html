@@ -35,7 +35,7 @@
       </div>
     </div>
     <div class="card">
-      <img alt="theme-img" height="100px;" th:src="${theme.img}"/>
+      <img alt="theme-img" height="100px;" th:onclick="previewImg([[${theme.img}]])" th:src="${theme.img}"/>
       <div class="btn-group" role="group" aria-label="操作">
         <button th:if="${theme.status==0}" class="btn btn-primary sm-btn flat-btn" type="button" th:onclick="useTheme([[${theme.id}]])"  title="启用" ><i class="fa fa-lock"></i></button>
         <button th:if="${theme.status==1}" class="btn btn-primary sm-btn flat-btn" type="button" th:onclick="useTheme([[${theme.id}]])"  title="已启用" ><i class="fa fa-lock-open"></i></button>
@@ -123,6 +123,18 @@
         layer.msg(data.msg);
       })
     })
+  }
+
+  function previewImg(src) {
+    layer.open({
+      type: 1,
+      title: false,
+      closeBtn: 0,
+      area: '45%',
+      skin: 'layui-layer-nobg', //没有背景色
+      shadeClose: true,
+      content: '<img style="width: 100%" alt="link" src="' + src + '">'
+    });
   }
 
 </script>

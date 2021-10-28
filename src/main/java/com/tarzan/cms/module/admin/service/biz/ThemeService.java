@@ -110,27 +110,28 @@ public class ThemeService extends ServiceImpl<ThemeMapper, Theme> {
         List<String> themeNames=themes.stream().map(Theme::getName).collect(Collectors.toList());
         if(fileNames==null){
             themes=null;
-            remove(Wrappers.<Theme>lambdaQuery().ne(Theme::getId,null));
+            remove(Wrappers.<Theme>lambdaQuery().ne(Theme::getId,0));
         }else{
             if(CollectionUtils.isNotEmpty(themes)){
                 themes= themes.stream().filter(e->fileNames.contains(e.getName())).collect(Collectors.toList());
                 if(CollectionUtils.isNotEmpty(themes)){
                     remove(Wrappers.<Theme>lambdaQuery().notIn(Theme::getId,themes.stream().map(Theme::getId).collect(Collectors.toList())));
                 }else{
-                    remove(Wrappers.<Theme>lambdaQuery().ne(Theme::getId,null));
+                    remove(Wrappers.<Theme>lambdaQuery().ne(Theme::getId,0));
                 }
            }
             List<File> themeFiles=Arrays.asList(themesRoot.listFiles());
             if(CollectionUtils.isNotEmpty(themeFiles)){
                 themeFiles=themeFiles.stream().filter(e->!themeNames.contains(e.getName())).collect(Collectors.toList());
                 List<Theme> addThemes = new ArrayList<>();
-                if(CollectionUtils.isNotEmpty(themes)){
+                if(CollectionUtils.isNotEmpty(themeFiles)){
                     themeFiles.forEach(f->{
                         Theme theme=new Theme();
                         theme.setName(f.getName());
                         theme.setImg("theme"+ File.separator+f.getName()+File.separator+"screenshot.png");
                         theme.setCreateTime(new Date());
                         theme.setUpdateTime(new Date());
+                        theme.setStatus(CoreConst.STATUS_INVALID);
                         addThemes.add(theme);
                     });
                     saveBatch(addThemes);

@@ -136,7 +136,7 @@
             <artifactId>h2</artifactId>
             <version>1.4.200</version>
         </dependency>
-        <!-- https://mvnrepository.com/artifact/com.github.xiaoymin/knife4j-spring-boot-starter -->
+        <!-- knife4j-->
         <dependency>
             <groupId>com.github.xiaoymin</groupId>
             <artifactId>knife4j-spring-boot-starter</artifactId>

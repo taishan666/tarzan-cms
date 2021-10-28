@@ -18,7 +18,7 @@ public class ErrorLogPublisher {
         LogError logError = new LogError();
         logError.setRequestUri(requestUri);
         if (Objects.nonNull(error)) {
-         //   logError.setStackTrace(getStackTraceAsString(error));
+            logError.setStackTrace(getStackTraceAsString(error));
             logError.setExceptionName(error.getClass().getName());
             logError.setMessage(error.getMessage());
             StackTraceElement[] elements = error.getStackTrace();

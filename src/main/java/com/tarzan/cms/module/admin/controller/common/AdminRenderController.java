@@ -6,6 +6,7 @@ import com.tarzan.cms.module.admin.model.biz.Category;
 import com.tarzan.cms.module.admin.model.sys.User;
 import com.tarzan.cms.module.admin.service.biz.CategoryService;
 import com.tarzan.cms.module.admin.service.biz.StatisticService;
+import com.tarzan.cms.module.admin.service.biz.ThemeService;
 import com.tarzan.cms.module.admin.service.sys.MenuService;
 import com.tarzan.cms.module.admin.service.sys.SysConfigService;
 import lombok.AllArgsConstructor;
@@ -35,6 +36,7 @@ public class AdminRenderController {
     private final SysConfigService sysConfigService;
     private final MenuService MenuService;
     private final StatisticService statisticService;
+    private final ThemeService themeService;
 
     /**
      * 后台首页
@@ -93,7 +95,15 @@ public class AdminRenderController {
      */
     @GetMapping("/login/logs")
     public String loginLogs() {
-        return CoreConst.ADMIN_PREFIX + "log/list";
+        return CoreConst.ADMIN_PREFIX + "logLogin/list";
+    }
+
+    /**
+     * 错误日志入口
+     */
+    @GetMapping("/error/logs")
+    public String errorLogs() {
+        return CoreConst.ADMIN_PREFIX + "logError/list";
     }
 
     /**
@@ -163,9 +173,10 @@ public class AdminRenderController {
     /**
      * 主题
      */
-    @GetMapping("themes")
-    public String themes() {
-        return "redirect:/theme/list";
+    @GetMapping("/themes")
+    public String themes(Model model) {
+        model.addAttribute("themes", themeService.list());
+        return  CoreConst.ADMIN_PREFIX + "theme/list";
     }
 
 }

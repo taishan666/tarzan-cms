@@ -6,12 +6,12 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.tarzan.cms.module.admin.model.log.LogError;
 import com.tarzan.cms.module.admin.service.log.LogErrorService;
 import com.tarzan.cms.module.admin.vo.base.PageResultVo;
+import com.tarzan.cms.module.admin.vo.base.ResponseVo;
 import com.tarzan.cms.utils.ResultUtil;
 import lombok.AllArgsConstructor;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 
 /**
@@ -37,6 +37,17 @@ public class LogErrorController {
         wrapper.orderByDesc(LogError::getCreateTime);
         IPage<LogError> LoginLogPage = logErrorService.page(page, wrapper);
         return ResultUtil.table(LoginLogPage.getRecords(), LoginLogPage.getTotal());
+    }
+
+    @PostMapping("/batch/delete")
+    @ResponseBody
+    public ResponseVo deleteBatch(@RequestBody List<Integer> ids) {
+        boolean flag = logErrorService.removeByIds(ids);
+        if (flag) {
+            return ResultUtil.success("删除成功");
+        } else {
+            return ResultUtil.error("删除失败");
+        }
     }
 
 }

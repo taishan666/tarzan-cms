@@ -423,6 +423,7 @@ INSERT INTO `sys_menu` VALUES (87, '编辑', '编辑主题', '/theme/edit', 'the
 INSERT INTO `sys_menu` VALUES (88, '批量推送', '批量推送百度', '/article/batch/push', 'article:batchPush', 65, 2, 0, '', 1, '2021-10-28 15:15:00', '2021-10-28 15:15:00');
 INSERT INTO `sys_menu` VALUES (89, '登录日志', '登录日志', '/login/logs', 'loginLogs', 22, 1, 2, 'fas fa-th-list', 1, '2021-07-20 16:01:23', '2021-07-20 16:01:23');
 INSERT INTO `sys_menu` VALUES (90, '数据备份', '数据备份', '/db/backup', 'dbBackup', 22, 1, 3, 'fas fa-clone', 1, '2021-07-20 16:01:23', '2021-07-20 16:01:23');
+INSERT INTO `sys_menu` VALUES (91, '错误日志', '错误日志', '/error/logs', 'errorLogs', 22, 1, 4, 'fas fa-skull', 1, '2021-07-20 16:01:23', '2021-07-20 16:01:23');
 
 -- ----------------------------
 -- Table structure for sys_role
@@ -541,7 +542,8 @@ INSERT INTO `sys_role_menu`(`id`, `role_id`, `menu_id`) VALUES (78, 1, 86);
 INSERT INTO `sys_role_menu`(`id`, `role_id`, `menu_id`) VALUES (79, 1, 87);
 INSERT INTO `sys_role_menu`(`id`, `role_id`, `menu_id`) VALUES (80, 1, 88);
 INSERT INTO `sys_role_menu`(`id`, `role_id`, `menu_id`) VALUES (81, 1, 89);
-INSERT INTO `sys_role_menu`(`id`, `role_id`, `menu_id`) VALUES (81, 1, 90);
+INSERT INTO `sys_role_menu`(`id`, `role_id`, `menu_id`) VALUES (82, 1, 90);
+INSERT INTO `sys_role_menu`(`id`, `role_id`, `menu_id`) VALUES (83, 1, 91);
 
 
 -- ----------------------------

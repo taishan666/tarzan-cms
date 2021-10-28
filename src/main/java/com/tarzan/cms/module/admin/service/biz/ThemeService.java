@@ -10,7 +10,9 @@ import com.tarzan.cms.module.admin.model.biz.Theme;
 import com.tarzan.cms.module.admin.vo.base.ResponseVo;
 import com.tarzan.cms.utils.FileUtil;
 import com.tarzan.cms.utils.ResultUtil;
+import com.tarzan.cms.utils.StringUtil;
 import lombok.AllArgsConstructor;
+import org.apache.commons.io.IOUtils;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
@@ -22,8 +24,14 @@ import org.yaml.snakeyaml.Yaml;
 import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.net.URLConnection;
 import java.nio.file.Paths;
 import java.util.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
@@ -39,11 +47,23 @@ public class ThemeService extends ServiceImpl<ThemeMapper, Theme> {
 
     private final CmsProperties cmsProperties;
 
-    @CacheEvict(value = "theme", allEntries = true)
+
     public ResponseVo upload(MultipartFile file) {
         try {
+            return upload(file.getBytes());
+        } catch (IOException e) {
+            return  ResultUtil.error("文件上传异常！");
+        }
+    }
+
+    @CacheEvict(value = "theme", allEntries = true)
+    public ResponseVo upload(byte[] bytes) {
+        try {
             // 获取文件名
-            String themeName =  getZipThemeName(file.getBytes());
+            String themeName =  getZipThemeName(new ByteArrayInputStream(bytes));
+            if(StringUtil.isEmpty(themeName)){
+                return  ResultUtil.error("主题模板解析异常");
+            }
             String themePath = cmsProperties.getThemeDir() + File.separator+themeName;
             File themeDir = new File(themePath);
             // 创建文件根目录
@@ -53,7 +73,7 @@ public class ThemeService extends ServiceImpl<ThemeMapper, Theme> {
             if(!FileUtil.isEmpty(Paths.get(themePath))){
                 return  ResultUtil.error("主题已安装");
             }
-            FileUtil.unzip(file.getBytes(), Paths.get(themePath));
+            FileUtil.unzip(bytes, Paths.get(themePath));
             Optional<File> themeRoot= Arrays.asList(themeDir.listFiles()).stream().findFirst();
             FileUtil.copyFolder(Paths.get(themeRoot.get().getPath()),Paths.get(themePath));
             FileUtil.deleteFolder(Paths.get(themeRoot.get().getPath()));
@@ -68,8 +88,8 @@ public class ThemeService extends ServiceImpl<ThemeMapper, Theme> {
         return ResultUtil.success();
     }
 
-    public static String getZipThemeName(byte[] bytes) throws IOException {
-        ZipInputStream zis = new ZipInputStream(new ByteArrayInputStream(bytes));
+    public static String getZipThemeName(InputStream is) throws IOException {
+        ZipInputStream zis=new ZipInputStream(is);
         ZipEntry zipEntry = zis.getNextEntry();
         while (zipEntry != null) {
             if(zipEntry.getName().contains("theme.yaml")){
@@ -79,36 +99,43 @@ public class ThemeService extends ServiceImpl<ThemeMapper, Theme> {
             }
             zipEntry = zis.getNextEntry();
         }
-        return "default";
+        return null;
     }
 
 
     public List<Theme> list() {
         File themesRoot=new File(cmsProperties.getThemeDir());
-        List<String> themeNames=Arrays.asList(themesRoot.list());
+        List<String> fileNames=Arrays.asList(themesRoot.list());
         List<Theme> themes=baseMapper.selectList(Wrappers.<Theme>lambdaQuery().orderByDesc(Theme::getStatus));
-        if(themeNames==null){
+        List<String> themeNames=themes.stream().map(Theme::getName).collect(Collectors.toList());
+        if(fileNames==null){
             themes=null;
             remove(Wrappers.<Theme>lambdaQuery().ne(Theme::getId,null));
         }else{
             if(CollectionUtils.isNotEmpty(themes)){
-                themes= themes.stream().filter(e->themeNames.contains(e.getName())).collect(Collectors.toList());
+                themes= themes.stream().filter(e->fileNames.contains(e.getName())).collect(Collectors.toList());
                 if(CollectionUtils.isNotEmpty(themes)){
                     remove(Wrappers.<Theme>lambdaQuery().notIn(Theme::getId,themes.stream().map(Theme::getId).collect(Collectors.toList())));
+                }else{
+                    remove(Wrappers.<Theme>lambdaQuery().ne(Theme::getId,null));
                 }
-           }else{
-                List<File> themeFiles=Arrays.asList(themesRoot.listFiles());
+           }
+            List<File> themeFiles=Arrays.asList(themesRoot.listFiles());
+            if(CollectionUtils.isNotEmpty(themeFiles)){
+                themeFiles=themeFiles.stream().filter(e->!themeNames.contains(e.getName())).collect(Collectors.toList());
                 List<Theme> addThemes = new ArrayList<>();
-                themeFiles.forEach(f->{
-                    Theme theme=new Theme();
-                    theme.setName(f.getName());
-                    theme.setImg("theme"+ File.separator+f.getName()+File.separator+"screenshot.png");
-                    theme.setCreateTime(new Date());
-                    theme.setUpdateTime(new Date());
-                    addThemes.add(theme);
-                });
-                saveBatch(addThemes);
-                themes.addAll(addThemes);
+                if(CollectionUtils.isNotEmpty(themes)){
+                    themeFiles.forEach(f->{
+                        Theme theme=new Theme();
+                        theme.setName(f.getName());
+                        theme.setImg("theme"+ File.separator+f.getName()+File.separator+"screenshot.png");
+                        theme.setCreateTime(new Date());
+                        theme.setUpdateTime(new Date());
+                        addThemes.add(theme);
+                    });
+                    saveBatch(addThemes);
+                    themes.addAll(addThemes);
+                }
             }
         }
         return themes;
@@ -143,11 +170,53 @@ public class ThemeService extends ServiceImpl<ThemeMapper, Theme> {
 
     @Cacheable(value = "theme", key = "'themeName'")
     public String getTheme() {
+        Theme theme=selectCurrent();
+        if(theme==null){
+            return CoreConst.THEME_PREFIX;
+        }
         return CoreConst.THEME_PREFIX+selectCurrent().getName();
     }
 
     @CacheEvict(value = "theme", allEntries = true)
     public boolean deleteBatch(List<Integer> ids) {
         return removeByIds(ids);
+    }
+
+    public ResponseVo download(String httpUrl) {
+        try {
+            URL url = new URL(parseUrl(httpUrl));
+            //获取链接
+            URLConnection conn = url.openConnection();
+            //上传
+            upload(IOUtils.toByteArray(conn.getInputStream()));
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return ResultUtil.success();
+    }
+
+    public static String parseUrl(String url) {
+        url=filterUrl(url);
+        if(url.contains("github.com")){
+            if (!url.contains("codeload")){
+                url=url.replace("github.com","codeload.github.com");
+            }
+            if (!url.contains("/zip/refs/heads/master")){
+                url= url+"/zip/refs/heads/master";
+            }
+        }
+        return url;
+    }
+
+    public static String filterUrl(String url) {
+        String regex = "https?://(\\w|-)+(\\.(\\w|-)+)+(/(\\w+(\\?(\\w+=(\\w|%|-)*(\\&\\w+=(\\w|%|-)*)*)?)?)?)+";//匹配网址
+        Pattern p = Pattern.compile(regex);
+        Matcher m = p.matcher(url);
+        if(m.find()){
+            return  url;
+        }
+        return "";
     }
 }

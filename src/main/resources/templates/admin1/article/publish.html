@@ -69,21 +69,17 @@
                                     <ul id="fileList" class="content-img-list">
                                         <block th:if="${article?.coverImage!=null}">
                                         <li class="content-img-list-item"><img th:src="${article?.coverImage}">
-                                        <div class="hide"><a class="delete-btn"><i class="gcl gcllajitong"></i></a><a   class="big-btn" type="button" data-toggle="modal" data-target=".bs-example-modal-lg"><i class="gcl gclfangda"></i></a></div>
+                                        <div class="hide">
+                                            <a class="delete-btn"><i class="gcl gcllajitong"></i></a>
+                                            <a class="big-btn" ><i class="gcl gclfangda"></i></a>
+                                        </div>
                                         </li>
                                         </block>
                                     </ul>
                                     <div class="file"  id="filePicker">
                                         <i class="fa fa-plus"></i>
-                                        <input id="sliderImg" type="hidden" class="form-control" name="sliderImg"
-                                               th:value="${article.sliderImg}">
-                                        <input type="text" name="coverImage" accept="image/*" id="coverImage"  th:value="${article?.coverImage}">
-                                    </div>
-                                </div>
-                                <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
-                                    <div class="modal-dialog modal-lg" role="document">
-                                        <div class="modal-content">
-                                        </div>
+                                        <input id="sliderImg" type="hidden" name="sliderImg" th:value="${article.sliderImg}">
+                                        <input id="coverImage" type="text" name="coverImage"  th:value="${article?.coverImage}">
                                     </div>
                                 </div>
                             </div>
@@ -179,7 +175,7 @@
         var $li = $(
             '<li class="content-img-list-item"><img src="' + data.url + '" >' +
             '<div class="hide"><a class="delete-btn"><i class="gcl gcllajitong"></i></a>' +
-            '<a   class="big-btn" type="button" data-toggle="modal" data-target=".bs-example-modal-lg"><i class="gcl gclfangda"></i></a></div></li>'
+            '<a class="big-btn"><i class="gcl gclfangda"></i></a></div></li>'
             );
         $list.append( $li );
         $("#coverImage").val(data.url);
@@ -203,6 +199,23 @@
         $(this).parent().parent().parent().remove();
         $('.content-img .file').show();
     });
+    // 单个图片放大
+    $(".content-img-list").on("click", '.content-img-list-item a .gclfangda', function() {
+        const imgSrc = $('.content-img-list-item img').attr("src");
+        previewImg(imgSrc);
+    });
+
+    function previewImg(src) {
+        layer.open({
+            type: 1,
+            title: false,
+            closeBtn: 0,
+            area: '45%',
+            skin: 'layui-layer-nobg', //没有背景色
+            shadeClose: true,
+            content: '<img style="width: 100%" alt="link" src="' + src + '">'
+        });
+    }
 </script>
 <script>
     var content;

@@ -84,6 +84,7 @@
     });
 </script>
 <script>
+
     $(function () {
         var editFlag = "[[${@perms.hasPerm('link:edit')}]]";
         var deleteFlag = "[[${@perms.hasPerm('link:delete')}]]";
@@ -96,9 +97,9 @@
             'click .btn_del': function (e, value, row, index) {
                 deleteRow(row.id)
             },
-            // 点击启用
-            'click .btn_use_link': function (e, value, row, index) {
-                uselink(row.id)
+            // 点击预览
+            'click .btn_view': function (e, value, row, index) {
+                previewImg(value)
             }
         }
         var columns = [
@@ -120,8 +121,9 @@
                 title: '站长图片',
                 align: "center",
                 class: "link-pre",
+                events: operateEvents,
                 formatter: function (value, row, index) {
-                    return '<img src="' + value + '" style="width: 100px" onclick="previewImg(\'' + value + '\')"/>'
+                    return '<img src="' + value + '" style="width: 100px" class="btn_view"/>'
                 }
             },{
                 field: 'email',
@@ -228,7 +230,53 @@
         })
         //只是在点击后初始化的时候生成
         $("#formModal").on("shown.bs.modal", function () {
-
+            // 初始化Web Uploader
+            var uploader = WebUploader.create({
+                // 选完文件后，是否自动上传。
+                auto: true,
+                // swf文件路径
+                swf: '/admin1/img/Uploader.swf',
+                // 文件接收服务端。
+                server: '[[@{/attachment/upload}]]',
+                // 选择文件的按钮。可选。
+                // 内部根据当前运行是创建，可能是input元素，也可能是flash.
+                pick: '#filePicker',
+                // 只允许选择图片文件。
+                accept: {
+                    title: 'Images',
+                    extensions: 'gif,jpg,jpeg,bmp,png',
+                    mimeTypes: 'image/*'
+                }
+            });
+            // 文件上传成功，给item添加成功class, 用样式标记上传成功。
+            var  $list=$('#fileList');
+            uploader.on( 'uploadSuccess', function( file,data ) {
+                var $li = $(
+                    '<li class="content-img-list-item"><img src="' + data.url + '" >' +
+                    '<div class="hide"><a class="delete-btn"><i class="gcl gcllajitong"></i></a>' +
+                    '<a   class="big-btn" type="button" data-toggle="modal" data-target=".bs-example-modal-lg"><i class="gcl gclfangda"></i></a></div></li>'
+                );
+                $list.append( $li );
+                $("#img").val(data.url);
+                $('.content-img .file').hide();
+            });
+            // 文件上传失败，显示上传出错。
+            uploader.on( 'uploadError', function( file ) {
+                console.log('上传失败');
+            });
+            // 鼠标经过显示删除按钮
+            $('.content-img-list').on('mouseover', '.content-img-list-item', function() {
+                $(this).children('div').removeClass('hide');
+            });
+            // 鼠标离开隐藏删除按钮
+            $('.content-img-list').on('mouseleave', '.content-img-list-item', function() {
+                $(this).children('div').addClass('hide');
+            });
+            // 单个图片删除
+            $(".content-img-list").on("click", '.content-img-list-item a .gcllajitong', function() {
+                $(this).parent().parent().parent().remove();
+                $('.content-img .file').show();
+            });
         })
 
         // 编辑

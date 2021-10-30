@@ -323,7 +323,6 @@
         // 保存或更新
         $('#saveOrUpdateBtn').on('click', function () {
             var $f = $('#linkForm');
-            console.log( $f.serialize());
             var valid = $f[0].checkValidity();
             var url = $f.find("input[name='id']").val() ? "/link/edit" : "/link/add"
             if (valid) {

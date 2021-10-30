@@ -23,7 +23,7 @@
 <link rel="stylesheet" type="text/css" th:href="@{/admin1/css/fonts.css}">
 <link rel="stylesheet" type="text/css" th:href="@{/admin1/css/style.css}">
 <link rel="stylesheet" type="text/css" th:href="@{/admin1/css/uploadImg.css}">
-<link rel="stylesheet" type="text/css" th:href="@{/admin1/css/theme.css}">
+<!--<link rel="stylesheet" type="text/css" th:href="@{/admin1/css/theme.css}">-->
 <!--<link rel="stylesheet" id="theme-change" type="text/css" href="#">-->
 <!-- Favicon Link -->
 <link rel="shortcut icon" type="image/png" href="favicon.ico">
@@ -111,10 +111,10 @@
   function handleHashChange() {
     var hash = location.hash;
     hash = hash ? hash : defaultPageHash
-    $('.sidebar-menu a').removeClass(activeName);
-    var $href = $('.sidebar-menu > a[href="' + hash + '"]');
+    var $href = $('.active-li > a[href="' + hash + '"]');
     if ($href.length > 0) {
-      $href.parent().addClass(activeName).parent().siblings().addClass(activeName).parent().addClass('menu-open');
+      var animationSpeed = 300;
+      $href.parent().parent().slideDown(animationSpeed, function() {})
     }
     Core.load("#content", hash.replace('#', ''));
   }

@@ -5,7 +5,7 @@
     </div>
 </aside>
 <th:block th:fragment="menu(menuTree)">
-    <li th:each="menu : ${menuTree}" class="sidebar-menu">
+    <li th:each="menu : ${menuTree}" class="active-li">
         <a th:href="${menu.url}">
             <span th:classappend="${menu.icon}" th:if="${menu.parentId == 0}" class="icon-menu feather-icon"></span>
             <span th:if="${menu.parentId != 0}" class="icon-dash"></span>

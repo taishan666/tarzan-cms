@@ -116,7 +116,7 @@
         $('.sidebar-menu a').removeClass(activeName);
         var $href = $('.sidebar-menu > a[href="' + hash + '"]');
         if ($href.length > 0) {
-            $href.addClass(activeName).parent().parent().siblings().addClass(activeName).parent().addClass('menu-open');
+            $href.addClass(activeName).parent().parent().siblings().addClass(activeName).parent().addClass('menu-show');
         }
         Core.load("#content", hash.replace('#', ''));
     }

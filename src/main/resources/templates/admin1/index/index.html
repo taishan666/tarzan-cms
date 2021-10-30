@@ -104,16 +104,20 @@
 <script type="text/javascript" th:inline="javascript">
   const activeName = 'active';
   const defaultPageHash = '#workdest';
+  const animationSpeed = 300;
   $(function () {
     handleHashChange()
   });
 
   function handleHashChange() {
-    var hash = location.hash;
+    let hash = location.hash;
     hash = hash ? hash : defaultPageHash
-    var $href = $('.active-li > a[href="' + hash + '"]');
-    if ($href.length > 0) {
-      var animationSpeed = 300;
+    const $href = $('.active-li > a[href="' + hash + '"]');
+    if(hash==defaultPageHash){
+      $href.parent().parent().find("li.active").removeClass(activeName);
+      $href.parent().addClass(activeName)
+    }
+    if ($href.length > 0 ) {
       $href.parent().parent().slideDown(animationSpeed, function() {})
     }
     Core.load("#content", hash.replace('#', ''));

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="keywords" th:content="${SITE_CONFIG.SITE_KWD}">
+    <meta name="description" th:content="${SITE_CONFIG.SITE_DESC}">
+    <title th:text="${SITE_CONFIG.SITE_NAME}"></title>
+    <link rel="stylesheet" th:href="@{/libs/bootstrap/bootstrap.min.css}"/>
+    <link rel="stylesheet" th:href="@{/libs/font-icon/icon.css}"/>
+    <link rel="stylesheet" th:href="@{|/${WEB_THEME}/source/css/web-common.css|}" />
+    <link rel="stylesheet" th:href="@{|/${WEB_THEME}/source/css/web-blog.css|}" />
+</head>
+<body>
+<header id="header">
+    <div th:replace="@{|${WEB_THEME}/module/navbar.html|}"></div>
+</header>
+<div class="tz-container tz-content">
+    <div class="tz-main comment">
+        <div class="comment-describe">
+            <h3 class="comment-describe-title">留言板</h3>
+            <div>
+                <p>此路是我开，此树是我栽，</p>
+                <p>要想从此过......还不快来一脚？</p>
+            </div>
+            <hr class="hr0">
+            <div>
+                <p>可在此处留言友链，只支持一级域名谢谢。</p>
+                <p>内容相近优先，友链格式示例如下：</p>
+                <p>博客名：TARZAN-CMS</p>
+                <p>链接：https://tarzan.blog.csdn.net</p>
+                <p>邮箱：1334512682@qq.com</p>
+            </div>
+        </div>
+        <!-- 发表评论-->
+     <div th:replace="@{|/${WEB_THEME}/module/comment.html|}"></div>
+    </div>
+    <div th:replace="@{|${WEB_THEME}/module/sidebar.html|}"></div>
+</div>
+<div th:replace="@{|${WEB_THEME}/module/footer.html|}"></div>
+<div class="return_top"><a class=" fa fa-arrow-up"></a></div>
+
+<script th:src="@{|/${WEB_THEME}/source/js/tagcloud.js|}"></script>
+<script th:src="@{|/${WEB_THEME}/source/js/tz-blog.js|}"></script>
+<script th:src="@{|/${WEB_THEME}/source/js/hc-sticky.js|}"></script>
+
+<script>
+    var sid=-1;
+</script>
+</body>
+
+</html>

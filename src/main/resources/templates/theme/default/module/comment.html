@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="utf-8" />
+	<link rel="stylesheet" th:href="@{/libs/markdown/simplemde.min.css}">
+</head>
+<body>
+<div id="comment" class="comment comment-main">
+			<div class="comment-title">发表评论</div>
+			<form id="comment-form" class="form-horizontal mt-10">
+				<input id="comment-sid" name="sid" type="hidden" value="-1">
+				<div id="user-name-content" class="user-name-content">欢迎您：<b id="user-name"></b></div>
+				<div class="form-group" id="user-info" style="display: none">
+					<div class="col-sm-4">
+						<input id="nickname" type="text" class="form-control"  name="nickname" placeholder="昵称（必填）">
+					</div>
+					<div class="col-sm-4">
+						<input id="qq" type="text" class="form-control"  name="qq" placeholder="QQ（用于展示头像和昵称）">
+					</div>
+					<div class="col-sm-4">
+						<input id="email" type="text" class="form-control"  name="email" placeholder="邮箱">
+					</div>
+				</div>
+				<div class="form-group">
+					<div class="col-xs-12">
+						<textarea name="content" id="comment-textarea"></textarea>
+					</div>
+				</div>
+				<div><button id="submitCommentBtn" type="button" class="btn btn-pri">发表评论</button></div>
+			</form>
+			<hr class="hr0 mt-15"/>
+			<div class="col-xs-12">
+				<div class="row">
+					<ul id="comment-ul" class="comment">
+					</ul>
+				</div>
+			</div>
+		</div>
+<script th:src="@{/libs/jquery/jquery.min.js}"></script>
+<script th:src="@{/libs/markdown/simplemde.min.js}"></script>
+<script th:src="@{/libs/layer/layer.js}"></script>
+<script  th:src="@{|/${WEB_THEME}/source/js/comment.js|}"></script>
+<script th:src="@{|/${WEB_THEME}/source/js/core.js|}"></script>
+<script th:inline="javascript">var ctx = [[@{/}]];</script>
+</body>
+
+</html>

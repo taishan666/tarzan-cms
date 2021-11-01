@@ -6,8 +6,8 @@
 	<meta name="keywords" th:content="${article.keywords}">
 	<meta name="description" th:content="${article.description}">
 	<title th:text="${article.title} + ' - ' + ${SITE_CONFIG.SITE_NAME}"></title>
-	<link rel="stylesheet" th:href="@{/libs/bootstrap/bootstrap.min.css}"/>
-	<link rel="stylesheet" th:href="@{/libs/font-icon/icon.css}"/>
+	<link rel="stylesheet" th:href="@{|/${WEB_THEME}/source/libs/bootstrap/bootstrap.min.css|}"/>
+	<link rel="stylesheet" th:href="@{|/${WEB_THEME}/source/libs/font-icon/icon.css|}"/>
 	<link rel="stylesheet" th:href="@{|/${WEB_THEME}/source/css/web-common.css|}" />
 	<link rel="stylesheet" th:href="@{|/${WEB_THEME}/source/css/web-blog.css|}" />
 </head>
@@ -43,10 +43,10 @@
 <div th:replace="@{|${WEB_THEME}/module/footer.html|}"></div>
 <div class="return_top"><a class=" fa fa-arrow-up"></a></div>
 
-<script th:src="@{/libs/jquery/jquery.min.js}"></script>
+<script th:src="@{|/${WEB_THEME}/source/libs/jquery/jquery.min.js}"></script>
 <script th:src="@{|/${WEB_THEME}/source/js/tagcloud.js|}"></script>
 <script th:src="@{|/${WEB_THEME}/source/js/tz-blog.js|}"></script>
-<script th:src="@{|/${WEB_THEME}/source/js/hc-sticky.js|}"></script>
+<script th:src="@{|/${WEB_THEME}/source/libs/hc-sticky/hc-sticky.js|}"></script>
 <script th:src="@{|/${WEB_THEME}/source/js/core.js|}"></script>
 
 <script>

@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 	<meta charset="utf-8" />
-	<link rel="stylesheet" th:href="@{/libs/markdown/simplemde.min.css}">
+	<link rel="stylesheet" th:href="@{|/${WEB_THEME}/source/libs/markdown/simplemde.min.css|}">
 </head>
 <body>
 <div id="comment" class="comment comment-main">
@@ -36,9 +36,9 @@
 				</div>
 			</div>
 		</div>
-<script th:src="@{/libs/jquery/jquery.min.js}"></script>
-<script th:src="@{/libs/markdown/simplemde.min.js}"></script>
-<script th:src="@{/libs/layer/layer.js}"></script>
+<script th:src="@{|/${WEB_THEME}/source/libs/jquery/jquery.min.js|}"></script>
+<script th:src="@{|/${WEB_THEME}/source/libs/markdown/simplemde.min.js|}"></script>
+<script th:src="@{|/${WEB_THEME}/source/libs/layer/layer.js|}"></script>
 <script  th:src="@{|/${WEB_THEME}/source/js/comment.js|}"></script>
 <script th:src="@{|/${WEB_THEME}/source/js/core.js|}"></script>
 <script th:inline="javascript">var ctx = [[@{/}]];</script>

@@ -6,8 +6,8 @@
     <meta name="keywords" th:content="${SITE_CONFIG.SITE_KWD}">
     <meta name="description" th:content="${SITE_CONFIG.SITE_DESC}">
     <title th:text="${SITE_CONFIG.SITE_NAME}"></title>
-    <link rel="stylesheet" th:href="@{/libs/bootstrap/bootstrap.min.css}"/>
-    <link rel="stylesheet" th:href="@{/libs/font-icon/icon.css}"/>
+    <link rel="stylesheet" th:href="@{|/${WEB_THEME}/source/libs/bootstrap/bootstrap.min.css|}"/>
+    <link rel="stylesheet" th:href="@{|/${WEB_THEME}/source/libs/font-icon/icon.css|}"/>
     <link rel="stylesheet" th:href="@{|/${WEB_THEME}/source/css/web-common.css|}" />
     <link rel="stylesheet" th:href="@{|/${WEB_THEME}/source/css/web-blog.css|}" />
 </head>
@@ -42,7 +42,7 @@
 
 <script th:src="@{|/${WEB_THEME}/source/js/tagcloud.js|}"></script>
 <script th:src="@{|/${WEB_THEME}/source/js/tz-blog.js|}"></script>
-<script th:src="@{|/${WEB_THEME}/source/js/hc-sticky.js|}"></script>
+<script th:src="@{|/${WEB_THEME}/source/libs/hc-stick/hc-sticky.js|}"></script>
 
 <script>
     var sid=-1;

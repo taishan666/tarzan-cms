@@ -12,14 +12,5 @@ import org.apache.ibatis.annotations.Param;
  * @date 2021年5月11日
  */
 public interface UserMapper extends BaseMapper<User> {
-    /**
-     * 根据user参数查询用户列表
-     *
-     * @param page
-     * @param user
-     * @return list
-     */
-    IPage<User> selectUsers(@Param("page") IPage<User> page, @Param("user") User user);
-
 
 }

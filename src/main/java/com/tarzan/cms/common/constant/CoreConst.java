@@ -26,7 +26,7 @@ public class CoreConst {
     public static final String SHIRO_REDIS_CACHE_NAME = "shiro_tarzan_cms";
     public final static String USER_TYPE_HEADER_KEY = "User-Type";
 
-    public static final String ADMIN_PREFIX = "admin/";
+    public static final String ADMIN_PREFIX = "admin1/";
 
     public static final String SYSTEM_PREFIX = "system/";
 

@@ -7,20 +7,20 @@
     <meta name="description" th:content="${SITE_CONFIG.SITE_DESC}">
     <title th:if="${categoryName == null}" th:text="${SITE_CONFIG.SITE_NAME}"></title>
     <title th:if="${categoryName != null}" th:text="${categoryName} + ' - ' +${SITE_CONFIG.SITE_NAME}"></title>
-    <link rel="stylesheet" th:href="@{|/${WEB_THEME}/source/css/bootstrap.min.css|}"/>
-    <link rel="stylesheet" th:href="@{|/${WEB_THEME}/source/css/jquery.pagination.css|}" />
-    <link rel="stylesheet" th:href="@{|/${WEB_THEME}/source/css/swiper.min.css|}"/>
-    <link rel="stylesheet" th:href="@{|/${WEB_THEME}/source/css/icon.css|}"/>
+    <link rel="stylesheet" th:href="@{|/${WEB_THEME}/source/libs/bootstrap/bootstrap.min.css|}"/>
+    <link rel="stylesheet" th:href="@{|/${WEB_THEME}/source/libs/jquery/jquery.pagination.css|}" />
+    <link rel="stylesheet" th:href="@{|/${WEB_THEME}/source/libs/swiper/swiper.min.css|}"/>
+    <link rel="stylesheet" th:href="@{|/${WEB_THEME}/source/libs/font-icon/icon.css|}"/>
     <link rel="stylesheet" th:href="@{|/${WEB_THEME}/source/css/web-common.css|}" />
     <link rel="stylesheet" th:href="@{|/${WEB_THEME}/source/css/web-blog.css|}" />
 </head>
 <script th:inline="javascript">var ctx = [[@{/}]];</script>
-<script th:src="@{|/${WEB_THEME}/source/js/jquery.min.js|}"></script>
-<script th:src="@{|/${WEB_THEME}/source/js/jquery.pagination.min.js|}"></script>
-<script th:src="@{|/${WEB_THEME}/source/js/bootstrap.min.js|}"></script>
-<script th:src="@{|/${WEB_THEME}/source/js/swiper.min.js|}"></script>
+<script th:src="@{|/${WEB_THEME}/source/libs/jquery/jquery.min.js|}"></script>
+<script th:src="@{|/${WEB_THEME}/source/libs/jquery/jquery.pagination.min.js|}"></script>
+<script th:src="@{|/${WEB_THEME}/source/libs/bootstrap/bootstrap.min.js|}"></script>
+<script th:src="@{|/${WEB_THEME}/source/libs/swiper/swiper.min.js|}"></script>
+<script th:src="@{|/${WEB_THEME}/source/libs/hc-sticky/hc-sticky.js|}" ></script>
 <script th:src="@{|/${WEB_THEME}/source/js/tagcloud.js|}"></script>
-<script th:src="@{|/${WEB_THEME}/source/js/hc-sticky.js|}" ></script>
 <script th:src="@{|/${WEB_THEME}/source/js/tz-blog.js|}"></script>
 <script>
     $(function () {

@@ -44,7 +44,7 @@ public class StartedListener implements ApplicationListener<ApplicationStartedEv
     public void onApplicationEvent(ApplicationStartedEvent event) {
         initThemes();
         printStartInfo(event);
-       // articleCollect.collect();
+        //articleCollect.collect();
     }
 
     /**

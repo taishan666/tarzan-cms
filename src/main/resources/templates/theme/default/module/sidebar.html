@@ -22,7 +22,7 @@
     <div class="tz-sidebar-tabs">
         <ul id="myTab" class="nav nav-tabs">
             <li class="active"><a href="#latest" data-toggle="tab">最新文章</a></li>
-            <li><a href="#recommend" data-toggle="tab">站长推荐</a></li>
+<!--            <li><a href="#recommend" data-toggle="tab">站长推荐</a></li>-->
             <li><a href="#hot" data-toggle="tab">点击排行</a></li>
         </ul>
         <div class="tab-content">
@@ -34,14 +34,14 @@
                     </li>
                 </ol>
             </div>
-            <div class="tab-pane" id="recommend">
+  <!--          <div class="tab-pane" id="recommend">
                 <ol class="article-list">
                     <li th:each="item,temp:${RECOMMENDED_LIST}"  class="slide">
                         <span th:class="${'li-icon li-icon-'+(temp.index+1)}" th:text="${temp.index+1}"></span>
                         <a th:text="${item.title}" th:href="${'/blog/article/'+item.id}"></a>
                     </li>
                 </ol>
-            </div>
+            </div>-->
             <div class="tab-pane" id="hot">
                 <ol class="article-list">
                     <li th:each="item,temp:${HOT_LIST}"  class="slide">

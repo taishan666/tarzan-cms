@@ -11,7 +11,7 @@
 			<div class="swiper-wrapper">
 				<div th:each="item:${sliderList}" class="swiper-slide">
 					<a th:href="@{${'/blog/article/'+item.id}}">
-						<img th:src="${item.sliderImg}" style="max-height: 450px">
+						<img th:src="${item.coverImage}" style="max-height: 450px">
 						<p class="slider-title" th:text="${item.title}"></p>
 					</a>
 				</div>

@@ -2465,7 +2465,7 @@ body.mini-sidebar .main-content {
     fill: var(--primary-light)
 }
 
-.ad-info-card {
+.web-info-card {
     overflow: hidden;
     -webkit-transform: translateY(0);
     -moz-transform: translateY(0);
@@ -2474,7 +2474,7 @@ body.mini-sidebar .main-content {
     transform: translateY(0)
 }
 
-.ad-info-card:hover {
+.web-info-card:hover {
     -webkit-transform: translateY(-6px);
     -moz-transform: translateY(-6px);
     -ms-transform: translateY(-6px);
@@ -2482,7 +2482,7 @@ body.mini-sidebar .main-content {
     transform: translateY(-6px)
 }
 
-.ad-info-card,.ad-info-card:hover {
+.web-info-card,.web-info-card:hover {
     -webkit-transition: all .3s;
     -moz-transition: all .3s;
     -ms-transition: all .3s;
@@ -2495,7 +2495,7 @@ body.mini-sidebar .main-content {
     z-index: 1
 }
 
-.ad-info-card:before {
+.web-info-card:before {
     content: "";
     width: 50px;
     height: 50px;
@@ -2511,7 +2511,7 @@ body.mini-sidebar .main-content {
     opacity: .2
 }
 
-.ad-info-card:after {
+.web-info-card:after {
     content: "";
     width: 50px;
     height: 50px;
@@ -2527,12 +2527,12 @@ body.mini-sidebar .main-content {
     opacity: .2
 }
 
-.ad-title {
+.web-title {
     font-size: 18px;
     font-weight: 600
 }
 
-.ad-card-title {
+.web-card-title {
     font-size: 36px;
     font-weight: 700;
     margin: 9px 0 0
@@ -2617,7 +2617,7 @@ body.mini-sidebar .main-content {
     display: block
 }
 
-.ad-counter-card {
+.web-counter-card {
     box-shadow: none
 }
 
@@ -4492,30 +4492,30 @@ body .note-toolbar.card-header button.note-btn:after {
     padding: 10px 0 10px 10px
 }
 
-.ad-breadcrumb {
+.web-breadcrumb {
     text-align: right;
     width: 80%
 }
 
-.ad-breadcrumb ul {
+.web-breadcrumb ul {
     padding: 0;
     margin: 0
 }
 
-.ad-breadcrumb ul li {
+.web-breadcrumb ul li {
     display: inline-block
 }
 
-.ad-user-btn {
+.web-user-btn {
     position: relative;
     margin-right: 10px
 }
 
-.ad-user-btn input {
+.web-user-btn input {
     padding: 0 40px 0 20px
 }
 
-.ad-user-btn svg {
+.web-user-btn svg {
     position: absolute;
     top: 18px;
     right: 15px;
@@ -4523,7 +4523,7 @@ body .note-toolbar.card-header button.note-btn:after {
     fill: var(--primary)
 }
 
-.ad-btn,.ad-btn:focus {
+.web-btn,.web-btn:focus {
     min-width: 100px;
     padding: 0 25px;
     height: 48px;
@@ -4544,7 +4544,7 @@ body .note-toolbar.card-header button.note-btn:after {
     transition: all .3s
 }
 
-.ad-btn:hover {
+.web-btn:hover {
     background: var(--title-color)
 }
 
@@ -4897,12 +4897,12 @@ body .note-toolbar.card-header button.note-btn:after {
     margin-right: 5px
 }
 
-.ad-breadcrumb.ad-breadcrumb2 {
+.web-breadcrumb.web-breadcrumb2 {
     width: auto;
     text-align: left
 }
 
-.ad-breadcrumb2 .form-group {
+.web-breadcrumb2 .form-group {
     margin-bottom: 0
 }
 
@@ -4949,34 +4949,34 @@ body .note-toolbar.card-header button.note-btn:after {
     padding-top: 30px
 }
 
-.ad-checkout-tab h5 {
+.web-checkout-tab h5 {
     margin: 15px 0
 }
 
-.ad-radio-button {
+.web-radio-button {
     margin-top: 15px
 }
 
-.ad-radio-button input[type="radio"] {
+.web-radio-button input[type="radio"] {
     position: absolute;
     left: -9999px
 }
 
-.ad-radio-button label {
+.web-radio-button label {
     position: relative;
     margin: 0;
     padding-left: 30px;
     cursor: pointer
 }
 
-.ad-radio-button label span {
+.web-radio-button label span {
     margin-right: 10px;
     vertical-align: middle;
     text-transform: capitalize;
     color: #222
 }
 
-.ad-radio-button label:before {
+.web-radio-button label:before {
     content: "";
     display: inline-block;
     width: 15px;
@@ -4992,7 +4992,7 @@ body .note-toolbar.card-header button.note-btn:after {
     -moz-transition: all .3s ease-in-out
 }
 
-.ad-radio-button label:after {
+.web-radio-button label:after {
     content: "";
     display: inline-block;
     width: 5px;
@@ -5008,12 +5008,12 @@ body .note-toolbar.card-header button.note-btn:after {
     -moz-transition: all .3s ease-in-out
 }
 
-.ad-radio-button [type="radio"]:checked,.ad-radio-button [type="radio"]:not(:checked) {
+.web-radio-button [type="radio"]:checked,.web-radio-button [type="radio"]:not(:checked) {
     position: absolute;
     left: -9999px
 }
 
-.ad-radio-button [type="radio"]:checked+label:before,.ad-radio-button [type="radio"]:not(:checked)+label:before {
+.web-radio-button [type="radio"]:checked+label:before,.web-radio-button [type="radio"]:not(:checked)+label:before {
     content: '';
     position: absolute;
     left: 0;
@@ -5025,7 +5025,7 @@ body .note-toolbar.card-header button.note-btn:after {
     background: #fff
 }
 
-.ad-radio-button [type="radio"]:checked+label:after,.ad-radio-button [type="radio"]:not(:checked)+label:after {
+.web-radio-button [type="radio"]:checked+label:after,.web-radio-button [type="radio"]:not(:checked)+label:after {
     content: '';
     width: 12px;
     height: 12px;
@@ -5038,19 +5038,19 @@ body .note-toolbar.card-header button.note-btn:after {
     transition: all .2s ease
 }
 
-.ad-radio-button [type="radio"]:not(:checked)+label:after {
+.web-radio-button [type="radio"]:not(:checked)+label:after {
     opacity: 0;
     -webkit-transform: scale(0);
     transform: scale(0)
 }
 
-.ad-radio-button [type="radio"]:checked+label:after {
+.web-radio-button [type="radio"]:checked+label:after {
     opacity: 1;
     -webkit-transform: scale(1);
     transform: scale(1)
 }
 
-.ad-place-order {
+.web-place-order {
     margin-top: 15px
 }
 
@@ -5103,7 +5103,7 @@ body .note-toolbar.card-header button.note-btn:after {
     color: #f2c739
 }
 
-.ad-load-btn {
+.web-load-btn {
     text-align: center;
     margin-top: 2px
 }
@@ -5507,11 +5507,11 @@ body .note-toolbar.card-header button.note-btn:after {
     margin: 0
 }
 
-.ad-google-map {
+.web-google-map {
     margin-top: 15px
 }
 
-.ad-google-map iframe {
+.web-google-map iframe {
     height: 500px;
     border-radius: 10px
 }
@@ -5828,7 +5828,7 @@ body .note-toolbar.card-header button.note-btn:after {
     border-radius: 100px
 }
 
-.tab-content.ad-content2 {
+.tab-content.web-content2 {
     margin-top: 15px
 }
 
@@ -6102,39 +6102,39 @@ body .note-toolbar.card-header button.note-btn:after {
     left: 15px
 }
 
-.ad-Accordion3 .card-header,.ad-Accordion3 .card-header:first-child {
+.web-Accordion3 .card-header,.web-Accordion3 .card-header:first-child {
     border-radius: 0;
     padding: 19px 0 18px!important
 }
 
-.ad-Accordion3 .card-header.collapsed {
+.web-Accordion3 .card-header.collapsed {
     background: var(--title-color);
     cursor: pointer
 }
 
-.ad-Accordion3 .card-header:not(.collapsed) {
+.web-Accordion3 .card-header:not(.collapsed) {
     background: var(--primary);
     cursor: pointer
 }
 
-.ad-Accordion3 .card-body {
+.web-Accordion3 .card-body {
     background: var(--primary);
     color: var(--white)
 }
 
-.ad-Accordion3 h5 button {
+.web-Accordion3 h5 button {
     color: var(--white);
     font-size: 16px;
     text-align: left;
     padding: 12px 20px
 }
 
-.ad-Accordion3 .btn-link:hover {
+.web-Accordion3 .btn-link:hover {
     color: var(--white);
     text-decoration: none
 }
 
-.ad-Accordion3 .card {
+.web-Accordion3 .card {
     margin-bottom: 15px
 }
 
@@ -6142,18 +6142,18 @@ body .note-toolbar.card-header button.note-btn:after {
     margin-bottom: 0
 }
 
-.ad-Accordion4 .accordion .item {
+.web-Accordion4 .accordion .item {
     border: 0;
     margin-bottom: 15px;
     background: 0
 }
 
-.ad-Accordion4 .t-p {
+.web-Accordion4 .t-p {
     color: #00;
     padding: 20px 20px 0
 }
 
-.ad-Accordion4 .accordion .item .item-header h2 button.btn.btn-link {
+.web-Accordion4 .accordion .item .item-header h2 button.btn.btn-link {
     background: var(--secondary);
     color: var(--white);
     border-radius: 0;
@@ -6163,14 +6163,14 @@ body .note-toolbar.card-header button.note-btn:after {
     text-decoration: none
 }
 
-.ad-Accordion4 .accordion .item .item-header {
+.web-Accordion4 .accordion .item .item-header {
     border-bottom: 0;
     background: transparent;
     padding: 0;
     margin: 2px
 }
 
-.ad-Accordion4 .accordion .item .item-header h2 button {
+.web-Accordion4 .accordion .item .item-header h2 button {
     color: var(--white);
     font-size: 20px;
     padding: 20px;
@@ -6179,7 +6179,7 @@ body .note-toolbar.card-header button.note-btn:after {
     text-align: left
 }
 
-.ad-Accordion4 .accordion .item .item-header h2 i {
+.web-Accordion4 .accordion .item .item-header h2 i {
     float: right;
     font-size: 24px;
     color: var(--white);
@@ -6192,31 +6192,31 @@ body .note-toolbar.card-header button.note-btn:after {
     border-radius: 0
 }
 
-.ad-Accordion4 button.btn.btn-link.collapsed i {
+.web-Accordion4 button.btn.btn-link.collapsed i {
     transform: rotate(0deg)
 }
 
-.ad-Accordion4 button.btn.btn-link i {
+.web-Accordion4 button.btn.btn-link i {
     transform: rotate(180deg);
     transition: .5s
 }
 
-.ad-documation p {
+.web-documation p {
     margin: 5px 0;
     color: #a5a5a5
 }
 
-.ad-documation p span {
+.web-documation p span {
     color: var(--primary);
     font-weight: 600;
     margin-right: 5px
 }
 
-.media.ad-profile2-img {
+.media.web-profile2-img {
     margin-bottom: 20px
 }
 
-.media.ad-profile2-img img {
+.media.web-profile2-img img {
     width: 60px;
     height: 60px;
     border-radius: 100px;
@@ -6224,7 +6224,7 @@ body .note-toolbar.card-header button.note-btn:after {
     margin-right: 20px
 }
 
-.ad-profile2-img .media-body {
+.web-profile2-img .media-body {
     margin-top: 8px
 }
 
@@ -6252,7 +6252,7 @@ input.form-control.search-message {
     margin-bottom: 20px
 }
 
-.ad-inbox-list {
+.web-inbox-list {
     display: flex;
     align-items: center
 }
@@ -6269,7 +6269,7 @@ input.form-control.search-message {
     background-color: rgb(206 235 254 / 14%)
 }
 
-.ad-footer-btm {
+.web-footer-btm {
     position: absolute;
     bottom: 0;
     padding: 20px;
@@ -6280,7 +6280,7 @@ input.form-control.search-message {
     text-align: center
 }
 
-.ad-footer-btm p {
+.web-footer-btm p {
     color: var(--secondary);
     text-transform: capitalize
 }
@@ -6436,7 +6436,7 @@ ul.colors li p {
     margin: -16px 0 0
 }
 
-.ad-btm-space {
+.web-btm-space {
     margin-bottom: 30px
 }
 
@@ -6450,11 +6450,11 @@ ul.colors li p {
         font-size: 14px
     }
 
-    .ad-title {
+    .web-title {
         font-size: 14px
     }
 
-    .ad-card-title {
+    .web-card-title {
         font-size: 20px
     }
 
@@ -6474,13 +6474,13 @@ ul.colors li p {
         height: 100px
     }
 
-    .ad-user-btn {
+    .web-user-btn {
         margin-right: 3px
     }
 }
 
 @media(max-width:1499px) {
-    .form-group.ad-apply-cart {
+    .form-group.web-apply-cart {
         margin-top: 5px
     }
 }
@@ -6490,7 +6490,7 @@ ul.colors li p {
         padding: 0
     }
 
-    .ad-vertical-three p {
+    .web-vertical-three p {
         margin-left: 15px
     }
 
@@ -6611,7 +6611,7 @@ ul.colors li p {
         margin-left: 0
     }
 
-    .ad-user-btn {
+    .web-user-btn {
         margin-right: 5px
     }
 
@@ -6703,18 +6703,18 @@ ul.colors li p {
 }
 
 @media(max-width:767px) {
-    .page-title-box.ad-title-box-use {
+    .page-title-box.web-title-box-use {
         width: 100%;
         text-align: center;
         margin-bottom: 20px
     }
 
-    .ad-breadcrumb {
+    .web-breadcrumb {
         text-align: center;
         width: 100%
     }
 
-    .ad-Accordion4 .accordion .item .item-header h2 i {
+    .web-Accordion4 .accordion .item .item-header h2 i {
         font-size: 20px;
         width: 40px;
         height: 30px
@@ -6821,7 +6821,7 @@ ul.colors li p {
         padding: 20px
     }
 
-    .int-sop-cart-btn .ad-btn,.int-sop-cart-btn .ad-btn:focus {
+    .int-sop-cart-btn .web-btn,.int-sop-cart-btn .web-btn:focus {
         min-width: 110px;
         padding: 0 20px
     }
@@ -6830,7 +6830,7 @@ ul.colors li p {
         padding: 15px
     }
 
-    .ad-breadcrumb ul li {
+    .web-breadcrumb ul li {
         margin-bottom: 10px
     }
 
@@ -6842,7 +6842,7 @@ ul.colors li p {
         right: 35px
     }
 
-    .ad-Accordion4 .accordion .item .item-header h2 i {
+    .web-Accordion4 .accordion .item .item-header h2 i {
         display: none
     }
 
@@ -6898,7 +6898,7 @@ ul.colors li p {
         right: 110px
     }
 
-    .ad-btm-space {
+    .web-btm-space {
         margin-bottom: 22px
     }
 
@@ -6966,7 +6966,7 @@ ul.colors li p {
         font-size: 12px
     }
 
-    .ad-vertical-three p {
+    .web-vertical-three p {
         margin-left: 40px
     }
 
@@ -6975,12 +6975,12 @@ ul.colors li p {
         bottom: 30px
     }
 
-    .ad-invoice-title {
+    .web-invoice-title {
         display: block;
         text-align: center
     }
 
-    .ad-invoice-title h4 {
+    .web-invoice-title h4 {
         margin-right: 0;
         margin-bottom: 20px
     }

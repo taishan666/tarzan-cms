@@ -1,23 +1,28 @@
 package com.tarzan.cms.module.admin.controller.biz;
 
+import com.alibaba.fastjson.JSON;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.toolkit.CollectionUtils;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
-import com.tarzan.cms.module.admin.model.biz.ArticleTags;
-import com.tarzan.cms.module.admin.service.biz.ArticleService;
-import com.tarzan.cms.module.admin.service.biz.ArticleTagsService;
-import com.tarzan.cms.module.admin.service.biz.CategoryService;
-import com.tarzan.cms.common.constant.CoreConst;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.tarzan.cms.utils.ResultUtil;
+import com.tarzan.cms.common.constant.CoreConst;
+import com.tarzan.cms.common.enums.SysConfigKey;
 import com.tarzan.cms.module.admin.model.biz.Article;
+import com.tarzan.cms.module.admin.model.biz.ArticleTags;
 import com.tarzan.cms.module.admin.model.biz.Category;
 import com.tarzan.cms.module.admin.model.biz.Tags;
 import com.tarzan.cms.module.admin.model.sys.User;
+import com.tarzan.cms.module.admin.service.biz.ArticleService;
+import com.tarzan.cms.module.admin.service.biz.ArticleTagsService;
+import com.tarzan.cms.module.admin.service.biz.CategoryService;
 import com.tarzan.cms.module.admin.service.biz.TagsService;
+import com.tarzan.cms.module.admin.service.sys.SysConfigService;
 import com.tarzan.cms.module.admin.vo.ArticleConditionVo;
+import com.tarzan.cms.module.admin.vo.BaiduPushResVo;
 import com.tarzan.cms.module.admin.vo.base.PageResultVo;
 import com.tarzan.cms.module.admin.vo.base.ResponseVo;
+import com.tarzan.cms.utils.PushArticleUtil;
+import com.tarzan.cms.utils.ResultUtil;
 import lombok.AllArgsConstructor;
 import org.apache.shiro.SecurityUtils;
 import org.springframework.cache.annotation.CacheEvict;
@@ -47,6 +52,7 @@ public class ArticleController {
     private final ArticleTagsService articleTagsService;
     private final CategoryService categoryService;
     private final TagsService tagsService;
+    private final SysConfigService configService;
 
     @PostMapping("list")
     @ResponseBody
@@ -132,6 +138,23 @@ public class ArticleController {
         } else {
             return ResultUtil.error("删除文章失败");
         }
+    }
+
+    @PostMapping("/batch/push")
+    @ResponseBody
+    public ResponseVo pushBatch(@RequestParam("urls[]") String[] urls) {
+        try {
+            String url = configService.selectAll().get(SysConfigKey.BAIDU_PUSH_URL.getValue());
+            BaiduPushResVo baiduPushResVo = JSON.parseObject(PushArticleUtil.postBaidu(url, urls), BaiduPushResVo.class);
+            if (baiduPushResVo.getNotSameSite() == null && baiduPushResVo.getNotValid() == null) {
+                return ResultUtil.success("推送文章成功");
+            } else {
+                return ResultUtil.error("推送文章失败", baiduPushResVo);
+            }
+        } catch (Exception e) {
+            return ResultUtil.error("推送文章失败,请检查百度推送接口！");
+        }
+
     }
 
 }

@@ -2,12 +2,12 @@
 <html lang="zxx">
 <!--<![endif]--><!-- Begin Head -->
 <head>
-<title>SplashDash</title>
+<title>泰山CMS内容管理系统</title>
 <meta charset="utf-8">
 <meta content="width=device-width, initial-scale=1.0" name="viewport">
-<meta name="description" content="">
-<meta name="keywords" content="">
-<meta name="author" content="">
+<meta name="description" content="泰山CMS内容管理系统">
+<meta name="keywords" content="cms">
+<meta name="author" content="tarzan">
 <meta name="MobileOptimized" content="320">
 <!--Start Style -->
 <link rel="stylesheet" type="text/css" th:href="@{/admin/libs/font-awesome/font-awesome.min.css}">
@@ -17,48 +17,48 @@
 <link rel="shortcut icon" type="image/png" th:href="@{/admin/images/favicon.png}">
 </head>
 <body>
-<div class="ad-auth-wrapper">
-  <div class="ad-auth-box">
+<div class="cms-auth-wrapper">
+  <div class="cms-auth-box">
     <div class="row align-items-center">
       <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
-        <div class="ad-auth-img"><img th:src="@{/admin/images/auth-img.png}" alt="" /></div>
+        <div class="cms-auth-img"><img th:src="@{/admin/images/auth-img.png}" alt="" /></div>
       </div>
       <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
-        <div class="ad-auth-content">
+        <div class="cms-auth-content">
           <form id="loginForm">
             <img th:src="@{/admin/images/logo_black.png}" alt="" />
             <h2>Hello,Welcome!</h2>
-            <div class="ad-auth-form">
-              <div class="ad-auth-feilds mb-30">
-                <input type="text" name="username"  class="ad-input" placeholder="请输入用户名"  max="14" min="3" require="必填项" >
-                <div class="ad-auth-icon">
+            <div class="cms-auth-form">
+              <div class="cms-auth-feilds mb-30">
+                <input type="text" name="username"  class="cms-input" placeholder="请输入用户名"  max="14" min="3" require="必填项" >
+                <div class="cms-auth-icon">
                   <i class="fas fa-user"></i>
                 </div>
               </div>
-              <div class="ad-auth-feilds mb-30">
-                <input  name="password"  type="password" class="ad-input" placeholder="请输入密码"  require="必填项" nochinese="密码不能包括中文" >
-                <div class="ad-auth-icon">
+              <div class="cms-auth-feilds mb-30">
+                <input  name="password"  type="password" class="cms-input" placeholder="请输入密码"  require="必填项" nochinese="密码不能包括中文" >
+                <div class="cms-auth-icon">
                   <i class="fas fa-lock"></i>
                 </div>
               </div>
-              <div class="ad-auth-feilds" style="display: none">
+              <div class="cms-auth-feilds" style="display: none">
                 <input type="text"  name="verification"  class="form-control vcode-input" placeholder="验证码" require="必填项" data-position="position-a">
-                <div class="ad-auth-icon">
+                <div class="cms-auth-icon">
                   <i class="fas fa-lock"></i>
                 </div>
               </div>
-            <div class="ad-other-feilds">
-              <div class="ad-checkbox">
+            <div class="cms-other-feilds">
+              <div class="cms-checkbox">
                 <label>
-                  <input type="checkbox" id="rememberMe" name="rememberMe" checked value="1" class="ad-checkbox">
+                  <input type="checkbox" id="rememberMe" name="rememberMe" checked value="1" class="cms-checkbox">
                   <span>记住密码</span></label>
               </div>
-            <div class="ad-auth-btn"><a href="javascript:void(0);" id="loginBtn" class="ad-btn ad-login-member">登录</a></div>
+            <div class="cms-auth-btn"><a href="javascript:void(0);" id="loginBtn" class="cms-btn cms-login-member">登录</a></div>
           </form>
         </div>
       </div>
     </div>
-    <div class="ad-notifications ad-error">
+    <div class="cms-notifications cms-error">
       <p><span>Duhh!</span>Something Went Wrong</p>
     </div>
   </div>

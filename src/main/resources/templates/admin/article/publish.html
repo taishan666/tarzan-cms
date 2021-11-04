@@ -67,7 +67,7 @@
                            <div class="upload-content">
                                 <div class="content-img">
                                     <ul id="fileList" class="content-img-list">
-                                        <block th:if="${article?.coverImage!=null}">
+                                        <block th:if="${article?.coverImage!=null && article?.coverImage!=''}">
                                         <li class="content-img-list-item"><img th:src="${article?.coverImage}">
                                         <div class="hide">
                                             <a class="delete-btn"><i class="gcl gcllajitong"></i></a>
@@ -147,7 +147,7 @@
 <script>
     $(function() {
         var coverImage = $('#coverImage').val();
-        if(coverImage!=null && coverImage!=''){
+        if(coverImage!=null && coverImage.length!=0){
             $('.content-img .file').hide();
         }
     });
@@ -221,7 +221,6 @@
     var content;
     //自定义编辑器菜单
     ice.editor("articleEditor",function(e){
-        content = filterXSS(this.getHTML);
         this.uploadUrl = '[[@{/attachment/editor/upload}]]';
         this.pasteText = true;
         this.screenshot = true;
@@ -309,6 +308,10 @@
             }
         });
         this.create();
+        content=this.getHTML();
+        this.inputCallback(function(html,text){
+             content=html;
+        });
         //this.setValue(html);
     })
 </script>

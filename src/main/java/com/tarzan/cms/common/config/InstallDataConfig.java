@@ -8,10 +8,7 @@ import org.springframework.util.FileCopyUtils;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
-import java.io.BufferedReader;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStreamReader;
+import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.sql.Connection;
 import java.sql.DatabaseMetaData;
@@ -44,10 +41,9 @@ public class InstallDataConfig {
 
     private void  installSQL(String fileName){
         if(tableNames().size()==0){
-            String classPath = this.getClass().getResource("/db/").getPath();
+            InputStream dbIos = this.getClass().getResourceAsStream("/db/"+ fileName);
             try {
-                FileInputStream out = new FileInputStream(classPath + fileName);
-                InputStreamReader reader = new InputStreamReader(out, StandardCharsets.UTF_8);
+                InputStreamReader reader = new InputStreamReader(dbIos, StandardCharsets.UTF_8);
                 BufferedReader in = new BufferedReader(reader);
                 String txt = FileCopyUtils.copyToString(in);
                 jdbcTemplate.batchUpdate(txt);
@@ -73,6 +69,8 @@ public class InstallDataConfig {
         }
         return tableNames;
     }
+
+
 
 
 }

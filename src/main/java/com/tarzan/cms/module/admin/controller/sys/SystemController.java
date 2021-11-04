@@ -16,7 +16,6 @@ import com.tarzan.cms.module.admin.vo.ChangePasswordVo;
 import com.tarzan.cms.module.admin.vo.base.ResponseVo;
 import com.tarzan.cms.shiro.MyShiroRealm;
 import com.tarzan.cms.utils.*;
-import com.wf.captcha.utils.CaptchaUtil;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections.CollectionUtils;
@@ -119,7 +118,7 @@ public class SystemController {
             return modelAndView;
         }
         model.addAttribute("categoryList", categoryService.selectCategories(new Category().setStatus(CoreConst.STATUS_VALID)));
-        modelAndView.setViewName("admin1/login/login");
+        modelAndView.setViewName(CoreConst.ADMIN_PREFIX+"/login/login");
         return modelAndView;
     }
 
@@ -197,7 +196,7 @@ public class SystemController {
     @GetMapping("/kickOut")
     public String kickOut(Model model) {
        // model.addAttribute("categoryList", categoryService.selectCategories(new Category().setStatus(CoreConst.STATUS_VALID)));
-        return "admin1/login/kickOut";
+        return  CoreConst.ADMIN_PREFIX+"/login/kickOut";
     }
 
     /**
@@ -223,7 +222,7 @@ public class SystemController {
         }
         subject.logout();
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("admin1/login/login");
+        modelAndView.setViewName(CoreConst.ADMIN_PREFIX+"/login/login");
         return modelAndView;
     }
 

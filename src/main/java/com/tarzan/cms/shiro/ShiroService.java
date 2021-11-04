@@ -51,11 +51,11 @@ public class ShiroService {
         filterChainDefinitionMap.put("/login", "anon");
         filterChainDefinitionMap.put("/kickOut", "anon");
         filterChainDefinitionMap.put("/error/**", "anon");
-        filterChainDefinitionMap.put("/admin1/css/**", "anon");
-        filterChainDefinitionMap.put("/admin1/js/**", "anon");
-        filterChainDefinitionMap.put("/admin1/img/**", "anon");
-        filterChainDefinitionMap.put("/admin1/images/**", "anon");
-        filterChainDefinitionMap.put("/admin1/libs/**", "anon");
+        filterChainDefinitionMap.put("/admin/css/**", "anon");
+        filterChainDefinitionMap.put("/admin/js/**", "anon");
+        filterChainDefinitionMap.put("/admin/img/**", "anon");
+        filterChainDefinitionMap.put("/admin/images/**", "anon");
+        filterChainDefinitionMap.put("/admin/libs/**", "anon");
         filterChainDefinitionMap.put("/theme/**", "anon");
         filterChainDefinitionMap.put("/favicon.ico", "anon");
         filterChainDefinitionMap.put("/verificationCode", "anon");

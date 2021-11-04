@@ -44,13 +44,15 @@ public class CoreConst {
     public static final int UPLOAD_TYPE_LOCAL = 4;
 
     /**
-     * 是否启用演示模拟数据
+     * 是否安装
      */
-    public static final boolean ENABLE_DEMO_DATA = false;
+    public static final AtomicBoolean IS_INSTALLED = new AtomicBoolean(false);
 
     /**
      * 网站是否静态化
      */
     public static final String SITE_STATIC_KEY = "SITE_STATIC";
     public static final AtomicBoolean SITE_STATIC = new AtomicBoolean(false);
+
+
 }

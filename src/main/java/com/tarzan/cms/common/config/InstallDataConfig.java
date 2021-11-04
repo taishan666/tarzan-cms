@@ -1,6 +1,7 @@
 package com.tarzan.cms.common.config;
 
 
+import com.tarzan.cms.common.constant.CoreConst;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -32,7 +33,7 @@ public class InstallDataConfig {
     @PostConstruct
     private void  init(){
         if (url.contains(h2Driver)) {
-            installSQL("schema-h2.sql");
+      //      installSQL("schema-h2.sql");
         }
         if (url.contains(mysqlDriver)) {
             installSQL("schema-mysql.sql");
@@ -50,6 +51,8 @@ public class InstallDataConfig {
             } catch (IOException e) {
                 e.printStackTrace();
             }
+        }else{
+            CoreConst.IS_INSTALLED.set(true);
         }
     }
 

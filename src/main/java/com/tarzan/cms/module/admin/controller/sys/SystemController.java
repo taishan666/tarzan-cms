@@ -4,7 +4,6 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.tarzan.cms.common.constant.CoreConst;
 import com.tarzan.cms.common.enums.UserEnum;
 import com.tarzan.cms.common.event.LoginLogEvent;
-import com.tarzan.cms.module.admin.model.biz.Category;
 import com.tarzan.cms.module.admin.model.log.LoginLog;
 import com.tarzan.cms.module.admin.model.sys.Menu;
 import com.tarzan.cms.module.admin.model.sys.User;
@@ -55,16 +54,14 @@ public class SystemController {
     private final LoginLogService loginLogService;
     private final MyShiroRealm shiroRealm;
 
-/*
-
 
     //注册
     @GetMapping(value = "/register")
-    public String register(Model model){
-        Category category = new Category();
-        category.setStatus(CoreConst.STATUS_VALID);
-        model.addAttribute("categoryList",categoryService.selectCategories(category));
-        return "system/register";
+    public String register(){
+        if (CoreConst.IS_INSTALLED.get()) {
+            return CoreConst.ADMIN_PREFIX;
+        }
+        return CoreConst.ADMIN_PREFIX+"/login/register";
     }
 
     //提交注册
@@ -72,11 +69,11 @@ public class SystemController {
     @ResponseBody
     public ResponseVo register(HttpServletRequest request, User registerUser, String confirmPassword, String verification){
         //判断验证码
-        if (!CaptchaUtil.ver(verification, request)) {
+/*        if (!CaptchaUtil.ver(verification, request)) {
             // 清除session中的验证码
             CaptchaUtil.clear(request);
             return ResultUtil.error("验证码错误！");
-        }
+        }*/
         String username = registerUser.getUsername();
         User user = userService.selectByUsername(username);
         if (null != user) {
@@ -103,7 +100,7 @@ public class SystemController {
             return ResultUtil.error("注册失败，请稍后再试！");
         }
     }
-*/
+
 
     /**
      * 访问登录
@@ -111,13 +108,12 @@ public class SystemController {
      * @param model
      */
     @GetMapping("/login")
-    public ModelAndView login(Model model) {
+    public ModelAndView login() {
         ModelAndView modelAndView = new ModelAndView();
         if (SecurityUtils.getSubject().isAuthenticated()) {
             modelAndView.setView(new RedirectView("/admin", true, false));
             return modelAndView;
         }
-        model.addAttribute("categoryList", categoryService.selectCategories(new Category().setStatus(CoreConst.STATUS_VALID)));
         modelAndView.setViewName(CoreConst.ADMIN_PREFIX+"/login/login");
         return modelAndView;
     }

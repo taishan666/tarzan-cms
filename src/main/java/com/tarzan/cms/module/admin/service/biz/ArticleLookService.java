@@ -4,11 +4,9 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.google.common.collect.Maps;
-import com.tarzan.cms.common.constant.CoreConst;
 import com.tarzan.cms.module.admin.mapper.biz.ArticleLookMapper;
 import com.tarzan.cms.module.admin.model.biz.ArticleLook;
 import com.tarzan.cms.utils.DateUtil;
-import org.apache.commons.lang3.RandomUtils;
 import org.springframework.stereotype.Service;
 
 import java.text.SimpleDateFormat;
@@ -31,7 +29,7 @@ public class ArticleLookService extends ServiceImpl<ArticleLookMapper, ArticleLo
         Date now = new Date();
         LinkedHashMap<String, Long> map = Maps.newLinkedHashMap();
         for (int i = day; i >= 1; i--) {
-            Long count = CoreConst.ENABLE_DEMO_DATA ? RandomUtils.nextLong(20l, 100l) : 0l;
+            Long count = 0l;
             map.put(DateUtil.format(DateUtil.addDays(now, -i), DateUtil.webFormat), count);
         }
         return map;

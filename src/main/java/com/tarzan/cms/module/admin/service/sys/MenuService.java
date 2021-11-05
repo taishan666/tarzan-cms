@@ -25,7 +25,7 @@ public class MenuService extends ServiceImpl<MenuMapper, Menu> {
 
     private static final Pattern SLASH_PATTERN = Pattern.compile("/");
 
-    private static List<Menu> buildPermissionTree(List<Menu> permissionList) {
+    private  List<Menu> buildPermissionTree(List<Menu> permissionList) {
         Map<Integer, List<Menu>> parentIdToPermissionListMap = permissionList.stream().peek(p -> {
             if (StringUtils.startsWith(p.getUrl(), "/")) {
                 p.setUrl(SLASH_PATTERN.matcher(p.getUrl()).replaceFirst("#"));
@@ -36,7 +36,7 @@ public class MenuService extends ServiceImpl<MenuMapper, Menu> {
         return rootLevelPermissionList;
     }
 
-    private static void fetchChildren(List<Menu> menuListList, Map<Integer, List<Menu>> parentIdToPermissionListMap) {
+    private  void fetchChildren(List<Menu> menuListList, Map<Integer, List<Menu>> parentIdToPermissionListMap) {
         if (CollectionUtils.isEmpty(menuListList)) {
             return;
         }

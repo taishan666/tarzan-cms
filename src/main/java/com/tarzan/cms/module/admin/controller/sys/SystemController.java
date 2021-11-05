@@ -4,10 +4,11 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.tarzan.cms.common.constant.CoreConst;
 import com.tarzan.cms.common.enums.UserEnum;
 import com.tarzan.cms.common.event.LoginLogEvent;
+import com.tarzan.cms.module.admin.mapper.sys.UserRoleMapper;
 import com.tarzan.cms.module.admin.model.log.LoginLog;
 import com.tarzan.cms.module.admin.model.sys.Menu;
 import com.tarzan.cms.module.admin.model.sys.User;
-import com.tarzan.cms.module.admin.service.biz.CategoryService;
+import com.tarzan.cms.module.admin.model.sys.UserRole;
 import com.tarzan.cms.module.admin.service.log.LoginLogService;
 import com.tarzan.cms.module.admin.service.sys.MenuService;
 import com.tarzan.cms.module.admin.service.sys.UserService;
@@ -24,6 +25,7 @@ import org.apache.shiro.authc.LockedAccountException;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.subject.Subject;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
@@ -49,24 +51,31 @@ import java.util.List;
 public class SystemController {
 
     private final UserService userService;
+    private final UserRoleMapper userRoleMapper;
     private final MenuService MenuService;
-    private final CategoryService categoryService;
     private final LoginLogService loginLogService;
     private final MyShiroRealm shiroRealm;
 
-
     //注册
     @GetMapping(value = "/register")
-    public String register(){
-        if (CoreConst.IS_INSTALLED.get()) {
-            return CoreConst.ADMIN_PREFIX;
+    public ModelAndView register(){
+/*        if (CoreConst.IS_INSTALLED.get()) {
+            return CoreConst.ADMIN_PREFIX+"index/index";
         }
-        return CoreConst.ADMIN_PREFIX+"/login/register";
+        return CoreConst.ADMIN_PREFIX+"login/register";*/
+        ModelAndView modelAndView = new ModelAndView();
+        if (CoreConst.IS_INSTALLED.get()) {
+            modelAndView.setView(new RedirectView("/admin", true, false));
+            return modelAndView;
+        }
+        modelAndView.setViewName(CoreConst.ADMIN_PREFIX+"login/register");
+        return modelAndView;
     }
 
     //提交注册
     @PostMapping("/register")
     @ResponseBody
+    @Transactional(rollbackFor = Throwable.class)
     public ResponseVo register(HttpServletRequest request, User registerUser, String confirmPassword, String verification){
         //判断验证码
 /*        if (!CaptchaUtil.ver(verification, request)) {
@@ -92,13 +101,18 @@ public class SystemController {
         registerUser.setUpdateTime(date);
         registerUser.setLastLoginTime(date);
         PasswordHelper.encryptPassword(registerUser);
+        CoreConst.IS_INSTALLED.set(true);
         //注册
         boolean flag = userService.register(registerUser);
+        UserRole userRole=new UserRole();
+        userRole.setUserId(registerUser.getId());
+        userRole.setRoleId(CoreConst.ADMINISTRATOR_ID);
         if(flag){
             return ResultUtil.success("注册成功！");
         }else {
             return ResultUtil.error("注册失败，请稍后再试！");
         }
+
     }
 
 
@@ -114,7 +128,7 @@ public class SystemController {
             modelAndView.setView(new RedirectView("/admin", true, false));
             return modelAndView;
         }
-        modelAndView.setViewName(CoreConst.ADMIN_PREFIX+"/login/login");
+        modelAndView.setViewName(CoreConst.ADMIN_PREFIX+"login/login");
         return modelAndView;
     }
 

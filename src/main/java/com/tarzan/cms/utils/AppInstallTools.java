@@ -1,15 +1,17 @@
-package com.tarzan.cms.common.config;
-
+package com.tarzan.cms.utils;
 
 import com.tarzan.cms.common.constant.CoreConst;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.stereotype.Component;
 import org.springframework.util.FileCopyUtils;
 
-import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
 import java.sql.Connection;
 import java.sql.DatabaseMetaData;
@@ -17,8 +19,10 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
-@Configuration
-public class InstallDataConfig {
+@Slf4j
+@Component
+public class AppInstallTools {
+
 
     @Resource
     private JdbcTemplate jdbcTemplate;
@@ -30,17 +34,17 @@ public class InstallDataConfig {
 
     private final static String mysqlDriver="jdbc:mysql:";
 
-    @PostConstruct
-    private void  init(){
+
+    public void  install(){
         if (url.contains(h2Driver)) {
-      //      installSQL("schema-h2.sql");
+            installSQL("schema-h2.sql");
         }
         if (url.contains(mysqlDriver)) {
             installSQL("schema-mysql.sql");
         }
     }
 
-    private void  installSQL(String fileName){
+    private  void  installSQL(String fileName){
         if(tableNames().size()==0){
             InputStream dbIos = this.getClass().getResourceAsStream("/db/"+ fileName);
             try {
@@ -57,7 +61,7 @@ public class InstallDataConfig {
     }
 
     //获取所有表名称
-    private List<String> tableNames() {
+    private  List<String> tableNames() {
         List<String> tableNames= new ArrayList<>();
         try {
             Connection getConnection=jdbcTemplate.getDataSource().getConnection();
@@ -72,8 +76,6 @@ public class InstallDataConfig {
         }
         return tableNames;
     }
-
-
 
 
 }

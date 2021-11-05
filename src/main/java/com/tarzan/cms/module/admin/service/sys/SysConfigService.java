@@ -3,19 +3,15 @@ package com.tarzan.cms.module.admin.service.sys;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.tarzan.cms.module.admin.mapper.sys.SysConfigMapper;
-import com.tarzan.cms.common.constant.CoreConst;
 import com.tarzan.cms.module.admin.model.sys.SysConfig;
 import lombok.AllArgsConstructor;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
-import javax.annotation.PostConstruct;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import static com.tarzan.cms.common.constant.CoreConst.SITE_STATIC_KEY;
 
 /**
  * @author tarzan liu
@@ -27,10 +23,10 @@ import static com.tarzan.cms.common.constant.CoreConst.SITE_STATIC_KEY;
 public class SysConfigService extends ServiceImpl<SysConfigMapper, SysConfig> {
 
 
-    @PostConstruct
+ /*   @PostConstruct
     public void init() {
         CoreConst.SITE_STATIC.set("on".equalsIgnoreCase(selectAll().getOrDefault(SITE_STATIC_KEY, "false")));
-    }
+    }*/
 
     @Cacheable(value = "site", key = "'config'")
     public Map<String, String> selectAll() {

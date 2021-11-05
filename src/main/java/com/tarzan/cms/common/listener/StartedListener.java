@@ -1,6 +1,7 @@
 package com.tarzan.cms.common.listener;
 
 import com.tarzan.cms.common.properties.CmsProperties;
+import com.tarzan.cms.utils.AppInstallTools;
 import com.tarzan.cms.utils.ArticleCollect;
 import com.tarzan.cms.utils.FileUtil;
 import lombok.extern.slf4j.Slf4j;
@@ -38,12 +39,17 @@ public class StartedListener implements ApplicationListener<ApplicationStartedEv
     private ArticleCollect articleCollect;
 
     @Resource
+    private AppInstallTools appInstallTools;
+
+    @Resource
     private CmsProperties cmsProperties;
 
     @Override
     public void onApplicationEvent(ApplicationStartedEvent event) {
         initThemes();
+        appInstallTools.install();
         printStartInfo(event);
+
         //articleCollect.collect();
     }
 

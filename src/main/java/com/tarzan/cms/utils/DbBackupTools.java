@@ -1,11 +1,11 @@
 package com.tarzan.cms.utils;
 
-import lombok.Getter;
+import com.tarzan.cms.common.properties.CmsProperties;
+import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
 
-import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
 import java.io.*;
 import java.nio.charset.StandardCharsets;
@@ -28,28 +28,24 @@ import java.util.concurrent.Executors;
  */
 @Slf4j
 @Component
+@Data
 public class DbBackupTools {
+
     @Resource
     private  JdbcTemplate jdbcTemplate;
-    @Getter
-    private  String filePrefix="backupSql_";
-    @Getter
-    private  String sqlBackupPath;
-    static   SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+    @Resource
+    private CmsProperties cmsProperties;
+    //备份文件前缀
+    private  final static String filePrefix="backupSql_";
     //当前系统最佳线程数
-    private int curSystemThreads=1;
+    private final static int curSystemThreads= Runtime.getRuntime().availableProcessors();
+    //时间格式
+    private final static SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
-    @PostConstruct
-    private void  init(){
-        // 获取Java虚拟机的可用的处理器数，最佳线程个数，处理器数*2。根据实际情况调整
-        curSystemThreads = Runtime.getRuntime().availableProcessors() * 2;
-        //初始化备份路劲
-        sqlBackupPath=getBackupPath();
-    }
 
     //获取所有表名称
     private  List<String> tableNames() {
-        List<String> tableNames= new ArrayList<>();
+        List<String> tableNames= new ArrayList<String>();
         try {
             Connection getConnection=jdbcTemplate.getDataSource().getConnection();
             DatabaseMetaData metaData = getConnection.getMetaData();
@@ -75,7 +71,7 @@ public class DbBackupTools {
         jdbcTemplate.batchUpdate(list.toArray(new String[list.size()]));
         list.clear();
         try {
-            FileInputStream out = new FileInputStream(sqlBackupPath+fileName);
+            FileInputStream out = new FileInputStream(cmsProperties.getBackupDir()+fileName);
             InputStreamReader reader = new InputStreamReader(out, StandardCharsets.UTF_8);
             BufferedReader in = new BufferedReader(reader);
             String line;
@@ -116,7 +112,7 @@ public class DbBackupTools {
     public synchronized boolean backSql() {
         Long stat=System.currentTimeMillis();
         try {
-            File dir = new File(sqlBackupPath);
+            File dir = new File(cmsProperties.getBackupDir());
             dir.mkdirs();
             String path = dir.getPath() + "/"+ filePrefix+System.currentTimeMillis()+".sql" ;
             File file = new File(path);
@@ -160,22 +156,6 @@ public class DbBackupTools {
         }
         log.info("备份文件耗时 "+(System.currentTimeMillis()-stat)+" ms");
         return true;
-    }
-
-    //获得备份路径 ，jar包启动备份文件夹在同级目录
-    private  String getBackupPath() {
-        String classPath = DbBackupTools.class.getResource("/").getPath();
-        if (classPath.indexOf(".jar") > 0) {
-            classPath = classPath.substring(0, classPath.lastIndexOf(".jar"));
-            classPath = classPath.substring(6, classPath.lastIndexOf("/"));
-            String sqlBackupPath = File.separator + classPath + "dbBackup/";
-            log.info("========数据备份路径：" + sqlBackupPath + "========");
-            return sqlBackupPath;
-        } else {
-            String sqlBackupPath = classPath + "dbBackup/";
-            log.info("========数据备份路径：" + sqlBackupPath + "========");
-            return sqlBackupPath;
-        }
     }
 
 

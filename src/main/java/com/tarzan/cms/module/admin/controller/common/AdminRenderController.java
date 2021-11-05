@@ -110,9 +110,7 @@ public class AdminRenderController {
      * 数据备份入口
      */
     @GetMapping("/db/backup")
-    public String backup() {
-        return CoreConst.ADMIN_PREFIX + "dbBackUp/list";
-    }
+    public String backup() { return CoreConst.ADMIN_PREFIX + "backup/list"; }
 
     /**
      * 网站基本信息

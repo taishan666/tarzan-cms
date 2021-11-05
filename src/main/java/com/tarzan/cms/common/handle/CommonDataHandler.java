@@ -50,6 +50,10 @@ public class CommonDataHandler implements HandlerInterceptor {
                     if(viewName.contains(CoreConst.THEME_PREFIX)){
                         mv.addAllObjects(commonDataService.getAllCommonData());
                     }
+                    if(viewName.contains(CoreConst.ERROR_PREFIX)){
+                        mv.addAllObjects(commonDataService.getCommonData(CommonDataService.DataTypeEnum.WEB_THEME));
+                        mv.addAllObjects(commonDataService.getCommonData(CommonDataService.DataTypeEnum.SITE_INFO));
+                    }
                 }
             }
     }

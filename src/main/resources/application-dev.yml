@@ -53,6 +53,7 @@ static:
 
 cms:
   theme-dir: ${user.home}/.tarzan-cms/theme
+  backup-dir: ${user.home}/.tarzan-cms/backup
   embedded-redis-enabled: true
   embedded-redis-port: 6379
   embedded-redis-password: 666666

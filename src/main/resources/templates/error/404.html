@@ -1,35 +1,25 @@
-<!DOCTYPE html><!--[if IE 8]><html lang="en" class="ie8 no-js"><![endif]--><!--[if IE 9]><html lang="en" class="ie9 no-js"><![endif]--><!--[if!IE]><!-->
-<html lang="zxx">
-<!--<![endif]--><!-- Begin Head -->
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
-<title>SplashDash</title>
-<meta charset="utf-8">
-<meta content="width=device-width, initial-scale=1.0" name="viewport">
-<meta name="description" content="">
-<meta name="keywords" content="">
-<meta name="author" content="">
-<meta name="MobileOptimized" content="320">
-<!--Start Style -->
-<link rel="stylesheet" type="text/css" th:href="@{/admin/libs/bootstrap/css/bootstrap.min.css}">
-<!--<link rel="stylesheet" type="text/css" th:href="assets/css/font-awesome.min.css">
-<link rel="stylesheet" type="text/css" th:href="assets/css/icofont.min.css">-->
-<link rel="stylesheet" type="text/css" th:href="@{/admin/css/fonts.css}">
-<link rel="stylesheet" type="text/css" th:href="@{/admin/css/style.css}">
-<!-- Favicon Link -->
-<link rel="shortcut icon" type="image/png" href="favicon.ico">
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>404</title>
+  <!-- Tell the browser to be responsive to screen width -->
+  <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+  <link rel="stylesheet" th:href="@{|/${WEB_THEME}/libs/bootstrap/bootstrap.min.css|}"/>
+  <link rel="stylesheet" th:href="@{|/${WEB_THEME}/source/css/web-common.css|}"/>
+  <script th:src="@{|/${WEB_THEME}/libs/jquery/jquery.min.js|}"></script>
 </head>
 <body>
-<div class="loader">
-  <div class="spinner"><img src="assets/images/loader.gif" alt=""/></div>
-</div>
-<!-- Main Body -->
-<div class="fb-main-404section">
-  <div class="fb-404page"><img src="assets/images/error.png" alt="">
-    <h1>Oops... Page Not Found</h1>
-    <p>Do not Worry Back To Previous Pages</p>
-    <div class="fb-404btn"><a href="/" class="web-btn">返回主页</a></div>
+<div class="main-content error-content">
+  <div class="error-img-content mt-160 mb-70 text-center"><img th:src="@{/img/404.png}"></div>
+  <p class="error-text">很抱歉，页面好像去火星了~</p>
+  <div class="error-btn-content">
+    <button class="btn btn-danger" type="button">
+      <a href="/">返回主页</a>
+    </button>
   </div>
 </div>
-
+<div th:replace="@{|/${WEB_THEME}/module/footer.html|}"></div>
 </body>
 </html>

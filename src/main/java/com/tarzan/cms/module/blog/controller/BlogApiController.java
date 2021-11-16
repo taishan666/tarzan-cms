@@ -11,6 +11,8 @@ import com.tarzan.cms.module.admin.service.biz.LoveService;
 import com.tarzan.cms.module.admin.vo.base.ResponseVo;
 import com.tarzan.cms.common.constant.CoreConst;
 import com.tarzan.cms.module.admin.vo.CommentConditionVo;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
@@ -32,6 +34,7 @@ import java.util.Date;
  */
 @Slf4j
 @RestController
+@Api(value = "tarzan-cms-api", tags = "泰山cms内容管理系统api")
 @RequestMapping("blog/api")
 @AllArgsConstructor
 public class BlogApiController {
@@ -40,12 +43,13 @@ public class BlogApiController {
     private final ArticleLookService articleLookService;
     private final LoveService loveService;
 
-
+    @ApiOperation(value = "评论列表-分页")
     @PostMapping("comments")
     public IPage<Comment> getComments(CommentConditionVo vo, Integer pageNumber, Integer pageSize) {
         return commentService.selectComments(vo, pageNumber, pageSize);
     }
 
+    @ApiOperation(value = "评论保存")
     @PostMapping("comment/save")
     public ResponseVo saveComment(HttpServletRequest request, Comment comment) throws UnsupportedEncodingException {
         if (StringUtils.isEmpty(comment.getNickname())) {
@@ -78,6 +82,7 @@ public class BlogApiController {
     }
 
 
+    @ApiOperation(value = "添加浏览次数")
     @PostMapping("article/look")
     public ResponseVo checkLook(HttpServletRequest request, Integer articleId) {
         /*浏览次数*/
@@ -99,6 +104,7 @@ public class BlogApiController {
     }
 
 
+    @ApiOperation(value = "点赞")
     @PostMapping("love")
     public ResponseVo love(HttpServletRequest request, Integer bizId, Integer bizType) {
         Date date = new Date();

@@ -30,7 +30,7 @@
                                     <small>
                                         作者：<a href="javascript:void(0)" target="_blank" class="fc-link" th:text="${article.author}"></a>
                                     </small>
-                                    <small class="ml10">围观群众：<i class="readcount" th:text="${article.lookCount}"></i></small>
+                                    <small class="ml10">阅读数：<i class="readcount" th:text="${article.lookCount}"></i></small>
                                     <small class="ml10">更新于 <label th:text="${#dates.format(article.createTime,'yyyy-MM-dd HH:mm')}"></label> </small>
                                 </p>
                             </aside>

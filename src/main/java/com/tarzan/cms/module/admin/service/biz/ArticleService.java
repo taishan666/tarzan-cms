@@ -8,12 +8,15 @@ import com.tarzan.cms.common.constant.CoreConst;
 import com.tarzan.cms.module.admin.mapper.biz.ArticleMapper;
 import com.tarzan.cms.module.admin.model.biz.Article;
 import com.tarzan.cms.module.admin.vo.ArticleConditionVo;
+import com.tarzan.cms.utils.DateUtil;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 /**
  * @author tarzan liu
@@ -72,6 +75,13 @@ public class ArticleService extends ServiceImpl<ArticleMapper, Article> {
         return count(Wrappers.<Article>lambdaQuery().eq(Article::getStatus, CoreConst.STATUS_VALID));
     }
 
+    @Cacheable(value = "article", key = "'timeline'")
+    public Map<String,List<Article>> timeline() {
+        List<Article> articles=list(Wrappers.<Article>lambdaQuery().select(Article::getId,Article::getTitle,Article::getCreateTime).eq(Article::getStatus, CoreConst.STATUS_VALID));
+        Map<String,List<Article>> map= articles.stream().collect(Collectors.groupingBy(e-> DateUtil.format(e.getCreateTime(),"yyyy年")));
+        return map;
+    }
+
     @CacheEvict(value = "article", allEntries = true)
     public Article insertArticle(Article bizArticle) {
         Date date = new Date();
@@ -89,5 +99,6 @@ public class ArticleService extends ServiceImpl<ArticleMapper, Article> {
     public boolean deleteBatch(List<Integer> ids){
         return removeByIds(ids);
     }
+
 
 }

@@ -197,6 +197,7 @@ public class BlogWebController {
         if (CoreConst.SITE_STATIC.get()) {
             return "forward:/html/feedback/diary.html";
         }
+        model.addAttribute("data",bizArticleService.timeline());
         return bizThemeService.getTheme() + "/diary";
     }
 

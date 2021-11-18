@@ -8,40 +8,15 @@
     <meta name="author" content="www.lzqcode.com" />
     <meta name="robots" content="all" />
     <title>留言板</title>
-    <link rel="stylesheet" href="font-awesome/css/font-awesome.min.css">
-    <link rel="stylesheet" href="layui/css/layui.css" />
-    <link rel="stylesheet" href="css/master.css" />
-    <link rel="stylesheet" href="css/gloable.css" />
-    <link rel="stylesheet" href="css/nprogress.css" />
-    <link rel="stylesheet" href="css/message.css" /> 
+    <link rel="stylesheet" th:href="@{|/${WEB_THEME}/source/font-awesome/css/font-awesome.min.css|}">
+    <link rel="stylesheet" th:href="@{|/${WEB_THEME}/source/layui/css/layui.css|}" />
+    <link rel="stylesheet" th:href="@{|/${WEB_THEME}/source/css/master.css|}" />
+    <link rel="stylesheet" th:href="@{|/${WEB_THEME}/source/css/gloable.css|}" />
+    <link rel="stylesheet" th:href="@{|/${WEB_THEME}/source/css/nprogress.css|}" />
+    <link rel="stylesheet" th:href="@{|/${WEB_THEME}/source/css/message.css|}" />
 </head>
 <body>
-    <div class="header">
-    </div>
-    <header class="gird-header">
-        <div class="header-fixed">
-            <div class="header-inner">
-                <a href="javascript:void(0)" class="header-logo" id="logo">Mr.liu</a>
-                <nav class="nav" id="nav">
-                    <ul>
-                        <li><a href="index.html">首页</a></li>
-                        <li><a href="article.html">博客</a></li>
-                        <li><a href="message.html">留言</a></li>
-						<li><a href="diary.html">日记</a></li>
-                        <li><a href="link.html">友链</a></li>
-                    </ul>
-                </nav>
-                <a href="#" class="blog-user">
-                    <i class="fa fa-qq"></i>
-                </a>
-                <a class="phone-menu">
-                    <i></i>
-                    <i></i>
-                    <i></i>
-                </a>
-            </div>
-        </div>
-    </header>
+<div th:replace="@{|/${WEB_THEME}/module/navbar.html|}"></div>
     <div class="doc-container" id="doc-container">
         <div class="container-fixed">
     <div class="container-inner">
@@ -68,7 +43,7 @@
             <li class="zoomIn article"> 
                 <div class="comment-parent">
                     <a name="remark-1"></a>
-                    <img src="image/t2.png" />
+                    <img th:src="@{|/${WEB_THEME}/source/image/t2.png|}" />
                     <div class="info">
                         <span class="username">冰</span>
                     </div>
@@ -85,7 +60,7 @@
                 <hr />
                 <div class="comment-child"> 
                     <a name="reply-1"></a> 
-                    <img src="image/admin_img.png"> 
+                    <img th:src="@{|/${WEB_THEME}/source/image/admin_img.png|}">
                     <div class="info"> 
                         <span class="username">小刘</span> 
                         <span style="padding-right:0;margin-left:-5px;">回复</span> 
@@ -115,7 +90,7 @@
             <li class="zoomIn article"> 
                 <div class="comment-parent">
                     <a name="remark-1"></a>
-                    <img src="image/t2.png" alt="{{name}}" />
+                    <img th:src="@{|/${WEB_THEME}/source/image/t2.png|}" alt="{{name}}" />
                     <div class="info">
                         <span class="username">冰</span>
                     </div>
@@ -145,7 +120,7 @@
             <li class="zoomIn article"> 
                 <div class="comment-parent">
                     <a name="remark-1"></a>
-                    <img src="image/admin_img.png"/>
+                    <img th:src="@{|/${WEB_THEME}/source/image/admin_img.png|}"/>
                     <div class="info">
                         <span class="username">小刘</span>
                     </div>
@@ -194,11 +169,10 @@
             </div>
         </div>
     </footer>
-    <script src="layui/layui.js"></script>
-    <script src="js/yss/gloable.js"></script>
-    <script src="js/plugins/nprogress.js"></script>
-    <script>NProgress.start();</script>
-    <script src="js/pagemessage.js"></script>
+    <script th:src="@{|/${WEB_THEME}/source/layui/layui.js|}"></script>
+    <script th:src="@{|/${WEB_THEME}/source/js/yss/gloable.js|}"></script>
+    <script th:src="@{|/${WEB_THEME}/s/plugins/nprogress.js|}"></script>
+    <script th:src="@{|/${WEB_THEME}/source/js/pagemessage.js|}"></script>
     <script>NProgress.start();</script>
     <script> 
         window.onload = function () {

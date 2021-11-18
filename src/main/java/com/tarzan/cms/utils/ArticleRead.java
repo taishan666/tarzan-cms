@@ -1,35 +1,39 @@
 package com.tarzan.cms.utils;
 
-import com.tarzan.cms.module.admin.model.biz.Article;
-import com.tarzan.cms.module.admin.service.biz.ArticleService;
-import lombok.AllArgsConstructor;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
-import java.text.ParseException;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
- * 文章采集
+ * 文章阅读
  * @author tarzan
- * @date 2021/5/31
  */
 @Component
-@AllArgsConstructor
-public class ArticleCollect {
-
-    private final ArticleService articleService;
+public class ArticleRead {
 
 
     //网站地址
     private static String webUrl="https://blog.csdn.net/weixin_40986713";
 
+    public static void main(String[] args) {
+        read();
+    }
 
-    public  void  collect(){
+    public static void  read(){
+        int i=0;
+        while (true){
+            i++;
+            long start=System.currentTimeMillis();
+            System.out.println("第"+i+"轮阅读开始....");
+            collect();
+            System.out.println("第"+i+"轮阅读结束.... 耗时"+(System.currentTimeMillis()-start)+"ms");
+        }
+    }
+
+    public static void  collect(){
         int pageNum=0;
         while (true){
             pageNum++;
@@ -56,34 +60,14 @@ public class ArticleCollect {
 
 
 
-    public  Article readArticle(String url) {
-        Article article=new Article();
+    public static void readArticle(String url) {
         Document doc=  getDocument(url);
         //获取文章标题
         Elements title = doc.select("h1[id=articleContentId]");
-        Elements author = doc.select("profile-name");
-        Elements time = doc.select("span[class=time]");
-        String description = doc.select("meta[name=description]").attr("content");
-        //获取文章内容
-        Elements content = doc.select("[class=htmledit_views]");
         System.out.println(title.text());
-        article.setTitle(title.text());
-        article.setContent(content.html());
-        article.setDescription(description);
-        article.setAuthor(author.text());
-        article.setStatus(1);
-        article.setIsMarkdown(false);
-        article.setCategoryId(1);
-        try {
-            article.setCreateTime(DateUtil.parseDateNewFormat(time.text()));
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        articleService.save(article);
-        return article;
     }
 
-    public  boolean readPage(String webUrl,int pageNum) {
+    public static boolean readPage(String webUrl,int pageNum) {
         Document doc = getDocument(webUrl+"/article/list/"+pageNum);
         // 获取目标HTML代码
         Elements elements = doc.select("[class=article-list]");
@@ -92,10 +76,12 @@ public class ArticleCollect {
         if (articles.size() == 0) {
             return false;
         }
-        List<Article>  list=new ArrayList<>();
         articles.forEach(e -> {
             String url = e.select("a").attr("href");
-            list.add(readArticle(url));
+            String readNum=e.select("span[class=read-num]").get(0).text();
+            if(Integer.valueOf(readNum)<=10000){
+                readArticle(url);
+            }
             try {
                 //等待3秒
                 Thread.sleep(200);
@@ -103,7 +89,6 @@ public class ArticleCollect {
                 System.out.println("线程中断故障");
             }
         });
-
         return true;
     }
 

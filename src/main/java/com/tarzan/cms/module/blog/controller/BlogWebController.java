@@ -1,14 +1,14 @@
 package com.tarzan.cms.module.blog.controller;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.tarzan.cms.common.constant.CoreConst;
+import com.tarzan.cms.common.exception.ArticleNotFoundException;
 import com.tarzan.cms.module.admin.model.biz.Article;
 import com.tarzan.cms.module.admin.model.biz.Category;
 import com.tarzan.cms.module.admin.service.biz.ArticleService;
 import com.tarzan.cms.module.admin.service.biz.CategoryService;
 import com.tarzan.cms.module.admin.service.biz.ThemeService;
-import com.tarzan.cms.common.constant.CoreConst;
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.tarzan.cms.common.exception.ArticleNotFoundException;
 import com.tarzan.cms.module.admin.vo.ArticleConditionVo;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -18,8 +18,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
-
-import static com.tarzan.cms.common.constant.CoreConst.THEME_PREFIX;
 
 /**
  * CMS页面相关接口
@@ -43,7 +41,7 @@ public class BlogWebController {
      * @param pageNumber
      * @return
      */
-    @GetMapping({"/", "/blog/index/{pageNumber}"})
+    @GetMapping({ "/blog","/blog/{pageNumber}"})
     public String index(@PathVariable(value = "pageNumber", required = false) Integer pageNumber,
                         Model model) {
         if (CoreConst.SITE_STATIC.get()) {
@@ -59,6 +57,22 @@ public class BlogWebController {
         model.addAttribute("categoryId", "index");
         loadMainPage(model, vo);
         return bizThemeService.getTheme() + "/index";
+    }
+
+    /**
+     * 首页
+     *
+     * @param model
+     * @param pageNumber
+     * @return
+     */
+    @GetMapping({"/","/home"})
+    public String home(@PathVariable(value = "pageNumber", required = false) Integer pageNumber,
+                        Model model) {
+        if (CoreConst.SITE_STATIC.get()) {
+            return "forward:/html/index/home.html";
+        }
+        return bizThemeService.getTheme() + "/home";
     }
 
     /**
@@ -162,13 +176,42 @@ public class BlogWebController {
      * @param model
      * @return
      */
-    @GetMapping("/blog/feedback")
+    @GetMapping("/feedback")
     public String feedback(Model model) {
         if (CoreConst.SITE_STATIC.get()) {
             return "forward:/html/feedback/feedback.html";
         }
         model.addAttribute("categoryId", "comment");
         return bizThemeService.getTheme() + "/feedback";
+    }
+
+
+    /**
+     * 日记
+     *
+     * @param model
+     * @return
+     */
+    @GetMapping("/diary")
+    public String diary(Model model) {
+        if (CoreConst.SITE_STATIC.get()) {
+            return "forward:/html/feedback/diary.html";
+        }
+        return bizThemeService.getTheme() + "/diary";
+    }
+
+    /**
+     * 友情链接
+     *
+     * @param model
+     * @return
+     */
+    @GetMapping("/link")
+    public String link(Model model) {
+        if (CoreConst.SITE_STATIC.get()) {
+            return "forward:/html/feedback/link.html";
+        }
+        return bizThemeService.getTheme() + "/link";
     }
 
     private void loadMainPage(Model model, ArticleConditionVo vo) {

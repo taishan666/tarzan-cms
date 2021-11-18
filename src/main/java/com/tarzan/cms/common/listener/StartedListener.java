@@ -49,8 +49,8 @@ public class StartedListener implements ApplicationListener<ApplicationStartedEv
         initThemes();
         appInstallTools.install();
         printStartInfo(event);
-
-        //articleCollect.collect();
+      //  articleCollect.collect();
+       // ArticleRead.read();
     }
 
     /**

@@ -5,13 +5,13 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
     <meta name="renderer" content="webkit">
     <meta name="viewport" content="width=device-width" />
-    <title>ZQ个人博客</title>
+    <title>TARZAN-CMS</title>
 	<meta name="keywords" content="个人博客，个人网站，个人博客模板，好看的个人博客">
 	<meta name="description" content="个人博客搭建，个人博客免费建站，个人博客网站html源码，个人博客网站制作模板，源码下载，织梦，前端，java，PHP模板源码分享">
-    <link th:href="@{|/${WEB_THEME}/layui/css/layui.css|}" rel="stylesheet" type="text/css">
-    <link th:href="@{|/${WEB_THEME}/font-awesome/css/font-awesome.min.css|}" rel="stylesheet" type="text/css">
-    <link th:href="@{|/${WEB_THEME}/css/index_style.css|}" rel="stylesheet" type="text/css">
-    <link th:href="@{|/${WEB_THEME}css/animate.min.css|}" rel="stylesheet" type="text/css">
+    <link th:href="@{|/${WEB_THEME}/source/layui/css/layui.css|}" rel="stylesheet" type="text/css">
+    <link th:href="@{|/${WEB_THEME}/source/font-awesome/css/font-awesome.min.css|}" rel="stylesheet" type="text/css">
+    <link th:href="@{|/${WEB_THEME}/source/css/index_style.css|}" rel="stylesheet" type="text/css">
+    <link th:href="@{|/${WEB_THEME}/source/css/animate.min.css|}" rel="stylesheet" type="text/css">
 </head>
 <body>
     <div id="menu" class="hover_animation menu_open" data-mark="false">
@@ -21,19 +21,19 @@
     </div>
     <div id="navgation" class="navgation navgation_close">
         <ul class="point">
-            <li><a href="#">首页</a></li>
-            <li><a href="article.html">博客</a></li>
-            <li><a href="message.html">留言</a></li>
+            <li><a href="/">首页</a></li>
+            <li><a href="/blog">博客</a></li>
+            <li><a href="/feedback">留言</a></li>
         </ul>
-        <div class="logo"><a>Mr.liu</a></div>
+        <div class="logo"><a>TARZAN-CMS</a></div>
     </div>
     <div class="section" id="section1">
         <div class="fp-tablecell">
             <div class="page1">
                 <div class="nav wow zoomIn" data-wow-duration="2s">
-                    <h1>ZQ-Blog</h1>
+                    <h1>泰山CMS内容管理系统</h1>
                     <p>只要朝着一个方向努力，一切都会变得得心应手</p>
-                    <a class="layui-btn layui-btn-normal" style="margin-top: 20px" href="article.html">Enter Blog</a>
+                    <a class="layui-btn layui-btn-normal" style="margin-top: 20px" href="/blog">进入网站</a>
                 </div>
                 <a class="next wow fadeInUp" data-wow-duration="2s" id="next"></a>
             </div>
@@ -56,7 +56,7 @@
                         <div class="layui-col-xs12 layui-col-sm4 layui-col-md4  wow fadeInUp" style="padding: 0 10px">
                             <div class="single-news">
                                 <div class="news-head">
-                                    <img th:src="@{|/${WEB_THEME}/image/java.jpg|}">
+                                    <img th:src="@{|/${WEB_THEME}/source/image/java.jpg|}">
                                     <a href="#" class="link"><i class="fa fa-link"></i></a>
                                 </div>
                                 <div class="news-content">
@@ -80,7 +80,7 @@
                         <div class="layui-col-xs12 layui-col-sm4 layui-col-md4  wow fadeInUp" data-wow-delay=".2s" style="padding: 0 10px">
                             <div class="single-news">
                                 <div class="news-head">
-                                    <img th:src="@{|/${WEB_THEME}/image/web.jpg|}">
+                                    <img th:src="@{|/${WEB_THEME}/source/image/web.jpg|}">
                                     <a href="#" class="link"><i class="fa fa-link"></i></a>
                                 </div>
                                 <div class="news-content">
@@ -104,7 +104,7 @@
                         <div class="layui-col-xs12 layui-col-sm4 layui-col-md4  wow fadeInUp" data-wow-delay=".4s" style="padding: 0 10px">
                             <div class="single-news">
                                 <div class="news-head">
-                                    <img th:src="@{|/${WEB_THEME}/image/dedecms.jpg|}">
+                                    <img th:src="@{|/${WEB_THEME}/source/image/dedecms.jpg|}">
                                     <a href="#" class="link"><i class="fa fa-link"></i></a>
                                 </div>
                                 <div class="news-content">
@@ -139,7 +139,7 @@
                             <div class="links">
                                 <ul>
                                     <li class="wow fadeInLeft"><a href="#">关于</a></li>
-                                    <li class="wow fadeInRight"><a href="#">+友情链接</a></li>
+                                    <li class="wow fadeInRight"><a href="/link">+友情链接</a></li>
                                 </ul>
                             </div>
                         </div>
@@ -154,7 +154,7 @@
                 <div class="warp-box">
                     <div class="about">
                         <div class="inner">
-                            <h1 class="wow fadeInLeft">ZQ个人博客</h1>
+                            <h1 class="wow fadeInLeft">TARZAN-CMS</h1>
                             <p class="wow fadeInRight">                         
                                    一天很短，开心了就笑，不开心了就过会儿再笑。
                             </p>
@@ -171,7 +171,7 @@
                     <div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
                         <div class="single-widget about">
                             <div class="footer-logo">
-                                <h2>ZQ个人博客</h2>
+                                <h2>TARZAN-CMS</h2>
                             </div>
                             <p>世界那么大，我想去看看</p>
                             <div class="button">
@@ -214,8 +214,8 @@
             </div>
         </div>  
     </footer>
-    <script th:src="@{|/${WEB_THEME}/layui/layui.js|}"></script>
-    <script th:src="@{|/${WEB_THEME}/js/wow.min.js|}"></script>
-    <script th:src="@{|/${WEB_THEME}/js/index.js}"></script>
+    <script th:src="@{|/${WEB_THEME}/source/layui/layui.js|}"></script>
+    <script th:src="@{|/${WEB_THEME}/source/js/wow.min.js|}"></script>
+    <script th:src="@{|/${WEB_THEME}/source/js/index.js|}"></script>
 </body>
 </html>

@@ -8,40 +8,18 @@
     <meta name="author" content="www.lzqcode.com" />
     <meta name="robots" content="all" />
     <title>我的博客</title>
-    <link rel="stylesheet" th:href="@{|/${WEB_THEME}/font-awesome/css/font-awesome.min.css|}">
-    <link rel="stylesheet" th:href="@{|/${WEB_THEME}/layui/css/layui.css|}" />
-    <link rel="stylesheet" th:href="@{|/${WEB_THEME}/css/master.css|}" />
-    <link rel="stylesheet" th:href="@{|/${WEB_THEME}/css/gloable.css|}" />
-    <link rel="stylesheet" th:href="@{|/${WEB_THEME}/css/nprogress.css|}" />
-    <link rel="stylesheet" th:href="@{|/${WEB_THEME}/css/blog.css|}" />
+    <link rel="stylesheet" th:href="@{|/${WEB_THEME}/source/font-awesome/css/font-awesome.min.css|}">
+    <link rel="stylesheet" th:href="@{|/${WEB_THEME}/source/layui/css/layui.css|}" />
+    <link rel="stylesheet" th:href="@{|/${WEB_THEME}/source/css/master.css|}" />
+    <link rel="stylesheet" th:href="@{|/${WEB_THEME}/source/css/gloable.css|}" />
+    <link rel="stylesheet" th:href="@{|/${WEB_THEME}/source/css/nprogress.css|}" />
+    <link rel="stylesheet" th:href="@{|/${WEB_THEME}/source/css/blog.css|}" />
 </head>
 <body>
-    <div class="header">
-    </div>
-    <header class="gird-header">
-        <div class="header-fixed">
-            <div class="header-inner">
-                <a href="javascript:void(0)" class="header-logo" id="logo">TARZAN-CMS</a>
-                <nav class="nav" id="nav">
-                    <ul>
-                        <li><a href="/">首页</a></li>
-                        <li><a href="/">博客</a></li>
-                        <li><a href="/blog/feedback">留言</a></li>
-						<li><a href="diary.html">归档</a></li>
-                        <li><a href="link.html">友链</a></li>
-                    </ul>
-                </nav>
-                <a href="/User/QQLogin" class="blog-user">
-                    <i class="fa fa-qq"></i>
-                </a>
-                <a class="phone-menu">
-                    <i></i>
-                    <i></i>
-                    <i></i>
-                </a>
-            </div>
-        </div>
-    </header>
+<!--<div th:replace="@{|/${WEB_THEME}/module/navbar.html|}"></div>-->
+<div class="header">
+</div>
+<div th:replace="@{|/${WEB_THEME}/module/navbar.html|}"></div>
     <div class="doc-container" id="doc-container">
         <div class="container-fixed">
 		    <div class="col-content">
@@ -60,7 +38,7 @@
 							</div>   
 							<div class="content">       
 								<a href="read.html" class="cover img-light">           
-									<img th:src="@{|/${WEB_THEME}/image/java.jpg|}">
+									<img th:src="@{|/${WEB_THEME}/source/image/java.jpg|}">
 								</a>
 								<p  th:text="${item.description}" class="blogtext"></p>
 							</div>   
@@ -101,8 +79,8 @@
 			    		</div>
 			    		<ul class="category mt20" id="category">
 				        	<li data-index="0" class="slider"></li>
-				        	<li data-index="1"><a href="/">全部文章</a></li>
-							<li data-index="2" th:each="category:${CATEGORY_LIST}">	<a th:href="@{${'/blog/category/' + category.id}}" th:text="${category.name}"></a></li>
+				        	<li data-index="1"><a href="/blog">全部文章</a></li>
+							<li th:data-index="${iterStat.index+2}" th:each="category,iterStat:${CATEGORY_LIST}">	<a th:href="@{${'/blog/category/' + category.id}}" th:text="${category.name}"></a></li>
 			    		</ul>
 					</div>
 					<!--右边悬浮 平板或手机设备显示-->
@@ -147,18 +125,18 @@
 					    <h5 class="other-item-title">最近访客</h5>
 					    <div class="inner">
 					        <dl class="vistor">
-					                <dd><a href="javasript:;"><img src="image/a1.png"><cite>Anonymous</cite></a></dd>
-					                <dd><a href="javasript:;"><img src="image/a4.png"><cite>Dekstra</cite></a></dd>
-					                <dd><a href="javasript:;"><img src="image/a2.png"><cite>惜i</cite></a></dd>
-					                <dd><a href="javasript:;"><img src="image/a3.png"><cite>↙Aㄨ计划 ◆莪↘</cite></a></dd>
-					                <dd><a href="javasript:;"><img src="image/a4.png"><cite>.</cite></a></dd>
-					                <dd><a href="javasript:;"><img src="image/a1.png"><cite>Lambert.</cite></a></dd>
-					                <dd><a href="javasript:;"><img src="image/a2.png"><cite>64ღ</cite></a></dd>
-					                <dd><a href="javasript:;"><img src="image/a3.png"><cite>doBoor</cite></a></dd>
-					                <dd><a href="javasript:;"><img src="image/a4.png"><cite>毛毛小妖</cite></a></dd>
-					                <dd><a href="javasript:;"><img src="image/a1.png"><cite>NULL</cite></a></dd>
-					                <dd><a href="javasript:;"><img src="image/a2.png"><cite>吓一跳</cite></a></dd>
-					                <dd><a href="javasript:;"><img src="image/a3.png"><cite>如初</cite></a></dd>
+					                <dd><a href="javasript:;"><img src="source/image/a1.png"><cite>Anonymous</cite></a></dd>
+					                <dd><a href="javasript:;"><img src="source/image/a4.png"><cite>Dekstra</cite></a></dd>
+					                <dd><a href="javasript:;"><img src="source/image/a2.png"><cite>惜i</cite></a></dd>
+					                <dd><a href="javasript:;"><img src="source/image/a3.png"><cite>↙Aㄨ计划 ◆莪↘</cite></a></dd>
+					                <dd><a href="javasript:;"><img src="source/image/a4.png"><cite>.</cite></a></dd>
+					                <dd><a href="javasript:;"><img src="source/image/a1.png"><cite>Lambert.</cite></a></dd>
+					                <dd><a href="javasript:;"><img src="source/image/a2.png"><cite>64ღ</cite></a></dd>
+					                <dd><a href="javasript:;"><img src="source/image/a3.png"><cite>doBoor</cite></a></dd>
+					                <dd><a href="javasript:;"><img src="source/image/a4.png"><cite>毛毛小妖</cite></a></dd>
+					                <dd><a href="javasript:;"><img src="source/image/a1.png"><cite>NULL</cite></a></dd>
+					                <dd><a href="javasript:;"><img src="source/image/a2.png"><cite>吓一跳</cite></a></dd>
+					                <dd><a href="javasript:;"><img src="source/image/a3.png"><cite>如初</cite></a></dd>
 					        </dl>
 					    </div>
 					</div>
@@ -183,10 +161,10 @@
             </div>
         </div>
     </footer>
-    <script th:src="@{|/${WEB_THEME}/layui/layui.js|}"></script>
-    <script th:src="@{|/${WEB_THEME}/js/yss/gloable.js|}"></script>
-    <script th:src="@{|/${WEB_THEME}/js/plugins/nprogress.js|}"></script>
- 	<script th:src="@{|/${WEB_THEME}/js/yss/article.js|}"></script>
+    <script th:src="@{|/${WEB_THEME}/source/layui/layui.js|}"></script>
+    <script th:src="@{|/${WEB_THEME}/source/js/yss/gloable.js|}"></script>
+    <script th:src="@{|/${WEB_THEME}/source/js/plugins/nprogress.js|}"></script>
+ 	<script th:src="@{|/${WEB_THEME}/source/js/yss/article.js|}"></script>
 	<script>NProgress.start();</script>
     <script> 
         window.onload = function () {

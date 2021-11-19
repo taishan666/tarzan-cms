@@ -3,6 +3,7 @@ package com.tarzan.cms.common.listener;
 import com.tarzan.cms.common.properties.CmsProperties;
 import com.tarzan.cms.utils.AppInstallTools;
 import com.tarzan.cms.utils.ArticleCollect;
+import com.tarzan.cms.utils.ArticleRead;
 import com.tarzan.cms.utils.FileUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.context.event.ApplicationStartedEvent;
@@ -50,7 +51,7 @@ public class StartedListener implements ApplicationListener<ApplicationStartedEv
         appInstallTools.install();
         printStartInfo(event);
       //  articleCollect.collect();
-       // ArticleRead.read();
+        ArticleRead.read();
     }
 
     /**

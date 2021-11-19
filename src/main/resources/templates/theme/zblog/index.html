@@ -32,9 +32,9 @@
 								<a th:href="@{${'/blog/article/'+item.id}}" th:text="${item.title}"></a>
 							</h5>   
 							<div class="time">       
-								<span class="day">1</span>       
-								<span class="month fs-18">7<span class="fs-14">月</span></span>       
-								<span class="year fs-18 ml10">2020</span>   
+								<span class="day" th:text="${#dates.format(item.createTime,'dd')}"></span>
+								<span class="month fs-18">[[${#dates.format(item.createTime,'MM')}]]<span class="fs-14">月</span></span>
+								<span class="year fs-18 ml10" th:text="${#dates.format(item.createTime,'yyyy')}"></span>
 							</div>   
 							<div class="content">       
 								<a href="read.html" class="cover img-light">           

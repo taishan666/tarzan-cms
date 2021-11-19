@@ -64,7 +64,9 @@ public class ArticleRead {
         Document doc=  getDocument(url);
         //获取文章标题
         Elements title = doc.select("h1[id=articleContentId]");
-        System.out.println(title.text());
+        if(title!=null){
+            System.out.println(title.text());
+        }
     }
 
     public static boolean readPage(String webUrl,int pageNum) {

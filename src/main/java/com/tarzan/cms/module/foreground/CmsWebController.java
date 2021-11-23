@@ -72,6 +72,15 @@ public class CmsWebController {
         if (CoreConst.SITE_STATIC.get()) {
             return "forward:/html/index/index.html";
         }
+        ArticleConditionVo vo = new ArticleConditionVo();
+        if (pageNumber != null) {
+            vo.setPageNumber(pageNumber);
+        } else {
+            model.addAttribute("sliderList", bizArticleService.sliderList());//轮播文章
+        }
+        model.addAttribute("pageUrl", "blog/index");
+        model.addAttribute("categoryId", "index");
+        loadMainPage(model, vo);
         return bizThemeService.getTheme() + "/index";
     }
 
@@ -120,7 +129,7 @@ public class CmsWebController {
         model.addAttribute("pageUrl", "blog/list/" + keywords);
         model.addAttribute("keywords", keywords);
         loadMainPage(model, vo);
-        return bizThemeService.getTheme() + "/blog";
+        return bizThemeService.getTheme() + "/search";
     }
 
 

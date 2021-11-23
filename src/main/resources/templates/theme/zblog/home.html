@@ -5,9 +5,10 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
     <meta name="renderer" content="webkit">
     <meta name="viewport" content="width=device-width" />
-    <title>TARZAN-CMS</title>
-	<meta name="keywords" content="个人博客，个人网站，个人博客模板，好看的个人博客">
-	<meta name="description" content="个人博客搭建，个人博客免费建站，个人博客网站html源码，个人博客网站制作模板，源码下载，织梦，前端，java，PHP模板源码分享">
+    <meta name="robots" content="all" />
+    <meta name="keywords" th:content="${SITE_CONFIG.SITE_KWD}">
+    <meta name="description" th:content="${SITE_CONFIG.SITE_DESC}">
+    <title th:text="${SITE_CONFIG.SITE_NAME}+ ' - 主页'"></title>
     <link th:href="@{|/${WEB_THEME}/source/layui/css/layui.css|}" rel="stylesheet" type="text/css">
     <link th:href="@{|/${WEB_THEME}/source/font-awesome/css/font-awesome.min.css|}" rel="stylesheet" type="text/css">
     <link th:href="@{|/${WEB_THEME}/source/css/index_style.css|}" rel="stylesheet" type="text/css">

@@ -47,15 +47,9 @@ public class CmsWebController {
         if (CoreConst.SITE_STATIC.get()) {
             return "forward:/html/index/blog.html";
         }
-        ArticleConditionVo vo = new ArticleConditionVo();
-        if (pageNumber != null) {
-            vo.setPageNumber(pageNumber);
-        } else {
-            model.addAttribute("sliderList", bizArticleService.sliderList());//轮播文章
-        }
         model.addAttribute("pageUrl", "blog/index");
         model.addAttribute("categoryId", "index");
-        loadMainPage(model, vo);
+        loadMainPage(model, pageNumber);
         return bizThemeService.getTheme() + "/blog";
     }
 
@@ -72,15 +66,9 @@ public class CmsWebController {
         if (CoreConst.SITE_STATIC.get()) {
             return "forward:/html/index/index.html";
         }
-        ArticleConditionVo vo = new ArticleConditionVo();
-        if (pageNumber != null) {
-            vo.setPageNumber(pageNumber);
-        } else {
-            model.addAttribute("sliderList", bizArticleService.sliderList());//轮播文章
-        }
         model.addAttribute("pageUrl", "blog/index");
         model.addAttribute("categoryId", "index");
-        loadMainPage(model, vo);
+        loadMainPage(model, pageNumber);
         return bizThemeService.getTheme() + "/index";
     }
 
@@ -99,14 +87,9 @@ public class CmsWebController {
         if (CoreConst.SITE_STATIC.get()) {
             return "forward:/html/index/category/"+ (pageNumber == null ? categoryId : categoryId + "/" + pageNumber)  +".html";
         }
-        ArticleConditionVo vo = new ArticleConditionVo();
-        vo.setCategoryId(categoryId);
-        if (pageNumber != null) {
-            vo.setPageNumber(pageNumber);
-        }
         model.addAttribute("pageUrl", "blog/category/" + categoryId);
         model.addAttribute("categoryId", categoryId);
-        loadMainPage(model, vo);
+        loadMainPage(model, pageNumber);
         return bizThemeService.getTheme() + "/index";
     }
 
@@ -123,12 +106,9 @@ public class CmsWebController {
                            Model model) {
         ArticleConditionVo vo = new ArticleConditionVo();
         vo.setKeywords(keywords);
-        if (pageNumber != null) {
-            vo.setPageNumber(pageNumber);
-        }
         model.addAttribute("pageUrl", "blog/list/" + keywords);
         model.addAttribute("keywords", keywords);
-        loadMainPage(model, vo);
+        loadMainPage(model, pageNumber);
         return bizThemeService.getTheme() + "/search";
     }
 
@@ -150,11 +130,8 @@ public class CmsWebController {
         }
         ArticleConditionVo vo = new ArticleConditionVo();
         vo.setTagId(tagId);
-        if (pageNumber != null) {
-            vo.setPageNumber(pageNumber);
-        }
         model.addAttribute("pageUrl", "blog/tag/" + tagId);
-        loadMainPage(model, vo);
+        loadMainPage(model, pageNumber);
         return bizThemeService.getTheme() + "/index";
     }
 
@@ -224,7 +201,13 @@ public class CmsWebController {
         return bizThemeService.getTheme() + "/link";
     }
 
-    private void loadMainPage(Model model, ArticleConditionVo vo) {
+    private void loadMainPage(Model model, Integer pageNumber) {
+        ArticleConditionVo vo = new ArticleConditionVo();
+        if (pageNumber != null) {
+            vo.setPageNumber(pageNumber);
+        } else {
+            model.addAttribute("sliderList", bizArticleService.sliderList());//轮播文章
+        }
         vo.setStatus(CoreConst.STATUS_VALID);
         IPage<Article> page = new Page<>(vo.getPageNumber(), vo.getPageSize());
         List<Article> articleList = bizArticleService.findByCondition(page, vo);

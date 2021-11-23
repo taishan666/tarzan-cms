@@ -77,7 +77,7 @@ public class BackupController {
     public ResponseVo deleteRole(String fileName) {
         String backupDir= StringUtils.appendIfMissing(cmsProperties.getBackupDir(), File.separator);
         File file=new File(backupDir+fileName);
-        if (file.delete()) {
+        if (file.exists()&&file.delete()) {
             return ResultUtil.success("删除备份成功");
         } else {
             return ResultUtil.error("删除备份失败");

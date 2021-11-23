@@ -103,11 +103,11 @@ public class QiNiuYunUtil {
                 BatchStatus status = batchStatusList[i];
                 String key = keyList[i];
                 /*key对应的状态*/
-                if (status.code == 200) {
+       /*         if (status.code == 200) {
                     //
                 } else {
                     //
-                }
+                }*/
             }
             return true;
         } catch (QiniuException ex) {

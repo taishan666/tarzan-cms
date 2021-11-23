@@ -70,10 +70,13 @@ public class DbBackupTools {
         });
         jdbcTemplate.batchUpdate(list.toArray(new String[list.size()]));
         list.clear();
+        FileInputStream out=null;
+        InputStreamReader reader=null;
+        BufferedReader in=null;
         try {
-            FileInputStream out = new FileInputStream(cmsProperties.getBackupDir()+fileName);
-            InputStreamReader reader = new InputStreamReader(out, StandardCharsets.UTF_8);
-            BufferedReader in = new BufferedReader(reader);
+            out = new FileInputStream(cmsProperties.getBackupDir()+fileName);
+            reader = new InputStreamReader(out, StandardCharsets.UTF_8);
+            in = new BufferedReader(reader);
             String line;
             while ((line = in.readLine()) != null) {
                 list.add(line);
@@ -81,6 +84,29 @@ public class DbBackupTools {
         } catch (IOException e) {
             e.printStackTrace();
             return false;
+        }finally {
+            if(out!=null){
+                try {
+                    out.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+            if(reader!=null){
+                try {
+                    reader.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+            if(in!=null){
+                try {
+                    in.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+
         }
         executeAsync(list);
         log.info("恢复数据耗时 "+(System.currentTimeMillis()-stat)+" ms");

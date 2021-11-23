@@ -45,7 +45,7 @@ public class CmsWebController {
     public String index(@PathVariable(value = "pageNumber", required = false) Integer pageNumber,
                         Model model) {
         if (CoreConst.SITE_STATIC.get()) {
-            return "forward:/html/index/index.html";
+            return "forward:/html/index/blog.html";
         }
         ArticleConditionVo vo = new ArticleConditionVo();
         if (pageNumber != null) {
@@ -56,7 +56,7 @@ public class CmsWebController {
         model.addAttribute("pageUrl", "blog/index");
         model.addAttribute("categoryId", "index");
         loadMainPage(model, vo);
-        return bizThemeService.getTheme() + "/index";
+        return bizThemeService.getTheme() + "/blog";
     }
 
     /**
@@ -66,13 +66,13 @@ public class CmsWebController {
      * @param pageNumber
      * @return
      */
-    @GetMapping({"/","/home"})
+    @GetMapping({"/","/index"})
     public String home(@PathVariable(value = "pageNumber", required = false) Integer pageNumber,
                         Model model) {
         if (CoreConst.SITE_STATIC.get()) {
-            return "forward:/html/index/home.html";
+            return "forward:/html/index/index.html";
         }
-        return bizThemeService.getTheme() + "/home";
+        return bizThemeService.getTheme() + "/index";
     }
 
     /**

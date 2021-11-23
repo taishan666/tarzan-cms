@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="renderer" content="webkit">
+    <meta name="viewport" content="width=device-width" />
+	<meta name="robots" content="all" />
+	<meta name="keywords" th:content="${SITE_CONFIG.SITE_KWD}">
+	<meta name="description" th:content="${SITE_CONFIG.SITE_DESC}">
+	<title th:text="${SITE_CONFIG.SITE_NAME}"></title>
+    <link rel="stylesheet" th:href="@{|/${WEB_THEME}/source/font-awesome/css/font-awesome.min.css|}">
+    <link rel="stylesheet" th:href="@{|/${WEB_THEME}/source/layui/css/layui.css|}" />
+    <link rel="stylesheet" th:href="@{|/${WEB_THEME}/source/css/master.css|}" />
+    <link rel="stylesheet" th:href="@{|/${WEB_THEME}/source/css/gloable.css|}" />
+    <link rel="stylesheet" th:href="@{|/${WEB_THEME}/source/css/nprogress.css|}" />
+    <link rel="stylesheet" th:href="@{|/${WEB_THEME}/source/css/blog.css|}" />
+</head>
+<body>
+<!--<div th:replace="@{|/${WEB_THEME}/module/navbar.html|}"></div>-->
+<div class="header">
+</div>
+<div th:replace="@{|/${WEB_THEME}/module/navbar.html|}"></div>
+    <div class="doc-container" id="doc-container">
+        <div class="container-fixed">
+		    <div class="col-content">
+		        <div class="inner">
+		            <article class="article-list bloglist" id="LAY_bloglist" >
+						<section class="article-item zoomIn article" th:each="item,temp : ${articleList}">
+							<div class="fc-flag" th:if="${item.top==1}">置顶</div>
+							<h5 class="title">       
+								<span class="fc-blue">【原创】</span>       
+								<a th:href="@{${'/blog/article/'+item.id}}" th:text="${item.title}"></a>
+							</h5>   
+							<div class="time">       
+								<span class="day" th:text="${#dates.format(item.createTime,'dd')}"></span>
+								<span class="month fs-18">[[${#dates.format(item.createTime,'MM')}]]<span class="fs-14">月</span></span>
+								<span class="year fs-18 ml10" th:text="${#dates.format(item.createTime,'yyyy')}"></span>
+							</div>   
+							<div class="content">       
+								<a href="read.html" class="cover img-light">           
+									<img th:src="@{|/${WEB_THEME}/source/image/java.jpg|}">
+								</a>
+								<p  th:text="${item.description}" class="blogtext"></p>
+							</div>   
+							<div class="read-more">       
+								<a th:href="@{${'/blog/article/'+item.id}}" class="fc-black f-fwb">阅读更多</a>
+							</div>    
+							<aside class="f-oh footer">       
+								<div class="f-fl tags" th:each="tag,temp : ${item.tags}">
+									<span class="fa fa-tags fs-16"></span>           
+									<a class="tag" th:text="${tag.name}"></a>
+								</div>       
+								<div class="f-fr">           
+									<span class="read">               
+										<i class="fa fa-eye fs-16"></i>               
+										<i class="num" th:text="${item.lookCount}? ${item.lookCount} : 0"></i>
+									</span>           
+									<span class="ml20">               
+										<i class="fa fa-comments fs-16"></i>               
+										<a href="javascript:void(0)" class="num fc-grey" th:text="${item.commentCount}? ${item.commentCount} : 0"></a>
+									</span>       
+								</div>   
+							</aside>
+						</section>
+		            </article>
+		        </div>
+		    </div>
+		    <div class="col-other">
+		        <div class="inner">
+					<div class="other-item" id="categoryandsearch">
+			    		<div class="search">
+					        <label class="search-wrap">
+					            <input type="text" id="searchtxt" placeholder="输入关键字搜索" />
+					            <span class="search-icon">
+					                <i class="fa fa-search"></i>
+					            </span>
+					        </label>
+			        		<ul class="search-result"></ul>
+			    		</div>
+			    		<ul class="category mt20" id="category">
+				        	<li data-index="0" class="slider"></li>
+				        	<li data-index="1"><a href="/blog">全部文章</a></li>
+							<li   th:data-index="${iterStat.index+2}" th:each="category,iterStat:${CATEGORY_LIST}">	<a th:href="@{${'/blog/category/' + category.id}}" th:text="${category.name}"></a></li>
+			    		</ul>
+					</div>
+					<!--右边悬浮 平板或手机设备显示-->
+					<div class="category-toggle"><i class="layui-icon">&#xe603;</i></div>
+					<div class="article-category">
+					    <div class="article-category-title">分类导航</div>
+					            <a href="/Blog/Article/1/">Java</a>
+					            <a href="/Blog/Article/2/">前端</a>
+					            <a href="/Blog/Article/3/">Python</a>
+					            <a href="/Blog/Article/4/">PHP</a>
+					            <a href="/Blog/Article/5/">其它</a>
+					    <div class="f-cb"></div>
+					</div>
+					<!--遮罩-->
+					<div class="blog-mask animated layui-hide"></div>
+					<div class="other-item">
+					    <h5 class="other-item-title">热门文章</h5>
+					    <div class="inner">
+					        <ul class="hot-list-article">
+					                <li> <a href="/Blog/Read/9">SpringBoot 入门爬虫项目实战</a></li>
+					                <li> <a href="/Blog/Read/12">SpringBoot 2.x 教你快速入门</a></li>
+					                <li> <a href="/Blog/Read/13">java学习路线</a></li>
+					                <li> <a href="/Blog/Read/4">基于SpringBoot+JWT+Redis跨域单点登录的实现</a></li>
+					                <li> <a href="/Blog/Read/7">SpringBoot 中如何使用SwaggerAPI接口文档？</a></li>
+					                <li> <a href="/Blog/Read/11">小白轻松入门Redis</a></li>
+					                <li> <a href="/Blog/Read/14">微信一键登录功能的实现</a></li>
+					                <li> <a href="/Blog/Read/8">NPOI导入导出Excel</a></li>
+					        </ul>
+					    </div>
+					</div>
+					<div class="other-item">
+					    <h5 class="other-item-title">置顶推荐</h5>
+					    <div class="inner">
+					        <ul class="hot-list-article">
+					                <li> <a href="/Blog/Read/16">java学习路线</a></li>
+					                <li> <a href="/Blog/Read/14">基于SpringBoot+JWT+Redis跨域单点登录的实现</a></li>
+					                <li> <a href="/Blog/Read/9">小白轻松入门Redis</a></li>
+					        </ul>
+					    </div>
+					</div>
+					<div class="other-item">
+					    <h5 class="other-item-title">最近访客</h5>
+					    <div class="inner">
+					        <dl class="vistor">
+					                <dd><a href="javasript:;"><img src="source/image/a1.png"><cite>Anonymous</cite></a></dd>
+					                <dd><a href="javasript:;"><img src="source/image/a4.png"><cite>Dekstra</cite></a></dd>
+					                <dd><a href="javasript:;"><img src="source/image/a2.png"><cite>惜i</cite></a></dd>
+					                <dd><a href="javasript:;"><img src="source/image/a3.png"><cite>↙Aㄨ计划 ◆莪↘</cite></a></dd>
+					                <dd><a href="javasript:;"><img src="source/image/a4.png"><cite>.</cite></a></dd>
+					                <dd><a href="javasript:;"><img src="source/image/a1.png"><cite>Lambert.</cite></a></dd>
+					                <dd><a href="javasript:;"><img src="source/image/a2.png"><cite>64ღ</cite></a></dd>
+					                <dd><a href="javasript:;"><img src="source/image/a3.png"><cite>doBoor</cite></a></dd>
+					                <dd><a href="javasript:;"><img src="source/image/a4.png"><cite>毛毛小妖</cite></a></dd>
+					                <dd><a href="javasript:;"><img src="source/image/a1.png"><cite>NULL</cite></a></dd>
+					                <dd><a href="javasript:;"><img src="source/image/a2.png"><cite>吓一跳</cite></a></dd>
+					                <dd><a href="javasript:;"><img src="source/image/a3.png"><cite>如初</cite></a></dd>
+					        </dl>
+					    </div>
+					</div>
+		        </div>
+		    </div>
+		</div>
+    </div>
+<div th:replace="@{|/${WEB_THEME}/module/footer.html|}"></div>
+    <script th:src="@{|/${WEB_THEME}/source/layui/layui.js|}"></script>
+    <script th:src="@{|/${WEB_THEME}/source/js/yss/gloable.js|}"></script>
+    <script th:src="@{|/${WEB_THEME}/source/js/plugins/nprogress.js|}"></script>
+ 	<script th:src="@{|/${WEB_THEME}/source/js/yss/article.js|}"></script>
+	<script>NProgress.start();</script>
+    <script> 
+        window.onload = function () {
+            NProgress.done();
+        };
+    </script>
+</body>
+</html>

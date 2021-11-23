@@ -1,4 +1,4 @@
-package com.tarzan.cms.module.blog.controller;
+package com.tarzan.cms.module.foreground;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.tarzan.cms.utils.*;
@@ -37,7 +37,7 @@ import java.util.Date;
 @Api(value = "tarzan-cms-api", tags = "泰山cms内容管理系统api")
 @RequestMapping("blog/api")
 @AllArgsConstructor
-public class BlogApiController {
+public class CmsApiController {
 
     private final CommentService commentService;
     private final ArticleLookService articleLookService;

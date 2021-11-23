@@ -1,4 +1,4 @@
-package com.tarzan.cms.module.blog.controller;
+package com.tarzan.cms.module.foreground;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
@@ -28,7 +28,7 @@ import java.util.List;
  */
 @Controller
 @AllArgsConstructor
-public class BlogWebController {
+public class CmsWebController {
 
     private final ArticleService bizArticleService;
     private final CategoryService categoryService;

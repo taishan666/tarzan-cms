@@ -69,14 +69,19 @@
 		    <div class="col-other">
 		        <div class="inner">
 					<div class="other-item" id="categoryandsearch">
+
 			    		<div class="search">
+							<form action="/blog/list" id="searchForm">
 					        <label class="search-wrap">
-					            <input type="text" id="searchtxt" placeholder="输入关键字搜索" />
+					            <input type="text"  name="keywords" th:value="@{${keywords}}"  placeholder="输入关键字搜索" />
+								<a href="#" onclick="document.getElementById('searchForm').submit();">
 					            <span class="search-icon">
 					                <i class="fa fa-search"></i>
 					            </span>
+								</a>
 					        </label>
 			        		<ul class="search-result"></ul>
+							</form>
 			    		</div>
 			    		<ul class="category mt20" id="category">
 				        	<li data-index="0" class="slider"></li>

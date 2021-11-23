@@ -120,7 +120,7 @@ public class CmsWebController {
         model.addAttribute("pageUrl", "blog/list/" + keywords);
         model.addAttribute("keywords", keywords);
         loadMainPage(model, vo);
-        return bizThemeService.getTheme() + "/index";
+        return bizThemeService.getTheme() + "/blog";
     }
 
 

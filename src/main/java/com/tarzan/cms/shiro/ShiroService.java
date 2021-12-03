@@ -42,7 +42,10 @@ public class ShiroService {
         // 权限控制map.从数据库获取
         Map<String, String> filterChainDefinitionMap = new LinkedHashMap<String, String>();
         filterChainDefinitionMap.put("/", "anon");
+        filterChainDefinitionMap.put("/index", "anon");
         filterChainDefinitionMap.put("/blog/**", "anon");
+        filterChainDefinitionMap.put("/link", "anon");
+        filterChainDefinitionMap.put("/diary", "anon");
         filterChainDefinitionMap.put("/register", "anon");
         filterChainDefinitionMap.put("/login", "anon");
         filterChainDefinitionMap.put("/kickOut", "anon");
@@ -53,7 +56,7 @@ public class ShiroService {
         filterChainDefinitionMap.put("/admin/images/**", "anon");
         filterChainDefinitionMap.put("/admin/libs/**", "anon");
         filterChainDefinitionMap.put("/theme/**", "anon");
-        filterChainDefinitionMap.put("/favicon.ico", "anon");
+        //filterChainDefinitionMap.put("/favicon.ico", "anon");
         filterChainDefinitionMap.put("/verificationCode", "anon");
         filterChainDefinitionMap.put("/oauth/**", "anon");
         filterChainDefinitionMap.put(fileUploadProperties.getAccessPathPattern(), "anon");

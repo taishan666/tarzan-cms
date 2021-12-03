@@ -90,7 +90,7 @@ public class CmsWebController {
         model.addAttribute("pageUrl", "blog/category/" + categoryId);
         model.addAttribute("categoryId", categoryId);
         loadMainPage(model, pageNumber);
-        return bizThemeService.getTheme() + "/index";
+        return bizThemeService.getTheme() + "/blog";
     }
 
 
@@ -132,7 +132,7 @@ public class CmsWebController {
         vo.setTagId(tagId);
         model.addAttribute("pageUrl", "blog/tag/" + tagId);
         loadMainPage(model, pageNumber);
-        return bizThemeService.getTheme() + "/index";
+        return bizThemeService.getTheme() + "/blog";
     }
 
     /**

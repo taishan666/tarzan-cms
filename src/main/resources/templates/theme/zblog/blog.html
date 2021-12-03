@@ -86,18 +86,14 @@
 			    		<ul class="category mt20" id="category">
 				        	<li data-index="0" class="slider"></li>
 				        	<li data-index="1"><a href="/blog">全部文章</a></li>
-							<li   th:data-index="${iterStat.index+2}" th:each="category,iterStat:${CATEGORY_LIST}">	<a th:href="@{${'/blog/category/' + category.id}}" th:text="${category.name}"></a></li>
+							<li  th:class="${category.id==categoryId?'active':''}"  th:data-index="${iterStat.index+2}" th:each="category,iterStat:${CATEGORY_LIST}">	<a th:href="@{${'/blog/category/' + category.id}}" th:text="${category.name}" ></a></li>
 			    		</ul>
 					</div>
 					<!--右边悬浮 平板或手机设备显示-->
 					<div class="category-toggle"><i class="layui-icon">&#xe603;</i></div>
 					<div class="article-category">
 					    <div class="article-category-title">分类导航</div>
-					            <a href="/Blog/Article/1/">Java</a>
-					            <a href="/Blog/Article/2/">前端</a>
-					            <a href="/Blog/Article/3/">Python</a>
-					            <a href="/Blog/Article/4/">PHP</a>
-					            <a href="/Blog/Article/5/">其它</a>
+						<a th:each="category,iterStat:${CATEGORY_LIST}" th:href="@{${'/blog/category/' + category.id}}" th:text="${category.name}"></a>
 					    <div class="f-cb"></div>
 					</div>
 					<!--遮罩-->
@@ -106,24 +102,19 @@
 					    <h5 class="other-item-title">热门文章</h5>
 					    <div class="inner">
 					        <ul class="hot-list-article">
-					                <li> <a href="/Blog/Read/9">SpringBoot 入门爬虫项目实战</a></li>
-					                <li> <a href="/Blog/Read/12">SpringBoot 2.x 教你快速入门</a></li>
-					                <li> <a href="/Blog/Read/13">java学习路线</a></li>
-					                <li> <a href="/Blog/Read/4">基于SpringBoot+JWT+Redis跨域单点登录的实现</a></li>
-					                <li> <a href="/Blog/Read/7">SpringBoot 中如何使用SwaggerAPI接口文档？</a></li>
-					                <li> <a href="/Blog/Read/11">小白轻松入门Redis</a></li>
-					                <li> <a href="/Blog/Read/14">微信一键登录功能的实现</a></li>
-					                <li> <a href="/Blog/Read/8">NPOI导入导出Excel</a></li>
+								<li th:each="item,temp:${HOT_LIST}">
+									<a th:text="${item.title}" th:href="${'/blog/article/'+item.id}"></a>
+								</li>
 					        </ul>
 					    </div>
 					</div>
 					<div class="other-item">
-					    <h5 class="other-item-title">置顶推荐</h5>
+					    <h5 class="other-item-title">推荐文章</h5>
 					    <div class="inner">
 					        <ul class="hot-list-article">
-					                <li> <a href="/Blog/Read/16">java学习路线</a></li>
-					                <li> <a href="/Blog/Read/14">基于SpringBoot+JWT+Redis跨域单点登录的实现</a></li>
-					                <li> <a href="/Blog/Read/9">小白轻松入门Redis</a></li>
+								<li th:each="item,temp:${RECOMMENDED_LIST}">
+									<a th:text="${item.title}" th:href="${'/blog/article/'+item.id}"></a>
+								</li>
 					        </ul>
 					    </div>
 					</div>
@@ -132,17 +123,6 @@
 					    <div class="inner">
 					        <dl class="vistor">
 					                <dd><a href="javasript:;"><img src="source/image/a1.png"><cite>Anonymous</cite></a></dd>
-					                <dd><a href="javasript:;"><img src="source/image/a4.png"><cite>Dekstra</cite></a></dd>
-					                <dd><a href="javasript:;"><img src="source/image/a2.png"><cite>惜i</cite></a></dd>
-					                <dd><a href="javasript:;"><img src="source/image/a3.png"><cite>↙Aㄨ计划 ◆莪↘</cite></a></dd>
-					                <dd><a href="javasript:;"><img src="source/image/a4.png"><cite>.</cite></a></dd>
-					                <dd><a href="javasript:;"><img src="source/image/a1.png"><cite>Lambert.</cite></a></dd>
-					                <dd><a href="javasript:;"><img src="source/image/a2.png"><cite>64ღ</cite></a></dd>
-					                <dd><a href="javasript:;"><img src="source/image/a3.png"><cite>doBoor</cite></a></dd>
-					                <dd><a href="javasript:;"><img src="source/image/a4.png"><cite>毛毛小妖</cite></a></dd>
-					                <dd><a href="javasript:;"><img src="source/image/a1.png"><cite>NULL</cite></a></dd>
-					                <dd><a href="javasript:;"><img src="source/image/a2.png"><cite>吓一跳</cite></a></dd>
-					                <dd><a href="javasript:;"><img src="source/image/a3.png"><cite>如初</cite></a></dd>
 					        </dl>
 					    </div>
 					</div>
@@ -154,8 +134,8 @@
     <script th:src="@{|/${WEB_THEME}/source/layui/layui.js|}"></script>
     <script th:src="@{|/${WEB_THEME}/source/js/yss/gloable.js|}"></script>
     <script th:src="@{|/${WEB_THEME}/source/js/plugins/nprogress.js|}"></script>
+    <script>NProgress.start();</script>
  	<script th:src="@{|/${WEB_THEME}/source/js/yss/article.js|}"></script>
-	<script>NProgress.start();</script>
     <script> 
         window.onload = function () {
             NProgress.done();

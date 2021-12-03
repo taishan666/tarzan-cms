@@ -51,13 +51,20 @@ article.Init = function ($) {
         $('.article-category').removeClass('categoryIn').addClass('categoryOut');
     }
     function blogtype() {
+        $(this).removeClass('current');
+        var curLi= $('#category li.active').addClass('current');
+        var num1 = $(curLi).attr('data-index');
+        $('.slider').css({ 'top': ((parseInt(num1) - 1) * 40) + 'px' });
         $('#category li').hover(function () {
             $(this).addClass('current');
             var num = $(this).attr('data-index');
             $('.slider').css({ 'top': ((parseInt(num) - 1) * 40) + 'px' });
         }, function () {
             $(this).removeClass('current');
-            $('.slider').css({ 'top': slider });
+            var curLi= $('#category li.active').addClass('current');
+            var num1 = $(curLi).attr('data-index');
+            $('.slider').css({ 'top': ((parseInt(num1) - 1) * 40) + 'px' });
+          //  $('.slider').css({ 'top': slider });
         });
         $(window).scroll(function (event) {
             var winPos = $(window).scrollTop();

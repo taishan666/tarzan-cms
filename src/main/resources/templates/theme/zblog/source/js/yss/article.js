@@ -6,7 +6,7 @@
 var article = {};
 article.Init = function ($) {
     //var $ = layui.jquery,
-    var slider = 0;
+    var sliderIndex = 0;
     blogtype();
     //类别导航开关点击事件
     $('.category-toggle').click(function (e) {
@@ -51,20 +51,17 @@ article.Init = function ($) {
         $('.article-category').removeClass('categoryIn').addClass('categoryOut');
     }
     function blogtype() {
-        $(this).removeClass('current');
+       // $(this).removeClass('current');
         var curLi= $('#category li.active').addClass('current');
-        var num1 = $(curLi).attr('data-index');
-        $('.slider').css({ 'top': ((parseInt(num1) - 1) * 40) + 'px' });
+        sliderIndex = $(curLi).attr('data-index');
+        $('.slider').css({ 'top': ((parseInt(sliderIndex) - 1) * 40) + 'px' });
         $('#category li').hover(function () {
             $(this).addClass('current');
-            var num = $(this).attr('data-index');
-            $('.slider').css({ 'top': ((parseInt(num) - 1) * 40) + 'px' });
+            sliderIndex = $(this).attr('data-index');
+            $('.slider').css({ 'top': ((parseInt(sliderIndex) - 1) * 40) + 'px' });
         }, function () {
             $(this).removeClass('current');
-            var curLi= $('#category li.active').addClass('current');
-            var num1 = $(curLi).attr('data-index');
-            $('.slider').css({ 'top': ((parseInt(num1) - 1) * 40) + 'px' });
-          //  $('.slider').css({ 'top': slider });
+            $('.slider').css({ 'top': ((parseInt(sliderIndex) - 1) * 40) + 'px' });
         });
         $(window).scroll(function (event) {
             var winPos = $(window).scrollTop();

@@ -38,39 +38,44 @@ public class CmsWebController {
      * 首页
      *
      * @param model
-     * @param pageNumber
-     * @return
-     */
-    @GetMapping({ "/blog","/blog/{pageNumber}"})
-    public String index(@PathVariable(value = "pageNumber", required = false) Integer pageNumber,
-                        Model model) {
-        if (CoreConst.SITE_STATIC.get()) {
-            return "forward:/html/index/blog.html";
-        }
-        model.addAttribute("pageUrl", "blog/index");
-        model.addAttribute("categoryId", "index");
-        loadMainPage(model, pageNumber);
-        return bizThemeService.getTheme() + "/blog";
-    }
-
-    /**
-     * 首页
-     *
-     * @param model
-     * @param pageNumber
      * @return
      */
     @GetMapping({"/","/index"})
-    public String home(@PathVariable(value = "pageNumber", required = false) Integer pageNumber,
-                        Model model) {
+    public String home(Model model) {
         if (CoreConst.SITE_STATIC.get()) {
             return "forward:/html/index/index.html";
         }
         model.addAttribute("pageUrl", "blog/index");
         model.addAttribute("categoryId", "index");
-        loadMainPage(model, pageNumber);
+        loadMainPage(model,new ArticleConditionVo());
         return bizThemeService.getTheme() + "/index";
     }
+
+    /**
+     * 搜索列表
+     *
+     * @param keywords
+     * @return
+     */
+    @GetMapping({"/blog","/blog/{pageNumber}"})
+    public String list(@RequestParam(value = "keywords",required = false) String keywords,
+                       @PathVariable(value = "pageNumber", required = false) Integer pageNumber,
+                       Model model) {
+        if (CoreConst.SITE_STATIC.get()) {
+            return "forward:/html/index/blog.html";
+        }
+        ArticleConditionVo vo = new ArticleConditionVo();
+        vo.setKeywords(keywords);
+        if(null!=pageNumber){
+            vo.setPageNumber(pageNumber);
+        }
+        model.addAttribute("pageUrl", "blog/list/" + keywords);
+        model.addAttribute("keywords", keywords);
+        loadMainPage(model, vo);
+        return bizThemeService.getTheme() + "/search";
+    }
+
+
 
     /**
      * 分类列表
@@ -89,28 +94,15 @@ public class CmsWebController {
         }
         model.addAttribute("pageUrl", "blog/category/" + categoryId);
         model.addAttribute("categoryId", categoryId);
-        loadMainPage(model, pageNumber);
+        ArticleConditionVo vo = new ArticleConditionVo();
+        vo.setCategoryId(categoryId);
+        if(null!=pageNumber){
+            vo.setPageNumber(pageNumber);
+        }
+        loadMainPage(model, vo);
         return bizThemeService.getTheme() + "/blog";
     }
 
-
-    /**
-     * 搜索列表
-     *
-     * @param keywords
-     * @return
-     */
-    @GetMapping({"/blog/list","/blog/list/{pageNumber}"})
-    public String list(@RequestParam("keywords") String keywords,
-                           @PathVariable(value = "pageNumber", required = false) Integer pageNumber,
-                           Model model) {
-        ArticleConditionVo vo = new ArticleConditionVo();
-        vo.setKeywords(keywords);
-        model.addAttribute("pageUrl", "blog/list/" + keywords);
-        model.addAttribute("keywords", keywords);
-        loadMainPage(model, pageNumber);
-        return bizThemeService.getTheme() + "/search";
-    }
 
 
 
@@ -130,8 +122,11 @@ public class CmsWebController {
         }
         ArticleConditionVo vo = new ArticleConditionVo();
         vo.setTagId(tagId);
+        if(null!=pageNumber){
+            vo.setPageNumber(pageNumber);
+        }
         model.addAttribute("pageUrl", "blog/tag/" + tagId);
-        loadMainPage(model, pageNumber);
+        loadMainPage(model, vo);
         return bizThemeService.getTheme() + "/blog";
     }
 
@@ -201,11 +196,8 @@ public class CmsWebController {
         return bizThemeService.getTheme() + "/link";
     }
 
-    private void loadMainPage(Model model, Integer pageNumber) {
-        ArticleConditionVo vo = new ArticleConditionVo();
-        if (pageNumber != null) {
-            vo.setPageNumber(pageNumber);
-        } else {
+    private void loadMainPage(Model model, ArticleConditionVo vo) {
+        if (vo.getPageNumber()<2) {
             model.addAttribute("sliderList", bizArticleService.sliderList());//轮播文章
         }
         vo.setStatus(CoreConst.STATUS_VALID);

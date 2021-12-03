@@ -69,9 +69,8 @@
 		    <div class="col-other">
 		        <div class="inner">
 					<div class="other-item" id="categoryandsearch">
-
 			    		<div class="search">
-							<form action="/blog/list" id="searchForm">
+							<form action="/blog" id="searchForm">
 					        <label class="search-wrap">
 					            <input type="text"  name="keywords" th:value="@{${keywords}}"  placeholder="输入关键字搜索" />
 								<a href="#" onclick="document.getElementById('searchForm').submit();">

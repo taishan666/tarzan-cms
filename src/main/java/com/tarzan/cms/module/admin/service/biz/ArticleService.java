@@ -7,8 +7,12 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.tarzan.cms.common.constant.CoreConst;
 import com.tarzan.cms.module.admin.mapper.biz.ArticleMapper;
 import com.tarzan.cms.module.admin.model.biz.Article;
+import com.tarzan.cms.module.admin.model.biz.ArticleLook;
+import com.tarzan.cms.module.admin.model.biz.Comment;
+import com.tarzan.cms.module.admin.model.biz.Love;
 import com.tarzan.cms.module.admin.vo.ArticleConditionVo;
 import com.tarzan.cms.utils.DateUtil;
+import lombok.AllArgsConstructor;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
@@ -24,7 +28,12 @@ import java.util.stream.Collectors;
  * @date 2021年5月11日
  */
 @Service
+@AllArgsConstructor
 public class ArticleService extends ServiceImpl<ArticleMapper, Article> {
+
+    private final ArticleLookService articleLookService;
+    private final LoveService loveService;
+    private final CommentService commentService;
 
     public List<Article> findByCondition(IPage<Article> page, ArticleConditionVo vo) {
         return baseMapper.findByCondition(page, vo);
@@ -67,7 +76,14 @@ public class ArticleService extends ServiceImpl<ArticleMapper, Article> {
 
     @Cacheable(value = "article", key = "#id")
     public Article selectById(Integer id) {
-        return getById(id);
+        Article article=getById(id);
+        Integer lookNum=articleLookService.count(Wrappers.<ArticleLook>lambdaQuery().eq(ArticleLook::getArticleId,id));
+        article.setLookCount(lookNum);
+        Integer loveNum=loveService.count(Wrappers.<Love>lambdaQuery().eq(Love::getBizId,id).eq(Love::getBizType,1));
+        article.setLoveCount(loveNum);
+        Integer commentNum= commentService.count(Wrappers.<Comment>lambdaQuery().eq(Comment::getSid,id));
+        article.setComment(commentNum);
+        return article;
     }
 
     @Cacheable(value = "article", key = "'count'")

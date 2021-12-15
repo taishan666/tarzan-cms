@@ -17,6 +17,7 @@ import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -33,7 +34,8 @@ public class ArticleService extends ServiceImpl<ArticleMapper, Article> {
 
     private final ArticleLookService articleLookService;
     private final LoveService loveService;
-    private final CommentService commentService;
+    @Resource
+    private CommentService commentService;
 
     public List<Article> findByCondition(IPage<Article> page, ArticleConditionVo vo) {
         return baseMapper.findByCondition(page, vo);

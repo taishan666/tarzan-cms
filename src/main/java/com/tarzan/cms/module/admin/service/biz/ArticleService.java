@@ -12,7 +12,6 @@ import com.tarzan.cms.module.admin.model.biz.Comment;
 import com.tarzan.cms.module.admin.model.biz.Love;
 import com.tarzan.cms.module.admin.vo.ArticleConditionVo;
 import com.tarzan.cms.utils.DateUtil;
-import lombok.AllArgsConstructor;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
@@ -29,13 +28,14 @@ import java.util.stream.Collectors;
  * @date 2021年5月11日
  */
 @Service
-@AllArgsConstructor
 public class ArticleService extends ServiceImpl<ArticleMapper, Article> {
 
-    private final ArticleLookService articleLookService;
-    private final LoveService loveService;
     @Resource
-    private CommentService commentService;
+    private  ArticleLookService articleLookService;
+    @Resource
+    private  LoveService loveService;
+    @Resource
+    private  CommentService commentService;
 
     public List<Article> findByCondition(IPage<Article> page, ArticleConditionVo vo) {
         return baseMapper.findByCondition(page, vo);

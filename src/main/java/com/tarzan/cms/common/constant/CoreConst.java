@@ -43,7 +43,7 @@ public class CoreConst {
      */
     public static final int UPLOAD_TYPE_QINIUYUN = 1;
     public static final int UPLOAD_TYPE_ALIYUN = 2;
-    public static final int UPLOAD_TYPE_QCLOUD = 3;
+    public static final int UPLOAD_TYPE_TXYUN = 3;
     public static final int UPLOAD_TYPE_LOCAL = 4;
 
     /**

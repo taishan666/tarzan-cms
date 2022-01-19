@@ -56,7 +56,7 @@ public class ShiroService {
         filterChainDefinitionMap.put("/admin/images/**", "anon");
         filterChainDefinitionMap.put("/admin/libs/**", "anon");
         filterChainDefinitionMap.put("/theme/**", "anon");
-        //filterChainDefinitionMap.put("/favicon.ico", "anon");
+        filterChainDefinitionMap.put("/favicon.ico", "anon");
         filterChainDefinitionMap.put("/verificationCode", "anon");
         filterChainDefinitionMap.put("/oauth/**", "anon");
         filterChainDefinitionMap.put(fileUploadProperties.getAccessPathPattern(), "anon");

@@ -1,7 +1,7 @@
 package com.tarzan.cms.module.admin.service.common;
 
 import com.alibaba.fastjson.JSON;
-import com.tarzan.cms.common.properties.FileUploadProperties;
+import com.tarzan.cms.common.props.FileUploadProperties;
 import com.tarzan.cms.common.constant.CoreConst;
 import com.tarzan.cms.module.admin.service.sys.SysConfigService;
 import com.tarzan.cms.utils.*;

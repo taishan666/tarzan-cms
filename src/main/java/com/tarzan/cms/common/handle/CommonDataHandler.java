@@ -5,6 +5,7 @@ import com.tarzan.cms.module.admin.service.common.CommonDataService;
 import com.tarzan.cms.utils.StringUtil;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
+import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -23,17 +24,19 @@ public class CommonDataHandler implements HandlerInterceptor {
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler){
-        String uri = request.getRequestURI();
-        if(!CoreConst.IS_INSTALLED.get()&&!CoreConst.SYSTEM_REGISTER.equals(uri)) {
-            if (uri.lastIndexOf(".")<1){
-                try {
-                    response.sendRedirect(CoreConst.SYSTEM_REGISTER);
-                } catch (IOException e) {
-                    e.printStackTrace();
+        if (handler instanceof HandlerMethod) {
+            String uri = request.getRequestURI();
+            if (!CoreConst.IS_INSTALLED.get() && !CoreConst.SYSTEM_REGISTER.equals(uri)) {
+                if (uri.lastIndexOf(".") < 1) {
+                    try {
+                        response.sendRedirect(CoreConst.SYSTEM_REGISTER);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                    return false;
+                } else {
+                    return true;
                 }
-                return false;
-            }else{
-                return true;
             }
         }
         return true;

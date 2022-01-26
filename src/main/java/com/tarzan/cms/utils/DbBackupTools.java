@@ -1,6 +1,6 @@
 package com.tarzan.cms.utils;
 
-import com.tarzan.cms.common.properties.CmsProperties;
+import com.tarzan.cms.common.props.CmsProperties;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.jdbc.core.JdbcTemplate;

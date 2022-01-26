@@ -4,7 +4,7 @@ import com.baomidou.mybatisplus.core.toolkit.CollectionUtils;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.tarzan.cms.common.constant.CoreConst;
-import com.tarzan.cms.common.properties.CmsProperties;
+import com.tarzan.cms.common.props.CmsProperties;
 import com.tarzan.cms.module.admin.mapper.biz.ThemeMapper;
 import com.tarzan.cms.module.admin.model.biz.Theme;
 import com.tarzan.cms.module.admin.vo.base.ResponseVo;

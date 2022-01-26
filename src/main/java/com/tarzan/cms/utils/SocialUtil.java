@@ -1,6 +1,6 @@
 package com.tarzan.cms.utils;
 
-import com.tarzan.cms.common.properties.SocialProperties;
+import com.tarzan.cms.common.props.SocialProperties;
 import me.zhyd.oauth.config.AuthConfig;
 import me.zhyd.oauth.config.AuthDefaultSource;
 import me.zhyd.oauth.exception.AuthException;

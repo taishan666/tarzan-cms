@@ -1,7 +1,7 @@
 package com.tarzan.cms.module.admin.controller.common;
 
 import com.google.common.collect.Lists;
-import com.tarzan.cms.common.properties.CmsProperties;
+import com.tarzan.cms.common.props.CmsProperties;
 import com.tarzan.cms.module.admin.vo.DbBackupVO;
 import com.tarzan.cms.module.admin.vo.base.PageResultVo;
 import com.tarzan.cms.module.admin.vo.base.ResponseVo;

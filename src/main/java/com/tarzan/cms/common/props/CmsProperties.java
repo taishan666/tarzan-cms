@@ -1,4 +1,4 @@
-package com.tarzan.cms.common.properties;
+package com.tarzan.cms.common.props;
 
 import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;

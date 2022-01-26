@@ -1,7 +1,7 @@
 package com.tarzan.cms.common.config;
 
 
-import com.tarzan.cms.common.properties.CmsProperties;
+import com.tarzan.cms.common.props.CmsProperties;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Configuration;
 import redis.embedded.RedisServer;

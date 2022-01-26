@@ -4,7 +4,7 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Maps;
-import com.tarzan.cms.common.properties.StaticHtmlProperties;
+import com.tarzan.cms.common.props.StaticHtmlProperties;
 import com.tarzan.cms.common.constant.CoreConst;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.tarzan.cms.module.admin.model.biz.Article;
@@ -27,8 +27,6 @@ import java.io.PrintWriter;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
-
-import static com.tarzan.cms.common.constant.CoreConst.THEME_PREFIX;
 
 @Slf4j
 @Service

@@ -1,7 +1,7 @@
 package com.tarzan.cms.shiro;
 
-import com.tarzan.cms.common.properties.FileUploadProperties;
-import com.tarzan.cms.common.properties.StaticHtmlProperties;
+import com.tarzan.cms.common.props.FileUploadProperties;
+import com.tarzan.cms.common.props.StaticHtmlProperties;
 import lombok.AllArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;

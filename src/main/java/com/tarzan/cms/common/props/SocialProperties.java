@@ -1,4 +1,4 @@
-package com.tarzan.cms.common.properties;
+package com.tarzan.cms.common.props;
 
 import com.google.common.collect.Maps;
 import lombok.Data;

@@ -6,15 +6,11 @@ import com.tarzan.cms.shiro.serializer.StringSerializer;
 import org.apache.shiro.cache.Cache;
 import org.apache.shiro.cache.CacheException;
 import org.apache.shiro.cache.CacheManager;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 
 public class RedisCacheManager implements CacheManager {
-
-    private final Logger logger = LoggerFactory.getLogger(RedisCacheManager.class);
 
     // fast lookup by name map
     private final ConcurrentMap<String, Cache> caches = new ConcurrentHashMap<String, Cache>();
@@ -24,7 +20,7 @@ public class RedisCacheManager implements CacheManager {
     private IRedisManager redisManager;
 
     // expire time in seconds
-    public static final int DEFAULT_EXPIRE = 1800;
+    public static final int DEFAULT_EXPIRE = 1800 ;
     private int expire = DEFAULT_EXPIRE;
 
     /**
@@ -38,7 +34,6 @@ public class RedisCacheManager implements CacheManager {
 
     @Override
     public <K, V> Cache<K, V> getCache(String name) throws CacheException {
-       // logger.debug("get cache, name=" + name);
 
         Cache cache = caches.get(name);
 

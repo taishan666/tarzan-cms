@@ -10,8 +10,6 @@ import com.tarzan.cms.shiro.redis.RedisSessionDAO;
 import com.tarzan.cms.utils.IpUtil;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.*;
-import org.apache.shiro.authc.credential.CredentialsMatcher;
-import org.apache.shiro.authc.credential.HashedCredentialsMatcher;
 import org.apache.shiro.authz.AuthorizationException;
 import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.authz.SimpleAuthorizationInfo;
@@ -23,7 +21,6 @@ import org.apache.shiro.subject.SimplePrincipalCollection;
 import org.apache.shiro.subject.support.DefaultSubjectContext;
 import org.apache.shiro.util.ByteSource;
 import org.springframework.context.annotation.Lazy;
-import org.springframework.stereotype.Component;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
@@ -41,7 +38,6 @@ import java.util.Set;
  * @since JDK1.8
  * @date 2021年5月11日
  */
-@Component
 public class MyShiroRealm extends AuthorizingRealm {
 
     @Lazy @Resource
@@ -165,11 +161,4 @@ public class MyShiroRealm extends AuthorizingRealm {
         return set;
     }
 
-    @Override
-    public void setCredentialsMatcher(CredentialsMatcher credentialsMatcher) {
-        HashedCredentialsMatcher hashedCredentialsMatcher = new HashedCredentialsMatcher();
-        hashedCredentialsMatcher.setHashAlgorithmName("md5");
-        hashedCredentialsMatcher.setHashIterations(2);
-        super.setCredentialsMatcher(hashedCredentialsMatcher);
-    }
 }

@@ -20,9 +20,7 @@ import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.shiro.SecurityUtils;
-import org.apache.shiro.authc.AuthenticationException;
-import org.apache.shiro.authc.LockedAccountException;
-import org.apache.shiro.authc.UsernamePasswordToken;
+import org.apache.shiro.authc.*;
 import org.apache.shiro.subject.Subject;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
@@ -119,7 +117,7 @@ public class SystemController {
     /**
      * 访问登录
      *
-     * @param model
+     * @param
      */
     @GetMapping("/login")
     public ModelAndView login() {
@@ -157,6 +155,14 @@ public class SystemController {
             token.setRememberMe(1 == rememberMe);
             Subject subject = SecurityUtils.getSubject();
             subject.login(token);
+        } catch (ExcessiveAttemptsException e) {
+            // 密码输错次数达到上限
+            token.clear();
+            return ResultUtil.error("密码输错次数达到上限，请30分钟后重试。");
+        } catch (UnknownAccountException e) {
+            // 未知账号
+            token.clear();
+            return ResultUtil.error("用户账户不存在！");
         } catch (LockedAccountException e) {
             token.clear();
             return ResultUtil.error("用户已经被锁定不能登录，请联系管理员！");

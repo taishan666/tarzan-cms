@@ -51,6 +51,11 @@
                     <span class="fa fa-plus" aria-hidden="true"></span>写文章
                 </button>
             </shiro:hasPermission>
+            <shiro:hasPermission name="article:batchPush">
+                <button id="btn_batch_push" type="button" class="btn btn-warning">
+                    <span class="fas fa-paper-plane" aria-hidden="true"></span>百度推送
+                </button>
+            </shiro:hasPermission>
             <shiro:hasPermission name="article:batchDelete">
                 <button id="btn_batch_delete" type="button" class="btn btn-danger">
                     <span class="fas fa-trash-alt" aria-hidden="true"></span>批量删除

@@ -38,7 +38,7 @@ function doValidForm(formId,language) {
             $(this).addClass("error");
             $(this).addClass("prominput");
             flag = false;
-            $(this).after('<span  class="active promimg fa fa-exclamation-circle '+position+'" data-container="body" data-toggle="popover" data-trigger="focus" data-placement="top" data-content="'+messageRequire+'"></span>');
+            $(this).after('<span  class="active promimg fa fa-exclamation-circle '+position+'" data-container="body" data-toggle="popover" data-trigger="focus" data-placement="top" data-content="'+messageRequire+'">'+messageRequire+'</span>');
             //$(this).parent().wrapInner('<div></div>');
         }
 
@@ -52,7 +52,7 @@ function doValidForm(formId,language) {
             $(this).addClass("error");
             $(this).addClass("prombtn");
             flag = false;
-            $(this).after('<span  class="active promimg fa fa-exclamation-circle '+position+'" data-container="body" data-toggle="popover" data-trigger="focus" data-placement="top" data-content="'+messageRequire+'"></span>');
+            $(this).after('<span  class="active promimg fa fa-exclamation-circle '+position+'" data-container="body" data-toggle="popover" data-trigger="focus" data-placement="top" data-content="'+messageRequire+'">'+messageRequire+'</span>');
             //$(this).parent().wrapInner('<div style="position: relative;"></div>');
         }
     });
@@ -65,7 +65,7 @@ function doValidForm(formId,language) {
             $(this).addClass("error");
             $(this).addClass("prombtn");
             flag = false;
-            $(this).after('<span  class="active promimg fa fa-exclamation-circle '+position+'" data-container="body" data-toggle="popover" data-trigger="focus" data-placement="top" data-content="'+messageRequire+'"></span>');
+            $(this).after('<span  class="active promimg fa fa-exclamation-circle '+position+'" data-container="body" data-toggle="popover" data-trigger="focus" data-placement="top" data-content="'+messageRequire+'">'+messageRequire+'</span>');
             //$(this).parent().wrapInner('<div style="position: relative;"></div>');
         }
     });
@@ -80,7 +80,7 @@ function doValidForm(formId,language) {
             $(this).addClass("error");
             flag = false;
             $(this).addClass("prominput");
-            $(this).after('<span  class="active promimg fa fa-exclamation-circle '+position+'" data-container="body" data-toggle="popover" data-trigger="focus" data-placement="top" data-content="'+ messageMax + le +'"></span>');
+            $(this).after('<span  class="active promimg fa fa-exclamation-circle '+position+'" data-container="body" data-toggle="popover" data-trigger="focus" data-placement="top" data-content="'+ messageMax + le +'">'+ messageMax + le +'</span>');
         }
     });
 
@@ -93,7 +93,7 @@ function doValidForm(formId,language) {
             $(this).addClass("error");
             flag = false;
             $(this).addClass("prominput");
-            $(this).after('<span  class="active promimg fa fa-exclamation-circle '+position+'" data-container="body" data-toggle="popover" data-trigger="focus" data-placement="top" data-content="'+ messageMin + le +'"></span>');
+            $(this).after('<span  class="active promimg fa fa-exclamation-circle '+position+'" data-container="body" data-toggle="popover" data-trigger="focus" data-placement="top" data-content="'+ messageMin + le +'">'+ messageMin + le +'</span>');
             //$(this).parent().wrapInner('<div></div>');
         }
     });
@@ -106,7 +106,7 @@ function doValidForm(formId,language) {
             $(this).addClass("error");
             flag = false;
             $(this).addClass("prominput");
-            $(this).after('<span  class="active promimg fa fa-exclamation-circle '+position+'" data-container="body" data-toggle="popover" data-trigger="focus" data-placement="top" data-content="'+ messageFax +'"></span>');
+            $(this).after('<span  class="active promimg fa fa-exclamation-circle '+position+'" data-container="body" data-toggle="popover" data-trigger="focus" data-placement="top" data-content="'+ messageFax +'">'+ messageFax +'</span>');
         }
     });
 
@@ -118,7 +118,7 @@ function doValidForm(formId,language) {
             $(this).addClass("error");
             flag = false;
             $(this).addClass("prominput");
-            $(this).after('<span  class="active promimg fa fa-exclamation-circle '+position+'" data-container="body" data-toggle="popover" data-trigger="focus" data-placement="top" data-content="'+ messageContact +'"></span>');
+            $(this).after('<span  class="active promimg fa fa-exclamation-circle '+position+'" data-container="body" data-toggle="popover" data-trigger="focus" data-placement="top" data-content="'+ messageContact +'">'+ messageContact +'</span>');
         }
     });
 
@@ -130,7 +130,7 @@ function doValidForm(formId,language) {
             $(this).addClass("error");
             flag = false;
             $(this).addClass("prominput");
-            $(this).after('<span  class="active promimg fa fa-exclamation-circle '+position+'" data-container="body" data-toggle="popover" data-trigger="focus" data-placement="top" data-content="'+ messagePositiveInteger +'"></span>');
+            $(this).after('<span  class="active promimg fa fa-exclamation-circle '+position+'" data-container="body" data-toggle="popover" data-trigger="focus" data-placement="top" data-content="'+ messagePositiveInteger +'">'+ messagePositiveInteger +'</span>');
         }
     });
 
@@ -143,7 +143,7 @@ function doValidForm(formId,language) {
             $(this).addClass("error");
             flag = false;
             $(this).addClass("prominput");
-            $(this).after('<span  class="active promimg fa fa-exclamation-circle '+position+'" data-container="body" data-toggle="popover" data-trigger="focus" data-placement="top" data-content="'+ messageNumber +'"></span>');
+            $(this).after('<span  class="active promimg fa fa-exclamation-circle '+position+'" data-container="body" data-toggle="popover" data-trigger="focus" data-placement="top" data-content="'+ messageNumber +'">'+ messageNumber +'</span>');
         }
     });
 
@@ -155,7 +155,7 @@ function doValidForm(formId,language) {
             $(this).addClass("error");
             flag = false;
             $(this).addClass("prominput");
-            $(this).after('<span  class="active promimg fa fa-exclamation-circle '+position+'" data-container="body" data-toggle="popover" data-trigger="focus" data-placement="top" data-content="'+ messageEmail +'"></span>');
+            $(this).after('<span  class="active promimg fa fa-exclamation-circle '+position+'" data-container="body" data-toggle="popover" data-trigger="focus" data-placement="top" data-content="'+ messageEmail +'">'+ messageEmail +'</span>');
         }
     });
 
@@ -167,7 +167,7 @@ function doValidForm(formId,language) {
             $(this).addClass("error");
             flag = false;
             $(this).addClass("prominput");
-            $(this).after('<span  class="active promimg fa fa-exclamation-circle '+position+'" data-container="body" data-toggle="popover" data-trigger="focus" data-placement="top" data-content="'+ messageNohtml +'"></span>');
+            $(this).after('<span  class="active promimg fa fa-exclamation-circle '+position+'" data-container="body" data-toggle="popover" data-trigger="focus" data-placement="top" data-content="'+ messageNohtml +'">'+ messageNohtml +'</span>');
         }
     });
 
@@ -184,7 +184,7 @@ function doValidForm(formId,language) {
                     $(lst).addClass("error");
                     $(this).addClass("prominput");
                     flag = false;
-                    $(lst).after('<span  class="active promimg fa fa-exclamation-circle" data-container="body" data-toggle="popover" data-trigger="focus" data-placement="top" data-content="'+ dataRequire +'"></span>');
+                    $(lst).after('<span  class="active promimg fa fa-exclamation-circle" data-container="body" data-toggle="popover" data-trigger="focus" data-placement="top" data-content="'+ dataRequire +'">'+ dataRequire +'</span>');
                 }
             }
         });
@@ -203,7 +203,7 @@ function doValidForm(formId,language) {
                     $(lst).addClass("error");
                     $(this).addClass("prominput");
                     flag = false;
-                    $(lst).after('<span  class="active promimg fa fa-exclamation-circle" data-container="body" data-toggle="popover" data-trigger="focus" data-placement="top" data-content="'+ dataRequire +'"></span>');
+                    $(lst).after('<span  class="active promimg fa fa-exclamation-circle" data-container="body" data-toggle="popover" data-trigger="focus" data-placement="top" data-content="'+ dataRequire +'">'+ dataRequire +'</span>');
                 }
             }
         });
@@ -220,7 +220,7 @@ function doValidForm(formId,language) {
             $(this).addClass("error");
             flag = false;
             $(this).addClass("prominput");
-            $(this).after('<span  class="active promimg fa fa-exclamation-circle '+position+'" data-container="body" data-toggle="popover" data-trigger="focus" data-placement="top" data-content="'+ messageNumericLetters +'"></span>');
+            $(this).after('<span  class="active promimg fa fa-exclamation-circle '+position+'" data-container="body" data-toggle="popover" data-trigger="focus" data-placement="top" data-content="'+ messageNumericLetters +'">'+ messageNumericLetters +'</span>');
         }
     });
 
@@ -231,7 +231,7 @@ function doValidForm(formId,language) {
             $(this).addClass("error");
             $(this).addClass("prombtn");
             flag = false;
-            $(this).after('<span  class="active promimg fa fa-exclamation-circle '+position+'" data-container="body" data-toggle="popover" data-trigger="focus" data-placement="top" data-content="'+ dataRequire +'"></span>');
+            $(this).after('<span  class="active promimg fa fa-exclamation-circle '+position+'" data-container="body" data-toggle="popover" data-trigger="focus" data-placement="top" data-content="'+ dataRequire +'">'+ dataRequire +'</span>');
         }
     });
     $(formId).find("div[require]:visible").each(function () {
@@ -241,7 +241,7 @@ function doValidForm(formId,language) {
             $(this).addClass("error");
             $(this).addClass("prombtn");
             flag = false;
-            $(this).after('<span  class="active promimg fa fa-exclamation-circle '+position+'" data-container="body" data-toggle="popover" data-trigger="focus" data-placement="top" data-content="'+ dataRequire +'"></span>');
+            $(this).after('<span  class="active promimg fa fa-exclamation-circle '+position+'" data-container="body" data-toggle="popover" data-trigger="focus" data-placement="top" data-content="'+ dataRequire +'">'+ dataRequire +'</span>');
         }
     });
     /*数字、字母和空格*/
@@ -254,7 +254,7 @@ function doValidForm(formId,language) {
             $(this).addClass("error");
             flag = false;
             $(this).addClass("prominput");
-            $(this).after('<span  class="active promimg fa fa-exclamation-circle '+position+'" data-container="body" data-toggle="popover" data-trigger="focus" data-placement="top" data-content="'+ messageAlphanumeric +'"></span>');
+            $(this).after('<span  class="active promimg fa fa-exclamation-circle '+position+'" data-container="body" data-toggle="popover" data-trigger="focus" data-placement="top" data-content="'+ messageAlphanumeric +'">'+ messageAlphanumeric +'</span>');
         }
     });
 
@@ -268,7 +268,7 @@ function doValidForm(formId,language) {
             $(this).addClass("error");
             flag = false;
             $(this).addClass("prominput");
-            $(this).after('<span  class="active promimg fa fa-exclamation-circle '+position+'" data-container="body" data-toggle="popover" data-trigger="focus" data-placement="top" data-content="'+ messageNochinese +'"></span>');
+            $(this).after('<span  class="active promimg fa fa-exclamation-circle '+position+'" data-container="body" data-toggle="popover" data-trigger="focus" data-placement="top" data-content="'+ messageNochinese +'">'+ messageNochinese +'</span>');
         }
     });
 
@@ -282,7 +282,7 @@ function doValidForm(formId,language) {
             $(this).addClass("error");
             flag = false;
             $(this).addClass("prominput");
-            $(this).after('<span  class="active promimg fa fa-exclamation-circle '+position+'" data-container="body" data-toggle="popover" data-trigger="focus" data-placement="top" data-content="'+ messageChinese +'"></span>');
+            $(this).after('<span  class="active promimg fa fa-exclamation-circle '+position+'" data-container="body" data-toggle="popover" data-trigger="focus" data-placement="top" data-content="'+ messageChinese +'">'+ messageChinese +'</span>');
         }
     });
 
@@ -297,7 +297,7 @@ function doValidForm(formId,language) {
             $(this).addClass("error");
             flag = false;
             $(this).addClass("prominput");
-            $(this).after('<span  class="active promimg fa fa-exclamation-circle '+position+'" data-container="body" data-toggle="popover" data-trigger="focus" data-placement="top" data-content="'+ messageEnglish +'"></span>');
+            $(this).after('<span  class="active promimg fa fa-exclamation-circle '+position+'" data-container="body" data-toggle="popover" data-trigger="focus" data-placement="top" data-content="'+ messageEnglish +'">'+ messageEnglish +'</span>');
         }
     });
 
@@ -311,7 +311,7 @@ function doValidForm(formId,language) {
             $(this).addClass("error");
             flag = false;
             $(this).addClass("prominput");
-            $(this).after('<span  class="active promimg fa fa-exclamation-circle '+position+'" data-container="body" data-toggle="popover" data-trigger="focus" data-placement="top" data-content="'+ messageNoLetterChinese +'"></span>');
+            $(this).after('<span  class="active promimg fa fa-exclamation-circle '+position+'" data-container="body" data-toggle="popover" data-trigger="focus" data-placement="top" data-content="'+ messageNoLetterChinese +'">'+ messageNoLetterChinese +'</span>');
         }
     });
     /*只能输入数字、字母和中文*/
@@ -324,7 +324,7 @@ function doValidForm(formId,language) {
             $(this).addClass("error");
             flag = false;
             $(this).addClass("prominput");
-            $(this).after('<span  class="active promimg fa fa-exclamation-circle '+position+'" data-container="body" data-toggle="popover" data-trigger="focus" data-placement="top" data-content="'+ messageDigitalAlphabetChinese +'"></span>');
+            $(this).after('<span  class="active promimg fa fa-exclamation-circle '+position+'" data-container="body" data-toggle="popover" data-trigger="focus" data-placement="top" data-content="'+ messageDigitalAlphabetChinese +'">'+ messageDigitalAlphabetChinese +'</span>');
         }
     });
     /*只能输入数字、字母、中文和空格*/
@@ -337,7 +337,7 @@ function doValidForm(formId,language) {
             $(this).addClass("error");
             flag = false;
             $(this).addClass("prominput");
-            $(this).after('<span  class="active promimg fa fa-exclamation-circle '+position+'" data-container="body" data-toggle="popover" data-trigger="focus" data-placement="top" data-content="'+ messageDigitalAlphabetChineseBlank +'"></span>');
+            $(this).after('<span  class="active promimg fa fa-exclamation-circle '+position+'" data-container="body" data-toggle="popover" data-trigger="focus" data-placement="top" data-content="'+ messageDigitalAlphabetChineseBlank +'">'+ messageDigitalAlphabetChineseBlank +'</span>');
         }
     });
 
@@ -351,7 +351,7 @@ function doValidForm(formId,language) {
                 $(this).addClass("error");
                 flag = false;
                 $(this).addClass("prominput");
-                $(this).after('<span  class="active promimg fa fa-exclamation-circle '+position+'" data-container="body" data-toggle="popover" data-trigger="focus" data-placement="top" data-content="'+ messageLength + le + '"></span>');
+                $(this).after('<span  class="active promimg fa fa-exclamation-circle '+position+'" data-container="body" data-toggle="popover" data-trigger="focus" data-placement="top" data-content="'+ messageLength + le + '">'+ messageLength + le + '</span>');
             }
         }
     });
@@ -366,7 +366,7 @@ function doValidForm(formId,language) {
             $(this).addClass("error");
             $(this).addClass("prominput");
             flag = false;
-            $(this).after('<span  class="active promimg fa fa-exclamation-circle '+position+'" data-container="body" data-toggle="popover" data-trigger="focus" data-placement="top" data-content="'+messageRequire+'"></span>');
+            $(this).after('<span  class="active promimg fa fa-exclamation-circle '+position+'" data-container="body" data-toggle="popover" data-trigger="focus" data-placement="top" data-content="'+messageRequire+'">'+messageRequire+'</span>');
         }
 
     });
@@ -379,7 +379,7 @@ function doValidForm(formId,language) {
             $(this).addClass("error");
             flag = false;
             $(this).addClass("prominput");
-            $(this).after('<span  class="active promimg fa fa-exclamation-circle '+position+'" data-container="body" data-toggle="popover" data-trigger="focus" data-placement="top" data-content="'+ messageDomain +'"></span>');
+            $(this).after('<span  class="active promimg fa fa-exclamation-circle '+position+'" data-container="body" data-toggle="popover" data-trigger="focus" data-placement="top" data-content="'+ messageDomain +'">'+ messageDomain +'</span>');
         }
     });
 
@@ -395,7 +395,7 @@ function doValidForm(formId,language) {
             $(this).addClass("error");
             $(this).addClass("prombtn");
             flag = false;
-            $(this).after('<span  class="active promimg fa fa-exclamation-circle '+position+'" data-container="body" data-toggle="popover" data-trigger="focus" data-placement="top" data-content="结束时间不能小于开始时间"></span>');
+            $(this).after('<span  class="active promimg fa fa-exclamation-circle '+position+'" data-container="body" data-toggle="popover" data-trigger="focus" data-placement="top" data-content="结束时间不能小于开始时间">结束时间不能小于开始时间</span>');
         }
     });
 

@@ -16,6 +16,7 @@ import com.tarzan.cms.module.admin.vo.ChangePasswordVo;
 import com.tarzan.cms.module.admin.vo.base.ResponseVo;
 import com.tarzan.cms.shiro.MyShiroRealm;
 import com.tarzan.cms.utils.*;
+import com.wf.captcha.utils.CaptchaUtil;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections.CollectionUtils;
@@ -145,11 +146,11 @@ public class SystemController {
     public ResponseVo login(HttpServletRequest request, String username, String password, String verification,
                             @RequestParam(value = "rememberMe", defaultValue = "0") Integer rememberMe) {
         //判断验证码
-     /*   if (!CaptchaUtil.ver(verification, request)) {
+        if (!CaptchaUtil.ver(verification, request)) {
             // 清除session中的验证码
             CaptchaUtil.clear(request);
             return ResultUtil.error("验证码错误！");
-        }*/
+        }
         UsernamePasswordToken token = new UsernamePasswordToken(username, password);
         try {
             token.setRememberMe(1 == rememberMe);

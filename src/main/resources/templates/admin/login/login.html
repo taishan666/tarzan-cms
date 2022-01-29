@@ -13,6 +13,7 @@
 <link rel="stylesheet" type="text/css" th:href="@{/admin/libs/font-awesome/font-awesome.min.css}">
 <link rel="stylesheet" type="text/css" th:href="@{/admin/libs/bootstrap/css/bootstrap.min.css}">
 <link rel="stylesheet" type="text/css" th:href="@{/admin/css/auth.css}">
+<link rel="stylesheet" th:href="@{admin/libs/validate/validate.css}"/>
   <!-- Favicon Link -->
   <link rel="shortcut icon" type="image/png" th:href="@{/admin/favicon.ico}">
 </head>
@@ -30,7 +31,7 @@
             <h2>Hello,Welcome!</h2>
             <div class="cms-auth-form">
               <div class="cms-auth-feilds mb-30">
-                <input type="text" name="username"  class="cms-input" placeholder="请输入用户名"  max="14" min="3" require="必填项" >
+                <input type="text" name="username"  class="cms-input" placeholder="请输入用户名"  max="14" min="3" data-require="必填项" >
                 <div class="cms-auth-icon">
                   <i class="fas fa-user"></i>
                 </div>
@@ -41,11 +42,14 @@
                   <i class="fas fa-lock"></i>
                 </div>
               </div>
-              <div class="cms-auth-feilds" style="display: none">
-                <input type="text"  name="verification"  class="form-control vcode-input" placeholder="验证码" require="必填项" data-position="position-a">
-                <div class="cms-auth-icon">
-                  <i class="fas fa-lock"></i>
+              <div class="cms-auth-feilds">
+                <div class="vcode-content">
+                <input type="text"  name="verification"  class="vcode-input" placeholder="验证码" require="必填项" data-position="position-a">
+                  <div class="cms-auth-icon">
+                  <i class="fas fa-key"></i>
                 </div>
+                </div>
+              <img class="pointer vcode-img">
               </div>
             <div class="cms-other-feilds">
               <div class="cms-checkbox">
@@ -75,6 +79,7 @@
     $(".vcode-img").on('click', function () {
       $(this).attr('src', (ctx + '/verificationCode?').replace('//', '/') + Math.floor(Math.random() * 100));
     });
+    $(".vcode-img").click();
     $("#loginBtn").on('click', function () {
       if (!doValidForm('#loginForm')) {
         //没有通过验证

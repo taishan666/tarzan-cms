@@ -432,3 +432,27 @@ iframe {
         padding: 30vh 15px
     }
 }
+.vcode {
+    font-size: 0;
+}
+
+.vcode-content {
+    width: 60%;
+    display: inline-block;
+}
+
+.vcode-input {
+    display: inline-block;
+    vertical-align: middle;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+}
+
+.vcode-img {
+    width: 40%;
+    height: 40px;
+    position: absolute;
+}
+.position-a{
+    right: 120px;
+}

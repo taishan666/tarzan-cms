@@ -72,7 +72,7 @@ public class BlogWebController {
         if (CoreConst.SITE_STATIC.get()) {
             return "forward:/html/index/home.html";
         }
-        return bizThemeService.getTheme() + "/home";
+        return bizThemeService.getTheme() + "/index";
     }
 
     /**

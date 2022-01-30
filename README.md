@@ -9,7 +9,8 @@
 | 名称  |  技术栈  |
 |---|---|
 | 前端模板  |   thyleaf |
-| 后端技术  |  springboot+mybatis-plus  |
+| 后端技术  |  springboot  |  
+| ORM 框架  |  mybatis-plus  | 
 | 缓存技术  |  redis  |
 | 安全框架  | Apache Shiro  |
 |  日志组件 |   logback |

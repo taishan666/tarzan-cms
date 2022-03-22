@@ -27,11 +27,24 @@
 ![输入图片说明](theme1.png)
 ![输入图片说明](theme2.png)
 
-#### 使用说明
+#### 快速开始
+ **Fat Jar** 
+下载最新的 tarzan-cms 运行包：
 
-1.  xxxx
-2.  xxxx
-3.  xxxx
+```
+curl -L https://gitee.com/taisan/tarzan-cms/attach_files/1003268/download/tarzan-cms.jar --output tarzan-cms.jar
+```
+ **命令行运行** 
+
+```
+java -jar tarzan-cms.jar
+```
+ **Docker** 
+
+```
+
+docker run -it -d --name tarzan-cms -p 8080:8080 -v ~/.halo:/root/.halo --restart=always tarzan-cms-hub/tarzan-cms
+```
 
 #### 我的博客
 [洛阳泰山博客](http://https://blog.csdn.net/weixin_40986713)

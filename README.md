@@ -42,8 +42,7 @@ java -jar tarzan-cms.jar
  **Docker** 
 
 ```
-
-docker run -it -d --name tarzan-cms -p 8080:8080 -v ~/.halo:/root/.halo --restart=always tarzan-cms-hub/tarzan-cms
+docker run -it -d --name tarzan-cms -p 8080:8080 -v ~/.tarzan-cms:/root/.tarzan-cms --restart=always tarzan-cms-hub/tarzan-cms
 ```
 
 #### 我的博客

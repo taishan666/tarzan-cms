@@ -2,6 +2,7 @@
 
 #### 介绍
 泰山出品-java版CMS内容管理系统
+目的在打造一个简单易用的CMS内容管理系统，方便不懂技术的小微企业快速建站，个人建设博客，打造个人IP。
 
 #### 软件架构
 
@@ -26,6 +27,10 @@
 ![输入图片说明](admin.png)
 ![输入图片说明](theme1.png)
 ![输入图片说明](theme2.png)
+#### 环境准备
+下载安装JDK
+https://www.oracle.com/java/technologies/javase/javase8-archive-downloads.html
+推荐使用 jdk8或者jdk11
 
 #### 快速开始
  **Fat Jar** 

@@ -23,7 +23,8 @@ public class ResourceCollect {
     //网站地址
     private static String webUrl="https://download.csdn.net";
 
-    private static String userId="weixin_42696333";
+    private static String userId="tangyang8942";
+
 
     public static void main(String[] args) {
         new ResourceCollect().collect();
@@ -32,7 +33,7 @@ public class ResourceCollect {
             money=money+(resource.getMoney()*resource.getDownloads());
         }
         System.out.println("收入总金额为："+money+"元");
-        System.out.println("实际收入总金额为："+(money*0.8)+"元");
+        System.out.println("实际收入总金额为："+(money*0.6)+"元");
     }
 
 
@@ -64,8 +65,7 @@ public class ResourceCollect {
 
 
 
-    public  Resource readArticle(String url,String money) {
-        //System.out.println(url);
+    public static Resource readArticle(String url,String money) {
         Resource resource=new Resource();
         Document doc=  getDocument(url);
         if(doc==null){
@@ -83,9 +83,11 @@ public class ResourceCollect {
                 index=2;
             }
             resource.setRemark(elements.get(0).text());
-         //   System.out.println(elements.text());
         }
-      //  System.out.println(elements.text());
+        Elements vips = doc.select("i[class=icon-is-vip]");
+        if(vips.size()>0){
+            return null;
+        }
         Element views = elements.get(0+index);
         Element downloads = elements.get(1+index);
         Element uploadTime = elements.get(4+index);
@@ -114,12 +116,11 @@ public class ResourceCollect {
             if (resources.size() == 0) {
                 return false;
             }
-            //  List<Resource>  list=new ArrayList<>();
+            System.out.println("第"+pageNum+"页数据读取。。。。。。。。。。。。。。。。。。。。");
             resources.forEach(e -> {
                 String url = e.select("a").attr("href");
                 String money = e.select("div[class=score]").text();
-                readArticle(webUrl+url,money.split("：")[1]);
-
+                 readArticle(webUrl+url,money.split("：")[1]);
         /*    try {
                 //等待3秒
                 Thread.sleep(200);
@@ -127,13 +128,14 @@ public class ResourceCollect {
                 System.out.println("线程中断故障");
             }*/
             });
+
         }
         return true;
     }
 
 
     @Data
-    class Resource{
+   static class Resource{
         private String url;
         private String remark;
         private Double money;

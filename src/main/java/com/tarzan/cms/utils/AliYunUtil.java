@@ -4,8 +4,8 @@ import com.aliyun.oss.ClientException;
 import com.aliyun.oss.OSS;
 import com.aliyun.oss.OSSClientBuilder;
 import com.aliyun.oss.OSSException;
-import com.tarzan.cms.module.admin.vo.base.ResponseVo;
-import com.tarzan.cms.module.admin.vo.CloudStorageConfigVo;
+import com.tarzan.cms.modules.admin.vo.base.ResponseVo;
+import com.tarzan.cms.modules.admin.vo.CloudStorageConfigVo;
 import lombok.experimental.UtilityClass;
 import lombok.extern.slf4j.Slf4j;
 

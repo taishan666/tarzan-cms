@@ -1,7 +1,7 @@
 package com.tarzan.cms.utils;
 
-import com.tarzan.cms.module.admin.model.biz.Article;
-import com.tarzan.cms.module.admin.service.biz.ArticleService;
+import com.tarzan.cms.modules.admin.model.biz.Article;
+import com.tarzan.cms.modules.admin.service.biz.ArticleService;
 import lombok.AllArgsConstructor;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;

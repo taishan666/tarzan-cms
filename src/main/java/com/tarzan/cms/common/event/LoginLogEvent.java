@@ -1,6 +1,6 @@
 package com.tarzan.cms.common.event;
 
-import com.tarzan.cms.module.admin.model.log.LoginLog;
+import com.tarzan.cms.modules.admin.model.log.LoginLog;
 import org.springframework.context.ApplicationEvent;
 
 /**

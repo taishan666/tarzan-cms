@@ -1,7 +1,7 @@
 package com.tarzan.cms.common.handle;
 
 import com.tarzan.cms.common.constant.CoreConst;
-import com.tarzan.cms.module.admin.service.common.CommonDataService;
+import com.tarzan.cms.modules.admin.service.common.CommonDataService;
 import com.tarzan.cms.utils.StringUtil;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;

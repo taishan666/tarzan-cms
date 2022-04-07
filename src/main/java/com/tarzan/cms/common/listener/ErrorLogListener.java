@@ -1,8 +1,8 @@
 package com.tarzan.cms.common.listener;
 
 import com.tarzan.cms.common.event.ErrorLogEvent;
-import com.tarzan.cms.module.admin.model.log.LogError;
-import com.tarzan.cms.module.admin.service.log.LogErrorService;
+import com.tarzan.cms.modules.admin.model.log.LogError;
+import com.tarzan.cms.modules.admin.service.log.LogErrorService;
 import com.tarzan.cms.utils.AuthUtil;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

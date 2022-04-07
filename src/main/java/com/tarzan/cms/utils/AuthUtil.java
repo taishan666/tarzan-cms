@@ -1,6 +1,6 @@
 package com.tarzan.cms.utils;
 
-import com.tarzan.cms.module.admin.model.sys.User;
+import com.tarzan.cms.modules.admin.model.sys.User;
 import org.apache.shiro.SecurityUtils;
 
 public class AuthUtil {

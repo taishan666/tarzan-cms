@@ -2,10 +2,10 @@ package com.tarzan.cms.shiro;
 
 import com.baomidou.mybatisplus.core.toolkit.CollectionUtils;
 import com.tarzan.cms.common.constant.CoreConst;
-import com.tarzan.cms.module.admin.model.sys.User;
-import com.tarzan.cms.module.admin.service.sys.MenuService;
-import com.tarzan.cms.module.admin.service.sys.RoleService;
-import com.tarzan.cms.module.admin.service.sys.UserService;
+import com.tarzan.cms.modules.admin.model.sys.User;
+import com.tarzan.cms.modules.admin.service.sys.MenuService;
+import com.tarzan.cms.modules.admin.service.sys.RoleService;
+import com.tarzan.cms.modules.admin.service.sys.UserService;
 import com.tarzan.cms.shiro.redis.RedisSessionDAO;
 import com.tarzan.cms.utils.IpUtil;
 import org.apache.shiro.SecurityUtils;

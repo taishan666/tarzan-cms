@@ -4,6 +4,7 @@ import com.tarzan.cms.common.constant.CoreConst;
 import com.tarzan.cms.modules.admin.service.common.CommonDataService;
 import com.tarzan.cms.utils.StringUtil;
 import lombok.AllArgsConstructor;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.HandlerInterceptor;
@@ -17,6 +18,7 @@ import java.io.IOException;
  * @author tarzan liu
  */
 @Service
+@Component
 @AllArgsConstructor
 public class CommonDataHandler implements HandlerInterceptor {
 

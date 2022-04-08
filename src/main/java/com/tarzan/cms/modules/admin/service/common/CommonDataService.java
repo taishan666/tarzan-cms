@@ -10,7 +10,7 @@ import com.tarzan.cms.modules.admin.service.sys.SysConfigService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import java.util.Map;
 
@@ -22,7 +22,7 @@ import java.util.Map;
  * @date 2021年5月11日
  */
 @Slf4j
-@Component("commonDataService")
+@Service("commonDataService")
 @AllArgsConstructor
 public class CommonDataService {
 

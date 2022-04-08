@@ -8,6 +8,7 @@ import org.jsoup.select.Elements;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 /**
@@ -23,15 +24,18 @@ public class ResourceCollect {
     //网站地址
     private static String webUrl="https://download.csdn.net";
 
-    private static String userId="tangyang8942";
+    private static String userId="TIQCmatlab";
 
 
     public static void main(String[] args) {
         new ResourceCollect().collect();
         double money=0;
+        list.sort(Comparator.comparing(Resource::getDownloads));
         for (Resource resource : list) {
             money=money+(resource.getMoney()*resource.getDownloads());
+            System.out.println(resource);
         }
+        System.out.println("有收益的文件数："+list.size()+"个");
         System.out.println("收入总金额为："+money+"元");
         System.out.println("实际收入总金额为："+(money*0.6)+"元");
     }
@@ -101,7 +105,7 @@ public class ResourceCollect {
         }
         resource.setDownloads(Integer.valueOf(downloadstr));
         resource.setUploadTime(uploadTime.text());
-        System.out.println(resource);
+       // System.out.println(resource);
         list.add(resource);
         return resource;
     }

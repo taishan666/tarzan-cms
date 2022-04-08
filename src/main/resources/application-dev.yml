@@ -5,7 +5,6 @@ spring:
     #url: jdbc:mysql://localhost:3306/tarzan_cms?useUnicode=true&characterEncoding=UTF-8&useSSL=false&serverTimezone=GMT%2B8&allowPublicKeyRetrieval=true
     #username: tarzan
     #password: 123456
-    platform: h2
     driverClassName: org.h2.Driver
     url:  jdbc:h2:file:${user.home}/.tarzan-cms/db/cms
     username: root

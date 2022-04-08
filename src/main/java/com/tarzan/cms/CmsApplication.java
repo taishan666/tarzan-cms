@@ -11,6 +11,7 @@ import org.springframework.scheduling.annotation.EnableScheduling;
  */
 @EnableScheduling
 @SpringBootApplication
+//@MapperScan("com.tarzan.cms.modules.**.mapper")
 public class CmsApplication {
     public static void main(String[] args){
         SpringApplication.run(CmsApplication.class, args);

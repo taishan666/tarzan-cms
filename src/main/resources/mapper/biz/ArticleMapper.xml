@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 
-<mapper namespace="com.tarzan.cms.module.admin.mapper.biz.ArticleMapper">
+<mapper namespace="com.tarzan.cms.modules.admin.mapper.biz.ArticleMapper">
 	<resultMap id="rm" type="com.tarzan.cms.modules.admin.model.biz.Article">
 		<result property="id" jdbcType="INTEGER" column="id"/>
 		<result property="title" jdbcType="VARCHAR" column="title"/>

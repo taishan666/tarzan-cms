@@ -19,7 +19,7 @@ import springfox.documentation.spring.web.plugins.Docket;
 public class SwaggerConfig {
 
     @Bean
-    public Docket moduleDocket() { return docket("网站接口", "com.tarzan.cms.module.blog.controller"); }
+    public Docket moduleDocket() { return docket("网站接口", "com.tarzan.cms.modules.blog.controller"); }
 
 
     private Docket docket(String groupName, String basePackages) {

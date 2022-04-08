@@ -1,7 +1,7 @@
 package com.tarzan.cms.utils;
 
-import com.tarzan.cms.module.admin.vo.base.ResponseVo;
-import com.tarzan.cms.module.admin.vo.CloudStorageConfigVo;
+import com.tarzan.cms.modules.admin.vo.base.ResponseVo;
+import com.tarzan.cms.modules.admin.vo.CloudStorageConfigVo;
 import com.qiniu.common.QiniuException;
 import com.qiniu.http.Response;
 import com.qiniu.storage.BucketManager;

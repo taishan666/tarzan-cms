@@ -1,8 +1,8 @@
 package com.tarzan.cms.common.listener;
 
 import com.tarzan.cms.common.event.LoginLogEvent;
-import com.tarzan.cms.module.admin.model.log.LoginLog;
-import com.tarzan.cms.module.admin.service.log.LoginLogService;
+import com.tarzan.cms.modules.admin.model.log.LoginLog;
+import com.tarzan.cms.modules.admin.service.log.LoginLogService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.event.EventListener;

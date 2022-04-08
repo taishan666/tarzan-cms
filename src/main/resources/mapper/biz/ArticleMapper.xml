@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 
-<mapper namespace="com.tarzan.cms.module.admin.mapper.biz.ArticleMapper">
-	<resultMap id="rm" type="com.tarzan.cms.module.admin.model.biz.Article">
+<mapper namespace="com.tarzan.cms.modules.admin.mapper.biz.ArticleMapper">
+	<resultMap id="rm" type="com.tarzan.cms.modules.admin.model.biz.Article">
 		<result property="id" jdbcType="INTEGER" column="id"/>
 		<result property="title" jdbcType="VARCHAR" column="title"/>
 		<result property="userId" jdbcType="VARCHAR" column="user_id"/>
@@ -27,13 +27,13 @@
 		<result property="lookCount" jdbcType="INTEGER" column="look_count"/>
 		<result property="commentCount" jdbcType="INTEGER" column="comment_count"/>
 		<result property="loveCount" jdbcType="INTEGER" column="love_count"/>
-		<association property="bizCategory" javaType="com.tarzan.cms.module.admin.model.biz.Category">
+		<association property="bizCategory" javaType="com.tarzan.cms.modules.admin.model.biz.Category">
 			<result property="id" jdbcType="INTEGER" column="b_category_id"/>
 			<result property="name" jdbcType="VARCHAR" column="b_category_name"/>
 		</association>
 	</resultMap>
 
-	<select id="findByCondition" parameterType="com.tarzan.cms.module.admin.vo.ArticleConditionVo" resultMap="rm">
+	<select id="findByCondition" parameterType="com.tarzan.cms.modules.admin.vo.ArticleConditionVo" resultMap="rm">
 		SELECT
 		a.*,
 		category.id AS b_category_id,

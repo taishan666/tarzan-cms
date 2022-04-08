@@ -1,7 +1,7 @@
 package com.tarzan.cms.utils;
 
 import com.tarzan.cms.common.event.ErrorLogEvent;
-import com.tarzan.cms.module.admin.model.log.LogError;
+import com.tarzan.cms.modules.admin.model.log.LogError;
 import org.springframework.stereotype.Component;
 import org.thymeleaf.util.FastStringWriter;
 

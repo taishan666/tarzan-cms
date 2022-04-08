@@ -1,7 +1,7 @@
 package com.tarzan.cms.utils;
 
-import com.tarzan.cms.module.admin.vo.base.PageResultVo;
-import com.tarzan.cms.module.admin.vo.base.ResponseVo;
+import com.tarzan.cms.modules.admin.vo.base.PageResultVo;
+import com.tarzan.cms.modules.admin.vo.base.ResponseVo;
 import com.tarzan.cms.common.constant.CoreConst;
 import lombok.experimental.UtilityClass;
 

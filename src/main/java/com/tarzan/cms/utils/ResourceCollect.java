@@ -24,7 +24,7 @@ public class ResourceCollect {
     //网站地址
     private static String webUrl="https://download.csdn.net";
 
-    private static String userId="TIQCmatlab";
+    private static String userId="xiaolong1126626497";
 
 
     public static void main(String[] args) {

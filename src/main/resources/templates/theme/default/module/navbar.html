@@ -39,11 +39,11 @@
                     </a>
                 </li>
               <li>
-                  <form action="/blog" id="searchForm" class="navbar-form">
+                  <form action="/search" id="searchForm" class="navbar-form">
                       <div class="form-group">
                           <div class="input-group">
-                              <input type="search" name="keywords" th:value="@{${keywords}}" placeholder="搜索文章..." class="form-control">
-                              <span class="input-group-addon"><a href="#" onclick="document.getElementById('searchForm').submit();"><span class="glyphicon glyphicon-search"></span></a></span>
+                              <input type="search" id="search" name="keywords" th:value="@{${keywords}}" placeholder="搜索文章..." class="form-control">
+                              <span class="input-group-addon"><a href="#" onclick="searchBlog()"><span class="glyphicon glyphicon-search"></span></a></span>
                           </div>
                       </div>
                   </form>
@@ -52,3 +52,9 @@
         </div>
     </div>
 </nav>
+<script>
+    function searchBlog() {
+      var  keywords=document.getElementById('search').value;
+      window.location.href='/search/'+keywords;
+    }
+</script>

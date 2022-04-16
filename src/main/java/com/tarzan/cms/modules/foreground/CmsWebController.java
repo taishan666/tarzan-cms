@@ -11,11 +11,11 @@ import com.tarzan.cms.modules.admin.service.biz.CategoryService;
 import com.tarzan.cms.modules.admin.service.biz.ThemeService;
 import com.tarzan.cms.modules.admin.vo.ArticleConditionVo;
 import lombok.AllArgsConstructor;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
@@ -45,7 +45,7 @@ public class CmsWebController {
         if (CoreConst.SITE_STATIC.get()) {
             return "forward:/html/index/index.html";
         }
-        model.addAttribute("pageUrl", "blog/index");
+        model.addAttribute("pageUrl", "blog");
         model.addAttribute("categoryId", "index");
         loadMainPage(model,new ArticleConditionVo());
         return bizThemeService.getTheme() + "/index";
@@ -54,11 +54,33 @@ public class CmsWebController {
     /**
      * 搜索列表
      *
-     * @param keywords
+     * @param pageNumber
      * @return
      */
     @GetMapping({"/blog","/blog/{pageNumber}"})
-    public String list(@RequestParam(value = "keywords",required = false) String keywords,
+    public String list(@PathVariable(value = "pageNumber", required = false) Integer pageNumber,
+                       Model model) {
+        if (CoreConst.SITE_STATIC.get()) {
+            return "forward:/html/index/blog.html";
+        }
+        ArticleConditionVo vo = new ArticleConditionVo();
+        if(null!=pageNumber){
+            vo.setPageNumber(pageNumber);
+        }
+        model.addAttribute("pageUrl", "blog");
+        loadMainPage(model, vo);
+        return bizThemeService.getTheme() + "/blog";
+    }
+
+
+    /**
+     * 搜索列表
+     *
+     * @param keywords
+     * @return
+     */
+    @GetMapping({"/search/{keywords}","/search/{keywords}/{pageNumber}"})
+    public String search(@PathVariable(value = "keywords",required = false) String keywords,
                        @PathVariable(value = "pageNumber", required = false) Integer pageNumber,
                        Model model) {
         if (CoreConst.SITE_STATIC.get()) {
@@ -69,12 +91,15 @@ public class CmsWebController {
         if(null!=pageNumber){
             vo.setPageNumber(pageNumber);
         }
-        model.addAttribute("pageUrl", "blog/list/" + keywords);
+        if(StringUtils.isNotBlank(keywords)){
+            model.addAttribute("pageUrl", "blog/"+keywords );
+        }else{
+            model.addAttribute("pageUrl", "blog");
+        }
         model.addAttribute("keywords", keywords);
         loadMainPage(model, vo);
         return bizThemeService.getTheme() + "/search";
     }
-
 
 
     /**

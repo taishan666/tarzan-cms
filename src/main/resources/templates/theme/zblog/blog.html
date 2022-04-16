@@ -70,10 +70,10 @@
 		        <div class="inner">
 					<div class="other-item" id="categoryandsearch">
 			    		<div class="search">
-							<form action="/blog" id="searchForm">
+							<form action="/search" id="searchForm">
 					        <label class="search-wrap">
-					            <input type="text"  name="keywords" th:value="@{${keywords}}"  placeholder="输入关键字搜索" />
-								<a href="#" onclick="document.getElementById('searchForm').submit();">
+					            <input type="text"  id="search" name="keywords" th:value="@{${keywords}}"  placeholder="输入关键字搜索" />
+								<a href="#" onclick="searchBlog()">
 					            <span class="search-icon">
 					                <i class="fa fa-search"></i>
 					            </span>
@@ -139,6 +139,10 @@
         window.onload = function () {
             NProgress.done();
         };
+		function searchBlog() {
+			var  keywords=document.getElementById('search').value;
+			window.location.href='/search/'+keywords;
+		}
     </script>
 </body>
 </html>

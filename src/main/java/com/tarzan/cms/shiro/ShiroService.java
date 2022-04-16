@@ -44,6 +44,7 @@ public class ShiroService {
         filterChainDefinitionMap.put("/", "anon");
         filterChainDefinitionMap.put("/index", "anon");
         filterChainDefinitionMap.put("/blog/**", "anon");
+        filterChainDefinitionMap.put("/search/**", "anon");
         filterChainDefinitionMap.put("/link", "anon");
         filterChainDefinitionMap.put("/feedback", "anon");
         filterChainDefinitionMap.put("/diary", "anon");

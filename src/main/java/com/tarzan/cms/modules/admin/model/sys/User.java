@@ -44,6 +44,10 @@ public class User implements Serializable {
      */
     private String nickname;
     /**
+     *  真实姓名
+     */
+    private String realName;
+    /**
      * 邮箱
      */
     private String email;
@@ -66,7 +70,7 @@ public class User implements Serializable {
     /**
      * 头像
      */
-    private String img;
+    private String avatar;
 
     /**
      * 用户状态：1有效; 0无效

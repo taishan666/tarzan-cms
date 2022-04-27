@@ -91,7 +91,7 @@ public class CommentService extends ServiceImpl<CommentMapper, Comment> {
         comment.setUserId(user.getId());
         comment.setNickname(user.getNickname());
         comment.setEmail(user.getEmail());
-        comment.setAvatar(user.getImg());
+        comment.setAvatar(user.getAvatar());
         comment.setIp(IpUtil.getIpAddr(request));
         comment.setStatus(CoreConst.STATUS_VALID);
         return insertComment(comment);

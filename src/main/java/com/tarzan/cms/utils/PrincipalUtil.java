@@ -3,7 +3,7 @@ package com.tarzan.cms.utils;
 import com.tarzan.cms.modules.admin.model.sys.User;
 import org.apache.shiro.SecurityUtils;
 
-public class AuthUtil {
+public class PrincipalUtil {
 
     public  static User  getUser(){
         return  (User) SecurityUtils.getSubject().getPrincipal();

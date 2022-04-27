@@ -3,7 +3,7 @@ package com.tarzan.cms.common.listener;
 import com.tarzan.cms.common.event.ErrorLogEvent;
 import com.tarzan.cms.modules.admin.model.log.LogError;
 import com.tarzan.cms.modules.admin.service.log.LogErrorService;
-import com.tarzan.cms.utils.AuthUtil;
+import com.tarzan.cms.utils.PrincipalUtil;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.event.EventListener;
@@ -25,7 +25,7 @@ public class ErrorLogListener {
     @EventListener({ErrorLogEvent.class})
     public void saveErrorLog(ErrorLogEvent event) {
         LogError logError  = (LogError)event.getSource();
-        logError.setCreateName(AuthUtil.getUsername());
+        logError.setCreateName(PrincipalUtil.getUsername());
         logError.setCreateTime(new Date());
         logErrorService.save(logError);
     }

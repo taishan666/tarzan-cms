@@ -24,7 +24,7 @@ public class ResourceCollect {
     //网站地址
     private static String webUrl="https://download.csdn.net";
 
-    private static String userId="xiaolong1126626497";
+    private static String userId="weixin_40228600  ";
 
 
     public static void main(String[] args) {

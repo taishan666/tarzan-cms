@@ -6,6 +6,10 @@ import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.tarzan.cms.auth.cache.SystemCache;
+import com.tarzan.cms.auth.constant.AppConstant;
+import com.tarzan.cms.auth.model.UserInfo;
+import com.tarzan.cms.auth.model.UserOauth;
 import com.tarzan.cms.common.constant.CoreConst;
 import com.tarzan.cms.modules.admin.mapper.sys.UserMapper;
 import com.tarzan.cms.modules.admin.mapper.sys.UserRoleMapper;
@@ -14,6 +18,7 @@ import com.tarzan.cms.modules.admin.model.sys.UserRole;
 import com.tarzan.cms.modules.admin.vo.UserOnlineVo;
 import com.tarzan.cms.shiro.redis.RedisCacheManager;
 import com.tarzan.cms.shiro.redis.RedisSessionDAO;
+import com.tarzan.cms.utils.Func;
 import lombok.AllArgsConstructor;
 import org.apache.shiro.cache.Cache;
 import org.apache.shiro.session.Session;
@@ -186,6 +191,58 @@ public class UserService extends ServiceImpl<UserMapper, User> {
 
     private Session getSessionBySessionId(Serializable sessionId) {
         return sessionManager.getSession(new DefaultSessionKey(sessionId));
+    }
+
+
+    public UserInfo userInfo(Long userId) {
+        User user = SystemCache.getUser(userId);
+        return buildUserInfo(user);
+    }
+
+    public UserInfo userInfo(String tenantId, String account, String password) {
+        Collection<User> users= SystemCache.getAllUser();
+        User user = users.stream()
+                .filter(e -> Func.equals(0l, tenantId) && (Func.equals(e.getUsername(), account)||Func.equals(e.getPhone(), account)) &&Func.equals(e.getPassword(), password) && Func.equals(e.getStatus(), AppConstant.YES))
+                .findFirst().orElse(null);
+        if (Objects.isNull(user)) {
+            return null;
+        }
+        return buildUserInfo(user);
+    }
+
+    @Transactional(rollbackFor = Exception.class)
+    public UserInfo userInfo(UserOauth userOauth) {
+     //   UserOauth uo = userOauthService.getOne(Wrappers.<UserOauth>query().lambda().eq(UserOauth::getUuid, userOauth.getUuid()).eq(UserOauth::getSource, userOauth.getSource()));
+        UserInfo userInfo = new UserInfo();
+/*        if (Func.isNotEmpty(uo) && Func.isNotEmpty(uo.getUserId())) {
+            userInfo = this.userInfo(uo.getUserId());
+            userInfo.setOauthId(Func.toStr(uo.getId()));
+        } else {
+            userInfo = new UserInfo();
+            if (Func.isEmpty(uo)) {
+                userOauthService.save(userOauth);
+                userInfo.setOauthId(Func.toStr(userOauth.getId()));
+            } else {
+                userInfo.setOauthId(Func.toStr(uo.getId()));
+            }
+            User user = new User();
+            user.setAccount(userOauth.getUsername());
+            userInfo.setUser(user);
+        }*/
+        return userInfo;
+    }
+
+    /**
+     * 方法描述: 构建用户信息
+     *
+     * @param user
+     * @Return {@link UserInfo}
+     * @throws
+     */
+    private UserInfo buildUserInfo(User user) {
+        UserInfo userInfo = new UserInfo();
+        userInfo.setUser(user);
+        return userInfo;
     }
 
 

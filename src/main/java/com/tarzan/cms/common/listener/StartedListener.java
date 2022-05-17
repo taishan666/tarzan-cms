@@ -1,9 +1,11 @@
 package com.tarzan.cms.common.listener;
 
 import com.tarzan.cms.common.props.CmsProperties;
+import com.tarzan.cms.shiro.ShiroService;
 import com.tarzan.cms.utils.AppInstallTools;
 import com.tarzan.cms.utils.ArticleCollect;
 import com.tarzan.cms.utils.FileUtil;
+import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.context.event.ApplicationStartedEvent;
 import org.springframework.context.ApplicationListener;
@@ -32,22 +34,20 @@ import java.util.Collections;
  */
 @Slf4j
 @Component
+@AllArgsConstructor
 @Order(Ordered.HIGHEST_PRECEDENCE)
 public class StartedListener implements ApplicationListener<ApplicationStartedEvent> {
 
-    @Resource
-    private ArticleCollect articleCollect;
-
-    @Resource
-    private AppInstallTools appInstallTools;
-
-    @Resource
-    private CmsProperties cmsProperties;
+    private final ArticleCollect articleCollect;
+    private final AppInstallTools appInstallTools;
+    private final CmsProperties cmsProperties;
+    private final ShiroService shiroService;
 
     @Override
     public void onApplicationEvent(ApplicationStartedEvent event) {
         initThemes();
         appInstallTools.install();
+        shiroService.updatePermission();
         printStartInfo(event);
       //  articleCollect.collect();
     }

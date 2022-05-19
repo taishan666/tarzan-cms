@@ -113,6 +113,7 @@ public class ArticleController {
 
     @PostMapping("/edit")
     @ResponseBody
+    @Transactional
     @CacheEvict(value = "article", allEntries = true)
     public ResponseVo edit(Article article,@RequestParam(value = "tagIds",required = false) List<Integer> tagIds) {
         articleService.updateById(article);

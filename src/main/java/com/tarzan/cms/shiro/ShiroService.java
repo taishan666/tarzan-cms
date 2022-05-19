@@ -11,9 +11,9 @@ import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
 import org.apache.shiro.web.filter.mgt.DefaultFilterChainManager;
 import org.apache.shiro.web.filter.mgt.PathMatchingFilterChainResolver;
 import org.apache.shiro.web.servlet.AbstractShiroFilter;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.stereotype.Service;
 
-import javax.annotation.PostConstruct;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -76,6 +76,7 @@ public class ShiroService {
     /**
      * 重新加载权限
      */
+    @CacheEvict(value = "menu", allEntries = true)
     public void updatePermission() {
         synchronized (shiroFilterFactoryBean) {
             AbstractShiroFilter shiroFilter;

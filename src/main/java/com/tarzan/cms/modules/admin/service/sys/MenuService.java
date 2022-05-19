@@ -8,6 +8,7 @@ import com.tarzan.cms.modules.admin.mapper.sys.MenuMapper;
 import com.tarzan.cms.modules.admin.model.sys.Menu;
 import lombok.AllArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
@@ -63,9 +64,11 @@ public class MenuService extends ServiceImpl<MenuMapper, Menu> {
         return baseMapper.selectMenuByUserId(userId);
     }
 
+    @Cacheable(value = "menu", key = "#userId")
     public List<Menu> selectMenuTreeByUserId(Integer userId) {
-        return buildPermissionTree(baseMapper.selectMenuByUserId(userId));
+        return buildPermissionTree(selectMenuByUserId(userId));
     }
+
 
     public boolean insert(Menu Menu) {
         Date date = new Date();

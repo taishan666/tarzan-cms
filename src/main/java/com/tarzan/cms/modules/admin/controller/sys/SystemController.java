@@ -23,6 +23,7 @@ import org.apache.commons.collections.CollectionUtils;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.*;
 import org.apache.shiro.subject.Subject;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
@@ -171,23 +172,34 @@ public class SystemController {
             token.clear();
             return ResultUtil.error("用户名或者密码错误！");
         }
-        //更新最后登录时间
-        User user=(User) SecurityUtils.getSubject().getPrincipal();
-        userService.updateLastLoginTime(user);
-        //异步保存登录日志
-        String userType= request.getHeader(CoreConst.USER_TYPE_HEADER_KEY)==null?UserEnum.WEB.getName():request.getHeader(CoreConst.USER_TYPE_HEADER_KEY);
-        saveLoginLog(userType,user);
+        //后续处理
+        loginProcess(request);
         return ResultUtil.success("登录成功！");
     }
 
 
     /**
-     * 保存日志
+     * 更新最后登录时间
      *
      * @param userInfo
      * @return
      */
-    private void saveLoginLog(String userType,User userInfo) {
+    @Async
+    public void loginProcess(HttpServletRequest request) {
+        User user=(User) SecurityUtils.getSubject().getPrincipal();
+        userService.updateLastLoginTime(user);
+        String userType= request.getHeader(CoreConst.USER_TYPE_HEADER_KEY)==null?UserEnum.WEB.getName():request.getHeader(CoreConst.USER_TYPE_HEADER_KEY);
+        saveLoginLog(userType,user);
+    }
+    /**
+     * 保存日志
+     *
+     * @param userType
+     * @param userInfo
+     * @return
+     */
+    @Async
+    public void saveLoginLog(String userType,User userInfo) {
         Date now = new Date();
         LoginLog loginLog = new LoginLog();
         loginLog.setCreateTime(now);

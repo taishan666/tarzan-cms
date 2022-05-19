@@ -9,6 +9,7 @@ import com.tarzan.cms.modules.admin.vo.base.ResponseVo;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -62,6 +63,7 @@ public class MenuController {
     /*添加权限*/
     @ResponseBody
     @PostMapping("/add")
+    @CacheEvict(value = "menu", allEntries = true)
     public ResponseVo addMenu(Menu menu) {
         try {
             boolean flag = menuService.insert(menu);
@@ -80,6 +82,7 @@ public class MenuController {
     /*删除权限*/
     @ResponseBody
     @PostMapping("/delete")
+    @CacheEvict(value = "menu", allEntries = true)
     public ResponseVo deleteMenu(Integer id) {
         try {
             int subPermsByPermissionIdCount = menuService.selectSubPermsByPermissionId(id);
@@ -125,6 +128,7 @@ public class MenuController {
     /*编辑权限*/
     @ResponseBody
     @PostMapping("/edit")
+    @CacheEvict(value = "menu", allEntries = true)
     public ResponseVo editMenu(@ModelAttribute("menu") Menu Menu) {
         boolean flag = menuService.updateById(Menu);
         if (flag) {

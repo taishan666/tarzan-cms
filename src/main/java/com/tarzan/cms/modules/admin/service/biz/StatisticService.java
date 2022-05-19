@@ -4,6 +4,10 @@ import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.tarzan.cms.modules.admin.model.biz.ArticleLook;
 import com.tarzan.cms.modules.admin.vo.StatisticVo;
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -17,6 +21,7 @@ import java.util.Map;
  */
 @Service
 @AllArgsConstructor
+@Slf4j
 public class StatisticService {
 
     private final ArticleService articleService;
@@ -34,4 +39,5 @@ public class StatisticService {
         Map<String, Long> userCountByDay = articleLookService.usersByDay(recentDays);
         return StatisticVo.builder().articleCount(articleCount).commentCount(commentCount).lookCount(lookCount).userCount(userCount).lookCountByDay(lookCountByDay).userCountByDay(userCountByDay).build();
     }
+
 }

@@ -179,9 +179,9 @@ public class SystemController {
 
 
     /**
-     * 更新最后登录时间
+     * 后续处理
      *
-     * @param userInfo
+     * @param request
      * @return
      */
     @Async

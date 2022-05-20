@@ -56,6 +56,7 @@ cms:
   embedded-redis-enabled: true
   embedded-redis-port: 6379
   embedded-redis-password: 666666
+  preview-enabled: true
 
 social:
   enabled: true

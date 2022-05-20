@@ -13,4 +13,5 @@ public class CmsProperties {
     private Boolean embeddedRedisEnabled=true;
     private Integer embeddedRedisPort=6379;
     private String embeddedRedisPassword="123456";
+    private Boolean previewEnabled=false;
 }

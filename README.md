@@ -32,6 +32,11 @@
 https://www.oracle.com/java/technologies/javase/javase8-archive-downloads.html
 推荐使用 jdk8或者jdk11
 
+linux快速安装jdk11
+```
+yum install -y java-11-openjdk.x86_64 
+```
+
 #### 快速开始
  **Fat Jar** 
 下载最新的 tarzan-cms 运行包：

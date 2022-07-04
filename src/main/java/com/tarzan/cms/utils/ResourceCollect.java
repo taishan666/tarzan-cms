@@ -24,7 +24,7 @@ public class ResourceCollect {
     //网站地址
     private static String webUrl="https://download.csdn.net";
 
-    private static String userId="weixin_40986713";
+    private static String userId="ncusz";
 
 
     public static void main(String[] args) {
@@ -94,7 +94,7 @@ public class ResourceCollect {
         }
         Element views = elements.get(0+index);
         Element downloads = elements.get(1+index);
-        Element uploadTime = elements.get(4+index);
+        Element uploadTime = elements.get(3+index);
         resource.setUrl(url);
         resource.setMoney(Double.valueOf(money));
         resource.setViews(views.text());

@@ -68,7 +68,7 @@ docker run -it -d --name tarzan-cms -p 8080:8080 -v ~/.tarzan-cms:/root/.tarzan-
 
 **后台地址：**
 
-[http://82.157.61.108](http://http://82.157.61.108/admin)
+[http://82.157.61.108/admin](http://82.157.61.108/system/login)
 
 
 账号：admin 密码： 123456

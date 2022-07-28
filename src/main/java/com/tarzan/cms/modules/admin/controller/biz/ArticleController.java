@@ -70,7 +70,7 @@ public class ArticleController {
         List<Tags> tags = tagsService.list();
         model.addAttribute("categories", bizCategories);
         model.addAttribute("tags", tags);
-        Article bizArticle = new Article().setOriginal(1).setSlider(0).setTop(0).setRecommended(0).setComment(1);
+        Article bizArticle = new Article().setTags(new ArrayList<>()).setOriginal(1).setSlider(0).setTop(0).setRecommended(0).setComment(1);
         model.addAttribute("article", bizArticle);
         return CoreConst.ADMIN_PREFIX + "article/publish";
     }

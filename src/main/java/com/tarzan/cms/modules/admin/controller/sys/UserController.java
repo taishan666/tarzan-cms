@@ -10,6 +10,7 @@ import com.tarzan.cms.modules.admin.service.sys.UserService;
 import com.tarzan.cms.modules.admin.vo.base.PageResultVo;
 import com.tarzan.cms.modules.admin.vo.base.ResponseVo;
 import com.tarzan.cms.shiro.MyShiroRealm;
+import com.tarzan.cms.utils.AuthUtil;
 import com.tarzan.cms.utils.PasswordHelper;
 import com.tarzan.cms.utils.ResultUtil;
 import lombok.AllArgsConstructor;
@@ -115,6 +116,9 @@ public class UserController {
     @PostMapping("/delete")
     @ResponseBody
     public ResponseVo deleteUser(Integer id) {
+        if(id== AuthUtil.getUserId()){
+            return ResultUtil.error("当前使用用户不能删除！");
+        }
         return batchDeleteUser(Arrays.asList(id));
     }
 
@@ -124,6 +128,9 @@ public class UserController {
     @PostMapping("/batch/delete")
     @ResponseBody
     public ResponseVo batchDeleteUser(@RequestBody List<Integer> ids) {
+        if(ids.contains(AuthUtil.getUserId())){
+            return ResultUtil.error("当前使用用户不能删除！");
+        }
         boolean a = userService.updateStatusBatch(ids, CoreConst.STATUS_INVALID);
         if (a) {
             return ResultUtil.success("删除用户成功");

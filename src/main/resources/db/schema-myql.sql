@@ -572,7 +572,6 @@ CREATE TABLE  IF NOT EXISTS `sys_user`  (
 -- ----------------------------
 -- Records of sys_user
 -- ----------------------------
-INSERT INTO `sys_user` VALUES (1, 'tarzan.liu', '413e0e49ffd14c6d1321809cade277ec', '0317ad1889be46fc9642e8d20a83b46b', '管理员', NULL, NULL, NULL, NULL, NULL, 1, NULL, NULL, '2021-05-18 15:47:29');
 
 -- ----------------------------
 -- Table structure for sys_user_role

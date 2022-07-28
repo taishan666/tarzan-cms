@@ -1031,10 +1031,6 @@ CREATE TABLE IF NOT EXISTS `sys_user` (
                                             `update_time` datetime(0) NULL DEFAULT NULL COMMENT '更新时间',
                                             `last_login_time` datetime(0) NULL DEFAULT NULL COMMENT '最后登录时间'
     );
-INSERT INTO `sys_user`
-VALUES (1, 'tarzan.liu', '413e0e49ffd14c6d1321809cade277ec', '0317ad1889be46fc9642e8d20a83b46b', '管理员'
-       , NULL, NULL, NULL, NULL, NULL
-       , 1, NULL, NULL, '2021-05-18 15:47:29');
 DROP TABLE IF EXISTS `sys_user_role`;
 CREATE TABLE IF NOT EXISTS `sys_user_role` (
                                                `id` int NOT NULL AUTO_INCREMENT COMMENT '主键',

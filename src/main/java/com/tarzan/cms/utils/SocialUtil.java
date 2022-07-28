@@ -36,7 +36,7 @@ public class SocialUtil {
                     authRequest = new AuthWeChatOpenRequest(authConfig);
                     break;
                 case WECHAT_ENTERPRISE:
-                    authRequest = new AuthWeChatEnterpriseRequest(authConfig);
+                    authRequest = new AuthWeChatEnterpriseWebRequest(authConfig);
                     break;
                 case WECHAT_MP:
                     authRequest = new AuthWeChatMpRequest(authConfig);

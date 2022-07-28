@@ -79,7 +79,7 @@ public class MenuService extends ServiceImpl<MenuMapper, Menu> {
         return baseMapper.updateById(new Menu().setId(id).setStatus(status));
     }
 
-    public int selectSubPermsByPermissionId(Integer id) {
+    public long selectSubPermsByPermissionId(Integer id) {
         return baseMapper.selectCount(Wrappers.lambdaQuery(new Menu().setParentId(id).setStatus(1)));
     }
 }

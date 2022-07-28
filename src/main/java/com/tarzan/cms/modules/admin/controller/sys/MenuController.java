@@ -82,7 +82,7 @@ public class MenuController {
     @PostMapping("/delete")
     public ResponseVo deleteMenu(Integer id) {
         try {
-            int subPermsByPermissionIdCount = menuService.selectSubPermsByPermissionId(id);
+            long subPermsByPermissionIdCount = menuService.selectSubPermsByPermissionId(id);
             if (subPermsByPermissionIdCount > 0) {
                 return ResultUtil.error("改资源存在下级资源，无法删除！");
             }

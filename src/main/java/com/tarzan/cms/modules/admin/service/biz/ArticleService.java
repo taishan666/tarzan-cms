@@ -71,7 +71,7 @@ public class ArticleService extends ServiceImpl<ArticleMapper, Article> {
     }
 
     @Cacheable(value = "article", key = "'count'")
-    public int count() {
+    public long count() {
         return count(Wrappers.<Article>lambdaQuery().eq(Article::getStatus, CoreConst.STATUS_VALID));
     }
 

@@ -25,7 +25,7 @@ public class CategoryService extends ServiceImpl<CategoryMapper, Category> {
     }
 
     @Cacheable(value = "category", key = "'count'")
-    public int count() {
+    public long count() {
         return count(Wrappers.<Category>lambdaQuery().eq(Category::getStatus, CoreConst.STATUS_VALID));
     }
 

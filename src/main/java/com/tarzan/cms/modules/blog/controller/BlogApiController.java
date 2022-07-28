@@ -88,7 +88,7 @@ public class BlogApiController {
         /*浏览次数*/
         Date date = new Date();
         String ip = IpUtil.getIpAddr(request);
-        int checkCount = articleLookService.checkArticleLook(articleId, ip, DateUtil.addHours(date, -1));
+        long checkCount = articleLookService.checkArticleLook(articleId, ip, DateUtil.addHours(date, -1));
         if (checkCount == 0) {
             ArticleLook articleLook = new ArticleLook();
             articleLook.setArticleId(articleId);

@@ -36,7 +36,7 @@ public class ArticleLookService extends ServiceImpl<ArticleLookMapper, ArticleLo
     }
 
 
-    public int checkArticleLook(Integer articleId, String userIp, Date lookTime) {
+    public long checkArticleLook(Integer articleId, String userIp, Date lookTime) {
         return count(Wrappers.lambdaQuery(new ArticleLook().setArticleId(articleId).setUserIp(userIp).setLookTime(lookTime)));
     }
 

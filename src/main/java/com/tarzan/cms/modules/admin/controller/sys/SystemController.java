@@ -107,6 +107,7 @@ public class SystemController {
         UserRole userRole=new UserRole();
         userRole.setUserId(registerUser.getId());
         userRole.setRoleId(CoreConst.ADMINISTRATOR_ID);
+        userRoleMapper.insert(userRole);
         if(flag){
             return ResultUtil.success("注册成功！");
         }else {

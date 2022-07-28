@@ -38,7 +38,7 @@ public class Article extends BaseVo {
     private String description;
     private String keywords;
     //是否开启评论
-    private Long comment;
+    private Integer comment;
     @TableField(exist = false)
     private Long lookCount = 0L;
     @TableField(exist = false)

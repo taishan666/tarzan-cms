@@ -34,7 +34,7 @@ public class LogErrorController {
     @ResponseBody
     public PageResultVo list(LogError param, Integer pageNumber, Integer pageSize) {
         IPage<LogError> page = new Page<>(pageNumber, pageSize);
-        LambdaQueryWrapper<LogError>  wrapper= Wrappers.lambdaQuery();
+        LambdaQueryWrapper<LogError>  wrapper= Wrappers.lambdaQuery(param);
         wrapper.orderByDesc(LogError::getCreateTime);
         IPage<LogError> LoginLogPage = logErrorService.page(page, wrapper);
         return ResultUtil.table(LoginLogPage.getRecords(), LoginLogPage.getTotal());

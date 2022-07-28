@@ -84,7 +84,7 @@ public class ArticleService extends ServiceImpl<ArticleMapper, Article> {
         long loveNum=loveService.count(Wrappers.<Love>lambdaQuery().eq(Love::getBizId,id).eq(Love::getBizType,1));
         article.setLoveCount(loveNum);
         long commentNum= commentService.count(Wrappers.<Comment>lambdaQuery().eq(Comment::getSid,id));
-        article.setComment(commentNum);
+        article.setCommentCount(commentNum);
         return article;
     }
 

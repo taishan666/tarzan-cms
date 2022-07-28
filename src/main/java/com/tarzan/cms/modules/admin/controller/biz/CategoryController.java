@@ -34,12 +34,7 @@ public class CategoryController {
 
     @PostMapping("list")
     @ResponseBody
-    public List<Category> loadCategory(boolean isFistLevel) {
-/*        Category bizCategory = new Category();
-        bizCategory.setStatus(CoreConst.STATUS_VALID);
-        if (isFistLevel) {
-            bizCategory.setPid(CoreConst.TOP_MENU_ID);
-        }*/
+    public List<Category> loadCategory() {
         return categoryService.selectCategories(CoreConst.STATUS_VALID);
     }
 

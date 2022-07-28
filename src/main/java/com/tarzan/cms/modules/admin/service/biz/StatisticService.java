@@ -1,5 +1,6 @@
 package com.tarzan.cms.modules.admin.service.biz;
 
+import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.tarzan.cms.modules.admin.model.biz.ArticleLook;
 import com.tarzan.cms.modules.admin.vo.StatisticVo;
@@ -7,7 +8,6 @@ import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
-import org.springframework.util.StringUtils;
 
 import java.util.List;
 import java.util.Map;
@@ -33,7 +33,7 @@ public class StatisticService {
 
 
     public StatisticVo indexStatistic() {
-        return   getData("statistic", () -> getStatistic());
+        return   getData("statistic",this::getStatistic);
     }
 
     private StatisticVo getStatistic() {

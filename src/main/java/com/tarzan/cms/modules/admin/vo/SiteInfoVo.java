@@ -5,9 +5,9 @@ import lombok.Data;
 @Data
 public class SiteInfoVo {
 
-    private Integer articleCount;
-    private Integer tagCount;
-    private Integer categoryCount;
-    private Integer commentCount;
+    private Long articleCount;
+    private Long tagCount;
+    private Long categoryCount;
+    private Long commentCount;
 
 }

@@ -43,18 +43,18 @@ public class StaticHtmlService {
     private final CommonDataService commonDataService;
 
     public void makeStaticSite(HttpServletRequest request, HttpServletResponse response, Boolean force) {
-        createIndexHtml(request, response, true);
-        createArticleHtml(request, response, true);
-        createCategoryHtml(request, response, true);
-        createTagHtml(request, response, true);
-        createCommentHtml(request, response, true);
+        createIndexHtml(request, response, force);
+        createArticleHtml(request, response, force);
+        createCategoryHtml(request, response, force);
+        createTagHtml(request, response, force);
+        createCommentHtml(request, response, force);
     }
 
     public void createIndexHtml(HttpServletRequest request, HttpServletResponse response, Boolean force) {
         List<Article> sliderList = bizArticleService.sliderList();
         ArticleConditionVo vo = new ArticleConditionVo();
         vo.setStatus(CoreConst.STATUS_VALID);
-        int total = bizArticleService.count(Wrappers.<Article>lambdaQuery().eq(Article::getStatus, CoreConst.STATUS_VALID));
+        long total = bizArticleService.count(Wrappers.<Article>lambdaQuery().eq(Article::getStatus, CoreConst.STATUS_VALID));
         if (total == 0) {
             Map<String, Object> paramMap = ImmutableMap.of("pageUrl", "blog/index", "categoryId", "index", "sliderList", sliderList, "page", new Page<>(1, 10), "articleList", Collections.emptyList());
             createHtml(request, response, force, paramMap, "index", "index");
@@ -94,7 +94,7 @@ public class StaticHtmlService {
             vo.setStatus(CoreConst.STATUS_VALID);
             vo.setCategoryId(category.getId());
 
-            int total = bizArticleService.count(Wrappers.<Article>lambdaQuery().eq(Article::getCategoryId, category.getId()).eq(Article::getStatus, CoreConst.STATUS_VALID));
+            long total = bizArticleService.count(Wrappers.<Article>lambdaQuery().eq(Article::getCategoryId, category.getId()).eq(Article::getStatus, CoreConst.STATUS_VALID));
             if (total == 0) {
                 Map<String, Object> paramMap = ImmutableMap.of("pageUrl", "blog/category/" + category.getId(), "categoryId", category.getId(), "categoryName", category.getName(), "articleList", Collections.emptyList());
                 createHtml(request, response, force, paramMap, "index", "category" + File.separator + category.getId());
@@ -121,7 +121,7 @@ public class StaticHtmlService {
             ArticleConditionVo vo = new ArticleConditionVo();
             vo.setTagId(tag.getId());
 
-            int total = bizArticleTagsService.count(Wrappers.<ArticleTags>lambdaQuery().eq(ArticleTags::getTagId, tag.getId()));
+            long total = bizArticleTagsService.count(Wrappers.<ArticleTags>lambdaQuery().eq(ArticleTags::getTagId, tag.getId()));
             if (total == 0) {
                 Map<String, Object> paramMap = ImmutableMap.of("pageUrl", "blog/tag/" + tag.getId(), "articleList", Collections.emptyList());
                 createHtml(request, response, force, paramMap, "index", "tag" + File.separator + tag.getId());

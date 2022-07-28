@@ -43,7 +43,7 @@ public class RoleService extends ServiceImpl<RoleMapper, Role> {
         if(CollectionUtils.isEmpty(list)){
             return null;
         }
-        Set<Integer> roleIds= list.stream().map(e->e.getRoleId()).collect(Collectors.toSet());
+        Set<Integer> roleIds= list.stream().map(UserRole::getRoleId).collect(Collectors.toSet());
         Map<Integer,List<UserRole>> map= list.stream().collect(Collectors.groupingBy(UserRole::getUserId));
         if(CollectionUtils.isEmpty(roleIds)){
             return null;

@@ -66,11 +66,11 @@ public class ArticleController {
     /*文章*/
     @GetMapping("/add")
     public String addArticle(Model model) {
-        List<Category> bizCategories = categoryService.selectCategories(new Category().setStatus(CoreConst.STATUS_VALID));
+        List<Category> bizCategories = categoryService.selectCategories(CoreConst.STATUS_VALID);
         List<Tags> tags = tagsService.list();
         model.addAttribute("categories", bizCategories);
         model.addAttribute("tags", tags);
-        Article bizArticle = new Article().setTags(new ArrayList<>()).setOriginal(1).setSlider(0).setTop(0).setRecommended(0).setComment(1);
+        Article bizArticle = new Article().setTags(new ArrayList<>()).setOriginal(1).setSlider(0).setTop(0).setRecommended(0).setComment(1L);
         model.addAttribute("article", bizArticle);
         return CoreConst.ADMIN_PREFIX + "article/publish";
     }
@@ -96,7 +96,7 @@ public class ArticleController {
     @GetMapping("/edit")
     public String edit(Model model, Integer id) {
         Article bizArticle = articleService.selectById(id);
-        List<Category> bizCategories = categoryService.selectCategories(new Category().setStatus(CoreConst.STATUS_VALID));
+        List<Category> bizCategories = categoryService.selectCategories(CoreConst.STATUS_VALID);
         List<Tags> sTags =tagsService.list();
         List<Tags> aTags = new ArrayList<>();
         List<ArticleTags> articleTagsList=articleTagsService.list(Wrappers.<ArticleTags>lambdaQuery().eq(ArticleTags::getArticleId,id));

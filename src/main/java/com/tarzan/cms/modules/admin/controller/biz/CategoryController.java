@@ -35,12 +35,12 @@ public class CategoryController {
     @PostMapping("list")
     @ResponseBody
     public List<Category> loadCategory(boolean isFistLevel) {
-        Category bizCategory = new Category();
+/*        Category bizCategory = new Category();
         bizCategory.setStatus(CoreConst.STATUS_VALID);
         if (isFistLevel) {
             bizCategory.setPid(CoreConst.TOP_MENU_ID);
-        }
-        return categoryService.selectCategories(bizCategory);
+        }*/
+        return categoryService.selectCategories(CoreConst.STATUS_VALID);
     }
 
     @GetMapping("/add")
@@ -112,15 +112,13 @@ public class CategoryController {
     }
 
     private List<Category> getCategories(){
-        return categoryService.selectCategories(new Category().setStatus(CoreConst.STATUS_VALID));
+        return categoryService.selectCategories(CoreConst.STATUS_VALID);
     }
 
     private boolean existArticles(Integer id){
         if (!CoreConst.TOP_MENU_ID.equals(id)) {
             List<Article> bizArticles = articleService.selectByCategoryId(id);
-            if (CollectionUtils.isNotEmpty(bizArticles)) {
-                return true;
-            }
+            return CollectionUtils.isNotEmpty(bizArticles);
         }
         return false;
     }

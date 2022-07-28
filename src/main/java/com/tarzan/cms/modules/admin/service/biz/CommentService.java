@@ -46,7 +46,7 @@ public class CommentService extends ServiceImpl<CommentMapper, Comment> {
     }
 
     @Cacheable(value = "comment", key = "'count'")
-    public int count() {
+    public long count() {
         return count(Wrappers.<Comment>lambdaQuery().eq(Comment::getStatus, CoreConst.STATUS_VALID));
     }
 

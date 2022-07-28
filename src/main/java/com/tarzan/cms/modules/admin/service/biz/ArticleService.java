@@ -79,25 +79,24 @@ public class ArticleService extends ServiceImpl<ArticleMapper, Article> {
     @Cacheable(value = "article", key = "#id")
     public Article selectById(Integer id) {
         Article article=getById(id);
-        Integer lookNum=articleLookService.count(Wrappers.<ArticleLook>lambdaQuery().eq(ArticleLook::getArticleId,id));
+        long lookNum=articleLookService.count(Wrappers.<ArticleLook>lambdaQuery().eq(ArticleLook::getArticleId,id));
         article.setLookCount(lookNum);
-        Integer loveNum=loveService.count(Wrappers.<Love>lambdaQuery().eq(Love::getBizId,id).eq(Love::getBizType,1));
+        long loveNum=loveService.count(Wrappers.<Love>lambdaQuery().eq(Love::getBizId,id).eq(Love::getBizType,1));
         article.setLoveCount(loveNum);
-        Integer commentNum= commentService.count(Wrappers.<Comment>lambdaQuery().eq(Comment::getSid,id));
+        long commentNum= commentService.count(Wrappers.<Comment>lambdaQuery().eq(Comment::getSid,id));
         article.setComment(commentNum);
         return article;
     }
 
     @Cacheable(value = "article", key = "'count'")
-    public int count() {
+    public long count() {
         return count(Wrappers.<Article>lambdaQuery().eq(Article::getStatus, CoreConst.STATUS_VALID));
     }
 
     @Cacheable(value = "article", key = "'timeline'")
     public Map<String,List<Article>> timeline() {
         List<Article> articles=list(Wrappers.<Article>lambdaQuery().select(Article::getId,Article::getTitle,Article::getCreateTime).eq(Article::getStatus, CoreConst.STATUS_VALID));
-        Map<String,List<Article>> map= articles.stream().collect(Collectors.groupingBy(e-> DateUtil.format(e.getCreateTime(),"yyyy年")));
-        return map;
+        return articles.stream().collect(Collectors.groupingBy(e-> DateUtil.format(e.getCreateTime(),"yyyy年")));
     }
 
     @CacheEvict(value = "article", allEntries = true)

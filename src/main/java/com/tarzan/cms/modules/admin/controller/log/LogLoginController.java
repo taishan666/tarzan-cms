@@ -3,6 +3,7 @@ package com.tarzan.cms.modules.admin.controller.log;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.toolkit.StringUtils;
+import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.tarzan.cms.modules.admin.model.log.LoginLog;
 import com.tarzan.cms.modules.admin.service.log.LoginLogService;
@@ -34,7 +35,7 @@ public class LogLoginController {
     @ResponseBody
     public PageResultVo list(LoginLog param, Integer pageNumber, Integer pageSize) {
         IPage<LoginLog> page = new Page<>(pageNumber, pageSize);
-        LambdaQueryWrapper<LoginLog>  wrapper=new LambdaQueryWrapper();
+        LambdaQueryWrapper<LoginLog>  wrapper= Wrappers.lambdaQuery();
         wrapper.like(StringUtils.isNotBlank(param.getLoginName()),LoginLog::getLoginName,param.getLoginName());
         wrapper.like(StringUtils.isNotBlank(param.getPhone()),LoginLog::getPhone,param.getPhone());
         wrapper.like(StringUtils.isNotBlank(param.getSourceIp()),LoginLog::getSourceIp,param.getSourceIp());

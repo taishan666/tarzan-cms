@@ -25,7 +25,7 @@ public class CommonDataHandler implements HandlerInterceptor {
     private final CommonDataService commonDataService;
 
     @Override
-    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler){
+    public boolean preHandle(HttpServletRequest request,HttpServletResponse response,Object handler){
         if (handler instanceof HandlerMethod) {
             String uri = request.getRequestURI();
             if (!CoreConst.IS_INSTALLED.get() && !CoreConst.SYSTEM_REGISTER.equals(uri)) {
@@ -45,7 +45,7 @@ public class CommonDataHandler implements HandlerInterceptor {
     }
 
     @Override
-    public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView mv) throws Exception {
+    public void postHandle(HttpServletRequest request,HttpServletResponse response,Object handler,ModelAndView mv) throws Exception {
             if (mv != null) {
                 if(!CoreConst.IS_INSTALLED.get()&&CoreConst.SYSTEM_REGISTER.equals(request.getServletPath())) {
                  mv.setViewName("admin/login/register");

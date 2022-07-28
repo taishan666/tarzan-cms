@@ -106,9 +106,7 @@ public class UserService extends ServiceImpl<UserMapper, User> {
         if(CollectionUtils.isNotEmpty(page.getRecords())){
             List<Integer> userIds=page.getRecords().stream().map(User::getId).collect(Collectors.toList());
             Map<Integer,String> map=roleService.findRoleNameByUserIds(userIds);
-            page.getRecords().forEach(e->{
-                e.setRoleName(map.get(e.getId()));
-            });
+            page.getRecords().forEach(e->e.setRoleName(map.get(e.getId())));
          }
         return page;
     }
@@ -145,7 +143,7 @@ public class UserService extends ServiceImpl<UserMapper, User> {
         // 来获取session列表.
         Collection<Session> sessions = redisSessionDAO.getActiveSessions();
         Iterator<Session> it = sessions.iterator();
-        List<UserOnlineVo> onlineUserList = new ArrayList<UserOnlineVo>();
+        List<UserOnlineVo> onlineUserList = new ArrayList<>();
         // 遍历session
         while (it.hasNext()) {
             // 这是shiro已经存入session的

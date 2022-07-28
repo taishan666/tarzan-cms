@@ -10,10 +10,7 @@ import com.tarzan.cms.utils.DateUtil;
 import org.springframework.stereotype.Service;
 
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 
 /**
@@ -29,20 +26,20 @@ public class ArticleLookService extends ServiceImpl<ArticleLookMapper, ArticleLo
         Date now = new Date();
         LinkedHashMap<String, Long> map = Maps.newLinkedHashMap();
         for (int i = day; i >= 1; i--) {
-            Long count = 0l;
+            Long count = 0L;
             map.put(DateUtil.format(DateUtil.addDays(now, -i), DateUtil.webFormat), count);
         }
         return map;
     }
 
 
-    public int checkArticleLook(Integer articleId, String userIp, Date lookTime) {
+    public long checkArticleLook(Integer articleId, String userIp, Date lookTime) {
         return count(Wrappers.lambdaQuery(new ArticleLook().setArticleId(articleId).setUserIp(userIp).setLookTime(lookTime)));
     }
 
     public  Map<String,Long> looksByDay(int day){
         Map<String,Long> looksByDayMap= buildRecentDayMap(day);
-        looksGroupMap(day).forEach((k,v)->looksByDayMap.put(k,Long.valueOf(v.size())));
+        looksGroupMap(day).forEach((k,v)->looksByDayMap.put(k, (long) v.size()));
        return looksByDayMap;
     }
 
@@ -50,9 +47,8 @@ public class ArticleLookService extends ServiceImpl<ArticleLookMapper, ArticleLo
         Map<String,List<ArticleLook>> lookMap=looksGroupMap(day);
         Map<String,Long> usersByDayMap=buildRecentDayMap(day);
         lookMap.forEach((k,v)->{
-            List<String> users= v.stream().map(ArticleLook::getUserIp).collect(Collectors.toList());
-            users=users.stream().distinct().collect(Collectors.toList());
-            usersByDayMap.put(k,Long.valueOf(users.size()));
+            Set<String> users= v.stream().map(ArticleLook::getUserIp).collect(Collectors.toSet());
+            usersByDayMap.put(k, (long) users.size());
         });
         return usersByDayMap;
     }
@@ -60,7 +56,7 @@ public class ArticleLookService extends ServiceImpl<ArticleLookMapper, ArticleLo
     private Map<String,List<ArticleLook>>  looksGroupMap(int day){
         Date curDate=new Date();
         Date beforeWeekDate= DateUtil.addDays(curDate,-day+1);
-        LambdaQueryWrapper<ArticleLook> wrapper=new LambdaQueryWrapper();
+        LambdaQueryWrapper<ArticleLook> wrapper=Wrappers.lambdaQuery();
         wrapper.ge(ArticleLook::getLookTime,sdf.format(beforeWeekDate));
         wrapper.lt(ArticleLook::getLookTime,sdf.format(curDate));
         List<ArticleLook> list=list(wrapper);

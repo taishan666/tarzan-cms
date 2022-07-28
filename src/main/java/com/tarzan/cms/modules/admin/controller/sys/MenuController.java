@@ -51,7 +51,7 @@ public class MenuController {
     @PostMapping("/list")
     @ResponseBody
     public List<Menu> loadMenus(String flag) {
-        List<Menu> permissionListList = new ArrayList<Menu>();
+        List<Menu> permissionListList = new ArrayList<>();
         if (StringUtils.isBlank(flag) || MENU_FLAG[0].equals(flag)) {
             permissionListList = menuService.selectAll(CoreConst.STATUS_VALID);
         } else if (MENU_FLAG[1].equals(flag)) {
@@ -85,7 +85,7 @@ public class MenuController {
     @CacheEvict(value = "menu", allEntries = true)
     public ResponseVo deleteMenu(Integer id) {
         try {
-            int subPermsByPermissionIdCount = menuService.selectSubPermsByPermissionId(id);
+            long subPermsByPermissionIdCount = menuService.selectSubPermsByPermissionId(id);
             if (subPermsByPermissionIdCount > 0) {
                 return ResultUtil.error("改资源存在下级资源，无法删除！");
             }

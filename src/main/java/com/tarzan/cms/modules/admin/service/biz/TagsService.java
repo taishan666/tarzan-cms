@@ -31,7 +31,7 @@ public class TagsService extends ServiceImpl<TagsMapper, Tags> {
 
 
     @Cacheable(value = "tag", key = "'count'")
-    public int count() {
+    public long count() {
         return  count(null);
     }
 

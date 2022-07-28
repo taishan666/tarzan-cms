@@ -3,6 +3,8 @@ package com.tarzan.cms.shiro.redis;
 import lombok.Getter;
 import lombok.Setter;
 import redis.clients.jedis.*;
+import redis.clients.jedis.params.ScanParams;
+import redis.clients.jedis.resps.ScanResult;
 
 import java.util.HashSet;
 import java.util.List;

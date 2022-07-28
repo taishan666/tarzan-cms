@@ -18,7 +18,6 @@ import org.springframework.stereotype.Component;
 import org.springframework.util.Assert;
 import org.springframework.util.ResourceUtils;
 
-import javax.annotation.Resource;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.InetAddress;
@@ -44,7 +43,7 @@ public class StartedListener implements ApplicationListener<ApplicationStartedEv
     private final ShiroService shiroService;
 
     @Override
-    public void onApplicationEvent(ApplicationStartedEvent event) {
+    public void onApplicationEvent(@NonNull ApplicationStartedEvent event) {
         initThemes();
         appInstallTools.install();
         shiroService.updatePermission();

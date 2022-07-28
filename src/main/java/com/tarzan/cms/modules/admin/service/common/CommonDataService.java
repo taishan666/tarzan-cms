@@ -2,7 +2,6 @@ package com.tarzan.cms.modules.admin.service.common;
 
 import com.google.common.collect.Maps;
 import com.tarzan.cms.common.constant.CoreConst;
-import com.tarzan.cms.modules.admin.model.biz.Category;
 import com.tarzan.cms.modules.admin.model.biz.Link;
 import com.tarzan.cms.modules.admin.model.biz.Tags;
 import com.tarzan.cms.modules.admin.service.biz.*;
@@ -39,7 +38,7 @@ public class CommonDataService {
             DataTypeEnum dataTypeEnum = DataTypeEnum.valueOf(moduleName);
             switch (dataTypeEnum) {
                 case CATEGORY_LIST:
-                    return bizCategoryService.selectCategories(new Category().setStatus(CoreConst.STATUS_VALID));
+                    return bizCategoryService.selectCategories(CoreConst.STATUS_VALID);
                 case TAG_LIST:
                     return bizTagsService.selectTags(new Tags());
                 case RECENT_LIST:

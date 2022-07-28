@@ -25,7 +25,6 @@ import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
 import java.nio.file.Paths;
@@ -74,7 +73,7 @@ public class ThemeService extends ServiceImpl<ThemeMapper, Theme> {
                 return  ResultUtil.error("主题已安装");
             }
             FileUtil.unzip(bytes, Paths.get(themePath));
-            Optional<File> themeRoot= Arrays.asList(themeDir.listFiles()).stream().findFirst();
+            Optional<File> themeRoot= Arrays.stream(themeDir.listFiles()).findFirst();
             FileUtil.copyFolder(Paths.get(themeRoot.get().getPath()),Paths.get(themePath));
             FileUtil.deleteFolder(Paths.get(themeRoot.get().getPath()));
             Theme theme=new Theme();
@@ -108,7 +107,7 @@ public class ThemeService extends ServiceImpl<ThemeMapper, Theme> {
         List<String> fileNames=Arrays.asList(themesRoot.list());
         List<Theme> themes=baseMapper.selectList(Wrappers.<Theme>lambdaQuery().orderByDesc(Theme::getStatus));
         List<String> themeNames=themes.stream().map(Theme::getName).collect(Collectors.toList());
-        if(fileNames==null){
+        if(CollectionUtils.isEmpty(fileNames)){
             themes=null;
             remove(Wrappers.<Theme>lambdaQuery().ne(Theme::getId,0));
         }else{
@@ -190,8 +189,6 @@ public class ThemeService extends ServiceImpl<ThemeMapper, Theme> {
             URLConnection conn = url.openConnection();
             //上传
             upload(IOUtils.toByteArray(conn.getInputStream()));
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         }

@@ -24,7 +24,7 @@ public class DatabaseController {
     /* 数据监控 */
     @GetMapping(value = "/monitoring")
     public ModelAndView databaseMonitoring() {
-        return new ModelAndView(CoreConst.ADMIN_PREFIX + "database/monitoring");
+        return new ModelAndView(CoreConst.ADMIN_PREFIX + "database/monitor");
     }
 
 }

@@ -821,7 +821,10 @@ VALUES (90, '数据备份', '数据备份', '/db/backup', 'dbBackup'
        , 22, 1, 3, 'fas fa-clone', 1
        , '2021-07-20 16:01:23', '2021-07-20 16:01:23');
 INSERT INTO `sys_menu` VALUES (91, '错误日志', '错误日志', '/error/logs', 'errorLogs', 22, 1, 4, 'fas fa-skull', 1, '2021-07-20 16:01:23', '2021-07-20 16:01:23');
-
+INSERT INTO `sys_menu`
+VALUES (92, '服务监控', '服务监控', '/server/monitoring', 'database'
+       , 22, 1, 1, 'fas fa-chess-queen', 1
+       , '2021-07-06 15:19:55', '2021-07-06 15:19:55');
 DROP TABLE IF EXISTS `sys_role`;
 CREATE TABLE IF NOT EXISTS `sys_role` (
                                             `id` int NOT NULL AUTO_INCREMENT COMMENT '主键',
@@ -1013,7 +1016,10 @@ INSERT INTO `sys_role_menu` (`id`, `role_id`, `menu_id`)
 VALUES (81, 1, 89);
 INSERT INTO `sys_role_menu` (`id`, `role_id`, `menu_id`)
 VALUES (82, 1, 90);
-INSERT INTO `sys_role_menu`(`id`, `role_id`, `menu_id`) VALUES (83, 1, 91);
+INSERT INTO `sys_role_menu` (`id`, `role_id`, `menu_id`)
+VALUES (83, 1, 91);
+INSERT INTO `sys_role_menu`(`id`, `role_id`, `menu_id`)
+VALUES (83, 1, 92);
 DROP TABLE IF EXISTS `sys_user`;
 CREATE TABLE IF NOT EXISTS `sys_user` (
                                             `id` int NOT NULL AUTO_INCREMENT COMMENT '用户id',

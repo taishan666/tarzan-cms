@@ -29,6 +29,6 @@ public class ServerController {
         Server server = new Server();
         server.copyTo();
         model.addAttribute("server", server);
-        return CoreConst.ADMIN_PREFIX + "/server";
+        return CoreConst.ADMIN_PREFIX + "server/monitor";
     }
 }

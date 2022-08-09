@@ -424,7 +424,7 @@ INSERT INTO `sys_menu` VALUES (88, '批量推送', '批量推送百度', '/artic
 INSERT INTO `sys_menu` VALUES (89, '登录日志', '登录日志', '/login/logs', 'loginLogs', 22, 1, 2, 'fas fa-th-list', 1, '2021-07-20 16:01:23', '2021-07-20 16:01:23');
 INSERT INTO `sys_menu` VALUES (90, '数据备份', '数据备份', '/db/backup', 'dbBackup', 22, 1, 3, 'fas fa-clone', 1, '2021-07-20 16:01:23', '2021-07-20 16:01:23');
 INSERT INTO `sys_menu` VALUES (91, '错误日志', '错误日志', '/error/logs', 'errorLogs', 22, 1, 4, 'fas fa-skull', 1, '2021-07-20 16:01:23', '2021-07-20 16:01:23');
-
+INSERT INTO `sys_menu` VALUES (92, '服务监控', '服务监控', '/server/monitoring', 'database', 22, 1, 1, 'fas fa-chess-queen', 1, '2021-07-06 15:19:55', '2021-07-06 15:19:55');
 -- ----------------------------
 -- Table structure for sys_role
 -- ----------------------------
@@ -544,7 +544,7 @@ INSERT INTO `sys_role_menu`(`id`, `role_id`, `menu_id`) VALUES (80, 1, 88);
 INSERT INTO `sys_role_menu`(`id`, `role_id`, `menu_id`) VALUES (81, 1, 89);
 INSERT INTO `sys_role_menu`(`id`, `role_id`, `menu_id`) VALUES (82, 1, 90);
 INSERT INTO `sys_role_menu`(`id`, `role_id`, `menu_id`) VALUES (83, 1, 91);
-
+INSERT INTO `sys_role_menu`(`id`, `role_id`, `menu_id`) VALUES (83, 1, 92);
 
 -- ----------------------------
 -- Table structure for sys_user

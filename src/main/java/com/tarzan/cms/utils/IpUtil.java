@@ -4,6 +4,8 @@ import lombok.experimental.UtilityClass;
 import lombok.extern.slf4j.Slf4j;
 
 import javax.servlet.http.HttpServletRequest;
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 
 /**
  * ip工具类
@@ -48,4 +50,39 @@ public class IpUtil {
         }
         return ip;
     }
+
+    /**
+     * 获取IP地址
+     *
+     * @return 本地IP地址
+     */
+    public static String getHostIp() {
+        try
+        {
+            return InetAddress.getLocalHost().getHostAddress();
+        }
+        catch (UnknownHostException e)
+        {
+        }
+        return "127.0.0.1";
+    }
+
+
+    /**
+     * 获取主机名
+     *
+     * @return 本地主机名
+     */
+    public static String getHostName()
+    {
+        try
+        {
+            return InetAddress.getLocalHost().getHostName();
+        }
+        catch (UnknownHostException e)
+        {
+        }
+        return "未知";
+    }
+
 }

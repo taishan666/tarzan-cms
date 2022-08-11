@@ -36,6 +36,7 @@ spring:
         wall:
           config:
             multi-statement-allow: true
+            comment-allow: true
           enabled: true
       validation-query: select 1
       test-while-idle: true

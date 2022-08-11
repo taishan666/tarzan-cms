@@ -31,7 +31,7 @@ public class RoleService extends ServiceImpl<RoleMapper, Role> {
     private final UserRoleMapper userRoleMapper;
 
     public Set<String> findRoleByUserId(Integer userId) {
-        List<UserRole> list=userRoleMapper.selectList(Wrappers.<UserRole>lambdaQuery().eq(UserRole::getUserId, userId));
+        List<UserRole> list=userRoleMapper.selectList(Wrappers.<UserRole>lambdaQuery().select(UserRole::getRoleId).eq(UserRole::getUserId, userId));
         if(CollectionUtils.isEmpty(list)){
             return null;
         }

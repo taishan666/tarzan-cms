@@ -1,5 +1,6 @@
 package com.tarzan.cms.modules.admin.controller.sys;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.tarzan.cms.common.constant.CoreConst;
 import com.tarzan.cms.common.enums.UserEnum;
@@ -59,16 +60,12 @@ public class SystemController {
     //注册
     @GetMapping(value = "/register")
     public ModelAndView register(){
-/*        if (CoreConst.IS_INSTALLED.get()) {
-            return CoreConst.ADMIN_PREFIX+"index/index";
-        }
-        return CoreConst.ADMIN_PREFIX+"login/register";*/
         ModelAndView modelAndView = new ModelAndView();
         if (CoreConst.IS_INSTALLED.get()) {
             modelAndView.setView(new RedirectView("/admin", true, false));
             return modelAndView;
         }
-        modelAndView.setViewName(CoreConst.ADMIN_PREFIX+"login/register");
+        modelAndView.setViewName(CoreConst.ADMIN_PREFIX+"system/register");
         return modelAndView;
     }
 
@@ -84,8 +81,7 @@ public class SystemController {
             return ResultUtil.error("验证码错误！");
         }*/
         String username = registerUser.getUsername();
-        User user = userService.selectByUsername(username);
-        if (null != user) {
+        if (userService.exists(username)) {
             return ResultUtil.error("用户名已存在！");
         }
         String password = registerUser.getPassword();
@@ -129,7 +125,7 @@ public class SystemController {
             modelAndView.setView(new RedirectView("/admin", true, false));
             return modelAndView;
         }
-        modelAndView.setViewName(CoreConst.ADMIN_PREFIX+"login/login");
+        modelAndView.setViewName(CoreConst.ADMIN_PREFIX+"system/login");
         return modelAndView;
     }
 
@@ -188,7 +184,7 @@ public class SystemController {
     @Async
     public void loginProcess(HttpServletRequest request) {
         User user=(User) SecurityUtils.getSubject().getPrincipal();
-        userService.updateLastLoginTime(user);
+        userService.updateLastLoginTime(user.getId());
         String userType= request.getHeader(CoreConst.USER_TYPE_HEADER_KEY)==null?UserEnum.WEB.getName():request.getHeader(CoreConst.USER_TYPE_HEADER_KEY);
         saveLoginLog(userType,user);
     }
@@ -226,7 +222,7 @@ public class SystemController {
     @GetMapping("/kickOut")
     public String kickOut(Model model) {
        // model.addAttribute("categoryList", categoryService.selectCategories(new Category().setStatus(CoreConst.STATUS_VALID)));
-        return  CoreConst.ADMIN_PREFIX+"/login/kickOut";
+        return  CoreConst.ADMIN_PREFIX+"/system/kickOut";
     }
 
     /**
@@ -241,18 +237,20 @@ public class SystemController {
             String username = ((User) SecurityUtils.getSubject().getPrincipal()).getUsername();
             Serializable sessionId = SecurityUtils.getSubject().getSession().getId();
             userService.kickOut(sessionId, username);
-            QueryWrapper<LoginLog> queryWrapper = new QueryWrapper<>();
-            queryWrapper.lambda().eq(LoginLog::getLoginName, username);
-            List<LoginLog> loginLogList = loginLogService.list(queryWrapper.lambda().orderByDesc(LoginLog::getCreateTime));
+            LambdaQueryWrapper<LoginLog> queryWrapper = new LambdaQueryWrapper<>();
+            queryWrapper.select(LoginLog::getId).eq(LoginLog::getLoginName, username);
+            queryWrapper.orderByDesc(LoginLog::getCreateTime);
+            List<LoginLog> loginLogList = loginLogService.list(queryWrapper);
             if (CollectionUtils.isNotEmpty(loginLogList)) {
-                LoginLog loginLog = loginLogList.get(0);
+                LoginLog loginLog =new LoginLog();
+                loginLog.setId(loginLogList.get(0).getId());
                 loginLog.setEndTime(new Date());
                 SpringUtil.publishEvent(new LoginLogEvent(loginLog));
             }
         }
         subject.logout();
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName(CoreConst.ADMIN_PREFIX+"/login/login");
+        modelAndView.setViewName(CoreConst.ADMIN_PREFIX+"/system/login");
         return modelAndView;
     }
 

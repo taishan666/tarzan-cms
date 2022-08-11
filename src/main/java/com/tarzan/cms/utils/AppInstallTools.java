@@ -46,18 +46,35 @@ public class AppInstallTools {
 
     private  void  installSQL(String fileName){
         if(tableNames().size()==0){
+            log.info("创建数据库表开始");
             InputStream dbIos = this.getClass().getResourceAsStream("/db/"+ fileName);
             try {
                 InputStreamReader reader = new InputStreamReader(dbIos, StandardCharsets.UTF_8);
                 BufferedReader in = new BufferedReader(reader);
                 String txt = FileCopyUtils.copyToString(in);
-                jdbcTemplate.batchUpdate(txt);
+                jdbcTemplate.execute(txt);
+                log.info("创建数据库表完毕");
             } catch (IOException e) {
                 e.printStackTrace();
             }
+            initData();
         }else{
             CoreConst.IS_INSTALLED.set(true);
         }
+    }
+
+    private void  initData(){
+        log.info("初始化数据开始");
+        InputStream dbIos = this.getClass().getResourceAsStream("/db/data.sql");
+        try {
+            InputStreamReader reader = new InputStreamReader(dbIos, StandardCharsets.UTF_8);
+            BufferedReader in = new BufferedReader(reader);
+            String txt = FileCopyUtils.copyToString(in);
+            jdbcTemplate.execute(txt);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        log.info("初始化数据完毕");
     }
 
     //获取所有表名称

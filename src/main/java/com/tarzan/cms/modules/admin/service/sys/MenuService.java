@@ -52,12 +52,14 @@ public class MenuService extends ServiceImpl<MenuMapper, Menu> {
         return baseMapper.findPermsByUserId(userId);
     }
 
+   // @Cacheable(value = "menu", key = "'all'")
     public List<Menu> selectAll(Integer status) {
-        return  list(Wrappers.<Menu>lambdaQuery().eq(Menu::getStatus,status).orderByAsc(Menu::getOrderNum));
+        return  super.lambdaQuery().eq(Menu::getStatus,status).orderByAsc(Menu::getOrderNum).list();
     }
 
+  //  @Cacheable(value = "menu", key = "'menus'")
     public List<Menu> selectAllMenuName(Integer status) {
-        return  list(Wrappers.<Menu>lambdaQuery().eq(Menu::getStatus,status).orderByAsc(Menu::getOrderNum));
+        return  super.lambdaQuery().ne(Menu::getType,2).eq(Menu::getStatus,status).orderByAsc(Menu::getOrderNum).list();
     }
 
     public List<Menu> selectMenuByUserId(Integer userId) {

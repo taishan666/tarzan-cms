@@ -78,8 +78,8 @@ public class MyShiroRealm extends AuthorizingRealm {
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken token) {
         //获取用户的输入的账号.
         String username = (String) token.getPrincipal();
-        User user = userService.selectByUsername(username);
-        if (user == null) {
+        User user = userService.getByUsername(username);
+        if (user==null) {
             throw new UnknownAccountException();
         }
         if (CoreConst.STATUS_INVALID.equals(user.getStatus())) {

@@ -48,7 +48,7 @@ public class CommonDataHandler implements HandlerInterceptor {
     public void postHandle(HttpServletRequest request,HttpServletResponse response,Object handler,ModelAndView mv) throws Exception {
             if (mv != null) {
                 if(!CoreConst.IS_INSTALLED.get()&&CoreConst.SYSTEM_REGISTER.equals(request.getServletPath())) {
-                 mv.setViewName("admin/login/register");
+                 mv.setViewName("admin/system/register");
                }
                 String viewName= mv.getViewName();
                 if(StringUtil.isNotBlank(viewName)){

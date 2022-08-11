@@ -54,7 +54,7 @@ public class CommentController {
     }
 
     @PostMapping("/audit")
-    @Transactional
+    @Transactional(rollbackFor = Exception.class)
     public ResponseVo audit(Comment bizComment, String replyContent) {
         try {
             commentService.updateById(bizComment);

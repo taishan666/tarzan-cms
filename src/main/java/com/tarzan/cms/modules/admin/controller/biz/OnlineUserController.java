@@ -69,8 +69,6 @@ public class OnlineUserController {
                 } else {
                     userService.kickOut(sessionVo.getSessionId(), sessionVo.getUsername());
                 }
-
-
             }
             if (hasOwn) {
                 return ResultUtil.success("不能踢出自己");

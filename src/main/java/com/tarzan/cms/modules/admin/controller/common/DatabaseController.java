@@ -1,7 +1,6 @@
 package com.tarzan.cms.modules.admin.controller.common;
 
 import com.tarzan.cms.common.constant.CoreConst;
-import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,10 +17,8 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 @RequestMapping("/database")
 @Slf4j
-@AllArgsConstructor
 public class DatabaseController {
 
-    /* 数据监控 */
     @GetMapping(value = "/monitoring")
     public ModelAndView databaseMonitoring() {
         return new ModelAndView(CoreConst.ADMIN_PREFIX + "database/monitor");

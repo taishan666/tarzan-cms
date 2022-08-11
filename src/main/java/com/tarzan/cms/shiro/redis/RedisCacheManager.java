@@ -1,15 +1,22 @@
 package com.tarzan.cms.shiro.redis;
 
+import com.tarzan.cms.shiro.exception.SerializationException;
 import com.tarzan.cms.shiro.serializer.ObjectSerializer;
 import com.tarzan.cms.shiro.serializer.RedisSerializer;
 import com.tarzan.cms.shiro.serializer.StringSerializer;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.cache.Cache;
 import org.apache.shiro.cache.CacheException;
 import org.apache.shiro.cache.CacheManager;
+import org.apache.shiro.util.CollectionUtils;
 
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 
+@Slf4j
 public class RedisCacheManager implements CacheManager {
 
     // fast lookup by name map
@@ -43,6 +50,7 @@ public class RedisCacheManager implements CacheManager {
         }
         return cache;
     }
+
 
     public IRedisManager getRedisManager() {
         return redisManager;

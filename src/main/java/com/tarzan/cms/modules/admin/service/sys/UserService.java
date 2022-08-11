@@ -25,6 +25,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
+import java.io.File;
 import java.io.Serializable;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -81,18 +82,22 @@ public class UserService extends ServiceImpl<UserMapper, User> {
         return null;
     }
 
-    public User selectByUsername(String username) {
-        return baseMapper.selectOne(Wrappers.<User>lambdaQuery().eq(User::getUsername, username).eq(User::getStatus, CoreConst.STATUS_VALID));
+    public User getByUsername(String username) {
+        return super.lambdaQuery().eq(User::getUsername, username).one();
+    }
+
+    public boolean exists(String username) {
+        Long count= super.lambdaQuery().eq(User::getUsername, username).count();
+        return count!=0;
     }
 
     public boolean register(User user) {
         return save(user);
     }
 
-    public void updateLastLoginTime(User user) {
-        Assert.notNull(user, "param: user is null");
-        user.setLastLoginTime(new Date());
-        updateById(user);
+    public void updateLastLoginTime(Integer userId) {
+        Assert.notNull(userId, "param: userId is null");
+        super.lambdaUpdate().set(User::getLastLoginTime,new Date()).eq(User::getId,userId).update();
     }
 
     public IPage<User> selectUsers(User user, Integer pageNumber, Integer pageSize) {

@@ -77,7 +77,7 @@ public class ArticleController {
 
     @PostMapping("/add")
     @ResponseBody
-    @Transactional
+    @Transactional(rollbackFor = Exception.class)
     public ResponseVo add(Article bizArticle,@RequestParam(value = "tagIds",required = false) List<Integer> tagIds) {
         try {
             User user = (User) SecurityUtils.getSubject().getPrincipal();
@@ -113,7 +113,7 @@ public class ArticleController {
 
     @PostMapping("/edit")
     @ResponseBody
-    @Transactional
+    @Transactional(rollbackFor = Exception.class)
     @CacheEvict(value = "article", allEntries = true)
     public ResponseVo edit(Article article,@RequestParam(value = "tagIds",required = false) List<Integer> tagIds) {
         articleService.updateById(article);

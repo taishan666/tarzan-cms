@@ -60,8 +60,7 @@ public class UserController {
     @ResponseBody
     public ResponseVo add(User userForm, String confirmPassword) {
         String username = userForm.getUsername();
-        User user = userService.selectByUsername(username);
-        if (null != user) {
+        if (userService.exists(username)) {
             return ResultUtil.error("用户名已存在");
         }
         String password = userForm.getPassword();

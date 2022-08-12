@@ -1,6 +1,7 @@
 package com.tarzan.cms.modules.admin.service.common;
 
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import com.tarzan.cms.common.props.FileUploadProperties;
 import com.tarzan.cms.common.constant.CoreConst;
 import com.tarzan.cms.modules.admin.service.sys.SysConfigService;
@@ -13,6 +14,7 @@ import com.tarzan.cms.modules.admin.vo.base.ResponseVo;
 import lombok.AllArgsConstructor;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringEscapeUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
@@ -88,7 +90,8 @@ public class OssService {
     @Cacheable(value = "oss", key = "'config'")
     public CloudStorageConfigVo getOssConfig() {
         String value = sysConfigService.selectAll().get(SysConfigKey.CLOUD_STORAGE_CONFIG.getValue());
-        return JSON.parseObject(value, CloudStorageConfigVo.class);
+        value=value.replaceAll("\\\\","");
+        return JSONObject.parseObject(value, CloudStorageConfigVo.class);
     }
 
     @CacheEvict(value = "oss", key = "'config'")

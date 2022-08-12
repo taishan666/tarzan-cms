@@ -82,7 +82,7 @@ public class ShiroService {
         synchronized (shiroFilterFactoryBean) {
             AbstractShiroFilter shiroFilter;
             try {
-                shiroFilter = (AbstractShiroFilter) shiroFilterFactoryBean.getObject();
+                shiroFilter = shiroFilterFactoryBean.getObject();
             } catch (Exception e) {
                 throw new RuntimeException("get ShiroFilter from shiroFilterFactoryBean error!");
             }

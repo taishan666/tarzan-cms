@@ -122,15 +122,12 @@ public class StartedListener implements ApplicationListener<ApplicationStartedEv
     @NonNull
     private FileSystem getFileSystem(@NonNull URI uri) throws IOException {
         Assert.notNull(uri, "Uri must not be null");
-
         FileSystem fileSystem;
-
         try {
             fileSystem = FileSystems.getFileSystem(uri);
         } catch (FileSystemNotFoundException e) {
             fileSystem = FileSystems.newFileSystem(uri, Collections.emptyMap());
         }
-
         return fileSystem;
     }
 

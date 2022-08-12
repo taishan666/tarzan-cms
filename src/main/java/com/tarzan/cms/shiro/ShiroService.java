@@ -52,13 +52,12 @@ public class ShiroService {
         filterChainDefinitionMap.put("/login", "anon");
         filterChainDefinitionMap.put("/kickOut", "anon");
         filterChainDefinitionMap.put("/error/**", "anon");
-        filterChainDefinitionMap.put("/admin/css/**", "anon");
-        filterChainDefinitionMap.put("/admin/js/**", "anon");
-        filterChainDefinitionMap.put("/admin/img/**", "anon");
-        filterChainDefinitionMap.put("/admin/images/**", "anon");
-        filterChainDefinitionMap.put("/admin/libs/**", "anon");
-        filterChainDefinitionMap.put("/theme/**", "anon");
+        filterChainDefinitionMap.put("/assets/css/**", "anon");
+        filterChainDefinitionMap.put("/assets/js/**", "anon");
+        filterChainDefinitionMap.put("/assets/img/**", "anon");
+        filterChainDefinitionMap.put("/assets/libs/**", "anon");
         filterChainDefinitionMap.put("/favicon.ico", "anon");
+        filterChainDefinitionMap.put("/theme/**", "anon");
         filterChainDefinitionMap.put("/verificationCode", "anon");
         filterChainDefinitionMap.put("/oauth/**", "anon");
         filterChainDefinitionMap.put(fileUploadProperties.getAccessPathPattern(), "anon");

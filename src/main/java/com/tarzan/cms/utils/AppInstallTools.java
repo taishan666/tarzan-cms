@@ -42,10 +42,13 @@ public class AppInstallTools {
         if (url.contains(mysqlDriver)) {
             installSQL("schema-mysql.sql");
         }
+        if(userNum()!=0){
+            CoreConst.IS_REGISTERED.set(true);
+        }
     }
 
     private  void  installSQL(String fileName){
-        if(tableNames().size()==0){
+        if(tableNum()==0){
             log.info("创建数据库表开始");
             InputStream dbIos = this.getClass().getResourceAsStream("/db/"+ fileName);
             try {
@@ -77,8 +80,10 @@ public class AppInstallTools {
         log.info("初始化数据完毕");
     }
 
-    //获取所有表名称
-    private  List<String> tableNames() {
+    /**
+     * 获取所有表数量
+     */
+    private  int tableNum() {
         List<String> tableNames= new ArrayList<>();
         try {
             Connection getConnection=jdbcTemplate.getDataSource().getConnection();
@@ -91,7 +96,16 @@ public class AppInstallTools {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return tableNames;
+        return tableNames.size();
+    }
+
+    /**
+     * 获取用户数
+     */
+    private  int userNum() {
+        int users =  this.jdbcTemplate.queryForObject("SELECT count(*) AS num FROM sys_user",
+                    (rs, rowNum) -> rs.getInt("num"));
+          return users;
     }
 
 

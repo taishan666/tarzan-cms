@@ -48,7 +48,10 @@ public class CoreConst {
      * 是否安装
      */
     public static final AtomicBoolean IS_INSTALLED = new AtomicBoolean(false);
-
+    /**
+     * 是否注册
+     */
+    public static final AtomicBoolean IS_REGISTERED = new AtomicBoolean(false);
     /**
      * 网站是否静态化
      */

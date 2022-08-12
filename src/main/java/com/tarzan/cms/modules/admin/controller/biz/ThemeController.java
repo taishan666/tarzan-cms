@@ -25,11 +25,6 @@ public class ThemeController {
 
     private final ThemeService themeService;
 
- /*   @GetMapping("/list")
-    public String list(Model model) {
-        model.addAttribute("themes", themeService.list());
-        return CoreConst.ADMIN_PREFIX + "theme/list";
-    }*/
 
     @GetMapping("/add")
     public String add() {
@@ -66,7 +61,7 @@ public class ThemeController {
         if(theme==null){
             return ResultUtil.error("启用主题不存在");
         }
-        if(theme.getStatus()==CoreConst.STATUS_VALID){
+        if(CoreConst.STATUS_VALID.equals(theme.getStatus())){
             return ResultUtil.error("启用主题不能删除");
         }
         boolean flag = themeService.delete(id);

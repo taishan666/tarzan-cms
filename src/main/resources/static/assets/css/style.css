@@ -6004,20 +6004,20 @@ body .note-toolbar.card-header button.note-btn:after {
 .int-count2-box h1 {
     color: var(--primary);
     font-size: 38px;
-    background-image: url(../images/o_icon.png);
+    background-image: url(../img/o_icon.png);
     background-repeat: no-repeat;
     background-position: center top;
     padding: 10px 0 13px
 }
 
 .int-count2-box h1.back-img1 {
-    background-image: url(../images/o_icon2.png);
+    background-image: url(../img/o_icon2.png);
     background-repeat: no-repeat;
     background-position: center top
 }
 
 .int-count2-box h1.back-img2 {
-    background-image: url(../images/o_icon3.png);
+    background-image: url(../img/o_icon3.png);
     background-repeat: no-repeat;
     background-position: center top
 }

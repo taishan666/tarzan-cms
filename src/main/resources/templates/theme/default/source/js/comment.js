@@ -48,7 +48,7 @@ $(function () {
                         '<li>'+
                         '	<div class="comment-body" id="comment-'+value.id+'">'+
                         '		<div class="comment-user-img">'+
-                        '			<img src="'+(value.avatar||"/img/user-default.png")+'" onerror="this.src=\'/img/user-default.png\'" />'+
+                        '			<img src="'+(value.avatar||"/source/img/user-default.png")+'" onerror="this.src=\'/source/img/user-default.png\'" />'+
                         '		</div>'+
                         '		<div class="comment-info">'+
                         '			<div class="comment-top">'+

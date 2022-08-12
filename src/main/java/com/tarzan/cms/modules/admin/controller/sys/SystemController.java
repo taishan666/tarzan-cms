@@ -61,7 +61,7 @@ public class SystemController {
     @GetMapping(value = "/register")
     public ModelAndView register(){
         ModelAndView modelAndView = new ModelAndView();
-        if (CoreConst.IS_INSTALLED.get()) {
+        if (CoreConst.IS_REGISTERED.get()) {
             modelAndView.setView(new RedirectView("/admin", true, false));
             return modelAndView;
         }
@@ -97,7 +97,7 @@ public class SystemController {
         registerUser.setUpdateTime(date);
         registerUser.setLastLoginTime(date);
         PasswordHelper.encryptPassword(registerUser);
-        CoreConst.IS_INSTALLED.set(true);
+        CoreConst.IS_REGISTERED.set(true);
         //注册
         boolean flag = userService.register(registerUser);
         UserRole userRole=new UserRole();

@@ -138,7 +138,7 @@ iframe {
 }
 
 .cms-auth-wrapper:before {
-    background-image: url(../images/auth-bg.png);
+    background-image: url(../img/auth-bg.png);
     background-size: cover;
     background-repeat: no-repeat;
     content: "";
@@ -388,12 +388,12 @@ iframe {
 }
 
 .cms-notifications.cms-success:before {
-    background-image: url(../images/happy-striker.png);
+    background-image: url(../img/happy-striker.png);
     height: 45px
 }
 
 .cms-notifications.cms-error:before {
-    background-image: url(../images/sad.png)
+    background-image: url(../img/sad.png)
 }
 
 @media(max-width:1200px) {

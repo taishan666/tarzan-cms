@@ -28,7 +28,7 @@ public class CommonDataHandler implements HandlerInterceptor {
     public boolean preHandle(HttpServletRequest request,HttpServletResponse response,Object handler){
         if (handler instanceof HandlerMethod) {
             String uri = request.getRequestURI();
-            if (!CoreConst.IS_INSTALLED.get() && !CoreConst.SYSTEM_REGISTER.equals(uri)) {
+            if (!CoreConst.IS_REGISTERED.get() && !CoreConst.SYSTEM_REGISTER.equals(uri)) {
                 if (uri.lastIndexOf(".") < 1) {
                     try {
                         response.sendRedirect(CoreConst.SYSTEM_REGISTER);
@@ -47,7 +47,7 @@ public class CommonDataHandler implements HandlerInterceptor {
     @Override
     public void postHandle(HttpServletRequest request,HttpServletResponse response,Object handler,ModelAndView mv) throws Exception {
             if (mv != null) {
-                if(!CoreConst.IS_INSTALLED.get()&&CoreConst.SYSTEM_REGISTER.equals(request.getServletPath())) {
+                if(!CoreConst.IS_REGISTERED.get()&&CoreConst.SYSTEM_REGISTER.equals(request.getServletPath())) {
                  mv.setViewName("admin/system/register");
                }
                 String viewName= mv.getViewName();

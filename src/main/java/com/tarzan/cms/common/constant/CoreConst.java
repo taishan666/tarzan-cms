@@ -58,5 +58,7 @@ public class CoreConst {
     public static final String SITE_STATIC_KEY = "SITE_STATIC";
     public static final AtomicBoolean SITE_STATIC = new AtomicBoolean(false);
 
+    public static final String JAR ="jar";
+
 
 }

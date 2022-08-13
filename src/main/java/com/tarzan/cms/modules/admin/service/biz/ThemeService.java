@@ -165,17 +165,12 @@ public class ThemeService extends ServiceImpl<ThemeMapper, Theme> {
     }
 
     @Cacheable(value = "theme", key = "'current'")
-    public Theme selectCurrent() {
-        return getOne(Wrappers.<Theme>lambdaQuery().eq(Theme::getStatus, CoreConst.STATUS_VALID).last("limit 1"));
-    }
-
-    @Cacheable(value = "theme", key = "'themeName'")
     public String getTheme() {
-        Theme theme=selectCurrent();
+        Theme theme=super.lambdaQuery().select(Theme::getName).eq(Theme::getStatus, CoreConst.STATUS_VALID).one();
         if(theme==null){
             return CoreConst.THEME_PREFIX;
         }
-        return CoreConst.THEME_PREFIX+selectCurrent().getName();
+        return CoreConst.THEME_PREFIX+theme.getName();
     }
 
     @CacheEvict(value = "theme", allEntries = true)

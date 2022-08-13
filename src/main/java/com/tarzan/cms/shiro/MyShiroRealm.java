@@ -45,7 +45,7 @@ public class MyShiroRealm extends AuthorizingRealm {
     @Lazy @Resource
     private RoleService roleService;
     @Lazy @Resource
-    private MenuService MenuService;
+    private MenuService menuService;
     @Lazy @Resource
     private RedisSessionDAO redisSessionDAO;
 
@@ -63,7 +63,7 @@ public class MyShiroRealm extends AuthorizingRealm {
         User user = (User) principals.getPrimaryPrincipal();
         SimpleAuthorizationInfo info = new SimpleAuthorizationInfo();
         info.setRoles(roleService.findRoleByUserId(user.getId()));
-        info.setStringPermissions(MenuService.findPermsByUserId(user.getId()));
+        info.setStringPermissions(menuService.findPermsByUserId(user.getId()));
         return info;
     }
 

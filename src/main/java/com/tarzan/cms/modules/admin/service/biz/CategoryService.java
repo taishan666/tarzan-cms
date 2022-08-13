@@ -23,6 +23,7 @@ public class CategoryService extends ServiceImpl<CategoryMapper, Category> {
         return super.lambdaQuery().eq(Category::getStatus,status).orderByAsc(Category::getSort).list();
     }
 
+    @Override
     @Cacheable(value = "category", key = "'count'")
     public long count() {
         return super.lambdaQuery().eq(Category::getStatus, CoreConst.STATUS_VALID).count();

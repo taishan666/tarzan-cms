@@ -1,6 +1,7 @@
 package com.tarzan.cms.modules.admin.service.sys;
 
 import com.baomidou.mybatisplus.core.toolkit.CollectionUtils;
+import com.baomidou.mybatisplus.core.toolkit.StringPool;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.tarzan.cms.common.constant.CoreConst;
@@ -24,12 +25,12 @@ import java.util.stream.Collectors;
 @AllArgsConstructor
 public class MenuService extends ServiceImpl<MenuMapper, Menu> {
 
-    private static final Pattern SLASH_PATTERN = Pattern.compile("/");
+    private static final Pattern SLASH_PATTERN = Pattern.compile(StringPool.SLASH);
 
     private  List<Menu> buildPermissionTree(List<Menu> permissionList) {
         Map<Integer, List<Menu>> parentIdToPermissionListMap = permissionList.stream().peek(p -> {
-            if (StringUtils.startsWith(p.getUrl(), "/")) {
-                p.setUrl(SLASH_PATTERN.matcher(p.getUrl()).replaceFirst("#"));
+            if (StringUtils.startsWith(p.getUrl(), StringPool.SLASH)) {
+                p.setUrl(SLASH_PATTERN.matcher(p.getUrl()).replaceFirst(StringPool.HASH));
             }
         }).collect(Collectors.groupingBy(Menu::getParentId));
         List<Menu> rootLevelPermissionList = parentIdToPermissionListMap.getOrDefault(CoreConst.TOP_MENU_ID, Collections.emptyList());
@@ -52,12 +53,12 @@ public class MenuService extends ServiceImpl<MenuMapper, Menu> {
         return baseMapper.findPermsByUserId(userId);
     }
 
-   // @Cacheable(value = "menu", key = "'all'")
+    @Cacheable(value = "menu", key = "'all'")
     public List<Menu> selectAll(Integer status) {
         return  super.lambdaQuery().eq(Menu::getStatus,status).orderByAsc(Menu::getOrderNum).list();
     }
 
-  //  @Cacheable(value = "menu", key = "'menus'")
+    @Cacheable(value = "menu", key = "'menus'")
     public List<Menu> selectAllMenuName(Integer status) {
         return  super.lambdaQuery().ne(Menu::getType,2).eq(Menu::getStatus,status).orderByAsc(Menu::getOrderNum).list();
     }
@@ -72,12 +73,12 @@ public class MenuService extends ServiceImpl<MenuMapper, Menu> {
     }
 
 
-    public boolean insert(Menu Menu) {
+    public boolean insert(Menu menu) {
         Date date = new Date();
-        Menu.setStatus(CoreConst.STATUS_VALID);
-        Menu.setCreateTime(date);
-        Menu.setUpdateTime(date);
-        return save(Menu);
+        menu.setStatus(CoreConst.STATUS_VALID);
+        menu.setCreateTime(date);
+        menu.setUpdateTime(date);
+        return save(menu);
     }
 
     public int updateStatus(Integer id, Integer status) {

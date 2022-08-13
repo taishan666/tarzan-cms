@@ -221,7 +221,6 @@ public class SystemController {
      */
     @GetMapping("/kickOut")
     public String kickOut(Model model) {
-       // model.addAttribute("categoryList", categoryService.selectCategories(new Category().setStatus(CoreConst.STATUS_VALID)));
         return  CoreConst.ADMIN_PREFIX+"/system/kickOut";
     }
 
@@ -254,16 +253,16 @@ public class SystemController {
         return modelAndView;
     }
 
-    /**
+/*    *//**
      * 获取当前登录用户的菜单
      *
      * @return
-     */
+     *//*
     @PostMapping("/menu")
     @ResponseBody
     public List<Menu> getMenus() {
         return MenuService.selectMenuByUserId(((User) SecurityUtils.getSubject().getPrincipal()).getId());
-    }
+    }*/
 
 
     /**

@@ -1,6 +1,10 @@
 package com.tarzan.cms.common.listener;
 
+import com.tarzan.cms.cache.CategoryCache;
+import com.tarzan.cms.cache.RoleCache;
+import com.tarzan.cms.common.constant.CoreConst;
 import com.tarzan.cms.common.props.CmsProperties;
+import com.tarzan.cms.modules.admin.service.common.CommonDataService;
 import com.tarzan.cms.shiro.ShiroService;
 import com.tarzan.cms.utils.AppInstallTools;
 import com.tarzan.cms.utils.ArticleCollect;
@@ -41,16 +45,23 @@ public class StartedListener implements ApplicationListener<ApplicationStartedEv
     private final AppInstallTools appInstallTools;
     private final CmsProperties cmsProperties;
     private final ShiroService shiroService;
+    private final CommonDataService commonDataService;
 
     @Override
     public void onApplicationEvent(@NonNull ApplicationStartedEvent event) {
         initThemes();
         appInstallTools.install();
         shiroService.updatePermission();
+        initDataCache();
         printStartInfo(event);
       //  articleCollect.collect();
     }
 
+    private void initDataCache() {
+        commonDataService.getAllCommonData();
+        CategoryCache.initCategory();
+        RoleCache.initRole();
+    }
     /**
      * 打印信息
      */
@@ -80,9 +91,9 @@ public class StartedListener implements ApplicationListener<ApplicationStartedEv
      * 初始化主题
      */
     private void initThemes() {
-        String THEME_FOLDER= "templates/theme";
+        String themeFolder= "templates/theme";
         try {
-            String themeClassPath = ResourceUtils.CLASSPATH_URL_PREFIX + THEME_FOLDER;
+            String themeClassPath = ResourceUtils.CLASSPATH_URL_PREFIX + themeFolder;
 
             URI themeUri = ResourceUtils.getURL(themeClassPath).toURI();
 
@@ -90,11 +101,10 @@ public class StartedListener implements ApplicationListener<ApplicationStartedEv
 
             Path source;
 
-            if ("jar".equalsIgnoreCase(themeUri.getScheme())) {
-
+            if (CoreConst.JAR.equalsIgnoreCase(themeUri.getScheme())) {
                 // Create new file system for jar
                 FileSystem fileSystem = getFileSystem(themeUri);
-                source = fileSystem.getPath("/BOOT-INF/classes/"+THEME_FOLDER);
+                source = fileSystem.getPath("/BOOT-INF/classes/"+themeFolder);
             } else {
                 source = Paths.get(themeUri);
             }
@@ -113,7 +123,7 @@ public class StartedListener implements ApplicationListener<ApplicationStartedEv
             }
         } catch (Exception e) {
             if (e instanceof FileNotFoundException) {
-                log.error("Please check location: classpath:{}",THEME_FOLDER);
+                log.error("Please check location: classpath:{}",themeFolder);
             }
             log.error("Initialize internal theme to user path error!", e);
         }

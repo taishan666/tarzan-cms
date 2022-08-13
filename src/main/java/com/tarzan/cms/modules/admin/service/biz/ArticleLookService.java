@@ -37,14 +37,13 @@ public class ArticleLookService extends ServiceImpl<ArticleLookMapper, ArticleLo
         return count(Wrappers.lambdaQuery(new ArticleLook().setArticleId(articleId).setUserIp(userIp).setLookTime(lookTime)));
     }
 
-    public  Map<String,Long> looksByDay(int day){
+    public  Map<String,Long> looksByDay(Map<String,List<ArticleLook>> lookMap,int day){
         Map<String,Long> looksByDayMap= buildRecentDayMap(day);
-        looksGroupMap(day).forEach((k,v)->looksByDayMap.put(k, (long) v.size()));
+        lookMap.forEach((k,v)->looksByDayMap.put(k, (long) v.size()));
        return looksByDayMap;
     }
 
-    public  Map<String,Long> usersByDay(int day){
-        Map<String,List<ArticleLook>> lookMap=looksGroupMap(day);
+    public  Map<String,Long> usersByDay(Map<String,List<ArticleLook>> lookMap,int day){
         Map<String,Long> usersByDayMap=buildRecentDayMap(day);
         lookMap.forEach((k,v)->{
             Set<String> users= v.stream().map(ArticleLook::getUserIp).collect(Collectors.toSet());
@@ -53,14 +52,19 @@ public class ArticleLookService extends ServiceImpl<ArticleLookMapper, ArticleLo
         return usersByDayMap;
     }
 
-    private Map<String,List<ArticleLook>>  looksGroupMap(int day){
+    public Map<String,List<ArticleLook>>  looksGroupMap(int day){
+        List<ArticleLook> list=looksRecentDays(day);
+        return list.stream().collect(Collectors.groupingBy(e->sdf.format(e.getLookTime())));
+    }
+
+    private List<ArticleLook> looksRecentDays(int day){
         Date curDate=new Date();
         Date beforeWeekDate= DateUtil.addDays(curDate,-day+1);
         LambdaQueryWrapper<ArticleLook> wrapper=Wrappers.lambdaQuery();
+        wrapper.select(ArticleLook::getId,ArticleLook::getUserIp);
         wrapper.ge(ArticleLook::getLookTime,sdf.format(beforeWeekDate));
         wrapper.lt(ArticleLook::getLookTime,sdf.format(curDate));
-        List<ArticleLook> list=list(wrapper);
-        return list.stream().collect(Collectors.groupingBy(e->sdf.format(e.getLookTime())));
+        return super.list(wrapper);
     }
 
 

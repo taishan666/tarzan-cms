@@ -1,6 +1,7 @@
 package com.tarzan.cms.modules.admin.controller.sys;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.tarzan.cms.cache.RoleCache;
 import com.tarzan.cms.common.constant.CoreConst;
 import com.tarzan.cms.modules.admin.model.sys.Menu;
 import com.tarzan.cms.modules.admin.model.sys.Role;
@@ -67,6 +68,7 @@ public class RoleController {
         try {
             boolean flag = roleService.insert(role);
             if (flag) {
+                RoleCache.save(role);
                 return ResultUtil.success("添加角色成功");
             } else {
                 return ResultUtil.error("添加角色失败");
@@ -93,6 +95,7 @@ public class RoleController {
         }
         boolean flag = roleService.updateStatusBatch(ids, CoreConst.STATUS_INVALID);
         if (flag) {
+            RoleCache.delete(ids);
             return ResultUtil.success("删除角色成功");
         } else {
             return ResultUtil.error("删除角色失败");
@@ -113,6 +116,7 @@ public class RoleController {
     public ResponseVo editRole(@ModelAttribute("role") Role role) {
         boolean flag = roleService.updateById(role);
         if (flag) {
+            RoleCache.save(role);
             return ResultUtil.success("编辑角色成功");
         } else {
             return ResultUtil.error("编辑角色失败");

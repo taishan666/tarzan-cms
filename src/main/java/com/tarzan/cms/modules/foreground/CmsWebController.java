@@ -2,6 +2,7 @@ package com.tarzan.cms.modules.foreground;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.tarzan.cms.cache.CategoryCache;
 import com.tarzan.cms.common.constant.CoreConst;
 import com.tarzan.cms.common.exception.ArticleNotFoundException;
 import com.tarzan.cms.modules.admin.model.biz.Article;
@@ -223,18 +224,17 @@ public class CmsWebController {
 
     private void loadMainPage(Model model, ArticleConditionVo vo) {
         if (vo.getPageNumber()<2) {
-            model.addAttribute("sliderList", bizArticleService.sliderList());//轮播文章
+            //轮播文章
+            model.addAttribute("sliderList", bizArticleService.sliderList());
         }
         vo.setStatus(CoreConst.STATUS_VALID);
         IPage<Article> page = new Page<>(vo.getPageNumber(), vo.getPageSize());
         List<Article> articleList = bizArticleService.findByCondition(page, vo);
         model.addAttribute("page", page);
-        model.addAttribute("articleList", articleList);//文章列表
+        //文章列表
+        model.addAttribute("articleList", articleList);
         if (vo.getCategoryId() != null) {
-            Category category = categoryService.getById(vo.getCategoryId());
-            if (category != null) {
-                model.addAttribute("categoryName", category.getName());
-            }
+            model.addAttribute("categoryName", CategoryCache.getName(vo.getCategoryId()));
         }
     }
 

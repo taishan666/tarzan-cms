@@ -43,8 +43,9 @@ public class StatisticService {
         List<ArticleLook> userList=articleLookService.list(Wrappers.<ArticleLook>lambdaQuery().select(ArticleLook::getUserIp));
         long userCount = userList.stream().distinct().count();
         int recentDays = 7;
-        Map<String, Long> lookCountByDay = articleLookService.looksByDay(recentDays);
-        Map<String, Long> userCountByDay = articleLookService.usersByDay(recentDays);
+        Map<String,List<ArticleLook>> lookMap=articleLookService.looksGroupMap(recentDays);
+        Map<String, Long> lookCountByDay = articleLookService.looksByDay(lookMap,recentDays);
+        Map<String, Long> userCountByDay = articleLookService.usersByDay(lookMap,recentDays);
         return StatisticVo.builder().articleCount(articleCount).commentCount(commentCount).lookCount(lookCount).userCount(userCount).lookCountByDay(lookCountByDay).userCountByDay(userCountByDay).build();
     }
 

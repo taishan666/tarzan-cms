@@ -1,6 +1,7 @@
 package com.tarzan.cms.modules.admin.controller.biz;
 
 import com.baomidou.mybatisplus.core.toolkit.CollectionUtils;
+import com.tarzan.cms.cache.CategoryCache;
 import com.tarzan.cms.common.constant.CoreConst;
 import com.tarzan.cms.utils.ResultUtil;
 import com.tarzan.cms.modules.admin.model.biz.Article;
@@ -44,9 +45,6 @@ public class CategoryController {
         return CoreConst.ADMIN_PREFIX + "category/form";
     }
 
-
-
-
     @PostMapping("/add")
     @ResponseBody
     @CacheEvict(value = "category", allEntries = true)
@@ -60,6 +58,7 @@ public class CategoryController {
         bizCategory.setStatus(CoreConst.STATUS_VALID);
         boolean flag = categoryService.save(bizCategory);
         if (flag) {
+            CategoryCache.save(bizCategory);
             return ResultUtil.success("新增分类成功");
         } else {
             return ResultUtil.error("新增分类失败");
@@ -85,6 +84,7 @@ public class CategoryController {
         bizCategory.setUpdateTime(new Date());
         boolean flag = categoryService.updateById(bizCategory);
         if (flag) {
+            CategoryCache.save(bizCategory);
             return ResultUtil.success("编辑分类成功");
         } else {
             return ResultUtil.error("编辑分类失败");
@@ -100,6 +100,7 @@ public class CategoryController {
         }
         boolean flag = categoryService.removeById(id);
         if (flag) {
+            CategoryCache.delete(id);
             return ResultUtil.success("删除分类成功");
         } else {
             return ResultUtil.error("删除分类失败");

@@ -43,10 +43,8 @@ public class ArticleService extends ServiceImpl<ArticleMapper, Article> {
 
     @Cacheable(value = "article", key = "'slider'")
     public List<Article> sliderList() {
-        ArticleConditionVo vo = new ArticleConditionVo();
-        vo.setSlider(true);
-        vo.setStatus(CoreConst.STATUS_VALID);
-        return this.findByCondition(null, vo);
+        return super.lambdaQuery().select(Article::getId,Article::getCoverImage,Article::getTitle)
+                .eq(Article::getStatus,CoreConst.STATUS_VALID).eq(Article::getSlider,CoreConst.STATUS_VALID).list();
     }
 
     @Cacheable(value = "article", key = "'recommended'")
@@ -88,6 +86,7 @@ public class ArticleService extends ServiceImpl<ArticleMapper, Article> {
         return article;
     }
 
+    @Override
     @Cacheable(value = "article", key = "'count'")
     public long count() {
         return count(Wrappers.<Article>lambdaQuery().eq(Article::getStatus, CoreConst.STATUS_VALID));

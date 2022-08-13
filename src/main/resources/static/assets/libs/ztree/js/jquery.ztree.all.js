@@ -9,7 +9,7 @@
  * http://www.opensource.org/licenses/mit-license.php
  *
  * email: hunter.z@263.net
- * Date: 2017-06-19
+ * Date: 2021-06-19
  */
 (function ($) {
     var settings = {}, roots = {}, caches = {},
@@ -1934,7 +1934,7 @@
  * http://www.opensource.org/licenses/mit-license.php
  *
  * email: hunter.z@263.net
- * Date: 2017-06-19
+ * Date: 2021-06-19
  */
 (function($){
 	//default consts of excheck
@@ -2562,7 +2562,7 @@
  * http://www.opensource.org/licenses/mit-license.php
  *
  * email: hunter.z@263.net
- * Date: 2017-06-19
+ * Date: 2021-06-19
  */
 (function($){
 	//default consts of exedit

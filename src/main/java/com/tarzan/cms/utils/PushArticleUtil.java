@@ -13,9 +13,9 @@ import java.net.URL;
 /**
  * 文章推送到百度工具类
  *
- * @author Linzhaoguan
+ * @author tarzan
  * @version V1.0
- * @date 2019年9月11日
+ * @date 2021年9月11日
  */
 @Slf4j
 @UtilityClass
@@ -45,7 +45,6 @@ public class PushArticleUtil {
             log.error("【推送百度】建立URL之间的连接失败:{}", e.getMessage(), e);
         }
         try (PrintWriter out = new PrintWriter(conn.getOutputStream())) {
-
             //发送请求参数
             StringBuilder param = new StringBuilder();
             for (String s : parameters) {

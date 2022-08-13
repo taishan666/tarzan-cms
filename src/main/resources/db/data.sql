@@ -103,27 +103,27 @@ INSERT INTO `sys_config` VALUES (11, 'BAIDU_PUSH_URL', 'http://data.zz.baidu.com
 -- ----------------------------
 -- Records of sys_menu
 -- ----------------------------
-INSERT INTO `sys_menu` VALUES (1, '工作台', '工作台', '/workdest', 'workdest', 0, 1, 1, 'fas fa-home', 1, '2017-09-27 21:22:02', '2021-02-27 10:53:14');
-INSERT INTO `sys_menu` VALUES (2, '权限管理', '权限管理', NULL, NULL, 0, 0, 4, 'fas fa-user-cog', 1, '2017-07-13 15:04:42', '2021-04-19 19:09:22');
-INSERT INTO `sys_menu` VALUES (3, '用户管理', '用户管理', '/users', 'users', 2, 1, 1, 'fas fa-chess-queen', 1, '2017-07-13 15:05:47', '2021-02-27 10:53:14');
-INSERT INTO `sys_menu` VALUES (4, '列表查询', '用户列表查询', '/user/list', 'user:list', 3, 2, 0, NULL, 1, '2017-07-13 15:09:24', '2017-10-09 05:38:29');
-INSERT INTO `sys_menu` VALUES (5, '新增', '新增用户', '/user/add', 'user:add', 3, 2, 0, NULL, 1, '2017-07-13 15:06:50', '2021-02-28 17:58:46');
-INSERT INTO `sys_menu` VALUES (6, '编辑', '编辑用户', '/user/edit', 'user:edit', 3, 2, 0, NULL, 1, '2017-07-13 15:08:03', '2021-02-27 10:53:14');
-INSERT INTO `sys_menu` VALUES (7, '删除', '删除用户', '/user/delete', 'user:delete', 3, 2, 0, NULL, 1, '2017-07-13 15:08:42', '2021-02-27 10:53:14');
+INSERT INTO `sys_menu` VALUES (1, '工作台', '工作台', '/workdest', 'workdest', 0, 1, 1, 'fas fa-home', 1, '2021-09-27 21:22:02', '2021-02-27 10:53:14');
+INSERT INTO `sys_menu` VALUES (2, '权限管理', '权限管理', NULL, NULL, 0, 0, 4, 'fas fa-user-cog', 1, '2021-07-13 15:04:42', '2021-04-19 19:09:22');
+INSERT INTO `sys_menu` VALUES (3, '用户管理', '用户管理', '/users', 'users', 2, 1, 1, 'fas fa-chess-queen', 1, '2021-07-13 15:05:47', '2021-02-27 10:53:14');
+INSERT INTO `sys_menu` VALUES (4, '列表查询', '用户列表查询', '/user/list', 'user:list', 3, 2, 0, NULL, 1, '2021-07-13 15:09:24', '2021-10-09 05:38:29');
+INSERT INTO `sys_menu` VALUES (5, '新增', '新增用户', '/user/add', 'user:add', 3, 2, 0, NULL, 1, '2021-07-13 15:06:50', '2021-02-28 17:58:46');
+INSERT INTO `sys_menu` VALUES (6, '编辑', '编辑用户', '/user/edit', 'user:edit', 3, 2, 0, NULL, 1, '2021-07-13 15:08:03', '2021-02-27 10:53:14');
+INSERT INTO `sys_menu` VALUES (7, '删除', '删除用户', '/user/delete', 'user:delete', 3, 2, 0, NULL, 1, '2021-07-13 15:08:42', '2021-02-27 10:53:14');
 INSERT INTO `sys_menu` VALUES (8, '批量删除', '批量删除用户', '/user/batch/delete', 'user:batchDelete', 3, 2, 0, '', 1, '2021-07-11 01:53:09', '2021-07-11 01:53:09');
-INSERT INTO `sys_menu` VALUES (9, '分配角色', '分配角色', '/user/assign/role', 'user:assignRole', 3, 2, 0, NULL, 1, '2017-07-13 15:09:24', '2017-10-09 05:38:29');
-INSERT INTO `sys_menu` VALUES (10, '角色管理', '角色管理', '/roles', 'roles', 2, 1, 2, 'fas fa-chess-queen', 1, '2017-07-17 14:39:09', '2021-02-27 10:53:14');
-INSERT INTO `sys_menu` VALUES (11, '列表查询', '角色列表查询', '/role/list', 'role:list', 10, 2, 0, NULL, 1, '2017-10-10 15:31:36', '2021-02-27 10:53:14');
-INSERT INTO `sys_menu` VALUES (12, '新增', '新增角色', '/role/add', 'role:add', 10, 2, 0, NULL, 1, '2017-07-17 14:39:46', '2021-02-27 10:53:14');
-INSERT INTO `sys_menu` VALUES (13, '编辑', '编辑角色', '/role/edit', 'role:edit', 10, 2, 0, NULL, 1, '2017-07-17 14:40:15', '2021-02-27 10:53:14');
-INSERT INTO `sys_menu` VALUES (14, '删除', '删除角色', '/role/delete', 'role:delete', 10, 2, 0, NULL, 1, '2017-07-17 14:40:57', '2021-02-27 10:53:14');
+INSERT INTO `sys_menu` VALUES (9, '分配角色', '分配角色', '/user/assign/role', 'user:assignRole', 3, 2, 0, NULL, 1, '2021-07-13 15:09:24', '2021-10-09 05:38:29');
+INSERT INTO `sys_menu` VALUES (10, '角色管理', '角色管理', '/roles', 'roles', 2, 1, 2, 'fas fa-chess-queen', 1, '2021-07-17 14:39:09', '2021-02-27 10:53:14');
+INSERT INTO `sys_menu` VALUES (11, '列表查询', '角色列表查询', '/role/list', 'role:list', 10, 2, 0, NULL, 1, '2021-10-10 15:31:36', '2021-02-27 10:53:14');
+INSERT INTO `sys_menu` VALUES (12, '新增', '新增角色', '/role/add', 'role:add', 10, 2, 0, NULL, 1, '2021-07-17 14:39:46', '2021-02-27 10:53:14');
+INSERT INTO `sys_menu` VALUES (13, '编辑', '编辑角色', '/role/edit', 'role:edit', 10, 2, 0, NULL, 1, '2021-07-17 14:40:15', '2021-02-27 10:53:14');
+INSERT INTO `sys_menu` VALUES (14, '删除', '删除角色', '/role/delete', 'role:delete', 10, 2, 0, NULL, 1, '2021-07-17 14:40:57', '2021-02-27 10:53:14');
 INSERT INTO `sys_menu` VALUES (15, '批量删除', '批量删除角色', '/role/batch/delete', 'role:batchDelete', 10, 2, 0, '', 1, '2021-07-10 22:20:43', '2021-07-10 22:20:43');
-INSERT INTO `sys_menu` VALUES (16, '分配权限', '分配权限', '/role/assign/Menu', 'role:assignPerms', 10, 2, 0, NULL, 1, '2017-09-26 07:33:05', '2021-02-27 10:53:14');
-INSERT INTO `sys_menu` VALUES (17, '资源管理', '资源管理', '/menus', 'menus', 2, 1, 3, 'fas fa-chess-queen', 1, '2017-09-26 07:33:51', '2021-02-27 10:53:14');
+INSERT INTO `sys_menu` VALUES (16, '分配权限', '分配权限', '/role/assign/Menu', 'role:assignPerms', 10, 2, 0, NULL, 1, '2021-09-26 07:33:05', '2021-02-27 10:53:14');
+INSERT INTO `sys_menu` VALUES (17, '资源管理', '资源管理', '/menus', 'menus', 2, 1, 3, 'fas fa-chess-queen', 1, '2021-09-26 07:33:51', '2021-02-27 10:53:14');
 INSERT INTO `sys_menu` VALUES (18, '列表查询', '资源列表', '/menu/list', 'menu:list', 17, 2, 0, NULL, 1, '2021-07-12 16:25:28', '2021-07-12 16:25:33');
-INSERT INTO `sys_menu` VALUES (19, '新增', '新增资源', '/menu/add', 'menu:add', 17, 2, 0, NULL, 1, '2017-09-26 08:06:58', '2021-02-27 10:53:14');
-INSERT INTO `sys_menu` VALUES (20, '编辑', '编辑资源', '/menu/edit', 'menu:edit', 17, 2, 0, NULL, 1, '2017-09-27 21:29:04', '2021-02-27 10:53:14');
-INSERT INTO `sys_menu` VALUES (21, '删除', '删除资源', '/menu/delete', 'menu:delete', 17, 2, 0, NULL, 1, '2017-09-27 21:29:50', '2021-02-27 10:53:14');
+INSERT INTO `sys_menu` VALUES (19, '新增', '新增资源', '/menu/add', 'menu:add', 17, 2, 0, NULL, 1, '2021-09-26 08:06:58', '2021-02-27 10:53:14');
+INSERT INTO `sys_menu` VALUES (20, '编辑', '编辑资源', '/menu/edit', 'menu:edit', 17, 2, 0, NULL, 1, '2021-09-27 21:29:04', '2021-02-27 10:53:14');
+INSERT INTO `sys_menu` VALUES (21, '删除', '删除资源', '/menu/delete', 'menu:delete', 17, 2, 0, NULL, 1, '2021-09-27 21:29:50', '2021-02-27 10:53:14');
 INSERT INTO `sys_menu` VALUES (22, '运维管理', '运维管理', NULL, NULL, 0, 0, 7, 'fas fa-people-carry', 1, '2021-07-06 15:19:26', '2021-04-19 19:09:59');
 INSERT INTO `sys_menu` VALUES (23, '数据监控', '数据监控', '/database/monitoring', 'database', 22, 1, 1, 'fas fa-chess-queen', 1, '2021-07-06 15:19:55', '2021-07-06 15:19:55');
 INSERT INTO `sys_menu` VALUES (24, '系统管理', '系统管理', NULL, NULL, 0, 0, 5, 'fas fa-cog', 1, '2021-07-06 15:20:38', '2021-04-19 19:08:58');
@@ -191,10 +191,10 @@ INSERT INTO `sys_menu` VALUES (92, '服务监控', '服务监控', '/server/moni
 -- ----------------------------
 -- Records of sys_role
 -- ----------------------------
-INSERT INTO `sys_role` VALUES (1, '超级管理员', '超级管理员', 1, '2017-06-28 20:30:05', '2017-06-28 20:30:10');
-INSERT INTO `sys_role` VALUES (2, '管理员', '管理员', 1, '2017-06-30 23:35:19', '2017-10-11 09:32:33');
-INSERT INTO `sys_role` VALUES (3, '普通用户', '普通用户', 1, '2017-06-30 23:35:44', '2021-07-13 11:44:06');
-INSERT INTO `sys_role` VALUES (4, '数据库管理员', '数据库管理员', 1, '2017-07-12 11:50:22', '2017-10-09 17:38:02');
+INSERT INTO `sys_role` VALUES (1, '超级管理员', '超级管理员', 1, '2021-06-28 20:30:05', '2021-06-28 20:30:10');
+INSERT INTO `sys_role` VALUES (2, '管理员', '管理员', 1, '2021-06-30 23:35:19', '2021-10-11 09:32:33');
+INSERT INTO `sys_role` VALUES (3, '普通用户', '普通用户', 1, '2021-06-30 23:35:44', '2021-07-13 11:44:06');
+INSERT INTO `sys_role` VALUES (4, '数据库管理员', '数据库管理员', 1, '2021-07-12 11:50:22', '2021-10-09 17:38:02');
 
 -- ----------------------------
 -- Records of sys_role_menu

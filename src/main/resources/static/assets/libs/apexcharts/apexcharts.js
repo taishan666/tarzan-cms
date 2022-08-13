@@ -9234,7 +9234,7 @@
           var isXDate = !isXArr && !!dt.isValidDate(ser[activeI].data[_j2].x.toString());
 
           if (isXString || isXDate) {
-            // user supplied '01/01/2017' or a date string (a JS date object is not supported)
+            // user supplied '01/01/2021' or a date string (a JS date object is not supported)
             if (isXString || cnf.xaxis.convertedCatToNumeric) {
               var isRangeColumn = gl.isBarHorizontal && gl.isRangeData;
 

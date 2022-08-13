@@ -95,7 +95,7 @@ public class ArticleController {
 
     @GetMapping("/edit")
     public String edit(Model model, Integer id) {
-        Article bizArticle = articleService.selectById(id);
+        Article bizArticle = articleService.getById(id);
         List<Category> bizCategories = categoryService.selectCategories(CoreConst.STATUS_VALID);
         List<Tags> sTags =tagsService.list();
         List<Tags> aTags = new ArrayList<>();

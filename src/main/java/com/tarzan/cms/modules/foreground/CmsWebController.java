@@ -32,7 +32,6 @@ import java.util.List;
 public class CmsWebController {
 
     private final ArticleService bizArticleService;
-    private final CategoryService categoryService;
     private final ThemeService bizThemeService;
 
     /**
@@ -168,7 +167,7 @@ public class CmsWebController {
         if (CoreConst.SITE_STATIC.get()) {
             return "forward:/html/article/" + articleId + ".html";
         }
-        Article article = bizArticleService.selectById(articleId);
+        Article article = bizArticleService.readById(articleId);
         if (article == null || CoreConst.STATUS_INVALID.equals(article.getStatus())) {
             throw new ArticleNotFoundException();
         }

@@ -9,7 +9,6 @@ import com.tarzan.cms.modules.admin.model.biz.ArticleLook;
 import com.tarzan.cms.utils.DateUtil;
 import org.springframework.stereotype.Service;
 
-import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -19,8 +18,6 @@ import java.util.stream.Collectors;
  */
 @Service
 public class ArticleLookService extends ServiceImpl<ArticleLookMapper, ArticleLook> {
-
-    SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd");
 
     private static Map<String, Long> buildRecentDayMap(int day) {
         Date now = new Date();
@@ -54,16 +51,16 @@ public class ArticleLookService extends ServiceImpl<ArticleLookMapper, ArticleLo
 
     public Map<String,List<ArticleLook>>  looksGroupMap(int day){
         List<ArticleLook> list=looksRecentDays(day);
-        return list.stream().collect(Collectors.groupingBy(e->sdf.format(e.getLookTime())));
+        return list.stream().collect(Collectors.groupingBy(e->DateUtil.format(e.getLookTime(), DateUtil.webFormat)));
     }
 
     private List<ArticleLook> looksRecentDays(int day){
-        Date curDate=new Date();
-        Date beforeWeekDate= DateUtil.addDays(curDate,-day+1);
+        Date curDate=DateUtil.getDayBegin(new Date());
+        Date beforeWeekDate= DateUtil.addDays(curDate,-day);
         LambdaQueryWrapper<ArticleLook> wrapper=Wrappers.lambdaQuery();
-        wrapper.select(ArticleLook::getId,ArticleLook::getUserIp);
-        wrapper.ge(ArticleLook::getLookTime,sdf.format(beforeWeekDate));
-        wrapper.lt(ArticleLook::getLookTime,sdf.format(curDate));
+        wrapper.select(ArticleLook::getId,ArticleLook::getUserIp,ArticleLook::getLookTime);
+        wrapper.ge(ArticleLook::getLookTime,beforeWeekDate);
+        wrapper.le(ArticleLook::getLookTime,curDate);
         return super.list(wrapper);
     }
 

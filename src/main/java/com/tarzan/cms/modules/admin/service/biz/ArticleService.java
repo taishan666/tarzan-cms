@@ -12,8 +12,10 @@ import com.tarzan.cms.modules.admin.model.biz.Comment;
 import com.tarzan.cms.modules.admin.model.biz.Love;
 import com.tarzan.cms.modules.admin.vo.ArticleConditionVo;
 import com.tarzan.cms.utils.DateUtil;
+import com.tarzan.cms.utils.WebUtil;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -74,8 +76,9 @@ public class ArticleService extends ServiceImpl<ArticleMapper, Article> {
         return baseMapper.hotList(page);
     }
 
-    @Cacheable(value = "article", key = "#id")
-    public Article selectById(Integer id) {
+   // @Cacheable(value = "article", key = "#id")
+    public Article readById(Integer id) {
+        System.out.println("测试。。");
         Article article=getById(id);
         long lookNum=articleLookService.count(Wrappers.<ArticleLook>lambdaQuery().eq(ArticleLook::getArticleId,id));
         article.setLookCount(lookNum);
@@ -85,6 +88,7 @@ public class ArticleService extends ServiceImpl<ArticleMapper, Article> {
         article.setCommentCount(commentNum);
         return article;
     }
+
 
     @Override
     @Cacheable(value = "article", key = "'count'")

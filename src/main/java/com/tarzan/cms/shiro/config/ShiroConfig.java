@@ -89,7 +89,7 @@ public class ShiroConfig {
         //未授权界面;
         shiroFilterFactoryBean.setUnauthorizedUrl("/error/403");
         //自定义拦截器
-        Map<String, Filter> filtersMap = new LinkedHashMap<String, Filter>();
+        Map<String, Filter> filtersMap = new LinkedHashMap<>(1);
         //限制同一帐号同时在线的个数。
         filtersMap.put("kickOut", kickoutSessionControlFilter());
         shiroFilterFactoryBean.setFilters(filtersMap);

@@ -17,6 +17,7 @@ import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -152,6 +153,7 @@ public class RoleController {
     /*分配权限*/
     @PostMapping("/assign/menu")
     @ResponseBody
+    @CacheEvict(value = "menu", allEntries = true)
     public ResponseVo assignRole(Integer id, String menuIdStr) {
         List<String> menuIdsList = new ArrayList<>();
         if (StringUtils.isNotBlank(menuIdStr)) {

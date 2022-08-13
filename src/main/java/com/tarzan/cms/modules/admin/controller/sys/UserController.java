@@ -14,6 +14,7 @@ import com.tarzan.cms.utils.AuthUtil;
 import com.tarzan.cms.utils.PasswordHelper;
 import com.tarzan.cms.utils.ResultUtil;
 import lombok.AllArgsConstructor;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -114,7 +115,7 @@ public class UserController {
     @PostMapping("/delete")
     @ResponseBody
     public ResponseVo deleteUser(Integer id) {
-        if(id== AuthUtil.getUserId()){
+        if(id.equals(AuthUtil.getUserId())){
             return ResultUtil.error("当前使用用户不能删除！");
         }
         return batchDeleteUser(Arrays.asList(id));
@@ -156,6 +157,7 @@ public class UserController {
      */
     @PostMapping("/assign/role")
     @ResponseBody
+    @CacheEvict(value = "menu", allEntries = true)
     public ResponseVo assignRole(Integer id, String roleIdStr) {
         String[] roleIds = roleIdStr.split(",");
         List<String> roleIdsList = Arrays.asList(roleIds);

@@ -62,8 +62,7 @@ public class Sys
         this.userDir = userDir;
     }
 
-    public String getOsName()
-    {
+    public String getOsName() {
         return osName;
     }
 

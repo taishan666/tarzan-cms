@@ -5,11 +5,10 @@ import com.tarzan.cms.utils.MathUtil;
 
 /**
  * CPU相关信息
- * 
+ *
  * @author tarzan
  */
-public class Cpu
-{
+public class Cpu {
     /**
      * 核心数
      */
@@ -40,8 +39,7 @@ public class Cpu
      */
     private double free;
 
-    public int getCpuNum()
-    {
+    public int getCpuNum() {
         return cpuNum;
     }
 
@@ -70,13 +68,11 @@ public class Cpu
         this.sys = sys;
     }
 
-    public double getUsed()
-    {
+    public double getUsed() {
         return MathUtil.round(MathUtil.mul(used / total, 100), 2);
     }
 
-    public void setUsed(double used)
-    {
+    public void setUsed(double used) {
         this.used = used;
     }
 

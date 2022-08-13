@@ -24,7 +24,7 @@ import java.util.Properties;
 public class Server
 {
     
-    private static final int OSHI_WAIT_SECOND = 1000;
+    private static final int OSHI_WAIT_SECOND = 300;
     
     /**
      * CPU相关信息
@@ -56,8 +56,7 @@ public class Server
         return cpu;
     }
 
-    public void setCpu(Cpu cpu)
-    {
+    public void setCpu(Cpu cpu) {
         this.cpu = cpu;
     }
 
@@ -71,8 +70,7 @@ public class Server
         this.mem = mem;
     }
 
-    public Jvm getJvm()
-    {
+    public Jvm getJvm() {
         return jvm;
     }
 
@@ -91,37 +89,28 @@ public class Server
         this.sys = sys;
     }
 
-    public List<SysFile> getSysFiles()
-    {
+    public List<SysFile> getSysFiles() {
         return sysFiles;
     }
 
-    public void setSysFiles(List<SysFile> sysFiles)
-    {
+    public void setSysFiles(List<SysFile> sysFiles) {
         this.sysFiles = sysFiles;
     }
 
-    public void copyTo() throws Exception
-    {
+    public void copyTo() {
         SystemInfo si = new SystemInfo();
         HardwareAbstractionLayer hal = si.getHardware();
-
         setCpuInfo(hal.getProcessor());
-
         setMemInfo(hal.getMemory());
-
         setSysInfo();
-
         setJvmInfo();
-
         setSysFiles(si.getOperatingSystem());
     }
 
     /**
      * 设置CPU信息
      */
-    private void setCpuInfo(CentralProcessor processor)
-    {
+    private void setCpuInfo(CentralProcessor processor) {
         // CPU信息
         long[] prevTicks = processor.getSystemCpuLoadTicks();
         Util.sleep(OSHI_WAIT_SECOND);
@@ -141,6 +130,7 @@ public class Server
         cpu.setUsed(user);
         cpu.setWait(iowait);
         cpu.setFree(idle);
+
     }
 
     /**
@@ -156,8 +146,7 @@ public class Server
     /**
      * 设置服务器信息
      */
-    private void setSysInfo()
-    {
+    private void setSysInfo() {
         Properties props = System.getProperties();
         sys.setComputerName(IpUtil.getHostName());
         sys.setComputerIp(IpUtil.getHostIp());

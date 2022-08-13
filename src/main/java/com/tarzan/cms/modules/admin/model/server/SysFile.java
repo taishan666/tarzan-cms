@@ -5,8 +5,7 @@ package com.tarzan.cms.modules.admin.model.server;
  * 
  * @author tarzan
  */
-public class SysFile
-{
+public class SysFile {
     /**
      * 盘符路径
      */
@@ -92,8 +91,7 @@ public class SysFile
         this.free = free;
     }
 
-    public String getUsed()
-    {
+    public String getUsed() {
         return used;
     }
 

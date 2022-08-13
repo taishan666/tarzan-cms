@@ -20,7 +20,7 @@ import java.util.stream.Collectors;
 public class ArticleLookService extends ServiceImpl<ArticleLookMapper, ArticleLook> {
 
     private static Map<String, Long> buildRecentDayMap(int day) {
-        Date now = new Date();
+        Date now = DateUtil.now();
         LinkedHashMap<String, Long> map = Maps.newLinkedHashMap();
         for (int i = day; i >= 1; i--) {
             Long count = 0L;
@@ -55,12 +55,12 @@ public class ArticleLookService extends ServiceImpl<ArticleLookMapper, ArticleLo
     }
 
     private List<ArticleLook> looksRecentDays(int day){
-        Date curDate=DateUtil.getDayBegin(new Date());
+        Date curDate=DateUtil.getDayBegin(DateUtil.now());
         Date beforeWeekDate= DateUtil.addDays(curDate,-day);
         LambdaQueryWrapper<ArticleLook> wrapper=Wrappers.lambdaQuery();
         wrapper.select(ArticleLook::getId,ArticleLook::getUserIp,ArticleLook::getLookTime);
         wrapper.ge(ArticleLook::getLookTime,beforeWeekDate);
-        wrapper.le(ArticleLook::getLookTime,curDate);
+        wrapper.lt(ArticleLook::getLookTime,curDate);
         return super.list(wrapper);
     }
 

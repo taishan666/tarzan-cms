@@ -103,7 +103,7 @@ INSERT INTO `sys_config` VALUES (11, 'BAIDU_PUSH_URL', 'http://data.zz.baidu.com
 -- ----------------------------
 -- Records of sys_menu
 -- ----------------------------
-INSERT INTO `sys_menu` VALUES (1, '工作台', '工作台', '/workdest', 'workdest', 0, 1, 1, 'fas fa-home', 1, '2021-09-27 21:22:02', '2021-02-27 10:53:14');
+INSERT INTO `sys_menu` VALUES (1, '工作台', '工作台', '/dashboard', 'dashboard', 0, 1, 1, 'fas fa-home', 1, '2021-09-27 21:22:02', '2021-02-27 10:53:14');
 INSERT INTO `sys_menu` VALUES (2, '权限管理', '权限管理', NULL, NULL, 0, 0, 4, 'fas fa-user-cog', 1, '2021-07-13 15:04:42', '2021-04-19 19:09:22');
 INSERT INTO `sys_menu` VALUES (3, '用户管理', '用户管理', '/users', 'users', 2, 1, 1, 'fas fa-chess-queen', 1, '2021-07-13 15:05:47', '2021-02-27 10:53:14');
 INSERT INTO `sys_menu` VALUES (4, '列表查询', '用户列表查询', '/user/list', 'user:list', 3, 2, 0, NULL, 1, '2021-07-13 15:09:24', '2021-10-09 05:38:29');

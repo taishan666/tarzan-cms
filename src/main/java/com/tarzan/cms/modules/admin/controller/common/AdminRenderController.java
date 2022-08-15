@@ -52,8 +52,8 @@ public class AdminRenderController {
     /**
      * 工作台
      */
-    @GetMapping("/workdest")
-    public String workdest(Model model) {
+    @GetMapping("/dashboard")
+    public String dashboard(Model model) {
         model.addAttribute("statistic", statisticService.indexStatistic());
         return CoreConst.ADMIN_PREFIX + "index/dashboard";
     }

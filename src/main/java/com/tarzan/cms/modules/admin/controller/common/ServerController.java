@@ -18,7 +18,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
  */
 @Controller
 @RequestMapping("/server")
-@Slf4j
 public class ServerController {
 
     @GetMapping(value = "/monitoring")

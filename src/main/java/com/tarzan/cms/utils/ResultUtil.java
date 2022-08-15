@@ -49,5 +49,10 @@ public class ResultUtil {
         return new ResponseVo<>(status, message, data);
     }
 
+    public static ResponseVo vo(Object data) {
+        return vo(CoreConst.SUCCESS_CODE,null,data);
+    }
+
+
 
 }

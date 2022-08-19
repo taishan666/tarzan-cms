@@ -1,6 +1,5 @@
 package com.tarzan.cms.shiro.redis;
 
-import com.tarzan.cms.shiro.exception.SerializationException;
 import com.tarzan.cms.shiro.serializer.ObjectSerializer;
 import com.tarzan.cms.shiro.serializer.RedisSerializer;
 import com.tarzan.cms.shiro.serializer.StringSerializer;
@@ -8,25 +7,24 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.cache.Cache;
 import org.apache.shiro.cache.CacheException;
 import org.apache.shiro.cache.CacheManager;
-import org.apache.shiro.util.CollectionUtils;
 
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 
+/**
+ * @author tarzan
+ */
 @Slf4j
 public class RedisCacheManager implements CacheManager {
 
-    // fast lookup by name map
-    private final ConcurrentMap<String, Cache> caches = new ConcurrentHashMap<String, Cache>();
+    /** fast lookup by name map */
+    private final ConcurrentMap<String, Cache> caches = new ConcurrentHashMap<>();
     private RedisSerializer keySerializer = new StringSerializer();
     private RedisSerializer valueSerializer = new ObjectSerializer();
 
     private IRedisManager redisManager;
 
-    // expire time in seconds
+    /** expire time in seconds */
     public static final int DEFAULT_EXPIRE = 1800 ;
     private int expire = DEFAULT_EXPIRE;
 

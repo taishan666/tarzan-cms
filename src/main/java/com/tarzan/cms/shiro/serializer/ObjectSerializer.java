@@ -35,19 +35,17 @@ public class ObjectSerializer implements RedisSerializer<Object> {
 
     @Override
     public Object deserialize(byte[] bytes) throws SerializationException {
-        Object result = null;
+        Object result;
 
         if (bytes == null || bytes.length == 0) {
-            return result;
+            return null;
         }
 
         try {
             ByteArrayInputStream byteStream = new ByteArrayInputStream(bytes);
             ObjectInputStream objectInputStream = new MultiClassLoaderObjectInputStream(byteStream);
             result = objectInputStream.readObject();
-        } catch (IOException e) {
-            throw new SerializationException("deserialize error", e);
-        } catch (ClassNotFoundException e) {
+        } catch (IOException | ClassNotFoundException e) {
             throw new SerializationException("deserialize error", e);
         }
 

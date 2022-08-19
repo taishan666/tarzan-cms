@@ -13,10 +13,8 @@ import java.util.concurrent.atomic.AtomicInteger;
 /**
  * 凭证匹配器（密码规则校验）
  *
- * @author koal
+ * @author tarzan
  * @className RetryLimitHashedCredentialsMatcher
- * @email koal@vip.qq.com
- * @date 2016/1/7 20:51
  */
 public class RetryLimitHashedCredentialsMatcher extends HashedCredentialsMatcher {
 
@@ -28,7 +26,7 @@ public class RetryLimitHashedCredentialsMatcher extends HashedCredentialsMatcher
     /**
      * 缓存标示
      */
-    private Cache<String, AtomicInteger> passwordRetryCache;
+    private final Cache<String, AtomicInteger> passwordRetryCache;
 
     /**
      * 构造

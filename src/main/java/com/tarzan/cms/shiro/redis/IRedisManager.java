@@ -4,8 +4,8 @@ import java.util.Set;
 
 /**
  * redisManager interface
- *
- **/
+ * @author tarzan
+ * */
 
 public interface IRedisManager {
 

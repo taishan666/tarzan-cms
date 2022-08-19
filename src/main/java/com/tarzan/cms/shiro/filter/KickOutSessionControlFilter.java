@@ -35,21 +35,19 @@ import java.util.Map;
 @Setter
 public class KickOutSessionControlFilter extends AccessControlFilter {
 
-    private String kickOutUrl; //踢出后到的地址
-
-    /**
-     * 用户session里的属性：是否应该被踢出
-     */
+    /** 踢出后到的地址 */
+    private String kickOutUrl;
+    /** 用户session里的属性：是否应该被踢出 */
     private String kickOutSessionAttrName = "kickOut";
-    private boolean kickOutAfter; //踢出之前登录的/之后登录的用户 默认踢出之前登录的用户
-    private int maxSession = 5; //同一个帐号最大会话数 默认5
+    /** 踢出之前登录的/之后登录的用户 默认踢出之前登录的用户 */
+    private boolean kickOutAfter;
+    /**  同一个帐号最大会话数 默认5 */
+    private int maxSession = 5;
 
     private SessionManager sessionManager;
 
     private Cache<String, Deque<Serializable>> cache;
-
-
-    //设置Cache的key的前缀
+    /** 设置Cache的key的前缀 */
     public void setCacheManager(CacheManager cacheManager) {
         this.cache = cacheManager.getCache(CoreConst.SHIRO_REDIS_CACHE_NAME);
     }
@@ -75,7 +73,7 @@ public class KickOutSessionControlFilter extends AccessControlFilter {
         //如果此用户没有session队列，也就是还没有登录过，缓存中没有
         //就new一个空队列，不然deque对象为空，会报空指针
         if (deque == null) {
-            deque = new LinkedList<Serializable>();
+            deque = new LinkedList<>();
         }
         //如果队列里没有此sessionId，且用户没有被踢出；放入队列
         if (!deque.contains(sessionId) && session.getAttribute(kickOutSessionAttrName) == null) {
@@ -86,7 +84,7 @@ public class KickOutSessionControlFilter extends AccessControlFilter {
         }
         //如果队列里的sessionId数超出最大会话数，开始踢人
         while (deque.size() > maxSession) {
-            Serializable kickoutSessionId = null;
+            Serializable kickoutSessionId;
             if (kickOutAfter) {
                 //如果踢出后者
                 kickoutSessionId = deque.removeFirst();
@@ -107,7 +105,7 @@ public class KickOutSessionControlFilter extends AccessControlFilter {
             //退出登录
             subject.logout();
             saveRequest(request);
-            Map<String, String> resultMap = new HashMap<String, String>();
+            Map<String, String> resultMap = new HashMap<>(4);
             //判断是不是Ajax请求
             if ("XMLHttpRequest".equalsIgnoreCase(((HttpServletRequest) request).getHeader("X-Requested-With"))) {
                 resultMap.put("user_status", "300");
@@ -125,7 +123,7 @@ public class KickOutSessionControlFilter extends AccessControlFilter {
 
     private static void out(ServletResponse response, Map<String, String> resultMap)  {
         response.setCharacterEncoding("UTF-8");
-        try (PrintWriter out = response.getWriter();) {
+        try (PrintWriter out = response.getWriter()) {
             out.println(JSON.toJSONString(resultMap));
             out.flush();
         } catch (Exception e) {

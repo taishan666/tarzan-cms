@@ -39,7 +39,7 @@ public class ShiroService {
      */
     private Map<String, String> loadFilterChainDefinitions() {
         // 权限控制map.从数据库获取
-        Map<String, String> filterChainDefinitionMap = new LinkedHashMap<String, String>();
+        Map<String, String> filterChainDefinitionMap = new LinkedHashMap<>();
         filterChainDefinitionMap.put("/", "anon");
         filterChainDefinitionMap.put("/doc.html", "anon");
         filterChainDefinitionMap.put("/index", "anon");

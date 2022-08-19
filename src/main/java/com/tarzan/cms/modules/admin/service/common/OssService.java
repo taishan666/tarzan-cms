@@ -1,7 +1,8 @@
 package com.tarzan.cms.modules.admin.service.common;
 
 import com.alibaba.fastjson.JSON;
-import com.tarzan.cms.common.properties.FileUploadProperties;
+import com.alibaba.fastjson.JSONObject;
+import com.tarzan.cms.common.props.FileUploadProperties;
 import com.tarzan.cms.common.constant.CoreConst;
 import com.tarzan.cms.modules.admin.service.sys.SysConfigService;
 import com.tarzan.cms.utils.*;
@@ -87,7 +88,8 @@ public class OssService {
     @Cacheable(value = "oss", key = "'config'")
     public CloudStorageConfigVo getOssConfig() {
         String value = sysConfigService.selectAll().get(SysConfigKey.CLOUD_STORAGE_CONFIG.getValue());
-        return JSON.parseObject(value, CloudStorageConfigVo.class);
+        value=value.replaceAll("\\\\","");
+        return JSONObject.parseObject(value, CloudStorageConfigVo.class);
     }
 
     @CacheEvict(value = "oss", key = "'config'")
@@ -96,9 +98,6 @@ public class OssService {
         return sysConfigService.updateByKey(SysConfigKey.CLOUD_STORAGE_CONFIG.getValue(), value);
     }
 
-    public int getOssConfigType() {
-        return getOssConfig().getType();
-    }
 
 
 }

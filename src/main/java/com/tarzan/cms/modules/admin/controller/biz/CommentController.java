@@ -9,6 +9,7 @@ import com.tarzan.cms.modules.admin.vo.base.ResponseVo;
 import com.tarzan.cms.utils.ResultUtil;
 import lombok.AllArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -53,6 +54,7 @@ public class CommentController {
     }
 
     @PostMapping("/audit")
+    @Transactional(rollbackFor = Exception.class)
     public ResponseVo audit(Comment bizComment, String replyContent) {
         try {
             commentService.updateById(bizComment);

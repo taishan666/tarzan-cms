@@ -9,11 +9,7 @@ import com.tarzan.cms.modules.admin.model.biz.ArticleLook;
 import com.tarzan.cms.utils.DateUtil;
 import org.springframework.stereotype.Service;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 
 /**
@@ -23,13 +19,11 @@ import java.util.stream.Collectors;
 @Service
 public class ArticleLookService extends ServiceImpl<ArticleLookMapper, ArticleLook> {
 
-    SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd");
-
     private static Map<String, Long> buildRecentDayMap(int day) {
-        Date now = new Date();
+        Date now = DateUtil.now();
         LinkedHashMap<String, Long> map = Maps.newLinkedHashMap();
         for (int i = day; i >= 1; i--) {
-            Long count = 0l;
+            Long count = 0L;
             map.put(DateUtil.format(DateUtil.addDays(now, -i), DateUtil.webFormat), count);
         }
         return map;
@@ -40,31 +34,34 @@ public class ArticleLookService extends ServiceImpl<ArticleLookMapper, ArticleLo
         return count(Wrappers.lambdaQuery(new ArticleLook().setArticleId(articleId).setUserIp(userIp).setLookTime(lookTime)));
     }
 
-    public  Map<String,Long> looksByDay(int day){
+    public  Map<String,Long> looksByDay(Map<String,List<ArticleLook>> lookMap,int day){
         Map<String,Long> looksByDayMap= buildRecentDayMap(day);
-        looksGroupMap(day).forEach((k,v)->looksByDayMap.put(k,Long.valueOf(v.size())));
+        lookMap.forEach((k,v)->looksByDayMap.put(k, (long) v.size()));
        return looksByDayMap;
     }
 
-    public  Map<String,Long> usersByDay(int day){
-        Map<String,List<ArticleLook>> lookMap=looksGroupMap(day);
+    public  Map<String,Long> usersByDay(Map<String,List<ArticleLook>> lookMap,int day){
         Map<String,Long> usersByDayMap=buildRecentDayMap(day);
         lookMap.forEach((k,v)->{
-            List<String> users= v.stream().map(ArticleLook::getUserIp).collect(Collectors.toList());
-            users=users.stream().distinct().collect(Collectors.toList());
-            usersByDayMap.put(k,Long.valueOf(users.size()));
+            Set<String> users= v.stream().map(ArticleLook::getUserIp).collect(Collectors.toSet());
+            usersByDayMap.put(k, (long) users.size());
         });
         return usersByDayMap;
     }
 
-    private Map<String,List<ArticleLook>>  looksGroupMap(int day){
-        Date curDate=new Date();
-        Date beforeWeekDate= DateUtil.addDays(curDate,-day+1);
-        LambdaQueryWrapper<ArticleLook> wrapper=new LambdaQueryWrapper();
-        wrapper.ge(ArticleLook::getLookTime,sdf.format(beforeWeekDate));
-        wrapper.lt(ArticleLook::getLookTime,sdf.format(curDate));
-        List<ArticleLook> list=list(wrapper);
-        return list.stream().collect(Collectors.groupingBy(e->sdf.format(e.getLookTime())));
+    public Map<String,List<ArticleLook>>  looksGroupMap(int day){
+        List<ArticleLook> list=looksRecentDays(day);
+        return list.stream().collect(Collectors.groupingBy(e->DateUtil.format(e.getLookTime(), DateUtil.webFormat)));
+    }
+
+    private List<ArticleLook> looksRecentDays(int day){
+        Date curDate=DateUtil.getDayBegin(DateUtil.now());
+        Date beforeWeekDate= DateUtil.addDays(curDate,-day);
+        LambdaQueryWrapper<ArticleLook> wrapper=Wrappers.lambdaQuery();
+        wrapper.select(ArticleLook::getId,ArticleLook::getUserIp,ArticleLook::getLookTime);
+        wrapper.ge(ArticleLook::getLookTime,beforeWeekDate);
+        wrapper.lt(ArticleLook::getLookTime,curDate);
+        return super.list(wrapper);
     }
 
 

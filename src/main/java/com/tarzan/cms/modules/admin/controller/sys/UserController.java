@@ -10,9 +10,11 @@ import com.tarzan.cms.modules.admin.service.sys.UserService;
 import com.tarzan.cms.modules.admin.vo.base.PageResultVo;
 import com.tarzan.cms.modules.admin.vo.base.ResponseVo;
 import com.tarzan.cms.shiro.MyShiroRealm;
+import com.tarzan.cms.utils.AuthUtil;
 import com.tarzan.cms.utils.PasswordHelper;
 import com.tarzan.cms.utils.ResultUtil;
 import lombok.AllArgsConstructor;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -34,7 +36,6 @@ public class UserController {
     private final MyShiroRealm myShiroRealm;
     private final UserService userService;
     private final RoleService roleService;
-
 
 
     /**
@@ -59,8 +60,7 @@ public class UserController {
     @ResponseBody
     public ResponseVo add(User userForm, String confirmPassword) {
         String username = userForm.getUsername();
-        User user = userService.selectByUsername(username);
-        if (null != user) {
+        if (userService.exists(username)) {
             return ResultUtil.error("用户名已存在");
         }
         String password = userForm.getPassword();
@@ -115,6 +115,9 @@ public class UserController {
     @PostMapping("/delete")
     @ResponseBody
     public ResponseVo deleteUser(Integer id) {
+        if(id.equals(AuthUtil.getUserId())){
+            return ResultUtil.error("当前使用用户不能删除！");
+        }
         return batchDeleteUser(Arrays.asList(id));
     }
 
@@ -124,6 +127,9 @@ public class UserController {
     @PostMapping("/batch/delete")
     @ResponseBody
     public ResponseVo batchDeleteUser(@RequestBody List<Integer> ids) {
+        if(ids.contains(AuthUtil.getUserId())){
+            return ResultUtil.error("当前使用用户不能删除！");
+        }
         boolean a = userService.updateStatusBatch(ids, CoreConst.STATUS_INVALID);
         if (a) {
             return ResultUtil.success("删除用户成功");
@@ -151,6 +157,7 @@ public class UserController {
      */
     @PostMapping("/assign/role")
     @ResponseBody
+    @CacheEvict(value = "menu", allEntries = true)
     public ResponseVo assignRole(Integer id, String roleIdStr) {
         String[] roleIds = roleIdStr.split(",");
         List<String> roleIdsList = Arrays.asList(roleIds);

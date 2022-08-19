@@ -1,5 +1,8 @@
 package com.tarzan.cms.shiro.exception;
 
+/**
+ * @author tarzan
+ */
 public class PrincipalInstanceException extends RuntimeException  {
 
     private static final String MESSAGE = "We need a field to identify this Cache Object in Redis. "

@@ -1,7 +1,7 @@
 package com.tarzan.cms.common.config;
 
 
-import com.tarzan.cms.common.properties.CmsProperties;
+import com.tarzan.cms.common.props.CmsProperties;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Configuration;
 import redis.embedded.RedisServer;
@@ -31,6 +31,7 @@ public class EmbeddedRedisConfig {
                 .port(cmsProperties.getEmbeddedRedisPort()) //端口
                 .setting("bind localhost") //绑定ip
                 .setting("requirepass "+cmsProperties.getEmbeddedRedisPassword()) //设置密码
+              //  .setting("maxheap 300m")
                 .build();
         redisServer.start();
     }

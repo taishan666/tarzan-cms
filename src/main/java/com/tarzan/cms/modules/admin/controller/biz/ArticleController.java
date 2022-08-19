@@ -66,7 +66,7 @@ public class ArticleController {
     /*文章*/
     @GetMapping("/add")
     public String addArticle(Model model) {
-        List<Category> bizCategories = categoryService.selectCategories(new Category().setStatus(CoreConst.STATUS_VALID));
+        List<Category> bizCategories = categoryService.selectCategories(CoreConst.STATUS_VALID);
         List<Tags> tags = tagsService.list();
         model.addAttribute("categories", bizCategories);
         model.addAttribute("tags", tags);
@@ -77,7 +77,7 @@ public class ArticleController {
 
     @PostMapping("/add")
     @ResponseBody
-    @Transactional
+    @Transactional(rollbackFor = Exception.class)
     public ResponseVo add(Article bizArticle,@RequestParam(value = "tagIds",required = false) List<Integer> tagIds) {
         try {
             User user = (User) SecurityUtils.getSubject().getPrincipal();
@@ -95,8 +95,8 @@ public class ArticleController {
 
     @GetMapping("/edit")
     public String edit(Model model, Integer id) {
-        Article bizArticle = articleService.selectById(id);
-        List<Category> bizCategories = categoryService.selectCategories(new Category().setStatus(CoreConst.STATUS_VALID));
+        Article bizArticle = articleService.getById(id);
+        List<Category> bizCategories = categoryService.selectCategories(CoreConst.STATUS_VALID);
         List<Tags> sTags =tagsService.list();
         List<Tags> aTags = new ArrayList<>();
         List<ArticleTags> articleTagsList=articleTagsService.list(Wrappers.<ArticleTags>lambdaQuery().eq(ArticleTags::getArticleId,id));
@@ -113,6 +113,7 @@ public class ArticleController {
 
     @PostMapping("/edit")
     @ResponseBody
+    @Transactional(rollbackFor = Exception.class)
     @CacheEvict(value = "article", allEntries = true)
     public ResponseVo edit(Article article,@RequestParam(value = "tagIds",required = false) List<Integer> tagIds) {
         articleService.updateById(article);

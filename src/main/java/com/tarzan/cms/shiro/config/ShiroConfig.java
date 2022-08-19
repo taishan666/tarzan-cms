@@ -4,6 +4,7 @@ import at.pollux.thymeleaf.shiro.dialect.ShiroDialect;
 import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import com.tarzan.cms.common.constant.CoreConst;
 import com.tarzan.cms.shiro.MyShiroRealm;
+import com.tarzan.cms.shiro.credentials.RetryLimitHashedCredentialsMatcher;
 import com.tarzan.cms.shiro.filter.KickOutSessionControlFilter;
 import com.tarzan.cms.shiro.redis.RedisCacheManager;
 import com.tarzan.cms.shiro.redis.RedisManager;
@@ -58,7 +59,6 @@ public class ShiroConfig {
 
     /**
      * ShiroDialect，为了在thymeleaf里使用shiro的标签的bean
-     *
      * @return
      */
     @Bean
@@ -88,7 +88,7 @@ public class ShiroConfig {
         //未授权界面;
         shiroFilterFactoryBean.setUnauthorizedUrl("/error/403");
         //自定义拦截器
-        Map<String, Filter> filtersMap = new LinkedHashMap<String, Filter>();
+        Map<String, Filter> filtersMap = new LinkedHashMap<>(1);
         //限制同一帐号同时在线的个数。
         filtersMap.put("kickOut", kickoutSessionControlFilter());
         shiroFilterFactoryBean.setFilters(filtersMap);
@@ -229,6 +229,32 @@ public class ShiroConfig {
         //被踢出后重定向到的地址；
         kickoutSessionControlFilter.setKickOutUrl("/kickOut");
         return kickoutSessionControlFilter;
+    }
+
+
+    /**
+     * 凭证匹配器（由于我们的密码校验交给Shiro的SimpleAuthenticationInfo进行处理了
+     */
+    @Bean
+    public RetryLimitHashedCredentialsMatcher getCredentialsMatcher(RedisCacheManager cacheManager) {
+        RetryLimitHashedCredentialsMatcher matcher = new RetryLimitHashedCredentialsMatcher(cacheManager);
+        matcher.setHashAlgorithmName("md5");
+        matcher.setHashIterations(2);
+        // 错误限制次数，5次
+        matcher.setIncrementAndGet(5);
+        return matcher;
+    }
+
+    /**
+     * 自定义认证授权规则
+     */
+    @Bean
+    public MyShiroRealm loginRealm(RedisCacheManager cacheManager) {
+        // 登录认证规则
+        MyShiroRealm loginRealm = new MyShiroRealm();
+        // 自定义加密规则
+        loginRealm.setCredentialsMatcher(getCredentialsMatcher(cacheManager));
+        return loginRealm;
     }
 
 

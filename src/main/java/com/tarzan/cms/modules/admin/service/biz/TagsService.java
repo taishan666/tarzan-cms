@@ -24,7 +24,7 @@ public class TagsService extends ServiceImpl<TagsMapper, Tags> {
 
     @Cacheable(value = "tag", key = "'list'")
     public List<Tags> selectTags(Tags tags) {
-        return list(Wrappers.<Tags>lambdaQuery()
+        return list(Wrappers.<Tags>lambdaQuery().select(Tags::getId,Tags::getName,Tags::getDescription)
                 .like(StringUtils.isNotBlank(tags.getName()), Tags::getName, tags.getName())
                 .like(StringUtils.isNotBlank(tags.getDescription()), Tags::getDescription, tags.getDescription()));
     }

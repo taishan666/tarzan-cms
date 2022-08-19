@@ -6,6 +6,7 @@ import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.google.common.collect.Lists;
+import com.tarzan.cms.cache.RoleCache;
 import com.tarzan.cms.common.constant.CoreConst;
 import com.tarzan.cms.modules.admin.mapper.sys.*;
 import com.tarzan.cms.modules.admin.model.sys.*;
@@ -31,7 +32,7 @@ public class RoleService extends ServiceImpl<RoleMapper, Role> {
     private final UserRoleMapper userRoleMapper;
 
     public Set<String> findRoleByUserId(Integer userId) {
-        List<UserRole> list=userRoleMapper.selectList(Wrappers.<UserRole>lambdaQuery().eq(UserRole::getUserId, userId));
+        List<UserRole> list=userRoleMapper.selectList(Wrappers.<UserRole>lambdaQuery().select(UserRole::getRoleId).eq(UserRole::getUserId, userId));
         if(CollectionUtils.isEmpty(list)){
             return null;
         }
@@ -43,21 +44,11 @@ public class RoleService extends ServiceImpl<RoleMapper, Role> {
         if(CollectionUtils.isEmpty(list)){
             return null;
         }
-        Set<Integer> roleIds= list.stream().map(e->e.getRoleId()).collect(Collectors.toSet());
         Map<Integer,List<UserRole>> map= list.stream().collect(Collectors.groupingBy(UserRole::getUserId));
-        if(CollectionUtils.isEmpty(roleIds)){
-            return null;
-        }
-        List<Role> roles=list(Wrappers.<Role>lambdaQuery().in(Role::getId,roleIds));
-        Map<Integer,String> roleMap=roles.stream().collect(Collectors.toMap(Role::getId,Role::getName));
-        Map<Integer,String> result=new HashMap<>();
+        Map<Integer,String> result=new HashMap<>(3);
         map.forEach((k,v)->{
              Set<String> roleNames=new HashSet<>();
-             v.forEach(e->{
-                 if (roleMap.get(e.getRoleId())!=null){
-                     roleNames.add(roleMap.get(e.getRoleId()));
-                 }
-             });
+             v.forEach(e->roleNames.add(RoleCache.getName(e.getRoleId())));
             result.put(k, StringUtils.join(roleNames,","));
         });
         return  result;
@@ -74,7 +65,7 @@ public class RoleService extends ServiceImpl<RoleMapper, Role> {
 
     public boolean insert(Role role) {
         Date date=new Date();
-        role.setStatus(1);
+        role.setStatus(CoreConst.STATUS_VALID);
         role.setCreateTime(date);
         role.setUpdateTime(date);
         return save(role);
@@ -100,15 +91,20 @@ public class RoleService extends ServiceImpl<RoleMapper, Role> {
     public void addAssignPermission(Integer roleId, List<String> menuIds) {
         roleMenuMapper.delete(Wrappers.<RoleMenu>lambdaQuery().eq(RoleMenu::getRoleId, roleId));
         for (String menuId : menuIds) {
-            RoleMenu RoleMenu = new RoleMenu();
-            RoleMenu.setRoleId(roleId);
-            RoleMenu.setMenuId(Integer.valueOf(menuId));
-            roleMenuMapper.insert(RoleMenu);
+            RoleMenu roleMenu = new RoleMenu();
+            roleMenu.setRoleId(roleId);
+            roleMenu.setMenuId(Integer.valueOf(menuId));
+            roleMenuMapper.insert(roleMenu);
         }
     }
 
     public List<User> findByRoleId(Integer roleId) {
-        return findByRoleIds(Arrays.asList(roleId));
+        List<UserRole> userRoles= userRoleMapper.selectList(Wrappers.<UserRole>lambdaQuery().eq(UserRole::getRoleId,roleId));
+        if(CollectionUtils.isNotEmpty(userRoles)){
+            List<Integer> userIds=userRoles.stream().map(UserRole::getUserId).collect(Collectors.toList());
+            return userMapper.selectBatchIds(userIds);
+        }
+        return Collections.emptyList();
     }
 
     public List<User> findByRoleIds(List<Integer> roleIds) {

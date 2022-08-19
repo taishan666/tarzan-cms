@@ -4,7 +4,7 @@ import com.baomidou.mybatisplus.core.toolkit.CollectionUtils;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.tarzan.cms.common.constant.CoreConst;
-import com.tarzan.cms.common.properties.CmsProperties;
+import com.tarzan.cms.common.props.CmsProperties;
 import com.tarzan.cms.modules.admin.mapper.biz.ThemeMapper;
 import com.tarzan.cms.modules.admin.model.biz.Theme;
 import com.tarzan.cms.modules.admin.vo.base.ResponseVo;
@@ -25,7 +25,6 @@ import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
 import java.nio.file.Paths;
@@ -74,7 +73,7 @@ public class ThemeService extends ServiceImpl<ThemeMapper, Theme> {
                 return  ResultUtil.error("主题已安装");
             }
             FileUtil.unzip(bytes, Paths.get(themePath));
-            Optional<File> themeRoot= Arrays.asList(themeDir.listFiles()).stream().findFirst();
+            Optional<File> themeRoot= Arrays.stream(themeDir.listFiles()).findFirst();
             FileUtil.copyFolder(Paths.get(themeRoot.get().getPath()),Paths.get(themePath));
             FileUtil.deleteFolder(Paths.get(themeRoot.get().getPath()));
             Theme theme=new Theme();
@@ -103,12 +102,13 @@ public class ThemeService extends ServiceImpl<ThemeMapper, Theme> {
     }
 
 
+    @Override
     public List<Theme> list() {
         File themesRoot=new File(cmsProperties.getThemeDir());
         List<String> fileNames=Arrays.asList(themesRoot.list());
         List<Theme> themes=baseMapper.selectList(Wrappers.<Theme>lambdaQuery().orderByDesc(Theme::getStatus));
         List<String> themeNames=themes.stream().map(Theme::getName).collect(Collectors.toList());
-        if(fileNames==null){
+        if(CollectionUtils.isEmpty(fileNames)){
             themes=null;
             remove(Wrappers.<Theme>lambdaQuery().ne(Theme::getId,0));
         }else{
@@ -165,17 +165,12 @@ public class ThemeService extends ServiceImpl<ThemeMapper, Theme> {
     }
 
     @Cacheable(value = "theme", key = "'current'")
-    public Theme selectCurrent() {
-        return getOne(Wrappers.<Theme>lambdaQuery().eq(Theme::getStatus, CoreConst.STATUS_VALID).last("limit 1"));
-    }
-
-    @Cacheable(value = "theme", key = "'themeName'")
     public String getTheme() {
-        Theme theme=selectCurrent();
+        Theme theme=super.lambdaQuery().select(Theme::getName).eq(Theme::getStatus, CoreConst.STATUS_VALID).one();
         if(theme==null){
             return CoreConst.THEME_PREFIX;
         }
-        return CoreConst.THEME_PREFIX+selectCurrent().getName();
+        return CoreConst.THEME_PREFIX+theme.getName();
     }
 
     @CacheEvict(value = "theme", allEntries = true)
@@ -190,8 +185,6 @@ public class ThemeService extends ServiceImpl<ThemeMapper, Theme> {
             URLConnection conn = url.openConnection();
             //上传
             upload(IOUtils.toByteArray(conn.getInputStream()));
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         }

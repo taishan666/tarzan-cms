@@ -10,6 +10,8 @@ import org.springframework.core.annotation.Order;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
 
+import java.util.Objects;
+
 /**
  * 登录日志事件监听
  *
@@ -28,7 +30,13 @@ public class LoginLogListener {
     @Order
     @EventListener(LoginLogEvent.class)
     public void saveLoginLog(LoginLogEvent event) {
-        LoginLog loginLog = (LoginLog)event.getSource();
-        loginLogService.saveOrUpdate(loginLog);
+        LoginLog loginLog = (LoginLog) event.getSource();
+        if (!Objects.isNull(loginLog)) {
+            if (Objects.isNull(loginLog.getId())) {
+                loginLogService.save(loginLog);
+            } else {
+                loginLogService.updateById(loginLog);
+            }
+        }
     }
 }

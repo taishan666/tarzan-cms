@@ -1,30 +1,33 @@
 package com.tarzan.cms.shiro.redis;
 
+import com.tarzan.cms.shiro.exception.SerializationException;
 import com.tarzan.cms.shiro.serializer.ObjectSerializer;
 import com.tarzan.cms.shiro.serializer.RedisSerializer;
 import com.tarzan.cms.shiro.serializer.StringSerializer;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.cache.Cache;
 import org.apache.shiro.cache.CacheException;
 import org.apache.shiro.cache.CacheManager;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.apache.shiro.util.CollectionUtils;
 
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 
+@Slf4j
 public class RedisCacheManager implements CacheManager {
 
-    private final Logger logger = LoggerFactory.getLogger(RedisCacheManager.class);
-
-    // fast lookup by name map
+    /**  fast lookup by name map */
     private final ConcurrentMap<String, Cache> caches = new ConcurrentHashMap<String, Cache>();
     private RedisSerializer keySerializer = new StringSerializer();
     private RedisSerializer valueSerializer = new ObjectSerializer();
 
     private IRedisManager redisManager;
 
-    // expire time in seconds
-    public static final int DEFAULT_EXPIRE = 1800;
+    /**  expire time in seconds */
+    public static final int DEFAULT_EXPIRE = 1800 ;
     private int expire = DEFAULT_EXPIRE;
 
     /**
@@ -38,7 +41,6 @@ public class RedisCacheManager implements CacheManager {
 
     @Override
     public <K, V> Cache<K, V> getCache(String name) throws CacheException {
-       // logger.debug("get cache, name=" + name);
 
         Cache cache = caches.get(name);
 
@@ -48,6 +50,7 @@ public class RedisCacheManager implements CacheManager {
         }
         return cache;
     }
+
 
     public IRedisManager getRedisManager() {
         return redisManager;

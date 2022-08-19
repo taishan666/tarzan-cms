@@ -10,6 +10,9 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+/**
+ * @author tarzan
+ */
 @Getter
 @Setter
 public class RedisManager extends WorkAloneRedisManager {
@@ -17,7 +20,7 @@ public class RedisManager extends WorkAloneRedisManager {
     private static final String DEFAULT_HOST = "127.0.0.1:6379";
     private String host = DEFAULT_HOST;
 
-    // timeout for jedis try to connect to redis server, not expire time! In milliseconds
+    /**  timeout for jedis try to connect to redis server, not expire time! In milliseconds */
     private int timeout = Protocol.DEFAULT_TIMEOUT;
 
     private String password;
@@ -45,9 +48,8 @@ public class RedisManager extends WorkAloneRedisManager {
 
     @Override
     public Long dbSize(byte[] pattern) {
-        long dbSize = 0L;
-        Jedis jedis = getJedis();
-        try {
+        long dbSize;
+        try (Jedis jedis = getJedis()) {
             ScanParams params = new ScanParams();
             params.count(DEFAULT_COUNT);
             params.match(pattern);
@@ -56,23 +58,17 @@ public class RedisManager extends WorkAloneRedisManager {
             do {
                 scanResult = jedis.scan(cursor, params);
                 List<byte[]> results = scanResult.getResult();
-                for (byte[] result : results) {
-                    dbSize++;
-                }
+                dbSize = results.size();
                 cursor = scanResult.getCursorAsBytes();
             } while (scanResult.getCursor().compareTo(ScanParams.SCAN_POINTER_START) > 0);
-        } finally {
-            jedis.close();
         }
         return dbSize;
     }
 
     @Override
     public Set<byte[]> keys(byte[] pattern) {
-        Set<byte[]> keys = new HashSet<byte[]>();
-        Jedis jedis = getJedis();
-
-        try {
+        Set<byte[]> keys = new HashSet<>();
+        try (Jedis jedis = getJedis()) {
             ScanParams params = new ScanParams();
             params.count(DEFAULT_COUNT);
             params.match(pattern);
@@ -83,8 +79,6 @@ public class RedisManager extends WorkAloneRedisManager {
                 keys.addAll(scanResult.getResult());
                 cursor = scanResult.getCursorAsBytes();
             } while (scanResult.getCursor().compareTo(ScanParams.SCAN_POINTER_START) > 0);
-        } finally {
-            jedis.close();
         }
         return keys;
     }

@@ -2,7 +2,6 @@ package com.tarzan.cms.modules.admin.service.common;
 
 import com.google.common.collect.Maps;
 import com.tarzan.cms.common.constant.CoreConst;
-import com.tarzan.cms.modules.admin.model.biz.Category;
 import com.tarzan.cms.modules.admin.model.biz.Link;
 import com.tarzan.cms.modules.admin.model.biz.Tags;
 import com.tarzan.cms.modules.admin.service.biz.*;
@@ -10,7 +9,7 @@ import com.tarzan.cms.modules.admin.service.sys.SysConfigService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import java.util.Map;
 
@@ -22,7 +21,7 @@ import java.util.Map;
  * @date 2021年5月11日
  */
 @Slf4j
-@Component("commonDataService")
+@Service("commonDataService")
 @AllArgsConstructor
 public class CommonDataService {
 
@@ -39,7 +38,7 @@ public class CommonDataService {
             DataTypeEnum dataTypeEnum = DataTypeEnum.valueOf(moduleName);
             switch (dataTypeEnum) {
                 case CATEGORY_LIST:
-                    return bizCategoryService.selectCategories(new Category().setStatus(CoreConst.STATUS_VALID));
+                    return bizCategoryService.selectCategories(CoreConst.STATUS_VALID);
                 case TAG_LIST:
                     return bizTagsService.selectTags(new Tags());
                 case RECENT_LIST:

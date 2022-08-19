@@ -1,6 +1,5 @@
 package com.tarzan.cms.modules.admin.controller.common;
 
-import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,9 +15,7 @@ import javax.servlet.http.HttpServletResponse;
  */
 @Controller
 @RequestMapping("/error")
-@AllArgsConstructor
 public class ErrorController {
-
 
     /**
      * shiro无权限时进入

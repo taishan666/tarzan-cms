@@ -2,10 +2,6 @@ package com.tarzan.cms.shiro.redis;
 
 import java.util.Set;
 
-/**
- * redisManager interface
- *
- **/
 
 public interface IRedisManager {
 

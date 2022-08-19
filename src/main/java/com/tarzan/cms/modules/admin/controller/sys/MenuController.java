@@ -1,14 +1,15 @@
 package com.tarzan.cms.modules.admin.controller.sys;
 
 import com.tarzan.cms.common.constant.CoreConst;
-import com.tarzan.cms.shiro.ShiroService;
-import com.tarzan.cms.utils.ResultUtil;
 import com.tarzan.cms.modules.admin.model.sys.Menu;
 import com.tarzan.cms.modules.admin.service.sys.MenuService;
 import com.tarzan.cms.modules.admin.vo.base.ResponseVo;
+import com.tarzan.cms.shiro.ShiroService;
+import com.tarzan.cms.utils.ResultUtil;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -50,7 +51,7 @@ public class MenuController {
     @PostMapping("/list")
     @ResponseBody
     public List<Menu> loadMenus(String flag) {
-        List<Menu> permissionListList = new ArrayList<Menu>();
+        List<Menu> permissionListList = new ArrayList<>();
         if (StringUtils.isBlank(flag) || MENU_FLAG[0].equals(flag)) {
             permissionListList = menuService.selectAll(CoreConst.STATUS_VALID);
         } else if (MENU_FLAG[1].equals(flag)) {
@@ -62,8 +63,8 @@ public class MenuController {
     /*添加权限*/
     @ResponseBody
     @PostMapping("/add")
+    @CacheEvict(value = "menu", allEntries = true)
     public ResponseVo addMenu(Menu menu) {
-        try {
             boolean flag = menuService.insert(menu);
             if (flag) {
                 shiroService.updatePermission();
@@ -71,20 +72,16 @@ public class MenuController {
             } else {
                 return ResultUtil.error("添加权限失败");
             }
-        } catch (Exception e) {
-            log.error(String.format("MenuController.addMenu%s", e));
-            throw e;
-        }
     }
 
     /*删除权限*/
     @ResponseBody
     @PostMapping("/delete")
+    @CacheEvict(value = "menu", allEntries = true)
     public ResponseVo deleteMenu(Integer id) {
-        try {
             long subPermsByPermissionIdCount = menuService.selectSubPermsByPermissionId(id);
             if (subPermsByPermissionIdCount > 0) {
-                return ResultUtil.error("改资源存在下级资源，无法删除！");
+                return ResultUtil.error("该资源存在下级资源，无法删除！");
             }
             int a = menuService.updateStatus(id, CoreConst.STATUS_INVALID);
             if (a > 0) {
@@ -93,10 +90,6 @@ public class MenuController {
             } else {
                 return ResultUtil.error("删除权限失败");
             }
-        } catch (Exception e) {
-            log.error(String.format("MenuController.deleteMenu%s", e));
-            throw e;
-        }
     }
 
     /*权限详情*/
@@ -125,8 +118,9 @@ public class MenuController {
     /*编辑权限*/
     @ResponseBody
     @PostMapping("/edit")
-    public ResponseVo editMenu(@ModelAttribute("menu") Menu Menu) {
-        boolean flag = menuService.updateById(Menu);
+    @CacheEvict(value = "menu", allEntries = true)
+    public ResponseVo editMenu(@ModelAttribute("menu") Menu menu) {
+        boolean flag = menuService.updateById(menu);
         if (flag) {
             shiroService.updatePermission();
             return ResultUtil.success("编辑权限成功");

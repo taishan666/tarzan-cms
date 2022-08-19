@@ -1,6 +1,5 @@
 package com.tarzan.cms.modules.admin.service.biz;
 
-import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.tarzan.cms.common.constant.CoreConst;
 import com.tarzan.cms.modules.admin.mapper.biz.CategoryMapper;
@@ -20,13 +19,14 @@ public class CategoryService extends ServiceImpl<CategoryMapper, Category> {
 
 
     @Cacheable(value = "category", key = "'tree'")
-    public List<Category> selectCategories(Category category) {
-        return list(Wrappers.<Category>lambdaQuery(category).orderByAsc(Category::getSort));
+    public List<Category> selectCategories(int status) {
+        return super.lambdaQuery().eq(Category::getStatus,status).orderByAsc(Category::getSort).list();
     }
 
+    @Override
     @Cacheable(value = "category", key = "'count'")
     public long count() {
-        return count(Wrappers.<Category>lambdaQuery().eq(Category::getStatus, CoreConst.STATUS_VALID));
+        return super.lambdaQuery().eq(Category::getStatus, CoreConst.STATUS_VALID).count();
     }
 
     public Category selectById(Integer id) {
@@ -36,6 +36,6 @@ public class CategoryService extends ServiceImpl<CategoryMapper, Category> {
     }
 
     public List<Category> selectByPid(Integer pid) {
-        return list(Wrappers.<Category>lambdaQuery().eq(Category::getPid, pid));
+        return super.lambdaQuery().eq(Category::getPid, pid).list();
     }
 }

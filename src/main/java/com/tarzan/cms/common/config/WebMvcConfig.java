@@ -1,9 +1,9 @@
 package com.tarzan.cms.common.config;
 
 import com.tarzan.cms.common.handle.CommonDataHandler;
-import com.tarzan.cms.common.properties.CmsProperties;
-import com.tarzan.cms.common.properties.FileUploadProperties;
-import com.tarzan.cms.common.properties.StaticHtmlProperties;
+import com.tarzan.cms.common.props.CmsProperties;
+import com.tarzan.cms.common.props.FileUploadProperties;
+import com.tarzan.cms.common.props.StaticHtmlProperties;
 import lombok.AllArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;

@@ -1,6 +1,6 @@
 package com.tarzan.cms.modules.auth;
 
-import com.tarzan.cms.common.properties.SocialProperties;
+import com.tarzan.cms.common.props.SocialProperties;
 import com.tarzan.cms.utils.SocialUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;

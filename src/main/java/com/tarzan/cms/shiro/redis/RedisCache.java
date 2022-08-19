@@ -19,13 +19,13 @@ import java.util.*;
 
 public class RedisCache<K, V> implements Cache<K, V> {
 
-    private static Logger logger = LoggerFactory.getLogger(RedisCache.class);
+    private final static Logger logger = LoggerFactory.getLogger(RedisCache.class);
 
-    private RedisSerializer keySerializer;
-    private RedisSerializer valueSerializer;
-    private IRedisManager redisManager;
+    private final RedisSerializer keySerializer;
+    private final RedisSerializer valueSerializer;
+    private final IRedisManager redisManager;
     private String keyPrefix = RedisCacheManager.DEFAULT_CACHE_KEY_PREFIX;
-    private int expire;
+    private final int expire;
     private String principalIdFieldName = RedisCacheManager.DEFAULT_PRINCIPAL_ID_FIELD_NAME;
 
     /**
@@ -79,8 +79,7 @@ public class RedisCache<K, V> implements Cache<K, V> {
             if (rawValue == null) {
                 return null;
             }
-            V value = (V) valueSerializer.deserialize(rawValue);
-            return value;
+            return (V) valueSerializer.deserialize(rawValue);
         } catch (SerializationException e) {
             throw new CacheException(e);
         }
@@ -156,16 +155,14 @@ public class RedisCache<K, V> implements Cache<K, V> {
                 throw new PrincipalIdNullException(principalObject.getClass(), this.principalIdFieldName);
             }
             redisKey = idObj.toString();
-        } catch (IllegalAccessException e) {
-            throw new PrincipalInstanceException(principalObject.getClass(), this.principalIdFieldName, e);
-        } catch (InvocationTargetException e) {
+        } catch (IllegalAccessException | InvocationTargetException e) {
             throw new PrincipalInstanceException(principalObject.getClass(), this.principalIdFieldName, e);
         }
         return redisKey;
     }
 
     private Method getPrincipalIdGetter(Object principalObject) {
-        Method pincipalIdGetter = null;
+        Method pincipalIdGetter;
         String principalIdMethodName = this.getPrincipalIdMethodName();
         try {
             pincipalIdGetter = principalObject.getClass().getMethod(principalIdMethodName);
@@ -208,7 +205,7 @@ public class RedisCache<K, V> implements Cache<K, V> {
     public int size() {
         Long longSize = 0L;
         try {
-            longSize = new Long(redisManager.dbSize(keySerializer.serialize(this.keyPrefix + "*")));
+            longSize =redisManager.dbSize(keySerializer.serialize(this.keyPrefix + "*"));
         } catch (SerializationException e) {
             logger.error("get keys error", e);
         }
@@ -218,7 +215,7 @@ public class RedisCache<K, V> implements Cache<K, V> {
     @SuppressWarnings("unchecked")
     @Override
     public Set<K> keys() {
-        Set<byte[]> keys = null;
+        Set<byte[]> keys;
         try {
             keys = redisManager.keys(keySerializer.serialize(this.keyPrefix + "*"));
         } catch (SerializationException e) {
@@ -230,7 +227,7 @@ public class RedisCache<K, V> implements Cache<K, V> {
             return Collections.emptySet();
         }
 
-        Set<K> convertedKeys = new HashSet<K>();
+        Set<K> convertedKeys = new HashSet<>();
         for (byte[] key:keys) {
             try {
                 convertedKeys.add((K) keySerializer.deserialize(key));

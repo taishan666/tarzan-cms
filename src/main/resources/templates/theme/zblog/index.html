@@ -1,159 +1,222 @@
 <!DOCTYPE html>
-<html>
+<html lang="zh-Hans-CN">
 <head>
-    <meta charset="utf-8" />
+    <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
     <meta name="renderer" content="webkit">
     <meta name="viewport" content="width=device-width" />
-    <meta name="author" content="www.lzqcode.com" />
     <meta name="robots" content="all" />
-    <title>我的博客</title>
-    <link rel="stylesheet" th:href="@{|/${WEB_THEME}/source/font-awesome/css/font-awesome.min.css|}">
-    <link rel="stylesheet" th:href="@{|/${WEB_THEME}/source/layui/css/layui.css|}" />
-    <link rel="stylesheet" th:href="@{|/${WEB_THEME}/source/css/master.css|}" />
-    <link rel="stylesheet" th:href="@{|/${WEB_THEME}/source/css/gloable.css|}" />
-    <link rel="stylesheet" th:href="@{|/${WEB_THEME}/source/css/nprogress.css|}" />
-    <link rel="stylesheet" th:href="@{|/${WEB_THEME}/source/css/blog.css|}" />
+    <meta name="keywords" th:content="${SITE_CONFIG.SITE_KWD}">
+    <meta name="description" th:content="${SITE_CONFIG.SITE_DESC}">
+    <title th:text="${SITE_CONFIG.SITE_NAME}+ ' - 主页'"></title>
+    <link th:href="@{|/${WEB_THEME}/source/layui/css/layui.css|}" rel="stylesheet" type="text/css">
+    <link th:href="@{|/${WEB_THEME}/source/font-awesome/css/font-awesome.min.css|}" rel="stylesheet" type="text/css">
+    <link th:href="@{|/${WEB_THEME}/source/css/index_style.css|}" rel="stylesheet" type="text/css">
+    <link th:href="@{|/${WEB_THEME}/source/css/animate.min.css|}" rel="stylesheet" type="text/css">
 </head>
 <body>
-<!--<div th:replace="@{|/${WEB_THEME}/module/navbar.html|}"></div>-->
-<div class="header">
-</div>
-<div th:replace="@{|/${WEB_THEME}/module/navbar.html|}"></div>
-    <div class="doc-container" id="doc-container">
-        <div class="container-fixed">
-		    <div class="col-content">
-		        <div class="inner">
-		            <article class="article-list bloglist" id="LAY_bloglist" >
-						<section class="article-item zoomIn article" th:each="item,temp : ${articleList}">
-							<div class="fc-flag" th:if="${item.top==1}">置顶</div>
-							<h5 class="title">       
-								<span class="fc-blue">【原创】</span>       
-								<a th:href="@{${'/blog/article/'+item.id}}" th:text="${item.title}"></a>
-							</h5>   
-							<div class="time">       
-								<span class="day" th:text="${#dates.format(item.createTime,'dd')}"></span>
-								<span class="month fs-18">[[${#dates.format(item.createTime,'MM')}]]<span class="fs-14">月</span></span>
-								<span class="year fs-18 ml10" th:text="${#dates.format(item.createTime,'yyyy')}"></span>
-							</div>   
-							<div class="content">       
-								<a href="read.html" class="cover img-light">           
-									<img th:src="@{|/${WEB_THEME}/source/image/java.jpg|}">
-								</a>
-								<p  th:text="${item.description}" class="blogtext"></p>
-							</div>   
-							<div class="read-more">       
-								<a th:href="@{${'/blog/article/'+item.id}}" class="fc-black f-fwb">阅读更多</a>
-							</div>    
-							<aside class="f-oh footer">       
-								<div class="f-fl tags" th:each="tag,temp : ${item.tags}">
-									<span class="fa fa-tags fs-16"></span>           
-									<a class="tag" th:text="${tag.name}"></a>
-								</div>       
-								<div class="f-fr">           
-									<span class="read">               
-										<i class="fa fa-eye fs-16"></i>               
-										<i class="num" th:text="${item.lookCount}? ${item.lookCount} : 0"></i>
-									</span>           
-									<span class="ml20">               
-										<i class="fa fa-comments fs-16"></i>               
-										<a href="javascript:void(0)" class="num fc-grey" th:text="${item.commentCount}? ${item.commentCount} : 0"></a>
-									</span>       
-								</div>   
-							</aside>
-						</section>
-		            </article>
-		        </div>
-		    </div>
-		    <div class="col-other">
-		        <div class="inner">
-					<div class="other-item" id="categoryandsearch">
-			    		<div class="search">
-					        <label class="search-wrap">
-					            <input type="text" id="searchtxt" placeholder="输入关键字搜索" />
-					            <span class="search-icon">
-					                <i class="fa fa-search"></i>
-					            </span>
-					        </label>
-			        		<ul class="search-result"></ul>
-			    		</div>
-			    		<ul class="category mt20" id="category">
-				        	<li data-index="0" class="slider"></li>
-				        	<li data-index="1"><a href="/blog">全部文章</a></li>
-							<li   th:data-index="${iterStat.index+2}" th:each="category,iterStat:${CATEGORY_LIST}">	<a th:href="@{${'/blog/category/' + category.id}}" th:text="${category.name}"></a></li>
-			    		</ul>
-					</div>
-					<!--右边悬浮 平板或手机设备显示-->
-					<div class="category-toggle"><i class="layui-icon">&#xe603;</i></div>
-					<div class="article-category">
-					    <div class="article-category-title">分类导航</div>
-					            <a href="/Blog/Article/1/">Java</a>
-					            <a href="/Blog/Article/2/">前端</a>
-					            <a href="/Blog/Article/3/">Python</a>
-					            <a href="/Blog/Article/4/">PHP</a>
-					            <a href="/Blog/Article/5/">其它</a>
-					    <div class="f-cb"></div>
-					</div>
-					<!--遮罩-->
-					<div class="blog-mask animated layui-hide"></div>
-					<div class="other-item">
-					    <h5 class="other-item-title">热门文章</h5>
-					    <div class="inner">
-					        <ul class="hot-list-article">
-					                <li> <a href="/Blog/Read/9">SpringBoot 入门爬虫项目实战</a></li>
-					                <li> <a href="/Blog/Read/12">SpringBoot 2.x 教你快速入门</a></li>
-					                <li> <a href="/Blog/Read/13">java学习路线</a></li>
-					                <li> <a href="/Blog/Read/4">基于SpringBoot+JWT+Redis跨域单点登录的实现</a></li>
-					                <li> <a href="/Blog/Read/7">SpringBoot 中如何使用SwaggerAPI接口文档？</a></li>
-					                <li> <a href="/Blog/Read/11">小白轻松入门Redis</a></li>
-					                <li> <a href="/Blog/Read/14">微信一键登录功能的实现</a></li>
-					                <li> <a href="/Blog/Read/8">NPOI导入导出Excel</a></li>
-					        </ul>
-					    </div>
-					</div>
-					<div class="other-item">
-					    <h5 class="other-item-title">置顶推荐</h5>
-					    <div class="inner">
-					        <ul class="hot-list-article">
-					                <li> <a href="/Blog/Read/16">java学习路线</a></li>
-					                <li> <a href="/Blog/Read/14">基于SpringBoot+JWT+Redis跨域单点登录的实现</a></li>
-					                <li> <a href="/Blog/Read/9">小白轻松入门Redis</a></li>
-					        </ul>
-					    </div>
-					</div>
-					<div class="other-item">
-					    <h5 class="other-item-title">最近访客</h5>
-					    <div class="inner">
-					        <dl class="vistor">
-					                <dd><a href="javasript:;"><img src="source/image/a1.png"><cite>Anonymous</cite></a></dd>
-					                <dd><a href="javasript:;"><img src="source/image/a4.png"><cite>Dekstra</cite></a></dd>
-					                <dd><a href="javasript:;"><img src="source/image/a2.png"><cite>惜i</cite></a></dd>
-					                <dd><a href="javasript:;"><img src="source/image/a3.png"><cite>↙Aㄨ计划 ◆莪↘</cite></a></dd>
-					                <dd><a href="javasript:;"><img src="source/image/a4.png"><cite>.</cite></a></dd>
-					                <dd><a href="javasript:;"><img src="source/image/a1.png"><cite>Lambert.</cite></a></dd>
-					                <dd><a href="javasript:;"><img src="source/image/a2.png"><cite>64ღ</cite></a></dd>
-					                <dd><a href="javasript:;"><img src="source/image/a3.png"><cite>doBoor</cite></a></dd>
-					                <dd><a href="javasript:;"><img src="source/image/a4.png"><cite>毛毛小妖</cite></a></dd>
-					                <dd><a href="javasript:;"><img src="source/image/a1.png"><cite>NULL</cite></a></dd>
-					                <dd><a href="javasript:;"><img src="source/image/a2.png"><cite>吓一跳</cite></a></dd>
-					                <dd><a href="javasript:;"><img src="source/image/a3.png"><cite>如初</cite></a></dd>
-					        </dl>
-					    </div>
-					</div>
-		        </div>
-		    </div>
-		</div>
+    <div id="menu" class="hover_animation menu_open" data-mark="false">
+        <span></span>
+        <span></span>
+        <span></span>
     </div>
-<div th:replace="@{|/${WEB_THEME}/module/footer.html|}"></div>
+    <div id="navgation" class="navgation navgation_close">
+        <ul class="point">
+            <li><a href="/">首页</a></li>
+            <li><a href="/blog">博客</a></li>
+            <li><a href="/feedback">留言</a></li>
+        </ul>
+        <div class="logo"><a>TARZAN-CMS</a></div>
+    </div>
+    <div class="section" id="section1">
+        <div class="fp-tablecell">
+            <div class="page1">
+                <div class="nav wow zoomIn" data-wow-duration="2s">
+                    <h1>泰山CMS内容管理系统</h1>
+                    <p>只要朝着一个方向努力，一切都会变得得心应手</p>
+                    <a class="layui-btn layui-btn-normal" style="margin-top: 20px" href="/blog">进入网站</a>
+                </div>
+                <a class="next wow fadeInUp" data-wow-duration="2s" id="next"></a>
+            </div>
+        </div>
+    </div>
+    <div class="section" id="section2">
+        <div class="fp-tablecell">
+            <div class="page2">
+                <div class="warp-box">
+                    <div class="new-article">
+                        <div class="inner wow fadeInDown" data-wow-delay=".2s">
+                            <h1>内容分类</h1>
+                            <p>
+                                只要朝着一个方向努力
+                                <br>一切都会变得得心应手
+                            </p>
+                        </div>
+                    </div>
+                    <div class="layui-row">
+                        <div class="layui-col-xs12 layui-col-sm4 layui-col-md4  wow fadeInUp" style="padding: 0 10px">
+                            <div class="single-news">
+                                <div class="news-head">
+                                    <img th:src="@{|/${WEB_THEME}/source/image/java.jpg|}">
+                                    <a href="#" class="link"><i class="fa fa-link"></i></a>
+                                </div>
+                                <div class="news-content">
+                                    <h4>
+                                        <a href="#">
+                                            Java专栏
+                                        </a>
+                                    </h4>
+                                    <div class="date">
+                                        2020年6月16日
+                                    </div>
+                                    <p>
+                                       本专栏主要分享Java的各种常见问题，包括java学习路线，java基础，框架，微服务，项目，面试题，希望通过这些知识的分享能够提升自己的java水平
+                                    </p>
+                                    <a href="#" class="btn">
+                                        阅读更多 
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="layui-col-xs12 layui-col-sm4 layui-col-md4  wow fadeInUp" data-wow-delay=".2s" style="padding: 0 10px">
+                            <div class="single-news">
+                                <div class="news-head">
+                                    <img th:src="@{|/${WEB_THEME}/source/image/web.jpg|}">
+                                    <a href="#" class="link"><i class="fa fa-link"></i></a>
+                                </div>
+                                <div class="news-content">
+                                    <h4>
+                                        <a href="#">
+                                           web前端专栏
+                                        </a>
+                                    </h4>
+                                    <div class="date">
+                                         2020年6月16日
+                                    </div>
+                                    <p>
+                                        本栏目主要分享关于web前端的学习路线，基础知识，常用框架，面试题，项目等等
+                                    </p>
+                                    <a href="#" class="btn">
+                                        阅读更多 
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="layui-col-xs12 layui-col-sm4 layui-col-md4  wow fadeInUp" data-wow-delay=".4s" style="padding: 0 10px">
+                            <div class="single-news">
+                                <div class="news-head">
+                                    <img th:src="@{|/${WEB_THEME}/source/image/dedecms.jpg|}">
+                                    <a href="#" class="link"><i class="fa fa-link"></i></a>
+                                </div>
+                                <div class="news-content">
+                                    <h4>
+                                        <a href="#">
+                                            DeDeCMS专栏
+                                        </a>
+                                    </h4>
+                                    <div class="date">
+                                        2020年6月16日
+                                    </div>
+                                    <p>
+                                       本栏目主要介绍DeDeCMS网站内容管理系统，使用dede常见的问题，常用标签，插件，提供建站帮助
+                                    </p>
+                                    <a href="#" class="btn">
+                                        阅读更多 
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="section" id="section3">
+        <div class="fp-tablecell">
+            <div class="page3">
+                <div class="warp-box">
+                    <div class="warp">
+                        <div class="inner">
+                            <div class="links">
+                                <ul>
+                                    <li class="wow fadeInLeft"><a href="#">关于</a></li>
+                                    <li class="wow fadeInRight"><a href="/link">+友情链接</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="section" id="section4">
+        <div class="fp-tablecell">
+            <div class="page4">
+                <div class="warp-box">
+                    <div class="about">
+                        <div class="inner">
+                            <h1 class="wow fadeInLeft">TARZAN-CMS</h1>
+                            <p class="wow fadeInRight">                         
+                                   一天很短，开心了就笑，不开心了就过会儿再笑。
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <footer class="footer wow fadeInUp" id="contact">
+        <div class="footer-top">
+            <div class="container">
+                <div class="layui-row">
+                    <div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
+                        <div class="single-widget about">
+                            <div class="footer-logo">
+                                <h2>TARZAN-CMS</h2>
+                            </div>
+                            <p>世界那么大，我想去看看</p>
+                            <div class="button">
+                                <a href="#" class="btn layui-btn layui-btn-normal">About Me</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
+                        <div class="single-widget">
+                            <h2>相关链接</h2>
+                            <ul class="social-icon">
+                                <li class="active"><a href="#"><i class="fa fa-book"></i>博文</a></li>
+                                <li class="active"><a href="#"><i class="fa fa-comments"></i>留言</a></li>
+                                <li class="active"><a href="#"><i class="fa fa-share"></i>资源</a></li>
+                                <li class="active"><a href="#"><i class="fa fa-snowflake-o"></i>日记</a></li>
+                                <li class="active"><a href="#"><i class="fa fa-files-o"></i>归档</a></li>
+                            </ul>                   
+                        </div>
+                    </div>
+                    <div class="layui-col-xs12 layui-col-sm12 layui-col-md4">
+                        <div class="single-widget contact">
+                            <h2>联系我</h2>
+                            <ul class="list">
+                                <li><i class="fa fa-map"></i>地址:深圳市南山区</li>
+                                <li><i class="fa fa-qq"></i>QQ: 1435469178 </li>
+                                <li><i class="fa fa-envelope"></i>邮箱: 1435469178@qq.com</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="copyright">
+            <div class="container">
+                <div class="layui-row">
+                    <div class="layui-col-xs12 layui-col-sm12 layui-col-md12 text-center">
+                        <p>Copyright &copy; 2019-2020 ZQ个人博客 All Rights Reserved V.5.1.3 粤ICP备1231100号</p>
+                    </div>
+                </div>
+            </div>
+        </div>  
+    </footer>
     <script th:src="@{|/${WEB_THEME}/source/layui/layui.js|}"></script>
-    <script th:src="@{|/${WEB_THEME}/source/js/yss/gloable.js|}"></script>
-    <script th:src="@{|/${WEB_THEME}/source/js/plugins/nprogress.js|}"></script>
- 	<script th:src="@{|/${WEB_THEME}/source/js/yss/article.js|}"></script>
-	<script>NProgress.start();</script>
-    <script> 
-        window.onload = function () {
-            NProgress.done();
-        };
-    </script>
+    <script th:src="@{|/${WEB_THEME}/source/js/wow.min.js|}"></script>
+    <script th:src="@{|/${WEB_THEME}/source/js/index.js|}"></script>
 </body>
 </html>

@@ -15,7 +15,7 @@ import java.util.*;
 
 public class RedisSessionDAO extends AbstractSessionDAO {
 
-    private static Logger logger = LoggerFactory.getLogger(RedisSessionDAO.class);
+    private final static Logger logger = LoggerFactory.getLogger(RedisSessionDAO.class);
 
     private static final String DEFAULT_SESSION_KEY_PREFIX = "shiro:session:";
     private String keyPrefix = DEFAULT_SESSION_KEY_PREFIX;
@@ -45,9 +45,9 @@ public class RedisSessionDAO extends AbstractSessionDAO {
     private static final int MILLISECONDS_IN_A_SECOND = 1000;
 
     private IRedisManager redisManager;
-    private RedisSerializer keySerializer = new StringSerializer();
-    private RedisSerializer valueSerializer = new ObjectSerializer();
-    private static ThreadLocal sessionsInThread = new ThreadLocal();
+    private RedisSerializer<String> keySerializer = new StringSerializer();
+    private RedisSerializer<Object> valueSerializer = new ObjectSerializer();
+    private final static ThreadLocal sessionsInThread = new ThreadLocal();
 
     @Override
     public void update(Session session) throws UnknownSessionException {
@@ -105,7 +105,7 @@ public class RedisSessionDAO extends AbstractSessionDAO {
 
     @Override
     public Collection<Session> getActiveSessions() {
-        Set<Session> sessions = new HashSet<Session>();
+        Set<Session> sessions = new HashSet<>();
         try {
             Set<byte[]> keys = redisManager.keys(this.keySerializer.serialize(this.keyPrefix + "*"));
             if (keys != null && keys.size() > 0) {
@@ -162,7 +162,7 @@ public class RedisSessionDAO extends AbstractSessionDAO {
     private void setSessionToThreadLocal(Serializable sessionId, Session s) {
         Map<Serializable, SessionInMemory> sessionMap = (Map<Serializable, SessionInMemory>) sessionsInThread.get();
         if (sessionMap == null) {
-            sessionMap = new HashMap<Serializable, SessionInMemory>();
+            sessionMap = new HashMap<>();
             sessionsInThread.set(sessionMap);
         }
 

@@ -37,13 +37,14 @@ public class Article extends BaseVo {
     private Integer original;
     private String description;
     private String keywords;
+    //是否开启评论
     private Integer comment;
     @TableField(exist = false)
-    private Integer lookCount = 0;
+    private Long lookCount = 0L;
     @TableField(exist = false)
-    private Integer commentCount = 0;
+    private Long commentCount = 0L;
     @TableField(exist = false)
-    private Integer loveCount = 0;
+    private Long loveCount = 0L;
     @TableField(exist = false)
     private Integer newFlag = 0;
     @TableField(exist = false)

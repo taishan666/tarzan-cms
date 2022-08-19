@@ -3,6 +3,9 @@ package com.tarzan.cms.common.enums;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
+/**
+ * @author tarzan
+ */
 @Getter
 @AllArgsConstructor
 public enum UserEnum {

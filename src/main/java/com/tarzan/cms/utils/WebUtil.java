@@ -30,15 +30,13 @@ public class WebUtil extends WebUtils {
     private static final Logger log = LoggerFactory.getLogger(WebUtil.class);
     public static final String USER_AGENT_HEADER = "user-agent";
     private static final String[] IP_HEADER_NAMES = new String[]{"x-forwarded-for", "Proxy-Client-IP", "WL-Proxy-Client-IP", "HTTP_CLIENT_IP", "HTTP_X_FORWARDED_FOR"};
-    private static final Predicate<String> IP_PREDICATE = (ip) -> {
-        return StringUtils.isBlank(ip) || "unknown".equalsIgnoreCase(ip);
-    };
+    private static final Predicate<String> IP_PREDICATE = (ip) -> StringUtils.isBlank(ip) || "unknown".equalsIgnoreCase(ip);
 
     public WebUtil() {
     }
 
     public static boolean isBody(HandlerMethod handlerMethod) {
-        ResponseBody responseBody = (ResponseBody) ClassUtil.getAnnotation(handlerMethod, ResponseBody.class);
+        ResponseBody responseBody = ClassUtil.getAnnotation(handlerMethod, ResponseBody.class);
         return responseBody != null;
     }
 
@@ -159,7 +157,7 @@ public class WebUtil extends WebUtils {
 
     public static String getParameter(String name) {
         HttpServletRequest request = getRequest();
-        return ((HttpServletRequest)Objects.requireNonNull(request)).getParameter(name);
+        return Objects.requireNonNull(request).getParameter(name);
     }
 
     public static String getRequestBody(ServletInputStream servletInputStream) {

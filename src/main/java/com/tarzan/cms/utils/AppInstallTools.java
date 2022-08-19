@@ -42,26 +42,48 @@ public class AppInstallTools {
         if (url.contains(mysqlDriver)) {
             installSQL("schema-mysql.sql");
         }
+        if(userNum()!=0){
+            CoreConst.IS_REGISTERED.set(true);
+        }
     }
 
     private  void  installSQL(String fileName){
-        if(tableNames().size()==0){
+        if(tableNum()==0){
+            log.info("创建数据库表开始");
             InputStream dbIos = this.getClass().getResourceAsStream("/db/"+ fileName);
             try {
                 InputStreamReader reader = new InputStreamReader(dbIos, StandardCharsets.UTF_8);
                 BufferedReader in = new BufferedReader(reader);
                 String txt = FileCopyUtils.copyToString(in);
-                jdbcTemplate.batchUpdate(txt);
+                jdbcTemplate.execute(txt);
+                log.info("创建数据库表完毕");
             } catch (IOException e) {
                 e.printStackTrace();
             }
+            initData();
         }else{
             CoreConst.IS_INSTALLED.set(true);
         }
     }
 
-    //获取所有表名称
-    private  List<String> tableNames() {
+    private void  initData(){
+        log.info("初始化数据开始");
+        InputStream dbIos = this.getClass().getResourceAsStream("/db/data.sql");
+        try {
+            InputStreamReader reader = new InputStreamReader(dbIos, StandardCharsets.UTF_8);
+            BufferedReader in = new BufferedReader(reader);
+            String txt = FileCopyUtils.copyToString(in);
+            jdbcTemplate.execute(txt);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        log.info("初始化数据完毕");
+    }
+
+    /**
+     * 获取所有表数量
+     */
+    private  int tableNum() {
         List<String> tableNames= new ArrayList<>();
         try {
             Connection getConnection=jdbcTemplate.getDataSource().getConnection();
@@ -74,7 +96,16 @@ public class AppInstallTools {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return tableNames;
+        return tableNames.size();
+    }
+
+    /**
+     * 获取用户数
+     */
+    private  int userNum() {
+        int users =  this.jdbcTemplate.queryForObject("SELECT count(*) AS num FROM sys_user",
+                    (rs, rowNum) -> rs.getInt("num"));
+          return users;
     }
 
 

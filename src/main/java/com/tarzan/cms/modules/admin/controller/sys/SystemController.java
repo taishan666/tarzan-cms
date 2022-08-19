@@ -1,5 +1,6 @@
 package com.tarzan.cms.modules.admin.controller.sys;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.tarzan.cms.common.constant.CoreConst;
 import com.tarzan.cms.common.enums.UserEnum;
@@ -16,14 +17,14 @@ import com.tarzan.cms.modules.admin.vo.ChangePasswordVo;
 import com.tarzan.cms.modules.admin.vo.base.ResponseVo;
 import com.tarzan.cms.shiro.MyShiroRealm;
 import com.tarzan.cms.utils.*;
+import com.wf.captcha.utils.CaptchaUtil;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.shiro.SecurityUtils;
-import org.apache.shiro.authc.AuthenticationException;
-import org.apache.shiro.authc.LockedAccountException;
-import org.apache.shiro.authc.UsernamePasswordToken;
+import org.apache.shiro.authc.*;
 import org.apache.shiro.subject.Subject;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
@@ -59,16 +60,12 @@ public class SystemController {
     //注册
     @GetMapping(value = "/register")
     public ModelAndView register(){
-/*        if (CoreConst.IS_INSTALLED.get()) {
-            return CoreConst.ADMIN_PREFIX+"index/index";
-        }
-        return CoreConst.ADMIN_PREFIX+"login/register";*/
         ModelAndView modelAndView = new ModelAndView();
-        if (CoreConst.IS_INSTALLED.get()) {
+        if (CoreConst.IS_REGISTERED.get()) {
             modelAndView.setView(new RedirectView("/admin", true, false));
             return modelAndView;
         }
-        modelAndView.setViewName(CoreConst.ADMIN_PREFIX+"login/register");
+        modelAndView.setViewName(CoreConst.ADMIN_PREFIX+"system/register");
         return modelAndView;
     }
 
@@ -84,8 +81,7 @@ public class SystemController {
             return ResultUtil.error("验证码错误！");
         }*/
         String username = registerUser.getUsername();
-        User user = userService.selectByUsername(username);
-        if (null != user) {
+        if (userService.exists(username)) {
             return ResultUtil.error("用户名已存在！");
         }
         String password = registerUser.getPassword();
@@ -101,12 +97,13 @@ public class SystemController {
         registerUser.setUpdateTime(date);
         registerUser.setLastLoginTime(date);
         PasswordHelper.encryptPassword(registerUser);
-        CoreConst.IS_INSTALLED.set(true);
+        CoreConst.IS_REGISTERED.set(true);
         //注册
         boolean flag = userService.register(registerUser);
         UserRole userRole=new UserRole();
         userRole.setUserId(registerUser.getId());
         userRole.setRoleId(CoreConst.ADMINISTRATOR_ID);
+        userRoleMapper.insert(userRole);
         if(flag){
             return ResultUtil.success("注册成功！");
         }else {
@@ -119,7 +116,7 @@ public class SystemController {
     /**
      * 访问登录
      *
-     * @param model
+     * @param
      */
     @GetMapping("/login")
     public ModelAndView login() {
@@ -128,7 +125,7 @@ public class SystemController {
             modelAndView.setView(new RedirectView("/admin", true, false));
             return modelAndView;
         }
-        modelAndView.setViewName(CoreConst.ADMIN_PREFIX+"login/login");
+        modelAndView.setViewName(CoreConst.ADMIN_PREFIX+"system/login");
         return modelAndView;
     }
 
@@ -147,16 +144,24 @@ public class SystemController {
     public ResponseVo login(HttpServletRequest request, String username, String password, String verification,
                             @RequestParam(value = "rememberMe", defaultValue = "0") Integer rememberMe) {
         //判断验证码
-     /*   if (!CaptchaUtil.ver(verification, request)) {
+        if (!CaptchaUtil.ver(verification, request)) {
             // 清除session中的验证码
             CaptchaUtil.clear(request);
             return ResultUtil.error("验证码错误！");
-        }*/
+        }
         UsernamePasswordToken token = new UsernamePasswordToken(username, password);
         try {
             token.setRememberMe(1 == rememberMe);
             Subject subject = SecurityUtils.getSubject();
             subject.login(token);
+        } catch (ExcessiveAttemptsException e) {
+            // 密码输错次数达到上限
+            token.clear();
+            return ResultUtil.error("密码输错次数达到上限，请30分钟后重试。");
+        } catch (UnknownAccountException e) {
+            // 未知账号
+            token.clear();
+            return ResultUtil.error("用户账户不存在！");
         } catch (LockedAccountException e) {
             token.clear();
             return ResultUtil.error("用户已经被锁定不能登录，请联系管理员！");
@@ -164,23 +169,34 @@ public class SystemController {
             token.clear();
             return ResultUtil.error("用户名或者密码错误！");
         }
-        //更新最后登录时间
-        User user=(User) SecurityUtils.getSubject().getPrincipal();
-        userService.updateLastLoginTime(user);
-        //异步保存登录日志
-        String userType= request.getHeader(CoreConst.USER_TYPE_HEADER_KEY)==null?UserEnum.WEB.getName():request.getHeader(CoreConst.USER_TYPE_HEADER_KEY);
-        saveLoginLog(userType,user);
+        //后续处理
+        loginProcess(request);
         return ResultUtil.success("登录成功！");
     }
 
 
     /**
+     * 后续处理
+     *
+     * @param request
+     * @return
+     */
+    @Async
+    public void loginProcess(HttpServletRequest request) {
+        User user=(User) SecurityUtils.getSubject().getPrincipal();
+        userService.updateLastLoginTime(user.getId());
+        String userType= request.getHeader(CoreConst.USER_TYPE_HEADER_KEY)==null?UserEnum.WEB.getName():request.getHeader(CoreConst.USER_TYPE_HEADER_KEY);
+        saveLoginLog(userType,user);
+    }
+    /**
      * 保存日志
      *
+     * @param userType
      * @param userInfo
      * @return
      */
-    private void saveLoginLog(String userType,User userInfo) {
+    @Async
+    public void saveLoginLog(String userType,User userInfo) {
         Date now = new Date();
         LoginLog loginLog = new LoginLog();
         loginLog.setCreateTime(now);
@@ -205,8 +221,7 @@ public class SystemController {
      */
     @GetMapping("/kickOut")
     public String kickOut(Model model) {
-       // model.addAttribute("categoryList", categoryService.selectCategories(new Category().setStatus(CoreConst.STATUS_VALID)));
-        return  CoreConst.ADMIN_PREFIX+"/login/kickOut";
+        return  CoreConst.ADMIN_PREFIX+"/system/kickOut";
     }
 
     /**
@@ -221,31 +236,33 @@ public class SystemController {
             String username = ((User) SecurityUtils.getSubject().getPrincipal()).getUsername();
             Serializable sessionId = SecurityUtils.getSubject().getSession().getId();
             userService.kickOut(sessionId, username);
-            QueryWrapper<LoginLog> queryWrapper = new QueryWrapper<>();
-            queryWrapper.lambda().eq(LoginLog::getLoginName, username);
-            List<LoginLog> loginLogList = loginLogService.list(queryWrapper.lambda().orderByDesc(LoginLog::getCreateTime));
+            LambdaQueryWrapper<LoginLog> queryWrapper = new LambdaQueryWrapper<>();
+            queryWrapper.select(LoginLog::getId).eq(LoginLog::getLoginName, username);
+            queryWrapper.orderByDesc(LoginLog::getCreateTime);
+            List<LoginLog> loginLogList = loginLogService.list(queryWrapper);
             if (CollectionUtils.isNotEmpty(loginLogList)) {
-                LoginLog loginLog = loginLogList.get(0);
+                LoginLog loginLog =new LoginLog();
+                loginLog.setId(loginLogList.get(0).getId());
                 loginLog.setEndTime(new Date());
                 SpringUtil.publishEvent(new LoginLogEvent(loginLog));
             }
         }
         subject.logout();
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName(CoreConst.ADMIN_PREFIX+"/login/login");
+        modelAndView.setViewName(CoreConst.ADMIN_PREFIX+"/system/login");
         return modelAndView;
     }
 
-    /**
+/*    *//**
      * 获取当前登录用户的菜单
      *
      * @return
-     */
+     *//*
     @PostMapping("/menu")
     @ResponseBody
     public List<Menu> getMenus() {
         return MenuService.selectMenuByUserId(((User) SecurityUtils.getSubject().getPrincipal()).getId());
-    }
+    }*/
 
 
     /**

@@ -1,6 +1,7 @@
 package com.tarzan.cms.modules.admin.controller.sys;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.tarzan.cms.cache.RoleCache;
 import com.tarzan.cms.common.constant.CoreConst;
 import com.tarzan.cms.modules.admin.model.sys.Menu;
 import com.tarzan.cms.modules.admin.model.sys.Role;
@@ -16,6 +17,7 @@ import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -67,6 +69,7 @@ public class RoleController {
         try {
             boolean flag = roleService.insert(role);
             if (flag) {
+                RoleCache.save(role);
                 return ResultUtil.success("添加角色成功");
             } else {
                 return ResultUtil.error("添加角色失败");
@@ -93,6 +96,7 @@ public class RoleController {
         }
         boolean flag = roleService.updateStatusBatch(ids, CoreConst.STATUS_INVALID);
         if (flag) {
+            RoleCache.delete(ids);
             return ResultUtil.success("删除角色成功");
         } else {
             return ResultUtil.error("删除角色失败");
@@ -113,6 +117,7 @@ public class RoleController {
     public ResponseVo editRole(@ModelAttribute("role") Role role) {
         boolean flag = roleService.updateById(role);
         if (flag) {
+            RoleCache.save(role);
             return ResultUtil.success("编辑角色成功");
         } else {
             return ResultUtil.error("编辑角色失败");
@@ -148,6 +153,7 @@ public class RoleController {
     /*分配权限*/
     @PostMapping("/assign/menu")
     @ResponseBody
+    @CacheEvict(value = "menu", allEntries = true)
     public ResponseVo assignRole(Integer id, String menuIdStr) {
         List<String> menuIdsList = new ArrayList<>();
         if (StringUtils.isNotBlank(menuIdStr)) {

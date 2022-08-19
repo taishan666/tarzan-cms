@@ -4,7 +4,7 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Maps;
-import com.tarzan.cms.common.properties.StaticHtmlProperties;
+import com.tarzan.cms.common.props.StaticHtmlProperties;
 import com.tarzan.cms.common.constant.CoreConst;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.tarzan.cms.modules.admin.model.biz.Article;
@@ -43,11 +43,11 @@ public class StaticHtmlService {
     private final CommonDataService commonDataService;
 
     public void makeStaticSite(HttpServletRequest request, HttpServletResponse response, Boolean force) {
-        createIndexHtml(request, response, true);
-        createArticleHtml(request, response, true);
-        createCategoryHtml(request, response, true);
-        createTagHtml(request, response, true);
-        createCommentHtml(request, response, true);
+        createIndexHtml(request, response, force);
+        createArticleHtml(request, response, force);
+        createCategoryHtml(request, response, force);
+        createTagHtml(request, response, force);
+        createCommentHtml(request, response, force);
     }
 
     public void createIndexHtml(HttpServletRequest request, HttpServletResponse response, Boolean force) {

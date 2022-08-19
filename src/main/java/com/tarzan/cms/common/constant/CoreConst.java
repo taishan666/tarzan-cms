@@ -27,10 +27,9 @@ public class CoreConst {
     public static final String SHIRO_REDIS_CACHE_NAME = "shiro_tarzan_cms";
     public final static String USER_TYPE_HEADER_KEY = "User-Type";
 
+    public final static String SYSTEM_REGISTER = "/system/register";
 
     public static final String ADMIN_PREFIX = "admin/";
-
-    public static final String SYSTEM_PREFIX = "system/";
 
     public static final String ERROR_PREFIX = "error/";
 
@@ -42,19 +41,24 @@ public class CoreConst {
      */
     public static final int UPLOAD_TYPE_QINIUYUN = 1;
     public static final int UPLOAD_TYPE_ALIYUN = 2;
-    public static final int UPLOAD_TYPE_QCLOUD = 3;
+    public static final int UPLOAD_TYPE_TXYUN = 3;
     public static final int UPLOAD_TYPE_LOCAL = 4;
 
     /**
      * 是否安装
      */
     public static final AtomicBoolean IS_INSTALLED = new AtomicBoolean(false);
-
+    /**
+     * 是否注册
+     */
+    public static final AtomicBoolean IS_REGISTERED = new AtomicBoolean(false);
     /**
      * 网站是否静态化
      */
     public static final String SITE_STATIC_KEY = "SITE_STATIC";
     public static final AtomicBoolean SITE_STATIC = new AtomicBoolean(false);
+
+    public static final String JAR ="jar";
 
 
 }

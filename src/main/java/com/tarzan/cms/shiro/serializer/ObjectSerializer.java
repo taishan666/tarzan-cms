@@ -35,10 +35,10 @@ public class ObjectSerializer implements RedisSerializer<Object> {
 
     @Override
     public Object deserialize(byte[] bytes) throws SerializationException {
-        Object result = null;
+        Object result;
 
         if (bytes == null || bytes.length == 0) {
-            return result;
+            return null;
         }
 
         try {

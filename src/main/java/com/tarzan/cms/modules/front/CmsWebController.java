@@ -1,4 +1,4 @@
-package com.tarzan.cms.modules.foreground;
+package com.tarzan.cms.modules.front;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
@@ -6,9 +6,7 @@ import com.tarzan.cms.cache.CategoryCache;
 import com.tarzan.cms.common.constant.CoreConst;
 import com.tarzan.cms.common.exception.ArticleNotFoundException;
 import com.tarzan.cms.modules.admin.model.biz.Article;
-import com.tarzan.cms.modules.admin.model.biz.Category;
 import com.tarzan.cms.modules.admin.service.biz.ArticleService;
-import com.tarzan.cms.modules.admin.service.biz.CategoryService;
 import com.tarzan.cms.modules.admin.service.biz.ThemeService;
 import com.tarzan.cms.modules.admin.vo.ArticleConditionVo;
 import lombok.AllArgsConstructor;

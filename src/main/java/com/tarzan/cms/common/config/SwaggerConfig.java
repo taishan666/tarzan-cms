@@ -1,10 +1,7 @@
 package com.tarzan.cms.common.config;
 
-import com.github.xiaoymin.knife4j.spring.annotations.EnableKnife4j;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Import;
-import springfox.bean.validators.configuration.BeanValidatorPluginsConfiguration;
 import springfox.documentation.builders.ApiInfoBuilder;
 import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
@@ -12,14 +9,17 @@ import springfox.documentation.service.ApiInfo;
 import springfox.documentation.service.Contact;
 import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
+import springfox.documentation.swagger2.annotations.EnableSwagger2WebMvc;
 
+/**
+ * @author tarzan
+ */
 @Configuration
-@EnableKnife4j
-@Import(BeanValidatorPluginsConfiguration.class)
+@EnableSwagger2WebMvc
 public class SwaggerConfig {
 
     @Bean
-    public Docket moduleDocket() { return docket("网站接口", "com.tarzan.cms.modules.blog.controller"); }
+    public Docket moduleDocket() { return docket("网站接口", "com.tarzan.cms.modules.api"); }
 
 
     private Docket docket(String groupName, String basePackages) {

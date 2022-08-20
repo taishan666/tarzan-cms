@@ -37,7 +37,7 @@ public class WebMvcConfig implements WebMvcConfigurer {
      * 配置本地文件上传的虚拟路径和静态化的文件生成路径
      * 备注：这是一种图片上传访问图片的方法，实际上也可以使用nginx反向代理访问图片
      *
-     * @param registry
+     * @param registry 注册表
      */
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {

@@ -6,7 +6,7 @@ spring:
     #username: tarzan
     #password: 123456
     driverClassName: org.h2.Driver
-    url:  jdbc:h2:file:${user.home}/.tarzan-cms/db/cms
+    url:  jdbc:h2:file:${user.home}/.tarzan-cms/db/cms;MODE=MYSQL
     username: root
     password: 123456
   h2:
@@ -51,6 +51,7 @@ static:
   folder: /tarzanCms/html/path
 
 cms:
+  shiro-key: ${user.home}/.tarzan-cms/shiro_key.pub
   theme-dir: ${user.home}/.tarzan-cms/theme
   backup-dir: ${user.home}/.tarzan-cms/backup
   embedded-redis-enabled: true

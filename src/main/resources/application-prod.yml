@@ -26,6 +26,7 @@ file:
   access-prefix-url: https://www.tarzan.com/u
 
 cms:
+  shiro-key: ${user.home}/.tarzan-cms/shiro_key.pub
   theme-dir: ${user.home}/.tarzan-cms/theme/
   embedded-redis-enabled: true
   embedded-redis-port: 6379

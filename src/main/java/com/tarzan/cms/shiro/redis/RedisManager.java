@@ -20,7 +20,7 @@ public class RedisManager extends WorkAloneRedisManager {
     private static final String DEFAULT_HOST = "127.0.0.1:6379";
     private String host = DEFAULT_HOST;
 
-    /**  timeout for jedis try to connect to redis server, not expire time! In milliseconds */
+    /** timeout for jedis try to connect to redis server, not expire time! In milliseconds */
     private int timeout = Protocol.DEFAULT_TIMEOUT;
 
     private String password;
@@ -46,40 +46,4 @@ public class RedisManager extends WorkAloneRedisManager {
         return jedisPool.getResource();
     }
 
-    @Override
-    public Long dbSize(byte[] pattern) {
-        long dbSize;
-        try (Jedis jedis = getJedis()) {
-            ScanParams params = new ScanParams();
-            params.count(DEFAULT_COUNT);
-            params.match(pattern);
-            byte[] cursor = ScanParams.SCAN_POINTER_START_BINARY;
-            ScanResult<byte[]> scanResult;
-            do {
-                scanResult = jedis.scan(cursor, params);
-                List<byte[]> results = scanResult.getResult();
-                dbSize = results.size();
-                cursor = scanResult.getCursorAsBytes();
-            } while (scanResult.getCursor().compareTo(ScanParams.SCAN_POINTER_START) > 0);
-        }
-        return dbSize;
-    }
-
-    @Override
-    public Set<byte[]> keys(byte[] pattern) {
-        Set<byte[]> keys = new HashSet<>();
-        try (Jedis jedis = getJedis()) {
-            ScanParams params = new ScanParams();
-            params.count(DEFAULT_COUNT);
-            params.match(pattern);
-            byte[] cursor = ScanParams.SCAN_POINTER_START_BINARY;
-            ScanResult<byte[]> scanResult;
-            do {
-                scanResult = jedis.scan(cursor, params);
-                keys.addAll(scanResult.getResult());
-                cursor = scanResult.getCursorAsBytes();
-            } while (scanResult.getCursor().compareTo(ScanParams.SCAN_POINTER_START) > 0);
-        }
-        return keys;
-    }
 }

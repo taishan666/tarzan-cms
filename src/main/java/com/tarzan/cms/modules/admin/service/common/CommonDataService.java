@@ -1,6 +1,5 @@
 package com.tarzan.cms.modules.admin.service.common;
 
-import com.google.common.collect.Maps;
 import com.tarzan.cms.common.constant.CoreConst;
 import com.tarzan.cms.modules.admin.model.biz.Link;
 import com.tarzan.cms.modules.admin.model.biz.Tags;
@@ -11,6 +10,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -65,7 +65,7 @@ public class CommonDataService {
     }
 
     public Map<String, Object> getAllCommonData() {
-        Map<String, Object> result = Maps.newHashMapWithExpectedSize(DataTypeEnum.values().length);
+        Map<String, Object> result = new HashMap<>(DataTypeEnum.values().length);
         for (DataTypeEnum dataTypeEnum : DataTypeEnum.values()) {
             result.putAll(getCommonData(dataTypeEnum));
         }
@@ -73,7 +73,7 @@ public class CommonDataService {
     }
 
     public Map<String, Object> getCommonData(DataTypeEnum dataTypeEnum) {
-        Map<String, Object> result = Maps.newHashMapWithExpectedSize(1);
+        Map<String, Object> result =  new HashMap<>(1);
         result.put(dataTypeEnum.name(), get(dataTypeEnum.name()));
         return result;
     }

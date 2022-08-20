@@ -36,6 +36,10 @@ public class CoreConst {
     public static final String THEME_PREFIX = "theme/";
 
     /**
+     * h2默认table数
+     */
+    public static final int TABLE_NUM = 15;
+    /**
      * 文件存储服务类型
      * 1：七牛  2：阿里云  3：腾讯云  4：本地
      */

@@ -5,7 +5,6 @@ import com.baomidou.mybatisplus.core.toolkit.CollectionUtils;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.google.common.collect.Lists;
 import com.tarzan.cms.cache.RoleCache;
 import com.tarzan.cms.common.constant.CoreConst;
 import com.tarzan.cms.modules.admin.mapper.sys.*;
@@ -78,7 +77,7 @@ public class RoleService extends ServiceImpl<RoleMapper, Role> {
     public List<Menu> findPermissionsByRoleId(Integer roleId) {
         List<RoleMenu> roleMenus= roleMenuMapper.selectList(Wrappers.<RoleMenu>lambdaQuery().eq(RoleMenu::getRoleId, roleId));
         List<Integer> menuIds=roleMenus.stream().map(RoleMenu::getMenuId).collect(Collectors.toList());
-        List<Menu> menus= Lists.newArrayList();
+        List<Menu> menus=new ArrayList<>(15);
         if(CollectionUtils.isNotEmpty(menuIds)) {
              menus = menuMapper.selectList(Wrappers.<Menu>lambdaQuery()
                     .in(Menu::getId, menuIds)
@@ -109,7 +108,7 @@ public class RoleService extends ServiceImpl<RoleMapper, Role> {
 
     public List<User> findByRoleIds(List<Integer> roleIds) {
         List<UserRole> userRoles= userRoleMapper.selectList(Wrappers.<UserRole>lambdaQuery().in(UserRole::getRoleId,roleIds));
-        List<User> users=Lists.newArrayList();
+        List<User> users=new ArrayList<>(15);
         if(CollectionUtils.isNotEmpty(userRoles)){
             List<Integer> userIds=userRoles.stream().map(UserRole::getUserId).collect(Collectors.toList());
             users=userMapper.selectBatchIds(userIds);

@@ -12,7 +12,9 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * 凭证匹配器（密码规则校验）
+ *
  * @author tarzan
+ * @className RetryLimitHashedCredentialsMatcher
  */
 public class RetryLimitHashedCredentialsMatcher extends HashedCredentialsMatcher {
 

@@ -152,7 +152,7 @@ public class MyShiroRealm extends AuthorizingRealm {
                 if (obj instanceof User) {
                     User user = (User) obj;
                     //比较用户ID，符合即加入集合
-                    if (user != null && userIds.contains(user.getId())) {
+                    if (userIds.contains(user.getId())) {
                         set.add(spc);
                     }
                 }

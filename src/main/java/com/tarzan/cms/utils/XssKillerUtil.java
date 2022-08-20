@@ -1,7 +1,7 @@
 package com.tarzan.cms.utils;
 
 import org.jsoup.Jsoup;
-import org.jsoup.safety.Whitelist;
+import org.jsoup.safety.Safelist;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -15,8 +15,8 @@ import java.util.regex.Pattern;
  */
 public class XssKillerUtil {
     private static final String[] WHITE_LIST = {"p", "strong", "pre", "code", "span", "blockquote", "em", "a"};
-    private static String reg = null;
-    private static String legalTags = null;
+    private static final String REG;
+    private static final String LEGAL_TAGS;
 
     static {
         StringBuilder regSb = new StringBuilder("<");
@@ -26,8 +26,8 @@ public class XssKillerUtil {
             tagsSb.append('<').append(s).append('>');
         }
         regSb.append("(?!/)[^>]*>");
-        reg = regSb.toString();
-        legalTags = tagsSb.toString();
+        REG = regSb.toString();
+        LEGAL_TAGS = tagsSb.toString();
     }
 
     /**
@@ -40,11 +40,11 @@ public class XssKillerUtil {
         if (null == xssStr || xssStr.isEmpty()) {
             return true;
         }
-        Pattern pattern = Pattern.compile(reg);
+        Pattern pattern = Pattern.compile(REG);
         Matcher matcher = pattern.matcher(xssStr);
         while (matcher.find()) {
             String tag = matcher.group();
-            if (!legalTags.contains(tag.toLowerCase())) {
+            if (!LEGAL_TAGS.contains(tag.toLowerCase())) {
                 return false;
             }
         }
@@ -56,8 +56,8 @@ public class XssKillerUtil {
      *
      * @return
      */
-    private static Whitelist custom() {
-        return Whitelist.none().addTags("p", "strong", "pre", "code", "span", "blockquote", "br").addAttributes("span", "class");
+    private static Safelist custom() {
+        return Safelist.none().addTags("p", "strong", "pre", "code", "span", "blockquote", "br").addAttributes("span", "class");
     }
 
     /**

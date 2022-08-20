@@ -9,7 +9,8 @@ import java.io.ObjectInputStream;
 import java.io.ObjectStreamClass;
 
 /**
- * @author Lenovo
+ * For fixing https://github.com/alexxiyang/shiro-redis/issues/84
+ * @author tarzan
  */
 public class MultiClassLoaderObjectInputStream extends ObjectInputStream {
     private static Logger logger = LoggerFactory.getLogger(MultiClassLoaderObjectInputStream.class);

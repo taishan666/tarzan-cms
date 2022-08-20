@@ -11,6 +11,7 @@ import java.util.Set;
 
 /**
  *  class of RedisManager.
+ *  @author Lenovo
  */
 public abstract class WorkAloneRedisManager implements IRedisManager {
 

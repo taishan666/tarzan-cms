@@ -42,13 +42,11 @@ public class AppInstallTools {
         if (url.contains(mysqlDriver)) {
             installSQL("schema-mysql.sql");
         }
-        if(userNum()!=0){
-            CoreConst.IS_REGISTERED.set(true);
-        }
+
     }
 
     private  void  installSQL(String fileName){
-        if(tableNum()==0){
+        if(tableNum()<=CoreConst.TABLE_NUM){
             log.info("创建数据库表开始");
             InputStream dbIos = this.getClass().getResourceAsStream("/db/"+ fileName);
             try {
@@ -63,6 +61,9 @@ public class AppInstallTools {
             initData();
         }else{
             CoreConst.IS_INSTALLED.set(true);
+            if(userNum()!=0){
+                CoreConst.IS_REGISTERED.set(true);
+            }
         }
     }
 

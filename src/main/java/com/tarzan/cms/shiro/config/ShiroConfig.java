@@ -9,6 +9,7 @@ import com.tarzan.cms.shiro.filter.KickOutSessionControlFilter;
 import com.tarzan.cms.shiro.redis.RedisCacheManager;
 import com.tarzan.cms.shiro.redis.RedisManager;
 import com.tarzan.cms.shiro.redis.RedisSessionDAO;
+import com.tarzan.cms.utils.ShiroAESKeyUtil;
 import org.apache.shiro.codec.Base64;
 import org.apache.shiro.mgt.SecurityManager;
 import org.apache.shiro.spring.LifecycleBeanPostProcessor;
@@ -51,6 +52,9 @@ public class ShiroConfig {
 
     @Value("${spring.redis.database}")
     private int database;
+
+    @Value("${cms.shiro-key}")
+    private String shiroKey;
 
     @Bean
     public static LifecycleBeanPostProcessor getLifecycleBeanPostProcessor() {
@@ -119,7 +123,7 @@ public class ShiroConfig {
         CookieRememberMeManager cookieRememberMeManager = new CookieRememberMeManager();
         cookieRememberMeManager.setCookie(rememberMeCookie());
         //手动设置对称加密秘钥，防止重启系统后系统生成新的随机秘钥，防止导致客户端cookie无效
-        cookieRememberMeManager.setCipherKey(Base64.decode("tZmI6I2j3Y+R1aSn5BOlAA=="));
+         cookieRememberMeManager.setCipherKey(Base64.decode(ShiroAESKeyUtil.getKey(shiroKey)));
         return cookieRememberMeManager;
     }
 

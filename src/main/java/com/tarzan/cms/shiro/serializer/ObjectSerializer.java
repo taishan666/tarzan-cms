@@ -45,9 +45,7 @@ public class ObjectSerializer implements RedisSerializer<Object> {
             ByteArrayInputStream byteStream = new ByteArrayInputStream(bytes);
             ObjectInputStream objectInputStream = new MultiClassLoaderObjectInputStream(byteStream);
             result = objectInputStream.readObject();
-        } catch (IOException e) {
-            throw new SerializationException("deserialize error", e);
-        } catch (ClassNotFoundException e) {
+        } catch (IOException | ClassNotFoundException e) {
             throw new SerializationException("deserialize error", e);
         }
 

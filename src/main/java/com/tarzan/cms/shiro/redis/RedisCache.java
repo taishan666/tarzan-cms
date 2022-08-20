@@ -205,7 +205,7 @@ public class RedisCache<K, V> implements Cache<K, V> {
     public int size() {
         Long longSize = 0L;
         try {
-            longSize =redisManager.dbSize(keySerializer.serialize(this.keyPrefix + "*"));
+            longSize = redisManager.dbSize(keySerializer.serialize(this.keyPrefix + "*"));
         } catch (SerializationException e) {
             logger.error("get keys error", e);
         }
@@ -240,7 +240,7 @@ public class RedisCache<K, V> implements Cache<K, V> {
 
     @Override
     public Collection<V> values() {
-        Set<byte[]> keys = null;
+        Set<byte[]> keys;
         try {
             keys = redisManager.keys(keySerializer.serialize(this.keyPrefix + "*"));
         } catch (SerializationException e) {
@@ -252,7 +252,7 @@ public class RedisCache<K, V> implements Cache<K, V> {
             return Collections.emptySet();
         }
 
-        List<V> values = new ArrayList<V>(keys.size());
+        List<V> values = new ArrayList<>(keys.size());
         for (byte[] key : keys) {
             V value = null;
             try {

@@ -11,6 +11,7 @@ import org.springframework.stereotype.Component;
 @Component
 @ConfigurationProperties(prefix = "cms")
 public class CmsProperties {
+    private String shiroKey;
     private String themeDir;
     private String backupDir;
     private Boolean embeddedRedisEnabled=true;

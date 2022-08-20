@@ -15,7 +15,7 @@ import java.util.*;
 
 public class RedisSessionDAO extends AbstractSessionDAO {
 
-    private final static Logger logger = LoggerFactory.getLogger(RedisSessionDAO.class);
+    private static final Logger logger = LoggerFactory.getLogger(RedisSessionDAO.class);
 
     private static final String DEFAULT_SESSION_KEY_PREFIX = "shiro:session:";
     private String keyPrefix = DEFAULT_SESSION_KEY_PREFIX;
@@ -45,9 +45,9 @@ public class RedisSessionDAO extends AbstractSessionDAO {
     private static final int MILLISECONDS_IN_A_SECOND = 1000;
 
     private IRedisManager redisManager;
-    private RedisSerializer<String> keySerializer = new StringSerializer();
-    private RedisSerializer<Object> valueSerializer = new ObjectSerializer();
-    private final static ThreadLocal sessionsInThread = new ThreadLocal();
+    private RedisSerializer keySerializer = new StringSerializer();
+    private RedisSerializer valueSerializer = new ObjectSerializer();
+    private static final ThreadLocal SESSIONS_IN_THREAD = new ThreadLocal();
 
     @Override
     public void update(Session session) throws UnknownSessionException {
@@ -160,10 +160,10 @@ public class RedisSessionDAO extends AbstractSessionDAO {
     }
 
     private void setSessionToThreadLocal(Serializable sessionId, Session s) {
-        Map<Serializable, SessionInMemory> sessionMap = (Map<Serializable, SessionInMemory>) sessionsInThread.get();
+        Map<Serializable, SessionInMemory> sessionMap = (Map<Serializable, SessionInMemory>) SESSIONS_IN_THREAD.get();
         if (sessionMap == null) {
             sessionMap = new HashMap<>();
-            sessionsInThread.set(sessionMap);
+            SESSIONS_IN_THREAD.set(sessionMap);
         }
 
         removeExpiredSessionInMemory(sessionMap);
@@ -192,11 +192,11 @@ public class RedisSessionDAO extends AbstractSessionDAO {
 
     private Session getSessionFromThreadLocal(Serializable sessionId) {
 
-        if (sessionsInThread.get() == null) {
+        if (SESSIONS_IN_THREAD.get() == null) {
             return null;
         }
 
-        Map<Serializable, SessionInMemory> sessionMap = (Map<Serializable, SessionInMemory>) sessionsInThread.get();
+        Map<Serializable, SessionInMemory> sessionMap = (Map<Serializable, SessionInMemory>) SESSIONS_IN_THREAD.get();
         SessionInMemory sessionInMemory = sessionMap.get(sessionId);
         if (sessionInMemory == null) {
             return null;
@@ -277,6 +277,6 @@ public class RedisSessionDAO extends AbstractSessionDAO {
     }
 
     public static ThreadLocal getSessionsInThread() {
-        return sessionsInThread;
+        return SESSIONS_IN_THREAD;
     }
 }

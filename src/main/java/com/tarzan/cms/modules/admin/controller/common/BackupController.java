@@ -1,6 +1,5 @@
 package com.tarzan.cms.modules.admin.controller.common;
 
-import com.google.common.collect.Lists;
 import com.tarzan.cms.common.props.CmsProperties;
 import com.tarzan.cms.modules.admin.vo.DbBackupVO;
 import com.tarzan.cms.modules.admin.vo.base.PageResultVo;
@@ -16,10 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.io.File;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 
 /**
@@ -38,7 +34,9 @@ public class BackupController {
     private final DbBackupTools dbTools;
     private final CmsProperties cmsProperties;
 
-    /* 备份数据库 */
+    /**
+     * 备份数据库
+     */
     @PostMapping("/add")
     @ResponseBody
     public ResponseVo backupSQL(){
@@ -49,7 +47,9 @@ public class BackupController {
         }
     }
 
-    /* 备份文件列表 */
+    /**
+     * 备份文件列表
+     */
     @PostMapping("/list")
     @ResponseBody
     public PageResultVo backupList(Integer pageNumber, Integer pageSize){
@@ -58,7 +58,7 @@ public class BackupController {
         if(files==null){
             return ResultUtil.table(null,null);
         }
-        List<DbBackupVO> list= Lists.newArrayList();
+        List<DbBackupVO> list= new ArrayList<>(15);
         Arrays.asList(files).forEach(e->{
             DbBackupVO vo=new DbBackupVO();
             vo.setFileName(e.getName());
@@ -71,7 +71,9 @@ public class BackupController {
         return ResultUtil.table(list.subList((pageNumber - 1) * pageSize, endIndex), (long) list.size());
     }
 
-    /*删除备份*/
+    /**
+     * 删除备份
+     */
     @PostMapping("/delete")
     @ResponseBody
     public ResponseVo deleteRole(String fileName) {
@@ -84,7 +86,9 @@ public class BackupController {
         }
     }
 
-    /*还原备份*/
+    /**
+     * 还原备份
+     */
     @PostMapping("rollback")
     @ResponseBody
     public ResponseVo rollback(String fileName){

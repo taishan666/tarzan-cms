@@ -61,8 +61,7 @@ public class CmsWebController {
         if (CoreConst.SITE_STATIC.get()) {
             return "forward:/html/index/blog.html";
         }
-        return bizThemeService.getTheme() + "/index";
-        ArticleConditionVo vo = new ArticleConditionVo();
+        ArticleConditionVo vo=new ArticleConditionVo();
         if(null!=pageNumber){
             vo.setPageNumber(pageNumber);
         }
@@ -80,8 +79,8 @@ public class CmsWebController {
      */
     @GetMapping({"/search/{keywords}","/search/{keywords}/{pageNumber}"})
     public String search(@PathVariable(value = "keywords",required = false) String keywords,
-                       @PathVariable(value = "pageNumber", required = false) Integer pageNumber,
-                       Model model) {
+                         @PathVariable(value = "pageNumber", required = false) Integer pageNumber,
+                         Model model) {
         if (CoreConst.SITE_STATIC.get()) {
             return "forward:/html/index/blog.html";
         }

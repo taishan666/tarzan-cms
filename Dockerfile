@@ -22,4 +22,4 @@ EXPOSE 80
 WORKDIR /opt/running/
 
 #运行启动命令
-CMD ["java", "-jar","-Dfile.encoding=UTF-8","tarzan-cms.jar","--spring.profiles.active=prod"]
+CMD ["java", "-jar","-Dfile.encoding=UTF-8","tarzan-cms.jar","--spring.profiles.active=dev"]

@@ -42,6 +42,7 @@ public class OssService {
         String originalFilename = file.getOriginalFilename();
         String suffix = originalFilename.substring(originalFilename.lastIndexOf('.')).toLowerCase();
         String value = sysConfigService.selectAll().get(SysConfigKey.CLOUD_STORAGE_CONFIG.getValue());
+        value=value.replaceAll("\\\\","");
         CloudStorageConfigVo cloudStorageConfig = JSON.parseObject(value, CloudStorageConfigVo.class);
 
         String md5 = MD5Util.getMessageDigest(file.getBytes());

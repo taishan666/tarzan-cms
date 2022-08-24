@@ -11,6 +11,9 @@ import javax.annotation.PreDestroy;
 import javax.annotation.Resource;
 import java.io.IOException;
 
+/**
+ * @author Lenovo
+ */
 @Configuration
 @ConditionalOnProperty(prefix = "cms",name = "embedded-redis-enabled", havingValue = "true")
 public class EmbeddedRedisConfig {

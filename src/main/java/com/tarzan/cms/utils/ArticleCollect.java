@@ -11,6 +11,7 @@ import org.springframework.stereotype.Component;
 import java.io.IOException;
 import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -28,8 +29,12 @@ public class ArticleCollect {
     //网站地址
     private static String webUrl="https://blog.csdn.net/weixin_40986713";
 
+    public static void main(String[] args) {
+        collect();
+    }
 
-    public  void  collect(){
+
+    public static void  collect(){
         int pageNum=0;
         while (true){
             pageNum++;
@@ -56,34 +61,17 @@ public class ArticleCollect {
 
 
 
-    public  Article readArticle(String url) {
+    public static Article readArticle(String url) {
         Article article=new Article();
         Document doc=  getDocument(url);
         //获取文章标题
         Elements title = doc.select("h1[id=articleContentId]");
-        Elements author = doc.select("profile-name");
-        Elements time = doc.select("span[class=time]");
-        String description = doc.select("meta[name=description]").attr("content");
-        //获取文章内容
-        Elements content = doc.select("[class=htmledit_views]");
-        System.out.println(title.text());
-        article.setTitle(title.text());
-        article.setContent(content.html());
-        article.setDescription(description);
-        article.setAuthor(author.text());
-        article.setStatus(1);
-        article.setIsMarkdown(false);
-        article.setCategoryId(1);
-        try {
-            article.setCreateTime(DateUtil.parseDateNewFormat(time.text()));
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        articleService.save(article);
+        Elements readNum = doc.select("span[class=read-count]");
+        System.out.println(title.text()+"   阅读数："+readNum.text());
         return article;
     }
 
-    public  boolean readPage(String webUrl,int pageNum) {
+    public static boolean readPage(String webUrl,int pageNum) {
         Document doc = getDocument(webUrl+"/article/list/"+pageNum);
         // 获取目标HTML代码
         Elements elements = doc.select("[class=article-list]");
@@ -92,13 +80,16 @@ public class ArticleCollect {
         if (articles.size() == 0) {
             return false;
         }
-        List<Article>  list=new ArrayList<>();
         articles.forEach(e -> {
             String url = e.select("a").attr("href");
-            list.add(readArticle(url));
+            String readnum = e.select("span[class=read-num]").get(0).text();
+            if(Integer.valueOf(readnum)<1000){
+                readArticle(url);
+            }
             try {
+                Integer[] times=new Integer[]{10000,20000,30000};
                 //等待3秒
-                Thread.sleep(200);
+                Thread.sleep(Arrays.stream(times).findAny().get());
             } catch (InterruptedException interruptedException) {
                 System.out.println("线程中断故障");
             }
